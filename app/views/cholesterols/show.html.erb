@@ -4,5 +4,11 @@
   </div>
     <%= line_chart construct_saved_chart(@chart.entries), id: "users-chart", height: "500px" %>
   </div>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <%= link_to "Back", root_path, class: "btn btn-primary btn-lg " %>
+      <%= link_to "Export as PDF", params.merge(:format => :pdf), class: "btn btn-success btn-lg pull-right" %>
+    </div>
+  </div>
 </div>
 

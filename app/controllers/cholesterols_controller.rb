@@ -42,7 +42,7 @@ class CholesterolsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "show"   # Excluding ".pdf" extension.
+        render pdf: "show", layout: 'pdf.html.erb'   # Excluding ".pdf" extension.
       end
     end
   end

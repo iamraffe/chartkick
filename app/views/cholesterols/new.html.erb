@@ -1,13 +1,18 @@
 <div class="container">
   <div class="row">
-    <h1>New Cholesterol Chart</h1>
+    <h1 class="text-center" style="text-transform: uppercase">New Cholesterol Chart</h1>
   </div>
   <div class="row">
     <%= form_for @chart, url: cholesterol_index_path do |f| %>
-      <%= render "cholesterols/chart_steps/#{@chart.current_step}", :f => f %>
-      <p><%= f.submit "Continue" unless @chart.last_step? %></p>
-      <p><%= f.submit "Save" if @chart.last_step? %></p>
-      <p><%= f.submit "Back", :name => "back_button" unless @chart.first_step? %></p>
+      <div class="row">
+        <%= render "cholesterols/chart_steps/#{@chart.current_step}", :f => f %>
+      </div>
+      <div class="row">
+        <%= f.submit "Continue",  class: "btn btn-primary btn-lg pull-right" unless @chart.last_step?  %>
+        <%= f.submit "Save",  class: "btn btn-success btn-lg pull-right" if @chart.last_step?  %>
+        <%= f.submit "Back", :name => "back_button",  class: "btn btn-danger btn-lg pull-left"  unless @chart.first_step? %>
+      </div>
+
 
     <% end %>
 

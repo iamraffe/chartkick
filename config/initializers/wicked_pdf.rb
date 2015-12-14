@@ -20,10 +20,9 @@ WickedPdf.config = {
   # (but can be overridden in `render :pdf` calls)
   #
   #
-  javascript_delay: 500,
   layout: 'pdf',
   # wkhtmltopdf: '/home/rafaramirez/.rbenv/shims/wkhtmltopdf',
-  # javascript_delay: 600
+  javascript_delay: 2000,
   margin:  {  top:               0,                     # default 10 (mm)
               bottom:            0,
               left:              0,

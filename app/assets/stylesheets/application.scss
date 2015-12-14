@@ -16,3 +16,13 @@ body { padding-top: 60px; }
 
 // Whatever application styles you have go last
 // @import "base";
+
+td > input{
+  border: none;
+  background: transparent;
+  outline: none !important;
+}
+
+#users-chart{
+  width: 21cm;
+}
