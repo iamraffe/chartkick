@@ -1,8 +1,8 @@
 
 # Change these
-server '159.203.253.126', port: 80, roles: [:web, :app, :db], primary: true
+server '159.203.253.126', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@example.com:raffe90/chartkick.git'
+set :repo_url,        'git@github.com:raffe90/chartkick.git'
 set :application,     'chartkick'
 set :user,            'raffe'
 set :puma_threads,    [4, 16]
