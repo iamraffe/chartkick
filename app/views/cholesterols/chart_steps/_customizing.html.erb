@@ -1,0 +1,5 @@
+<h2>[Option Steps Go Here]</h2>
+<h3>Patient name:  <%= session[:chart_params]["name"] %></h3>
+
+<%= line_chart construct_chart_data(session[:entry_params]), id: "users-chart", height: "500px" %>
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PM - DEV</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+  $('button.random').on('click', function(e){
+    e.preventDefault();
+    $('input[type=text]').each(function(k,v){
+      $(this).val(1 + Math.floor(Math.random() * 150));
+    });
+    $('input[type=date]').each(function(k,v){
+      // var day = 1 + Math.floor(Math.random() * 10)
+      // var month = 1 + Math.floor(Math.random() * 10)
+      $(this).val((2010+k).toString() + '-' +'01' + '-' +'01');
+    });
+  });
+</script>
+</body>
+</html>

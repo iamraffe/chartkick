@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <h1>New Cholesterol Chart</h1>
+  </div>
+  <div class="row">
+    <%= form_for @chart, url: cholesterol_index_path do |f| %>
+      <%= render "cholesterols/chart_steps/#{@chart.current_step}", :f => f %>
+      <p><%= f.submit "Continue" unless @chart.last_step? %></p>
+      <p><%= f.submit "Save" if @chart.last_step? %></p>
+      <p><%= f.submit "Back", :name => "back_button" unless @chart.first_step? %></p>
+
+    <% end %>
+
+  </div>
+</div>
+
+
+
+

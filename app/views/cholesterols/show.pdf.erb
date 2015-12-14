@@ -1,0 +1,3 @@
+<h3>Patient name:  <%= @chart.name %></h3>
+
+<%= line_chart construct_chart_data(@chart.entries), id: "users-chart", height: "500px" %>
