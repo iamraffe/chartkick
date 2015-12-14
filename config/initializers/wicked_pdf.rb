@@ -20,7 +20,7 @@ WickedPdf.config = {
   #
   #
   layout: 'pdf',
-  # wkhtmltopdf: '/home/rafaramirez/.rbenv/shims/wkhtmltopdf',
+  wkhtmltopdf: '/usr/bin/wkhtmltopdf',
   javascript_delay: 2000,
   margin:  {  top:               0,                     # default 10 (mm)
               bottom:            0,
