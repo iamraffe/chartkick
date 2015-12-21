@@ -2,8 +2,8 @@ class Entry < ActiveRecord::Base
   belongs_to :cholesterols
 
   def self.create_and_link(chart, entries)
-    4.times do |i|
-      Entry.create(date: entries["date"][i.to_s], ldl: entries["ldl"][i.to_s], hdl: entries["hdl"][i.to_s], cholesterol_id: chart.id, triglycerides: entries["triglycerides"][i.to_s])
+    entries['date'].each_with_index do |(key, date), index|
+      Entry.create(date: date, ldl: entries["ldl"][key], hdl: entries["hdl"][key], cholesterol_id: chart.id, triglycerides: entries["triglycerides"][key])
     end
   end
 end
