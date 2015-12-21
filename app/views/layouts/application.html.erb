@@ -12,6 +12,11 @@
 <%= yield %>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
+
+  function createRow(index){
+    // console.log(row.replace('index', parseInt(index)+1))
+    return '<tr><td>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]"></td></tr>';
+  }
   $('button.random').on('click', function(e){
     e.preventDefault();
     $('input[type=text]').each(function(k,v){
@@ -22,6 +27,11 @@
       // var month = 1 + Math.floor(Math.random() * 10)
       $(this).val((2010+k).toString() + '-' +'01' + '-' +'01');
     });
+  });
+  $('button.add-row').on('click', function(e){
+    e.preventDefault();
+    var currentIndex = $( "tr:last td:first" ).text();
+    $('table.cholesterol-data tbody').append(createRow(currentIndex));
   });
 </script>
 </body>
