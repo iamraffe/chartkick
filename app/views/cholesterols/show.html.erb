@@ -2,7 +2,7 @@
   <div class="row">
     <h3>Patient name:  <%= @chart.name %></h3>
   </div>
-    <%= line_chart construct_cholesterol_chart_from_database(@chart.entries), id: "users-chart", height: "500px", library: {curveType: "none", pointSize: 5, crosshair: { trigger: 'both' }} %>
+    <%= line_chart construct_cholesterol_chart_from_database(@chart.entries), id: "users-chart", height: "500px", discrete: true, library: {curveType: "none", pointSize: 5, crosshair: { trigger: 'both' }} %>
   </div>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
