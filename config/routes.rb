@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'charts#index'
+  root to: 'pages#index'
+
+  get 'charts', to: 'charts#index', as: 'chart_index'
 
   resources :cholesterol, controller: 'cholesterols', path: '/charts/cholesterol'
 
