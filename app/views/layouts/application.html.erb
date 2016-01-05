@@ -15,7 +15,7 @@
 
   function createRow(index){
     // console.log(row.replace('index', parseInt(index)+1))
-    return '<tr><td>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]"></td></tr>';
+    return '<tr><td>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]"></td></tr>';
   }
   $('button.random').on('click', function(e){
     e.preventDefault();
@@ -23,14 +23,12 @@
       $(this).val(1 + Math.floor(Math.random() * 150));
     });
     $('input[type=date]').each(function(k,v){
-      // var day = 1 + Math.floor(Math.random() * 10)
-      // var month = 1 + Math.floor(Math.random() * 10)
       $(this).val((2010+k).toString() + '-' +'01' + '-' +'01');
     });
   });
   $('button.add-row').on('click', function(e){
     e.preventDefault();
-    var currentIndex = $( "tr:last td:first" ).text();
+    var currentIndex = $('div.manual-input table.cholesterol-data tr:last td:first').text();;
     $('table.cholesterol-data tbody').append(createRow(currentIndex));
   });
   $('button.activate-copy-paste').on('click', function(e){

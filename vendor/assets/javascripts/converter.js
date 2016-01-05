@@ -129,7 +129,6 @@ DataConverter.prototype.create = function(w,h) {
   $("#dataInput").keyup(function() {
     self.convert();
     setPasted();
-
   });
   $("#dataInput").change(function() {
     self.convert();
