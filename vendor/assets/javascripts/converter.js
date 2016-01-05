@@ -107,6 +107,17 @@ DataConverter.prototype.create = function(w,h) {
 
   this.outputTextArea.click(function(evt){this.select();});
 
+  function setPasted(){
+    $('.cholesterol-data').toggleClass('hide');
+    $('input[type=date].pasted').each(function(k,v){
+      var date = $(this).attr("date");
+      $(this).val(date);
+    });
+    $('input[type=text].pasted').each(function(k,v){
+      var value = $(this).attr("placeholder");
+      $(this).val(value);
+    });
+  }
 
   $("#insertSample").bind('click',function(evt){
     evt.preventDefault();
@@ -117,19 +128,12 @@ DataConverter.prototype.create = function(w,h) {
 
   $("#dataInput").keyup(function() {
     self.convert();
-    $('.cholesterol-data').toggleClass('hide');
-    $('input[type=date].pasted').each(function(k,v){
-      var date = $(this).attr("date");
-      $(this).val(date);
-    });
-    $('input[type=text].pasted').each(function(k,v){
-      var value = $(this).attr("placeholder");
-      $(this).val(value);
-    });
+    setPasted();
+
   });
   $("#dataInput").change(function() {
     self.convert();
-    $('.cholesterol-data').toggleClass('hide');
+    setPasted();
     _gaq.push(['_trackEvent', 'DataType',self.outputDataType]);
   });
 
