@@ -77,7 +77,7 @@ var DataGridRenderer = {
   // HTML Table
   //---------------------------------------
   
-  html: function (dataGrid, headerNames, headerTypes, indent, newLine) {
+  html: function (dataGrid, headerNames, headerTypes, indent, newLine, inputNames) {
     //inits...
     var commentLine = "<!--";
     var commentLineEnd = "-->";
@@ -87,7 +87,7 @@ var DataGridRenderer = {
     
     //begin render loop
     outputText += "<table class='table table-striped'>"+newLine;
-    outputText += indent+"<thead>"+newLine;
+    outputText += indent+"<thead class=''>"+newLine;
     outputText += indent+indent+"<tr>"+newLine;
     
     for (var j=0; j < numColumns; j++) {
@@ -108,8 +108,24 @@ var DataGridRenderer = {
       }
       outputText += indent+indent+"<tr"+rowClassName+">"+newLine;
       for (var j=0; j < numColumns; j++) {
-        outputText += indent+indent+indent+'<td class="'+headerNames[j]+'-cell">';          
-        outputText += row[j]
+              
+        if(j==0){
+          outputText += indent+indent+indent+'<td>';
+          outputText += (i+1)
+        }
+        else if(j==1){
+          var date = row[j-1].split('/');
+          if(date[0].length === 1){
+            date[0] = '0'+ date[0];
+          }
+          // console.log(new Date(date[1], date[0], 01));
+          outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="20'+ date[1].toString()+'-'+date[0].toString()+'-01">';
+          // $('.'+(i+1)+'-date').val("20'+ date[1].toString()+'-'+date[0].toString()+'-01");
+        }
+        else{
+          outputText += indent+indent+indent+'<td><input type="text" class="pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" placeholder="'+row[j-1]+'" val="'+row[j-1]+'">';
+          // outputText += row[j-1]
+        }   
         outputText += '</td>'+newLine
       };
       outputText += indent+indent+"</tr>"+newLine;

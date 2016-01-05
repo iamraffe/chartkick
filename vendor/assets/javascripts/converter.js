@@ -72,10 +72,12 @@ DataConverter.prototype.create = function(w,h) {
   var self = this;
 
   //build HTML for converter
-  this.inputHeader = $('<div class="groupHeader" id="inputHeader"><p class="groupHeadline">Input CSV or tab-delimited data. <span class="subhead"> Using Excel? Simply copy and paste. No data on hand? <a href="#" id="insertSample">Use sample</a></span></p></div>');
+  // this.inputHeader = $('<div class="groupHeader" id="inputHeader"><p class="groupHeadline">Input CSV or tab-delimited data. <span class="subhead"> Using Excel? Simply copy and paste. No data on hand? <a href="#" id="insertSample">Use sample</a></span></p></div>');
+  this.inputHeader = '';
   this.inputTextArea = $('<textarea class="textInputs" id="dataInput"></textarea>');
   // var outputHeaderText = '<div class="groupHeader" id="inputHeader"><p class="groupHeadline">Output as <select name="Data Types" id="dataSelector" >';
-  var outputHeaderText = '<p class="groupHeadline">Your data will be translated here:</p>';
+  // var outputHeaderText = '<p class="groupHeadline">Your data will be translated here:</p>';
+  var outputHeaderText = '';
     // for (var i=0; i < this.outputDataTypes.length; i++) {
 
     //   outputHeaderText += '<option value="'+this.outputDataTypes[i]["id"]+'" '
@@ -113,9 +115,21 @@ DataConverter.prototype.create = function(w,h) {
     _gaq.push(['_trackEvent', 'SampleData','InsertGeneric']);
   });
 
-  $("#dataInput").keyup(function() {self.convert()});
+  $("#dataInput").keyup(function() {
+    self.convert();
+    $('.cholesterol-data').toggleClass('hide');
+    $('input[type=date].pasted').each(function(k,v){
+      var date = $(this).attr("date");
+      $(this).val(date);
+    });
+    $('input[type=text].pasted').each(function(k,v){
+      var value = $(this).attr("placeholder");
+      $(this).val(value);
+    });
+  });
   $("#dataInput").change(function() {
     self.convert();
+    $('.cholesterol-data').toggleClass('hide');
     _gaq.push(['_trackEvent', 'DataType',self.outputDataType]);
   });
 
@@ -158,21 +172,22 @@ DataConverter.prototype.convert = function() {
     }
 
     CSVParser.resetLog();
-    this.headersProvided = true;
+    this.headersProvided = false;
     this.downcaseHeaders = false;
     this.upcaseHeaders = false;
     var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders);
-
+    parseOutput.headerNames = ['#', 'Date', 'LDL', 'HDL', 'Triglycerides', 'Cholesterol'];
+    // console.log(parseOutput.headerNames);
     var dataGrid = parseOutput.dataGrid;
     var headerNames = parseOutput.headerNames;
     var headerTypes = parseOutput.headerTypes;
     var errors = parseOutput.errors;
+    var inputNames = ['date', 'ldl', 'hdl', 'triglycerides', 'cholesterol'];
+    this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine, inputNames);
 
-    this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine);
 
 
-
-    this.outputTextArea.html(errors + this.outputText);
+    this.inputTextArea.parent().html(errors + this.outputText);
 
   }; //end test for existence of input text
 }

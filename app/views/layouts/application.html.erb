@@ -33,6 +33,11 @@
     var currentIndex = $( "tr:last td:first" ).text();
     $('table.cholesterol-data tbody').append(createRow(currentIndex));
   });
+  $('button.activate-copy-paste').on('click', function(e){
+    e.preventDefault();
+    $('.manual-input, .copy-paste-input, .manual-mode, .copy-paste-mode').toggleClass('hide');
+    $('#dataInput').focus();
+  });
 </script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214021542) do
+ActiveRecord::Schema.define(version: 20160105163117) do
 
   create_table "cholesterols", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20151214021542) do
     t.date     "date"
     t.integer  "hdl"
     t.integer  "triglycerides"
+    t.integer  "cholesterol"
   end
 
 end
