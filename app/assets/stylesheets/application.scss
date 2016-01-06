@@ -3,7 +3,7 @@
 @import "bootstrap-sprockets";
 
 // Import cosmo variables
-@import "bootswatch/cosmo/variables";
+@import "bootswatch/yeti/variables";
 
 // Then bootstrap itself
 @import "bootstrap";
@@ -12,11 +12,25 @@
 body { padding-top: 60px; }
 
 // And finally bootswatch style itself
-@import "bootswatch/cosmo/bootswatch";
-
+@import "bootswatch/yeti/bootswatch";
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 // Whatever application styles you have go last
 // @import "base";
-
+h1,h2,h3,h4,h5,h6{
+  font-family: 'Montserrat', sans-serif !important;
+}
+h1{
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 40px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-align: center;
+}
+h2,h3,h4,h5,h6{
+  font-weight: 400;
+  // letter-spacing: -2.5px;
+}
 td > input{
   border: none;
   background: transparent;
@@ -66,7 +80,7 @@ td > input{
 // /*header*/
 
 // #header {
-  
+
 //   color: #FFF;
 //   width: 300px;
 //   overflow: auto;
@@ -147,7 +161,7 @@ p.dataHeaders{
 }
 
 .textInputs {
-  
+
   // background-color: #C9B7C7;
   border: none;
   // color: #664D63;
@@ -194,7 +208,7 @@ p.groupHeadline {
 
 #dataOutput {
   max-width: 100%;
-  
+
 }
 #dataSelector {
   width: 200px;
