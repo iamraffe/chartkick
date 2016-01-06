@@ -27,7 +27,7 @@ class CholesterolsController < ApplicationController
     if @chart.new_record?
       render "new"
     else
-      session[:chart_step] = session[:chart_params] = nil
+      session[:chart_step] = session[:chart_params] = session[:entry_params] = nil
       flash[:notice] = "chart saved!"
       redirect_to @chart, format: 'pdf'
     end
