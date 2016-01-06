@@ -41,6 +41,13 @@
     $('.manual-input, .copy-paste-input, .manual-mode, .copy-paste-mode').toggleClass('hide');
     $('#dataInput').focus();
   });
+  $('button.start-over').on('click', function(e){
+    e.preventDefault();
+    $('.start-over-mode, .manual-input, .copy-paste-input, .copy-paste-mode').toggleClass('hide');
+    $('div.manual-input table.cholesterol-data').removeClass('hide');
+    $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '');
+  });
+
   // $('input[type=date].pasted').each(function(k,v){
   //   var date = $(this).attr("placeholder");
   //   $(this).val(date);

@@ -109,7 +109,7 @@ DataConverter.prototype.create = function(w,h) {
 
   function setPasted(){
     $('.cholesterol-data, .copy-paste-input .add-row').toggleClass('hide');
-
+    $('.start-over-mode, .manual-mode').toggleClass('hide');
     $('input[type=date].pasted').each(function(k,v){
       var date = $(this).attr("date");
       $(this).val(date);
@@ -118,6 +118,8 @@ DataConverter.prototype.create = function(w,h) {
       var value = $(this).attr("placeholder");
       $(this).val(value);
     });
+
+
   }
 
   $("#insertSample").bind('click',function(evt){
