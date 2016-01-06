@@ -26,10 +26,15 @@
       $(this).val((2010+k).toString() + '-' +'01' + '-' +'01');
     });
   });
-  $('button.add-row').on('click', function(e){
+  $('div.manual-input button.add-row').on('click', function(e){
     e.preventDefault();
-    var currentIndex = $('div.manual-input table.cholesterol-data tr:last td:first').text();;
-    $('table.cholesterol-data tbody').append(createRow(currentIndex));
+    var currentIndex = $('div.manual-input table.cholesterol-data tr:last td:first').text();
+    $('div.manual-input table.cholesterol-data tbody').append(createRow(currentIndex));
+  });
+  $('div.copy-paste-input button.add-row').on('click', function(e){
+    e.preventDefault();
+    var currentIndex = $('div.copy-paste-input table.copy-paste-data tr:last td:first').text();
+    $('div.copy-paste-input table.copy-paste-data tbody').append(createRow(currentIndex));
   });
   $('button.activate-copy-paste').on('click', function(e){
     e.preventDefault();

@@ -108,7 +108,8 @@ DataConverter.prototype.create = function(w,h) {
   this.outputTextArea.click(function(evt){this.select();});
 
   function setPasted(){
-    $('.cholesterol-data').toggleClass('hide');
+    $('.cholesterol-data, .copy-paste-input .add-row').toggleClass('hide');
+
     $('input[type=date].pasted').each(function(k,v){
       var date = $(this).attr("date");
       $(this).val(date);
