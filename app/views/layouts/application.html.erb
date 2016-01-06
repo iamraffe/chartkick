@@ -36,6 +36,14 @@
     $('.manual-input, .copy-paste-input, .manual-mode, .copy-paste-mode').toggleClass('hide');
     $('#dataInput').focus();
   });
+  // $('input[type=date].pasted').each(function(k,v){
+  //   var date = $(this).attr("placeholder");
+  //   $(this).val(date);
+  // });
+  $('.session-entry-values').each(function(k,v){
+    var value = $(this).attr("placeholder");
+    $(this).val(value);
+  });
 </script>
 </body>
 </html>

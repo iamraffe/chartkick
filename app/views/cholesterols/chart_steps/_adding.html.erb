@@ -27,15 +27,19 @@
         </tr>
       </thead>
       <tbody>
-        <% 5.times do |i| %>
-          <tr>
-            <td><%= (i+1) %></td>
-            <td><input type="date" name="entry[date[<%= (i+1) %>]]"></td>
-            <td><input type="text" name="entry[ldl[<%= (i+1) %>]]"></td>
-            <td><input type="text" name="entry[hdl[<%= (i+1) %>]]"></td>
-            <td><input type="text" name="entry[triglycerides[<%= (i+1) %>]]"></td>
-            <td><input type="text" name="entry[cholesterol[<%= (i+1) %>]]"></td>
-          </tr>
+        <% if session[:entry_params] %>
+          <%= raw(construct_table_from_session_params(session[:entry_params])) %>
+        <% else %>
+          <% 5.times do |i| %>
+            <tr>
+              <td><%= (i+1) %></td>
+              <td><input type="date" name="entry[date[<%= (i+1) %>]]"></td>
+              <td><input type="text" name="entry[ldl[<%= (i+1) %>]]"></td>
+              <td><input type="text" name="entry[hdl[<%= (i+1) %>]]"></td>
+              <td><input type="text" name="entry[triglycerides[<%= (i+1) %>]]"></td>
+              <td><input type="text" name="entry[cholesterol[<%= (i+1) %>]]"></td>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
