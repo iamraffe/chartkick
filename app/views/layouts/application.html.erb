@@ -19,10 +19,10 @@
   }
   $('button.random').on('click', function(e){
     e.preventDefault();
-    $('input[type=text]').each(function(k,v){
+    $('div.manual-input table.cholesterol-data input[type=text]').each(function(k,v){
       $(this).val(1 + Math.floor(Math.random() * 150));
     });
-    $('input[type=date]').each(function(k,v){
+    $('div.manual-input table.cholesterol-data input[type=date]').each(function(k,v){
       $(this).val((2010+k).toString() + '-' +'01' + '-' +'01');
     });
   });
@@ -45,7 +45,7 @@
     e.preventDefault();
     $('.start-over-mode, .manual-input, .copy-paste-input, .copy-paste-mode').toggleClass('hide');
     $('div.manual-input table.cholesterol-data').removeClass('hide');
-    $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '');
+    $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '').find("tr:gt(4)").remove();;
   });
 
   // $('input[type=date].pasted').each(function(k,v){
