@@ -16,10 +16,9 @@ body { padding-top: 60px; }
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 // Whatever application styles you have go last
 // @import "base";
-h1,h2,h3,h4,h5,h6{
-  font-family: 'Montserrat', sans-serif !important;
-}
+
 h1{
+  font-family: 'Montserrat', sans-serif !important;
   font-weight: 700;
   font-size: 40px;
   line-height: 40px;
@@ -27,9 +26,13 @@ h1{
   letter-spacing: 5px;
   text-align: center;
 }
-h2,h3,h4,h5,h6{
-  font-weight: 400;
-  // letter-spacing: -2.5px;
+h2{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+}
+h3{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
 }
 td > input{
   border: none;
@@ -224,4 +227,8 @@ p.groupHeadline {
 .activate-copy-paste{
   margin-left: 10px;
   margin-top: 5px;
+}
+
+.patient-name{
+  text-decoration: underline;
 }
