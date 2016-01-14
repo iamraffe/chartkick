@@ -18,3 +18,4 @@
 //= require Controller
 //= require DataGridRenderer
 //= require converter
+//= require d3
