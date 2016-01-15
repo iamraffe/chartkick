@@ -64,6 +64,11 @@ var parseDate = d3.time.format("%b %Y").parse;
 var x = d3.time.scale().range([0, width]);
 var y = d3.scale.linear().range([height, 0]);
 
+var interventionLine = d3.svg.line()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; })
+    .interpolate("basis");
+
 // Define the axes
 var xAxis = d3.svg.axis().scale(x)
     .ticks(data.length/4)
@@ -71,17 +76,17 @@ var xAxis = d3.svg.axis().scale(x)
     .orient("bottom");
 
 var yAxis = d3.svg.axis().scale(y)
-  .tickPadding(10)
+  // .tickPadding(10)
   .ticks(data.length/4)
   // .tickSize(-width)
-  .tickSubdivide(true)  
+  // .tickSubdivide(true)
     .orient("left");
 
 // Define the line
-var priceline = d3.svg.line() 
+var priceline = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.value); });
- 
+
 // Adds the svg canvas
 var svg = d3.select("#graph-container")
     .append("svg")
@@ -89,7 +94,7 @@ var svg = d3.select("#graph-container")
         .attr("width", '100%')
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", 
+        .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
     data.forEach(function(d) {
@@ -99,7 +104,7 @@ var svg = d3.select("#graph-container")
 
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([-1, d3.max(data, function(d) { return d.value; })+75]);
+    y.domain([0, d3.max(data, function(d) { return d.value; })+75]);
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
@@ -111,7 +116,7 @@ var svg = d3.select("#graph-container")
     legendSpace = width/dataNest.length; // spacing for the legend
 
     // Loop through each symbol / key
-    dataNest.forEach(function(d,i) { 
+    dataNest.forEach(function(d,i) {
 
         svg.append("path")
             .attr("class", "line")
@@ -120,19 +125,19 @@ var svg = d3.select("#graph-container")
             .style("stroke", function() { // Add the colours dynamically
                 return d.color = color(d.key); })
             .on("click", function(){
-              // Determine if current line is visible 
+              // Determine if current line is visible
                 var active   = d.active ? false : true;
-                newOpacity = active ? 0 : 1; 
+                newOpacity = active ? 0 : 1;
                 // Hide or show the elements based on the ID
                 d3.select("#tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(100) 
-                    .style("opacity", newOpacity); 
+                    .transition().duration(100)
+                    .style("opacity", newOpacity);
                 d3.selectAll(".tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(100) 
-                    .style("opacity", newOpacity); 
-                // Update whether or not the elements 
+                    .transition().duration(100)
+                    .style("opacity", newOpacity);
+                // Update whether or not the elements
                 d.active = active;
-            }); 
+            });
 
         // Add the Legend
         svg.append("text")
@@ -142,20 +147,20 @@ var svg = d3.select("#graph-container")
             .style("fill", function() { // Add the colours dynamically
                 return d.color = color(d.key); })
             .on("click", function(){
-                // Determine if current line is visible 
+                // Determine if current line is visible
                 var active   = d.active ? false : true;
-                newOpacity = active ? 0 : 1; 
+                newOpacity = active ? 0 : 1;
                 // Hide or show the elements based on the ID
                 d3.select("#tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(100) 
-                    .style("opacity", newOpacity); 
+                    .transition().duration(100)
+                    .style("opacity", newOpacity);
                 d3.selectAll(".tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(100) 
-                    .style("opacity", newOpacity); 
+                    .transition().duration(100)
+                    .style("opacity", newOpacity);
                 // Update whether or not the elements are active
                 d.active = active;
-            })  
-            .text(d.key); 
+            })
+            .text(d.key);
 
     });
 
@@ -181,18 +186,18 @@ var svg = d3.select("#graph-container")
         .attr('clip-path', "url(#clip)")
         .append('circle')
         .attr("r", 2.5)
-        .attr('fill', function(d,i){ 
+        .attr('fill', function(d,i){
           return d.color = color(d.symbol);
         })
-        .attr("transform", function(d) { 
-          return "translate("+x(d.date)+","+y(d.value)+")"; 
+        .attr("transform", function(d) {
+          return "translate("+x(d.date)+","+y(d.value)+")";
         });
 
     svg.selectAll('.chart')
       .data(data)
       .enter()
       .append('rect')
-      .style("opacity", 0.15)
+      .style("opacity", 0.1)
       .attr('width', function(d,i){
         if(i%(data.length/4) != 4 && d.overlay){
           console.log(x(data[i+1].date)-x(d.date));
@@ -202,18 +207,60 @@ var svg = d3.select("#graph-container")
           return 0;
         }
       })
-      .attr('x', function(d) { 
-          return x(d.date)+10; 
+      .attr('x', function(d) {
+          return x(d.date)+10;
         })
-      .attr('height', function(d) { 
+      .attr('height', function(d) {
         return height
       })
       .attr("class", function(d){
-        return d.overlay ? ".interventions" : ".hide";
+        return d.overlay ? "interventions" : "hide";
       })
       .attr("fill", function(d){
           return color(d.value);
       });
+
+      // svg.append("path")
+      //     .attr("class", "line")
+      //     .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
+      //     .attr("d", priceline(d.values))
+      //     .style("stroke", function() { // Add the colours dynamically
+      //         return d.color = color(d.key); })
+      //     .on("click", function(){
+      //       // Determine if current line is visible
+      //         var active   = d.active ? false : true;
+      //         newOpacity = active ? 0 : 1;
+      //         // Hide or show the elements based on the ID
+      //         d3.select("#tag"+d.key.replace(/\s+/g, ''))
+      //             .transition().duration(100)
+      //             .style("opacity", newOpacity);
+      //         d3.selectAll(".tag"+d.key.replace(/\s+/g, ''))
+      //             .transition().duration(100)
+      //             .style("opacity", newOpacity);
+      //         // Update whether or not the elements
+      //         d.active = active;
+      //     });
+
+    // svg.selectAll('.chart')
+    //   .data(data)
+    //   .enter()
+    //   .append('path')
+    //   .style("opacity", 0.15)
+    //   .attr("d", interventionLine([(0.0),(1,1)]))
+    //   // .attr('width', 1)
+    //   // .attr('x', function(d) {
+    //   //     return x(d.date)+10;
+    //   // })
+    //   // .attr('y', 0)
+    //   // .attr('height', function(d) {
+    //   //   return height
+    //   // })
+    //   .attr("class", function(d){
+    //     return d.overlay ? "interventions-frame" : "hide";
+    //   })
+    //   .strike("stroke", function(d){
+    //       return color(d.value);
+    //   });
 
 
 }
