@@ -1,15 +1,41 @@
-$.ajax({
-           type: "GET",
-           contentType: "application/json; charset=utf-8",
-           url: '/',
-           dataType: 'json',
-           success: function (data) {
-               drawMultiLine(data);
-           },
-           error: function (result) {
-               error();
-           }
-       });
+$(document).ready(function(e){
+  if($('#session-graph-container').length > 0){
+    $.ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      url: '/cholesterol-session',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        drawMultiLine({entries: data.entries, interventions: [data.intervention]});
+      },
+      error: function (result) {
+         error();
+      }
+    });
+  }
+});
+
+$(document).ready(function(e){
+  // console.log(document.URL.split("/").pop());
+  if($('#db-graph-container').length > 0){
+    var id = document.URL.split("/").pop();
+    $.ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      url: '/charts/cholesterol/'+id,
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        drawMultiLine(data);
+      },
+      error: function (result) {
+         error();
+      }
+    });
+  }
+});
+
 
 function draw(data) {
     var color = d3.scale.category20b();
@@ -47,11 +73,12 @@ function draw(data) {
         .attr("dy", ".35em")
         .style("fill", "white")
         .text(function (d) {
-                  return d;
-              });
+          return d;
+        });
 }
 
 function drawMultiLine(data) {
+// console.log("call");
 // Set the dimensions of the canvas / graph
 var margin = {top: 30, right: 20, bottom: 70, left: 50},
     width = 768 - margin.left - margin.right,
@@ -59,6 +86,8 @@ var margin = {top: 30, right: 20, bottom: 70, left: 50},
 
 // Parse the date / time
 var parseDate = d3.time.format("%b %Y").parse;
+
+
 
 // Set the ranges
 var x = d3.time.scale().range([0, width]);
@@ -71,13 +100,13 @@ var interventionLine = d3.svg.line()
 
 // Define the axes
 var xAxis = d3.svg.axis().scale(x)
-    .ticks(data.length/4)
+    .ticks(data.entries.length/4)
     .tickFormat(d3.time.format("%b %Y"))
     .orient("bottom");
 
 var yAxis = d3.svg.axis().scale(y)
   // .tickPadding(10)
-  .ticks(data.length/4)
+  .ticks(data.entries.length/4)
   // .tickSize(-width)
   // .tickSubdivide(true)
     .orient("left");
@@ -88,28 +117,30 @@ var priceline = d3.svg.line()
     .y(function(d) { return y(d.value); });
 
 // Adds the svg canvas
-var svg = d3.select("#graph-container")
+var svg = d3.select("#graph")
     .append("svg")
     .attr("class", "chart")
-        .attr("width", '100%')
+        .attr("width", 925)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-    data.forEach(function(d) {
+    data.entries.forEach(function(d) {
       d.date = parseDate(d.date);
       d.value = +d.value;
     });
 
+
+
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.value; })+75]);
+    x.domain(d3.extent(data.entries, function(d) { return d.date; }));
+    y.domain([0, d3.max(data.entries, function(d) { return d.value; })+75]);
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
         .key(function(d) {return d.symbol;})
-        .entries(data);
+        .entries(data.entries);
 
     var color = d3.scale.category20();   // set the colour scale
 
@@ -177,7 +208,7 @@ var svg = d3.select("#graph-container")
 
     // Add the dots
     svg.selectAll('.dots')
-        .data(data)
+        .data(data.entries)
         .enter()
         .append("g")
         .attr("class", function(d, i){
@@ -193,32 +224,68 @@ var svg = d3.select("#graph-container")
           return "translate("+x(d.date)+","+y(d.value)+")";
         });
 
+
+/*
+INTERVENTIONS
+
+ */
+
+    if(data.interventions){
+      var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+      data.interventions.forEach(function(d) {
+        d.start = parseInterventionDate(d.start);
+        d.end = parseInterventionDate(d.end);
+        d.title = d.title;
+        d.dose = d.dose;
+      });
+
+
     svg.selectAll('.chart')
-      .data(data)
+      .data(data.interventions)
       .enter()
       .append('rect')
       .style("opacity", 0.1)
       .attr('width', function(d,i){
-        if(i%(data.length/4) != 4 && d.overlay){
-          console.log(x(data[i+1].date)-x(d.date));
-          return parseInt(x(data[i+1].date)-x(d.date));
-        }
-        else{
-          return 0;
-        }
+        console.log(x(d.end)-x(d.start));
+          return x(d.end)-x(d.start);
       })
       .attr('x', function(d) {
-          return x(d.date)+10;
+          return x(d.start)+10;
         })
       .attr('height', function(d) {
         return height
       })
-      .attr("class", function(d){
-        return d.overlay ? "interventions" : "hide";
-      })
+      .attr("class", "interventions")
       .attr("fill", function(d){
-          return color(d.value);
+          return color(x(d.end)-x(d.start));
+      })
+      .append("text")
+      .text(function(d){
+        console.log(d);
+        return d.title;
       });
+
+    svg.selectAll('.chart')
+      .data(data.interventions)
+      .enter()
+      .append("text")
+      .html(function(d){
+        // console.log(d);
+        return d.title+" - "+d.dose;
+      })
+      .style("opacity", 1)
+      .attr('x', function(d) {
+          return x(d.start)+10;
+        })
+      .attr('y', margin.top)
+      .attr("class", "intervention-text")
+      .attr('width', function(d,i){
+        console.log(x(d.end)-x(d.start));
+          return x(d.end)-x(d.start);
+      })
+      .style('background-color', 'red')
+      .attr("fill", "black");
+    }
 
       // svg.append("path")
       //     .attr("class", "line")
@@ -268,3 +335,4 @@ var svg = d3.select("#graph-container")
 function error() {
     console.log("error")
 }
+

@@ -2,7 +2,8 @@
   <div class="row">
     <h1>Patient name:  <span class="patient-name"><%= @chart.name %></span></h1>
   </div>
-    <%= line_chart construct_cholesterol_chart_from_database(@chart.entries), id: "users-chart", height: "500px", discrete: true, library: {curveType: "none", pointSize: 5, crosshair: { trigger: 'both' }, colors: ['#111A33', '#001E93', '#4FCFEB', '#A725A7']} %>
+  <div class="row" id="db-graph-container"><div id="graph"></div></div>
+
   </div>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">

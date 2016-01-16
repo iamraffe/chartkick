@@ -7,11 +7,72 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form accept-charset="UTF-8" action="/charts/cholesterol/intervention" data-remote="true" method="post" id="intervention-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-8 col-xs-offset-1">
+                <div class="col-sm-4">
+                  <label for="intervention[title]" class="pull-right">Medication</label>
+                </div>
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="intervention[title]" placeholder="(ie: Crestor, Simcor...)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-8 col-xs-offset-1">
+                <div class="col-sm-4">
+                  <label for="intervention[dose]" class="pull-right">Dose</label>
+                </div>
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="intervention[dose]" placeholder="(ie: 40mg, 20mg...)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-4 col-sm-offset-1">
+                <label for="intervention[start]">Start date</label>
+                <input type="date" class="form-control" name="intervention[start]">
+              </div>
+              <div class="form-group col-sm-4 col-sm-offset-2">
+                <label for="intervention[end]">End date</label>
+                <input type="date" class="form-control" name="intervention[end]">
+              </div>
+            </div>
+            <div class="row">
+              <a href="#" class="btn btn-link pull-right">Click to add more medication</a>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 <%= yield %>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>
-
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
   function createRow(index){
     // console.log(row.replace('index', parseInt(index)+1))
     return '<tr><td>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]"></td></tr>';
@@ -54,6 +115,20 @@
   $('.session-entry-values').each(function(k,v){
     var value = $(this).attr("placeholder");
     $(this).val(value);
+  });
+
+  $('#add-intervention').change(function(e){
+    var title = $(this).val();
+    $('#myModal').modal('show');
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').focus();
+      var modal = $(this);
+      modal.find('.modal-title').text(title);
+    });
+  });
+
+  $('#intervention-data').on('submit', function(e){
+    $('#myModal').modal('hide');
   });
 </script>
 </body>

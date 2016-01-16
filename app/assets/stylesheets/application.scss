@@ -234,7 +234,15 @@ p.groupHeadline {
   text-decoration: underline;
 }
 
+#graph-container{
+  padding-left: 50px;
+}
+.chart{
+  display: block;
+  margin: 0 auto;
+}
 
+path{
     stroke: steelblue;
     stroke-width: 2;
     fill: none;
@@ -253,6 +261,15 @@ p.groupHeadline {
     font-size: 16px;
     font-weight: bold;
     text-anchor: middle;
+    font-family: 'Montserrat', sans-serif !important;
     cursor: pointer;
 }
 
+.intervention-text{
+  padding: 50px;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: red;
+  text-decoration: underline;
+}

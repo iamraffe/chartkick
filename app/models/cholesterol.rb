@@ -1,5 +1,6 @@
 class Cholesterol < ActiveRecord::Base
   has_many :entries
+  has_many :interventions
   attr_writer :current_step
   validates :name, presence: true, :if => lambda { |o| o.current_step == "naming" }
   # validates :billing_name, :if => lambda { |o| o.current_step == "billing" }

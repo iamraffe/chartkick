@@ -1,4 +1,21 @@
-<h2>[Option Steps Go Here]</h2>
+<div class="row">
+  <h2>Great! Do you have any interventions to add? If so select from the drop-down below. Otherwise continue to save the chart.</h2>
+  <div class="col-sm-3 col-sm-offset-9">
+    <div class="form-group">
+      <!-- <label for="add-intervention">Select intervention:</label> -->
+      <select class="form-control" id="add-intervention">
+        <option selected disabled>Select intervention:</option>
+        <option id="#add-medication">Add Medication</option>
+        <option id="#add-lifestyle" disabled>Add Lifestyle Intervention</option>
+        <option id="#add-procedure" disabled>Add Procedure</option>
+        <option id="#add-other" disabled>Add Other</option>
+      </select>
+    </div>
+  </div>
+
+</div>
 <h3>Patient name:  <span class="patient-name"><%= session[:chart_params]["name"] %></span></h3>
-<%= line_chart construct_cholesterol_chart_from_session(session[:entry_params]), id: "users-chart", height: "500px", discrete: true, library: {curveType: "none", pointSize: 5, crosshair: { trigger: 'both' }} %>
+<div class="row" id="session-graph-container"><div id="graph"></div></div>
+
+
 
