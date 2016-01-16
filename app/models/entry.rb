@@ -12,8 +12,8 @@ class Entry < ActiveRecord::Base
       Entry.create({symbol: "TRIGLYCERIDES", date: v.to_datetime, value: entries["triglycerides"]["#{i}"].to_i, cholesterol_id: chart.id})
       Entry.create({symbol: "CHOLESTEROL", date: v.to_datetime, value: entries["cholesterol"]["#{i}"].to_i, cholesterol_id: chart.id})
     end
-
-    Intervention.create({title: interventions["title"], start: interventions["start"], end: interventions["end"], dose: interventions["dose"], cholesterol_id: chart.id})
+    byebug
+    Intervention.create({title: interventions["title"], start: interventions["start"], end: interventions["end"], dose: interventions["dose"], cholesterol_id: chart.id}) unless interventions.empty?
 
     # interventions.each do |intervention|
     #   Intervention.create()
