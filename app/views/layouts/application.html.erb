@@ -127,9 +127,14 @@ $.ajaxSetup({
     });
   });
 
-  $('#intervention-data').on('submit', function(e){
-    $('#myModal').modal('hide');
-  });
+$('#myModal').on('hidden.bs.modal', function (e) {
+  $('#add-intervention').removeAttr('selected').prop('selectedIndex',0);
+})
+
+  // $('#intervention-data').bind('ajax:complete', function(e){
+  //   $('#myModal').modal('hide');
+  //   updateData();
+  // });
 </script>
 </body>
 </html>

@@ -78,7 +78,10 @@ class CholesterolsController < ApplicationController
   def intervention_session
     # byebug
     session[:intervention_params].deep_merge!(intervention_params) if intervention_params
-    render json: {message: "ok"}
+    respond_to do |format|
+      format.js   {}
+      format.json { render json:{ status: "ok"} }
+    end
   end
 
   private

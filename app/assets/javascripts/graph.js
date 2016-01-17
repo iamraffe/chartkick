@@ -1,18 +1,6 @@
 $(document).ready(function(e){
   if($('#session-graph-container').length > 0){
-    $.ajax({
-      type: "GET",
-      contentType: "application/json; charset=utf-8",
-      url: '/cholesterol-session',
-      dataType: 'json',
-      success: function (data) {
-        console.log(data);
-        drawMultiLine({entries: data.entries, interventions: [data.intervention]});
-      },
-      error: function (result) {
-         error();
-      }
-    });
+    drawGraphFromSession();
   }
 });
 
@@ -26,7 +14,7 @@ $(document).ready(function(e){
       url: '/charts/cholesterol/'+id,
       dataType: 'json',
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         drawMultiLine(data);
       },
       error: function (result) {
@@ -37,45 +25,62 @@ $(document).ready(function(e){
 });
 
 
-function draw(data) {
-    var color = d3.scale.category20b();
-    console.log(color);
-    var width = 420,
-        barHeight = 20;
+  function drawGraphFromSession(){
+    $.ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      url: '/cholesterol-session',
+      dataType: 'json',
+      success: function (data) {
+        // console.log(data);
+        drawMultiLine({entries: data.entries, interventions: [data.intervention]});
+      },
+      error: function (result) {
+         error();
+      }
+    });
+  }
 
-    var x = d3.scale.linear()
-        .range([0, width])
-        .domain([0, d3.max(data)]);
 
-    var chart = d3.select("#graph")
-        .attr("width", width)
-        .attr("height", barHeight * data.length);
+// function draw(data) {
+//     var color = d3.scale.category20b();
+//     console.log(color);
+//     var width = 420,
+//         barHeight = 20;
 
-    var bar = chart.selectAll("g")
-        .data(data)
-        .enter().append("g")
-        .attr("transform", function (d, i) {
-                  return "translate(0," + i * barHeight + ")";
-              });
+//     var x = d3.scale.linear()
+//         .range([0, width])
+//         .domain([0, d3.max(data)]);
 
-    bar.append("rect")
-        .attr("width", x)
-        .attr("height", barHeight - 1)
-        .style("fill", function (d) {
-                   return color(d)
-               })
+//     var chart = d3.select("#graph")
+//         .attr("width", width)
+//         .attr("height", barHeight * data.length);
 
-    bar.append("text")
-        .attr("x", function (d) {
-                  return x(d) - 10;
-              })
-        .attr("y", barHeight / 2)
-        .attr("dy", ".35em")
-        .style("fill", "white")
-        .text(function (d) {
-          return d;
-        });
-}
+//     var bar = chart.selectAll("g")
+//         .data(data)
+//         .enter().append("g")
+//         .attr("transform", function (d, i) {
+//                   return "translate(0," + i * barHeight + ")";
+//               });
+
+//     bar.append("rect")
+//         .attr("width", x)
+//         .attr("height", barHeight - 1)
+//         .style("fill", function (d) {
+//                    return color(d)
+//                })
+
+//     bar.append("text")
+//         .attr("x", function (d) {
+//                   return x(d) - 10;
+//               })
+//         .attr("y", barHeight / 2)
+//         .attr("dy", ".35em")
+//         .style("fill", "white")
+//         .text(function (d) {
+//           return d;
+//         });
+// }
 
 function drawMultiLine(data) {
 // console.log("call");
@@ -92,11 +97,6 @@ var parseDate = d3.time.format("%b %Y").parse;
 // Set the ranges
 var x = d3.time.scale().range([0, width]);
 var y = d3.scale.linear().range([height, 0]);
-
-var interventionLine = d3.svg.line()
-    .x(function(d) { return d.x; })
-    .y(function(d) { return d.y; })
-    .interpolate("basis");
 
 // Define the axes
 var xAxis = d3.svg.axis().scale(x)
@@ -122,9 +122,9 @@ var svg = d3.select("#graph")
     .attr("class", "chart")
         .attr("width", 925)
         .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
 
     data.entries.forEach(function(d) {
       d.date = parseDate(d.date);
@@ -230,7 +230,7 @@ INTERVENTIONS
 
  */
 
-    if(data.interventions){
+    if(data.interventions.length>0){
       var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
       data.interventions.forEach(function(d) {
         d.start = parseInterventionDate(d.start);
@@ -246,11 +246,11 @@ INTERVENTIONS
       .append('rect')
       .style("opacity", 0.1)
       .attr('width', function(d,i){
-        console.log(x(d.end)-x(d.start));
+        // console.log(x(d.end)-x(d.start));
           return x(d.end)-x(d.start);
       })
       .attr('x', function(d) {
-          return x(d.start)+10;
+          return x(d.start);
         })
       .attr('height', function(d) {
         return height
@@ -258,11 +258,6 @@ INTERVENTIONS
       .attr("class", "interventions")
       .attr("fill", function(d){
           return color(x(d.end)-x(d.start));
-      })
-      .append("text")
-      .text(function(d){
-        console.log(d);
-        return d.title;
       });
 
     svg.selectAll('.chart')
@@ -275,12 +270,12 @@ INTERVENTIONS
       })
       .style("opacity", 1)
       .attr('x', function(d) {
-          return x(d.start)+10;
+          return x(d.start)+25;
         })
       .attr('y', margin.top)
       .attr("class", "intervention-text")
       .attr('width', function(d,i){
-        console.log(x(d.end)-x(d.start));
+        // console.log(x(d.end)-x(d.start));
           return x(d.end)-x(d.start);
       })
       .style('background-color', 'red')
@@ -328,9 +323,159 @@ INTERVENTIONS
     //   .strike("stroke", function(d){
     //       return color(d.value);
     //   });
+}
+
+// ** Update data section (Called from the onclick)
+function updateData() {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      url: '/cholesterol-session',
+      dataType: 'json',
+      success: function (data) {
+        // console.log(data);
+        updateMultiLine({entries: data.entries, interventions: [data.intervention]});
+      },
+      error: function (result) {
+         error();
+      }
+    });
+}
+
+function updateMultiLine(data){
+  var color = d3.scale.category20();   // set the colour scale
+// console.log(data);
+var margin = {top: 30, right: 20, bottom: 70, left: 50},
+    width = 768 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%b %Y").parse;
+
+
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .ticks(data.entries.length/4)
+    .tickFormat(d3.time.format("%b %Y"))
+    .orient("bottom");
+
+var yAxis = d3.svg.axis().scale(y)
+  // .tickPadding(10)
+  .ticks(data.entries.length/4)
+  // .tickSize(-width)
+  // .tickSubdivide(true)
+    .orient("left");
+    data.entries.forEach(function(d) {
+      d.date = parseDate(d.date);
+      d.value = +d.value;
+    });
+
+// Define the line
+var priceline = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+    // Scale the range of the data
+    x.domain(d3.extent(data.entries, function(d) { return d.date; }));
+    y.domain([0, d3.max(data.entries, function(d) { return d.value; })+75]);
+
+      console.log(d3.select("#graph").selectAll('rect').empty());
+
+
+        var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+        data.interventions.forEach(function(d) {
+          d.start = parseInterventionDate(d.start);
+          d.end = parseInterventionDate(d.end);
+          d.title = d.title;
+          d.dose = d.dose;
+        });
+
+
+    if(d3.select("#graph").selectAll('rect').empty()){
+        var svg = d3.select("#graph")
+                    .attr("width", 925)
+                    .attr("height", height + margin.top + margin.bottom);
+        svg.selectAll('.chart')
+          .data(data.interventions)
+
+          .append('rect')
+          .style("opacity", 0.1)
+          .attr('width', function(d,i){
+            // console.log(x(d.end)-x(d.start));
+
+              return x(d.end)-x(d.start);
+          })
+          .attr('x', function(d) {
+              return x(d.start)+margin.left;
+            })
+          .attr('y', margin.top)
+          .attr('height', function(d) {
+            return height
+          })
+          .attr("class", "interventions")
+          .attr("fill", function(d){
+              return color(x(d.end)-x(d.start));
+          });
+
+        svg.selectAll('.chart')
+          .data(data.interventions)
+
+          .append("text")
+          .html(function(d){
+            // console.log(d);
+            return d.title+" - "+d.dose;
+          })
+          .style("opacity", 1)
+          .attr('x', function(d) {
+              return x(d.start)+(margin.left+2);
+            })
+          .attr('y', margin.top*2)
+          .attr("class", "intervention-text")
+          .attr('width', function(d,i){
+            // console.log(x(d.end)-x(d.start));
+              return x(d.end)-x(d.start);
+          })
+          .style('background-color', 'red')
+          .attr("fill", "black");
+    }
+    else{
+          // Select the section we want to apply our changes to
+          var svg = d3.select("#graph").transition();
+
+          svg.selectAll('rect')
+              .duration(750)
+              // .attr("fill", "red")
+              .attr('x', function(d,i) {
+                // console.log(d, data.interventions, x(data.interventions[i].start)+25);
+                return x(data.interventions[i].start);
+              })
+              .attr("width", function(d, i){
+                  return x(data.interventions[i].end)-x(data.interventions[i].start);
+              });
+
+          svg.selectAll(".intervention-text")
+              .duration(750)
+              // .attr("fill", "red")
+              .attr('x', function(d,i) {
+                // console.log(d, data.interventions, x(data.interventions[i].start)+25);
+                return x(data.interventions[i].start)+25;
+              })
+              .attr("width", function(d, i){
+                  return x(data.interventions[i].end)-x(data.interventions[i].start);
+              })
+              .text(function(d, i){
+                // console.log(d);
+                return data.interventions[i].title+" - "+data.interventions[i].dose;
+              });
+    }
 
 
 }
+
 
 function error() {
     console.log("error")
