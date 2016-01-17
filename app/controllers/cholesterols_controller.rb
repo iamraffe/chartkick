@@ -51,13 +51,21 @@ class CholesterolsController < ApplicationController
         title: intervention.title,
         dose: intervention.dose
       }
+    @chart_data = {entries: all_entries, interventions: all_interventions}
     end
     # byebug
     respond_to do |format|
       format.html
-      format.json {render json: {entries: all_entries, interventions: all_interventions}}
+      format.json {render json: @chart_data}
       format.pdf do
         render pdf: "show", layout: 'pdf.html.erb'   # Excluding ".pdf" extension.
+      end
+      format.png do
+        html = render_to_string(:file => '/cholesterols/show', :layout => '/layouts/application')
+        @kit = IMGKit.new(html)
+        @kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/application.scss"
+        @kit.javascripts << "#{Rails.root}/app/assets/javascripts/application.js"
+        send_data(@kit.to_png, :type => "image/png", :disposition => 'inline')
       end
     end
   end
