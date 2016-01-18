@@ -161,7 +161,6 @@ var svg = d3.select("#graph")
         .data(data.entries)
         .enter()
         .append("text")
-        .attr("id", 'val'+d.symbol.replace(/\s+/g, '')+d.value) // assign ID
         .attr('class', 'text-values')
         .attr("transform", function(d) {
           if(d.symbol === 'HDL' || d.symbol === 'LDL'){
@@ -176,11 +175,6 @@ var svg = d3.select("#graph")
         })
         .style("fill", function(d) { // Add the colours dynamically
             return color(d.symbol); 
-        })
-        on('click', function(d){
-          d3.select("#val"+d.symbol.replace(/\s+/g, '')+d.value)
-                    .transition().duration(100)
-                    .style("opacity", newOpacity);
         });
 
     if(data.interventions.length>0){
