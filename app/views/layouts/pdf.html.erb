@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%= wicked_pdf_stylesheet_link_tag    'application' %>
     <%= wicked_pdf_javascript_include_tag 'application'%>
+
   </head>
   <body>
     <div id="content">
@@ -153,6 +154,33 @@ var svg = d3.select("#graph")
         })
         .attr("transform", function(d) {
           return "translate("+x(d.date)+","+y(d.value)+")";
+        });
+
+    // Add the text
+    svg.selectAll('.text-values')
+        .data(data.entries)
+        .enter()
+        .append("text")
+        .attr("id", 'val'+d.symbol.replace(/\s+/g, '')+d.value) // assign ID
+        .attr('class', 'text-values')
+        .attr("transform", function(d) {
+          if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+            return "translate("+(x(d.date)-7.5)+","+(y(d.value)+20)+")";
+          }
+          else{
+            return "translate("+(x(d.date)-7.5)+","+(y(d.value)-10)+")";
+          }
+        })
+        .text(function(d){
+          return d.value;
+        })
+        .style("fill", function(d) { // Add the colours dynamically
+            return color(d.symbol); 
+        })
+        on('click', function(d){
+          d3.select("#val"+d.symbol.replace(/\s+/g, '')+d.value)
+                    .transition().duration(100)
+                    .style("opacity", newOpacity);
         });
 
     if(data.interventions.length>0){

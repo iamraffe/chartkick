@@ -92,7 +92,15 @@ var margin = {top: 30, right: 20, bottom: 70, left: 50},
 // Parse the date / time
 var parseDate = d3.time.format("%b %Y").parse;
 
-
+var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+        // x(d.date) += d3.event.dx
+        // d.value += 40
+        d.value += d3.event.dy
+        d3.select(this).attr("transform", function(d,i){
+            return "translate(" + [ x(d.date), height-y(d.value) ] + ")"
+        })
+    });
 
 // Set the ranges
 var x = d3.time.scale().range([0, width]);
@@ -228,7 +236,42 @@ var svg = d3.select("#graph")
         .attr("transform", function(d) {
           return "translate("+x(d.date)+","+y(d.value)+")";
         });
-
+    // Add the text
+    svg.selectAll('.text-values')
+        .data(data.entries)
+        .enter()
+        .append("text")
+        .attr("id", function(d,i){
+          return 'val'+d.symbol.replace(/\s+/g, '')+i
+        }) // assign ID
+        .attr('class', 'text-values')
+        .attr("transform", function(d) {
+          if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+            return "translate("+(x(d.date)-7.5)+","+(y(d.value)+20)+")";
+          }
+          else{
+            return "translate("+(x(d.date)-7.5)+","+(y(d.value)-10)+")";
+          }
+        })
+        .text(function(d){
+          return d.value;
+        })
+        .style("fill", function(d) { // Add the colours dynamically
+            return color(d.symbol); 
+        })
+        .on('click', function(d, i){
+          d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
+                    .transition().duration(100)
+                    .attr("transform", function(d) {
+                    if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+                      return "translate("+(x(d.date)-7.5)+","+(y(d.value)+40)+")";
+                    }
+                    else{
+                      return "translate("+(x(d.date)-7.5)+","+(y(d.value)-30)+")";
+                    }
+                  });
+        })
+        .call(drag);
 
 /*
 INTERVENTIONS
