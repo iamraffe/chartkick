@@ -25,7 +25,7 @@ module CholesterolsHelper
     table_data = ''
     data['date'].each_with_index do |(key, date), index|
         table_data +=      "<tr>"
-        table_data +=        "<td>#{(index+1)}</td>"
+        table_data +=        "<td><span id='fa-#{index}' class='fa fa-times text-danger'></span>#{(index+1)}</td>"
         table_data +=        "<td><input class='session-entry-values' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{date}'></td>"
         table_data +=        "<td><input class='session-entry-values' type='text' name='entry[ldl[#{(index+1)}]]' placeholder='#{data['ldl'][key]}'></td>"
         table_data +=        "<td><input class='session-entry-values' type='text' name='entry[hdl[#{(index+1)}]]' placeholder='#{data['hdl'][key]}'></td>"

@@ -75,7 +75,7 @@ $.ajaxSetup({
 });
   function createRow(index){
     // console.log(row.replace('index', parseInt(index)+1))
-    return '<tr><td>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]"></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]"></td></tr>';
+    return '<tr><td><span id="fa-'+(parseInt(index)+1)+'" class="fa fa-times text-danger"></span>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]" required></td></tr>';
   }
   $('button.random').on('click', function(e){
     e.preventDefault();
@@ -131,12 +131,42 @@ $('#myModal').on('hidden.bs.modal', function (e) {
   $('#add-intervention').removeAttr('selected').prop('selectedIndex',0);
 })
 
-  // $('#intervention-data').bind('ajax:complete', function(e){
-  //   $('#myModal').modal('hide');
-  //   updateData();
-  // });
+$("#new_cholesterol").on('submit', function(e){
+   var has_empty = false;
 
+   $(this).find( 'input[type!="hidden"]' ).each(function () {
 
+      if ( ! $(this).val() ) {
+        $(this).parent().addClass('has-error');
+        has_empty = true;
+        return false;
+      }
+
+   });
+
+   if ( has_empty ) {
+    alert("All inputs must be filled out before continuing");
+    return false;
+  }
+});
+
+$('td > .fa').on('click', function(e){
+    var that = $(this);
+    var id = $(this).attr('id').split("-")[1];
+    $.ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      url: '/charts/cholesterol/update-session/'+id,
+      dataType: 'json',
+      success: function (data) {
+        that.parent().parent().remove();
+      },
+      error: function (result) {
+         error();
+      }
+    });
+
+});
 
 // console.log("1\t06/25/14\t->\t"+ multiDateParser('06/25/14'));
 // console.log("2\t06/25/2014\t->\t"+ multiDateParser('06/25/2014'));

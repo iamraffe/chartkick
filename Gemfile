@@ -18,6 +18,7 @@ gem 'wicked_pdf'
 gem "imgkit"
 gem 'faker'
 gem "d3-rails"
+gem "font-awesome-rails"
 
 group :development, :test do
   gem 'byebug'

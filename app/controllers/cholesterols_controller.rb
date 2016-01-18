@@ -73,6 +73,7 @@ class CholesterolsController < ApplicationController
 
   def cholesterol_session
     entry_params = Array.new
+    session[:entry_params].delete_if {|key, value| value.nil? }
     session[:entry_params]["date"].each do |i,v|
       # byebug
       ldl = {symbol: "LDL", date: v.to_time.strftime("%b %Y"),value: session[:entry_params]["ldl"]["#{i}"].to_i}
@@ -83,6 +84,13 @@ class CholesterolsController < ApplicationController
     end
     intervention = session[:intervention_params]
     render json: {entries: entry_params, intervention: intervention}
+  end
+
+  def update_session
+    byebug
+    session[:entry_params].each{|key, value| value.delete("#{params[:id].to_i+1}") }
+    byebug
+    render json:{ status: "ok"}
   end
 
   def intervention_session

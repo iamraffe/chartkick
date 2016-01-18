@@ -7,7 +7,7 @@
 
 // Then bootstrap itself
 @import "bootstrap";
-
+@import "font-awesome";
 // Bootstrap body padding for fixed navbar
 body { padding-top: 60px; }
 
@@ -275,4 +275,23 @@ path{
 }
 .tick{
   font-size: 10px;
+}
+
+tr{
+  position: relative;
+
+  td{
+    position: relative;
+  }
+
+  span.fa{
+    position:absolute;
+    top: 8.5px;
+    left: -5px;
+    cursor: pointer;
+
+    &:hover, &:focus{
+      color: darken(red, 15%);
+    }
+  }
 }
