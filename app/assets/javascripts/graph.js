@@ -249,9 +249,12 @@ var svg = d3.select("#graph")
         .enter()
         .append("text")
         .attr("id", function(d,i){
-          return 'val'+d.symbol.replace(/\s+/g, '')+i
-        }) // assign ID
-        .attr('class', 'text-values')
+          return 'val'+d.symbol.replace(/\s+/g, '')+i;
+        }) 
+        .attr('class', function(d,i){
+          return 'text-values tag'+d.symbol.replace(/\s+/g, '');
+        })
+        // .attr('class', 'text-values')
         .attr("transform", function(d) {
           if(d.symbol === 'HDL' || d.symbol === 'LDL'){
             return "translate("+(x(d.date)-7.5)+","+(y(d.value)+20)+")";
