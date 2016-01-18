@@ -6,11 +6,22 @@
 //
 
 function multiDateParser(date){
+
+  // var dateString = yyyy +'-'+(mm[1]?mm:"0"+mm[0]) +'-' + (dd[1]?dd:"0"+dd[0]);
+
   if(date.indexOf("th") > -1){
     var parsedDate = d3.time.format("%B %_dth, %Y").parse(date);
     return  parsedDate !== null ? parsedDate : d3.time.format("%B %_dth %Y").parse(date);
   }
-  return new Date(Date.parse(date));
+  else{
+    parsedDate = new Date(Date.parse(date));
+  }
+  // return new Date(Date.parse(date));
+  // 
+  var yyyy = parsedDate.getFullYear().toString();
+  var mm = (parsedDate.getMonth()+1).toString(); // getMonth() is zero-based
+  var dd  = parsedDate.getDate().toString();
+  return yyyy +'-'+(mm[1]?mm:"0"+mm[0]) +'-' + (dd[1]?dd:"0"+dd[0]);
 }
 
 var DataGridRenderer = {
@@ -122,10 +133,7 @@ var DataGridRenderer = {
         }
         else if(j==1){
           var date = multiDateParser(row[j-1]);
-          var yyyy = date.getFullYear().toString();
-          var mm = (date.getMonth()+1).toString(); // getMonth() is zero-based
-          var dd  = date.getDate().toString();
-          var dateString = yyyy +'-'+(mm[1]?mm:"0"+mm[0]) +'-' + (dd[1]?dd:"0"+dd[0]);
+
           // console.log(new Date(Date.parse(row[j-1])));
           // var customTimeFormat = d3.time.format.multi([
           //   [".%L", function(d) { return console.log(d); }],
@@ -149,9 +157,9 @@ var DataGridRenderer = {
           // console.log(new Date(date[1], date[0], 01));
           // outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="20'+ date[1].toString()+'-'+date[0].toString()+'-01">';
           // $('.'+(i+1)+'-date').val("20'+ date[1].toString()+'-'+date[0].toString()+'-01");
-          outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="'+dateString+'">';
+          outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="'+date+'">';
           // console.log(date.getFullYear().toString()+'-'+date.getMonth().toString()+'-'+date.getDate().toString());
-          // console.log(date, dateString, date.toISOString().slice(0,10).replace(/-/g,""));
+          // console.log(date, date, date.toISOString().slice(0,10).replace(/-/g,""));
         }
         else{
           outputText += indent+indent+indent+'<td><input type="text" class="pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" placeholder="'+row[j-1]+'" val="'+row[j-1]+'">';

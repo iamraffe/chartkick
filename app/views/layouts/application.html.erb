@@ -47,8 +47,15 @@
                 <input type="date" class="form-control" name="intervention[start]">
               </div>
               <div class="form-group col-sm-4 col-sm-offset-2">
-                <label for="intervention[end]">End date</label>
-                <input type="date" class="form-control" name="intervention[end]">
+                <div class="row">
+                  <label for="intervention[end]">End date</label>
+                  <input type="date" class="form-control intervention-end-date" name="intervention[end]">
+                </div>
+                <div class="row">
+                  <div class="checkbox">
+                    <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -183,6 +190,18 @@ $(document).on('click', 'td > .fa', function(e){
       }
     });
 
+});
+
+$(document).on('change', '#end-date-current', function(e){
+  if($(this).prop('checked')){
+    $('.intervention-end-date').val(multiDateParser((new Date()).toString()));
+    // console.log(multiDateParser((new Date()).toString()));
+  }
+  else{
+    $('.intervention-end-date').removeAttr('disabled').val('');
+
+  }
+  // console.log($(this), $(this).prop('checked'));
 });
 
 // console.log("1\t06/25/14\t->\t"+ multiDateParser('06/25/14'));

@@ -189,8 +189,7 @@ var svg = d3.select("#graph")
       .data(data.interventions)
       .enter()
       .append("text")
-      .html(function(d){
-        // console.log(d);
+      .text(function(d){
         return d.title+" - "+d.dose;
       })
       .style("opacity", 1)

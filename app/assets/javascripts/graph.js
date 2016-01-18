@@ -114,7 +114,7 @@ var yAxis = d3.svg.axis().scale(y)
 // Define the line
 var priceline = d3.svg.line()
     .x(function(d) {
-      console.log(d);
+      // console.log(d);
       return x(d.date);
     })
     .y(function(d) { return y(d.value); });
@@ -147,7 +147,7 @@ var svg = d3.select("#graph")
 
     var color = d3.scale.category20();   // set the colour scale
 
-    console.log(dataNest.length);
+    // console.log(dataNest.length);
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
