@@ -88,7 +88,7 @@ DataConverter.prototype.create = function(w,h) {
     // outputHeaderText += '</select><span class="subhead" id="outputNotes"></span></p></div>';
   this.outputHeader = $(outputHeaderText);
   // this.outputTextArea = $('<textarea class="textInputs" id="dataOutput"></textarea>');
-  this.outputTextArea = $('<div class="textInputs" id="dataOutput"></div>');
+  this.outputTextArea = $('<div class="textInputs hide" id="dataOutput"></div>');
 
   this.node.append(this.inputHeader);
   this.node.append(this.inputTextArea);
@@ -108,8 +108,9 @@ DataConverter.prototype.create = function(w,h) {
   this.outputTextArea.click(function(evt){this.select();});
 
   function setPasted(){
-    $('.cholesterol-data').toggleClass('hide');
-    $('.start-over-mode, .manual-mode').toggleClass('hide');
+    // $('.cholesterol-data').toggleClass('hide');
+    $('.manual-mode').addClass('hide');
+    $('.start-over-mode').removeClass('hide');
     $('input[type=date].pasted').each(function(k,v){
       var date = $(this).attr("date");
       $(this).attr("placeholder", date);
@@ -196,7 +197,8 @@ DataConverter.prototype.convert = function() {
 
     this.inputTextArea.css('display', 'none');
     $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
-    this.outputTextArea.html(errors + this.outputText).css('display', 'block');
+    // $('.add-row').removeClass('hide');
+    this.outputTextArea.html(errors + this.outputText).toggleClass('hide');
     // this.outputTextArea.parent().html(errors + this.outputText);
 
   }; //end test for existence of input text
