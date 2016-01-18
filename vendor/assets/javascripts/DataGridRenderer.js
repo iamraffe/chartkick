@@ -151,7 +151,7 @@ var DataGridRenderer = {
           // $('.'+(i+1)+'-date').val("20'+ date[1].toString()+'-'+date[0].toString()+'-01");
           outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="'+dateString+'">';
           // console.log(date.getFullYear().toString()+'-'+date.getMonth().toString()+'-'+date.getDate().toString());
-          console.log(date, dateString, date.toISOString().slice(0,10).replace(/-/g,""));
+          // console.log(date, dateString, date.toISOString().slice(0,10).replace(/-/g,""));
         }
         else{
           outputText += indent+indent+indent+'<td><input type="text" class="pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" placeholder="'+row[j-1]+'" val="'+row[j-1]+'">';
