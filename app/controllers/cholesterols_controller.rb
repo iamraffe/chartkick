@@ -74,7 +74,7 @@ class CholesterolsController < ApplicationController
   def cholesterol_session
     entry_params = Array.new
     session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
-    byebug
+    # byebug
     # session[:entry_params].delete_if {|key, value| value.nil? }
     session[:entry_params]["date"].each do |i,v|
       # byebug
