@@ -14,7 +14,7 @@ $(document).ready(function(e){
       url: '/charts/cholesterol/'+id,
       dataType: 'json',
       success: function (data) {
-        // console.log(data);
+        // console.log(data, id);
         drawMultiLine(data);
       },
       error: function (result) {
@@ -100,8 +100,8 @@ var y = d3.scale.linear().range([height, 0]);
 
 // Define the axes
 var xAxis = d3.svg.axis().scale(x)
-    .ticks(data.entries.length/4)
-    .tickFormat(d3.time.format("%b %Y"))
+    // .ticks(data.entries.length/4)
+    .tickFormat(d3.time.format("%m/%y"))
     .orient("bottom");
 
 var yAxis = d3.svg.axis().scale(y)
@@ -113,7 +113,10 @@ var yAxis = d3.svg.axis().scale(y)
 
 // Define the line
 var priceline = d3.svg.line()
-    .x(function(d) { return x(d.date); })
+    .x(function(d) {
+      console.log(d);
+      return x(d.date);
+    })
     .y(function(d) { return y(d.value); });
 
 // Adds the svg canvas
@@ -143,6 +146,8 @@ var svg = d3.select("#graph")
         .entries(data.entries);
 
     var color = d3.scale.category20();   // set the colour scale
+
+    console.log(dataNest.length);
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
@@ -360,13 +365,13 @@ var y = d3.scale.linear().range([height, 0]);
 
 // Define the axes
 var xAxis = d3.svg.axis().scale(x)
-    .ticks(data.entries.length/4)
+    // .ticks(data.entries.length/4)
     .tickFormat(d3.time.format("%b %Y"))
     .orient("bottom");
 
 var yAxis = d3.svg.axis().scale(y)
   // .tickPadding(10)
-  .ticks(data.entries.length/4)
+  // .ticks(data.entries.length/4)
   // .tickSize(-width)
   // .tickSubdivide(true)
     .orient("left");

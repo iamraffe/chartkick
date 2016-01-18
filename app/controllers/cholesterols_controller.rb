@@ -51,12 +51,13 @@ class CholesterolsController < ApplicationController
         title: intervention.title,
         dose: intervention.dose
       }
-    @chart_data = {entries: all_entries, interventions: all_interventions}
     end
+    @chart_data = {entries: all_entries, interventions: all_interventions}
     # byebug
+
     respond_to do |format|
       format.html
-      format.json {render json: @chart_data}
+      format.json {render json: {entries: all_entries, interventions: all_interventions}}
       format.pdf do
         render pdf: "show", layout: 'pdf.html.erb'   # Excluding ".pdf" extension.
       end
@@ -73,6 +74,7 @@ class CholesterolsController < ApplicationController
   def cholesterol_session
     entry_params = Array.new
     session[:entry_params]["date"].each do |i,v|
+      # byebug
       ldl = {symbol: "LDL", date: v.to_time.strftime("%b %Y"),value: session[:entry_params]["ldl"]["#{i}"].to_i}
       hdl = {symbol: "HDL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["hdl"]["#{i}"].to_i}
       triglycerides = {symbol: "TRIGLYCERIDES", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["triglycerides"]["#{i}"].to_i}

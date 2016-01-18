@@ -112,6 +112,7 @@ DataConverter.prototype.create = function(w,h) {
     $('.start-over-mode, .manual-mode').toggleClass('hide');
     $('input[type=date].pasted').each(function(k,v){
       var date = $(this).attr("date");
+      $(this).attr("placeholder", date);
       $(this).val(date);
     });
     $('input[type=text].pasted').each(function(k,v){

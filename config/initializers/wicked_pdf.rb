@@ -22,7 +22,7 @@ WickedPdf.config = {
   layout: 'pdf',
   wkhtmltopdf: '/usr/bin/wkhtmltopdf',
   # disable_javascript: false,
-  javascript_delay: 5000,
+  javascript_delay: 1000,
   margin:  {  top:               0,                     # default 10 (mm)
               bottom:            0,
               left:              0,
