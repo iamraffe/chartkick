@@ -102,6 +102,11 @@ class CholesterolsController < ApplicationController
     end
   end
 
+  def clean_session
+    session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil
+    redirect_to new_cholesterol_path
+  end
+
   private
     def chart_params
       params[:cholesterol].permit! if params[:cholesterol]
