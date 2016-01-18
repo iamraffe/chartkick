@@ -96,9 +96,16 @@ var drag = d3.behavior.drag()
     .on("drag", function(d,i) {
         // x(d.date) += d3.event.dx
         // d.value += 40
-        d.value += d3.event.dy
+        console.log(d.value, d3.event.dy, y(d.value));
+        d.value -= d3.event.dy
         d3.select(this).attr("transform", function(d,i){
-            return "translate(" + [ x(d.date), height-y(d.value) ] + ")"
+          if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+            return "translate("+(x(d.date)-7.5)+","+(y(d.value)+20)+")";
+          }
+          else{
+            return "translate("+(x(d.date)-7.5)+","+(y(d.value)-10)+")";
+          }
+            // return "translate(" + [ x(d.date), y(d.value) ] + ")"
         })
     });
 
