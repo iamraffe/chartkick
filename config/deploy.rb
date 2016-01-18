@@ -3,7 +3,7 @@
 # server '159.203.253.126', port: 22, roles: [:web, :app, :db], primary: true
 server '107.170.245.50', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@bitbucket.org:raffe90/pm.git'
+set :repo_url,        'git@github.com:raffe90/chartkick.git'
 set :application,     'chartkick'
 set :user,            'raffe'
 set :puma_threads,    [4, 16]
