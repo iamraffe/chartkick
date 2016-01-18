@@ -117,7 +117,7 @@ var DataGridRenderer = {
       for (var j=0; j < numColumns; j++) {
 
         if(j==0){
-          outputText += indent+indent+indent+'<td>';
+          outputText += indent+indent+indent+'<td><span id="fa-'+(i)+'" class="fa fa-times text-danger"></span>';
           outputText += (i+1)
         }
         else if(j==1){

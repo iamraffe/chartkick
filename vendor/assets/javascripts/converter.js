@@ -108,7 +108,7 @@ DataConverter.prototype.create = function(w,h) {
   this.outputTextArea.click(function(evt){this.select();});
 
   function setPasted(){
-    $('.cholesterol-data, .copy-paste-input .add-row').toggleClass('hide');
+    $('.cholesterol-data').toggleClass('hide');
     $('.start-over-mode, .manual-mode').toggleClass('hide');
     $('input[type=date].pasted').each(function(k,v){
       var date = $(this).attr("date");
@@ -130,11 +130,12 @@ DataConverter.prototype.create = function(w,h) {
     _gaq.push(['_trackEvent', 'SampleData','InsertGeneric']);
   });
 
-  $("#dataInput").keyup(function() {
-    self.convert();
-    setPasted();
-  });
-  $("#dataInput").change(function() {
+  // $("#dataInput").keyup(function() {
+  //   self.convert();
+  //   setPasted();
+  // });
+
+  $("#dataInput").on('input', function() {
     self.convert();
     setPasted();
     _gaq.push(['_trackEvent', 'DataType',self.outputDataType]);
@@ -152,11 +153,11 @@ DataConverter.prototype.resize = function(w,h) {
 
   var paneWidth = w;
   // var paneHeight = (h-90)/2-20;
-  var paneHeight = 150;
+  // var paneHeight = 150;
 
   this.node.css({width:paneWidth});
-  this.inputTextArea.css({width:paneWidth-20,height:paneHeight});
-  this.outputTextArea.css({width: paneWidth-20, height:paneHeight});
+  this.inputTextArea.css({width:paneWidth-20});
+  this.outputTextArea.css({width: paneWidth-20});
 
 }
 
@@ -190,11 +191,13 @@ DataConverter.prototype.convert = function() {
     var headerTypes = parseOutput.headerTypes;
     var errors = parseOutput.errors;
     var inputNames = ['date', 'ldl', 'hdl', 'triglycerides', 'cholesterol'];
+
     this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine, inputNames);
 
-
-
-    this.inputTextArea.parent().html(errors + this.outputText);
+    this.inputTextArea.css('display', 'none');
+    $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
+    this.outputTextArea.html(errors + this.outputText).css('display', 'block');
+    // this.outputTextArea.parent().html(errors + this.outputText);
 
   }; //end test for existence of input text
 }

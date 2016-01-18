@@ -107,6 +107,17 @@ $.ajaxSetup({
     $('div.manual-input table.cholesterol-data').removeClass('hide');
     $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '').find("tr:gt(4)").remove();;
   });
+  $('button.clear-copy-paste').on('click', function(e){
+    e.preventDefault();
+    console.log("triggered clear copy paste");
+    $('#dataInput').css('display', 'block').focus();
+    $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
+    $('#dataOutput').css('display', 'none');
+    $('#dataOutput table').remove();
+    // $('.start-over-mode, .manual-input, .copy-paste-input, .copy-paste-mode').toggleClass('hide');
+    // $('div.manual-input table.cholesterol-data').removeClass('hide');
+    // $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '').find("tr:gt(4)").remove();;
+  });
 
   // $('input[type=date].pasted').each(function(k,v){
   //   var date = $(this).attr("placeholder");
@@ -131,26 +142,26 @@ $('#myModal').on('hidden.bs.modal', function (e) {
   $('#add-intervention').removeAttr('selected').prop('selectedIndex',0);
 })
 
-$("#new_cholesterol").on('submit', function(e){
-   var has_empty = false;
+// $("#new_cholesterol").on('submit', function(e){
+//    var has_empty = false;
 
-   $(this).find( 'input[type!="hidden"]' ).each(function () {
+//    $(this).find( 'input[type!="hidden"]' ).each(function () {
 
-      if ( ! $(this).val() ) {
-        $(this).parent().addClass('has-error');
-        has_empty = true;
-        return false;
-      }
+//       if ( ! $(this).val() ) {
+//         $(this).parent().addClass('has-error');
+//         has_empty = true;
+//         return false;
+//       }
 
-   });
+//    });
 
-   if ( has_empty ) {
-    alert("All inputs must be filled out before continuing");
-    return false;
-  }
-});
+//    if ( has_empty ) {
+//     alert("All inputs must be filled out before continuing");
+//     return false;
+//   }
+// });
 
-$('td > .fa').on('click', function(e){
+$(document).on('click', 'td > .fa', function(e){
     var that = $(this);
     var id = $(this).attr('id').split("-")[1];
     $.ajax({

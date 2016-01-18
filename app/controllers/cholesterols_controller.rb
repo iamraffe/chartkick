@@ -87,9 +87,9 @@ class CholesterolsController < ApplicationController
   end
 
   def update_session
-    byebug
+    # byebug
     session[:entry_params].each{|key, value| value.delete("#{params[:id].to_i+1}") }
-    byebug
+    # byebug
     render json:{ status: "ok"}
   end
 
