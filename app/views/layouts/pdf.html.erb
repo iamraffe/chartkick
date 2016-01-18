@@ -73,8 +73,8 @@ var svg = d3.select("#graph")
         .key(function(d) {return d.symbol;})
         .entries(data.entries);
 
-    var color = d3.scale.category20();   // set the colour scale
-
+    // var color = d3.scale.category20();   // set the colour scale
+    var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
     legendSpace = width/dataNest.length; // spacing for the legend
 
     // Loop through each symbol / key

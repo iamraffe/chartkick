@@ -145,8 +145,8 @@ var svg = d3.select("#graph")
         .key(function(d) {return d.symbol;})
         .entries(data.entries);
 
-    var color = d3.scale.category20();   // set the colour scale
-
+    // var color = d3.scale.category20();   // set the colour scale
+    var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
     // console.log(dataNest.length);
 
     legendSpace = width/dataNest.length; // spacing for the legend
@@ -348,7 +348,8 @@ function updateData() {
 }
 
 function updateMultiLine(data){
-  var color = d3.scale.category20();   // set the colour scale
+  // var color = d3.scale.category20();   // set the colour scale
+  var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 // console.log(data);
 var margin = {top: 30, right: 20, bottom: 70, left: 50},
     width = 768 - margin.left - margin.right,
