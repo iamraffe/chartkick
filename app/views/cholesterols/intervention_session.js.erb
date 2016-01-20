@@ -1,3 +1,31 @@
-    $('#myModal').modal('hide');
+    function bringBackDown(){
+      $('#intervention-data .form-animation-wrapper').addClass('bounceInDown animated');
+    }
+
+    function updateInputs(oldIndex){
+      var newIndex = parseInt(oldIndex)+1;
+      $('[name=index]').val(newIndex);
+      console.log($('[name="intervention['+oldIndex+'][title]"]'));
+      $('[name="intervention['+oldIndex+'][title]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
+      $('[name="intervention['+oldIndex+'][dose]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
+      $('[name="intervention['+oldIndex+'][start]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
+      $('[name="intervention['+oldIndex+'][end]"]').attr('name', 'intervention['+newIndex+'][title]').val('').removeAttr('disabled');
+      $('#end-date-current').prop('checked', false); // Unchecks it
+    }
+
+    // $('#myModal').modal('hide');
+    
     updateData();
 
+    // $('#intervention-data .modal-body .tab-conten').css('overflow', 'hidden');
+
+    $('#intervention-data .form-animation-wrapper').addClass('bounceOutUp animated');
+
+    var index = $('#intervention-data .form-animation-wrapper input[name=index]').val();
+
+    updateInputs(index);
+
+    $('#intervention-data .form-animation-wrapper').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $(this).removeClass('bounceOutUp animated');
+      bringBackDown();
+    });

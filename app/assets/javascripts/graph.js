@@ -32,8 +32,8 @@ $(document).ready(function(e){
       url: '/cholesterol-session',
       dataType: 'json',
       success: function (data) {
-        // console.log(data);
-        drawMultiLine({entries: data.entries, interventions: [data.intervention]});
+        console.log(data);
+        drawMultiLine({entries: data.entries, interventions: data.intervention});
       },
       error: function (result) {
          error();
@@ -310,8 +310,9 @@ INTERVENTIONS
       .attr('x', function(d) {
           return x(d.start);
         })
+      .attr('y',75)
       .attr('height', function(d) {
-        return height
+        return height-75;
       })
       .attr("class", "interventions")
       .attr("fill", function(d){
@@ -328,9 +329,9 @@ INTERVENTIONS
       })
       .style("opacity", 1)
       .attr('x', function(d) {
-          return x(d.start)+25;
+          return x(d.start)+5;
         })
-      .attr('y', margin.top)
+      .attr('y', 60)
       .attr("class", "intervention-text")
       .attr('width', function(d,i){
         // console.log(x(d.end)-x(d.start));
@@ -339,48 +340,6 @@ INTERVENTIONS
       .style('background-color', 'red')
       .attr("fill", "black");
     }
-
-      // svg.append("path")
-      //     .attr("class", "line")
-      //     .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-      //     .attr("d", priceline(d.values))
-      //     .style("stroke", function() { // Add the colours dynamically
-      //         return d.color = color(d.key); })
-      //     .on("click", function(){
-      //       // Determine if current line is visible
-      //         var active   = d.active ? false : true;
-      //         newOpacity = active ? 0 : 1;
-      //         // Hide or show the elements based on the ID
-      //         d3.select("#tag"+d.key.replace(/\s+/g, ''))
-      //             .transition().duration(100)
-      //             .style("opacity", newOpacity);
-      //         d3.selectAll(".tag"+d.key.replace(/\s+/g, ''))
-      //             .transition().duration(100)
-      //             .style("opacity", newOpacity);
-      //         // Update whether or not the elements
-      //         d.active = active;
-      //     });
-
-    // svg.selectAll('.chart')
-    //   .data(data)
-    //   .enter()
-    //   .append('path')
-    //   .style("opacity", 0.15)
-    //   .attr("d", interventionLine([(0.0),(1,1)]))
-    //   // .attr('width', 1)
-    //   // .attr('x', function(d) {
-    //   //     return x(d.date)+10;
-    //   // })
-    //   // .attr('y', 0)
-    //   // .attr('height', function(d) {
-    //   //   return height
-    //   // })
-    //   .attr("class", function(d){
-    //     return d.overlay ? "interventions-frame" : "hide";
-    //   })
-    //   .strike("stroke", function(d){
-    //       return color(d.value);
-    //   });
 }
 
 // ** Update data section (Called from the onclick)
@@ -391,8 +350,8 @@ function updateData() {
       url: '/cholesterol-session',
       dataType: 'json',
       success: function (data) {
-        // console.log(data);
-        updateMultiLine({entries: data.entries, interventions: [data.intervention]});
+        console.log(data);
+        updateMultiLine({entries: data.entries, interventions: data.intervention});
       },
       error: function (result) {
          error();
@@ -455,50 +414,43 @@ var priceline = d3.svg.line()
 
 
     if(d3.select("#graph").selectAll('rect').empty()){
-        var svg = d3.select("#graph")
-                    .attr("width", 925)
-                    .attr("height", height + margin.top + margin.bottom);
-        svg.selectAll('.chart')
-          .data(data.interventions)
-
-          .append('rect')
-          .style("opacity", 0.1)
-          .attr('width', function(d,i){
-            // console.log(x(d.end)-x(d.start));
-
-              return x(d.end)-x(d.start);
+        var svg = d3.select("svg");
+        var rect = svg.selectAll("rect").data(data.interventions);
+        var rectEnter = rect.enter().append("rect");
+        rectEnter.style("opacity", 0.1)
+        .attr('width', function(d,i){
+            return x(d.end)-x(d.start);
+        })
+        .attr('x', function(d) {
+            return x(d.start)+margin.left;
           })
-          .attr('x', function(d) {
-              return x(d.start)+margin.left;
-            })
-          .attr('y', margin.top)
-          .attr('height', function(d) {
-            return height
-          })
-          .attr("class", "interventions")
-          .attr("fill", function(d){
-              return color(x(d.end)-x(d.start));
-          });
+        .attr('y', 75+margin.top)
+        .attr('height', function(d) {
+          return height-75
+        })
+        .attr("class", "interventions")
+        .attr("fill", function(d){
+            return color(x(d.end)-x(d.start));
+        });
 
         svg.selectAll('.chart')
           .data(data.interventions)
-
+          .enter()
           .append("text")
           .html(function(d){
-            // console.log(d);
+            console.log(d.title);
             return d.title+" - "+d.dose;
           })
           .style("opacity", 1)
           .attr('x', function(d) {
               return x(d.start)+(margin.left+2);
             })
-          .attr('y', margin.top*2)
+          .attr('y', margin.top+75)
           .attr("class", "intervention-text")
           .attr('width', function(d,i){
             // console.log(x(d.end)-x(d.start));
               return x(d.end)-x(d.start);
           })
-          .style('background-color', 'red')
           .attr("fill", "black");
     }
     else{

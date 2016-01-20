@@ -97,7 +97,8 @@ class CholesterolsController < ApplicationController
 
   def intervention_session
     # byebug
-    session[:intervention_params].deep_merge!(intervention_params) if intervention_params
+    # session[:intervention_params].deep_merge!(intervention_params) if intervention_params
+    session[:intervention_params]= [{start: '2014-06-06', end: '2015-03-03', title: 'Lipidor', dose: '40mg'}, {start: '2016-08-08', end: '2017-09-09', title: 'Bla bla', dose: '20mg'}]
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }
