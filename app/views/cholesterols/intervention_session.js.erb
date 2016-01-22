@@ -18,7 +18,7 @@
       $(' ul#added-'+type+'-interventions').html('');
       interventions.forEach(function(d,i){
         // console.log(d,i);
-        $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">('+d.start+' - '+d.end+')</span></li>');
+        $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="fa fa-pencil"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">('+d.start+' - '+d.end+')</span></li>');
       });
     }
 

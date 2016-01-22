@@ -348,6 +348,9 @@ tr{
       .added-dates{
         font-style: italic;
       }
+      .fa-pencil{
+        cursor: pointer;
+      }
     }
   }
 }
@@ -355,4 +358,11 @@ tr{
 .submit-and-exit{
   margin-right: 35px;
   margin-top: 25px;
+}
+
+form#intervention-data{
+  button.btn-danger.pull-right{
+    margin-top: 25px;
+    margin-right: 35px;
+  }
 }
