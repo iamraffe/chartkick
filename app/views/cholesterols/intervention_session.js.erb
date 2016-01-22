@@ -1,31 +1,37 @@
-    function bringBackDown(){
-      $('#intervention-data .form-animation-wrapper').addClass('bounceInDown animated');
+    var type = "<%= @type %>";
+    var index = <%= @index %>;
+    var interventions = <%= raw(@interventions) %>;
+
+    function bringBackDown(index, type){
+      $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
     }
 
-    function updateInputs(oldIndex){
+    function updateInputs(oldIndex, interventionType){
       var newIndex = parseInt(oldIndex)+1;
-      $('[name=index]').val(newIndex);
-      console.log($('[name="intervention['+oldIndex+'][title]"]'));
-      $('[name="intervention['+oldIndex+'][title]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
-      $('[name="intervention['+oldIndex+'][dose]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
-      $('[name="intervention['+oldIndex+'][start]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
-      $('[name="intervention['+oldIndex+'][end]"]').attr('name', 'intervention['+newIndex+'][title]').val('').removeAttr('disabled');
-      $('#end-date-current').prop('checked', false); // Unchecks it
+      $('.'+type+'-form-wrapper input[name=index]').val(newIndex);
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][type]"]').attr('name', 'intervention['+newIndex+'][type]');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][title]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][description]"]').attr('name', 'intervention['+newIndex+'][description]').val('');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][start]"]').attr('name', 'intervention['+newIndex+'][start]').val('');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][end]"]').attr('name', 'intervention['+newIndex+'][end]').val('').removeAttr('disabled').attr('placeholder', '');
+      $('.'+type+'-form-wrapper #end-date-current').prop('checked', false); // Unchecks it
+      $(' ul#added-'+type+'-interventions').html('');
+      interventions.forEach(function(d,i){
+        // console.log(d,i);
+        $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">('+d.start+' - '+d.end+')</span></li>');
+      });
     }
 
-    // $('#myModal').modal('hide');
-    
     updateData();
 
-    // $('#intervention-data .modal-body .tab-conten').css('overflow', 'hidden');
+    $('.'+type+'-form-wrapper').addClass('bounceOutRight animated');
 
-    $('#intervention-data .form-animation-wrapper').addClass('bounceOutUp animated');
+    updateInputs(index, type);
 
-    var index = $('#intervention-data .form-animation-wrapper input[name=index]').val();
-
-    updateInputs(index);
-
-    $('#intervention-data .form-animation-wrapper').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $(this).removeClass('bounceOutUp animated');
-      bringBackDown();
+    $('.bounceOutRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      // console.log($(this).attr('class'));
+      $(this).removeClass('bounceOutRight animated');
+      bringBackDown(index, type);
     });
+
+

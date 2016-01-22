@@ -20,6 +20,7 @@ gem 'faker'
 gem "d3-rails"
 gem "font-awesome-rails"
 gem "animate-rails"
+gem 'sprockets-rails', '2.3.3'
 
 group :development, :test do
   gem 'byebug'

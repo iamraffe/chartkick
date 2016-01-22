@@ -10,87 +10,217 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <form accept-charset="UTF-8" action="/charts/cholesterol/intervention" data-remote="true" method="post" id="intervention-data">
       <div class="modal-content">
-<!--         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"></h4>
-        </div> -->
         <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#add-medication" aria-controls="add-medication" role="tab" data-toggle="tab">Medication</a></li>
-            <li role="presentation"><a href="#lifestyle" aria-controls="lifestyle" role="tab" data-toggle="tab">Lifestyle</a></li>
-            <li role="presentation"><a href="#procedure" aria-controls="procedure" role="tab" data-toggle="tab">Procedure</a></li>
-          </ul>
-
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="add-medication">
-              <div class="form-animation-wrapper">
-                <input type="hidden" name="index" value="1">
-                <div class="row">
-                  <div class="col-xs-8 col-xs-offset-1">
-                    <div class="col-sm-4">
-                      <label for="intervention[1][title]" class="pull-right">Medication</label>
-                    </div>
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <input type="text" class="form-control" name="intervention[1][title]" placeholder="(ie: Crestor, Simcor...)">
+          <div class="row">
+            <div class="col-sm-8">
+              <!-- Nav tabs -->
+              <ul class="nav intervention-nav-tabs nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#add-medication" aria-controls="add-medication" role="tab" data-toggle="tab">Medication</a></li>
+                <li role="presentation"><a href="#add-lifestyle" aria-controls="add-lifestyle" role="tab" data-toggle="tab">Lifestyle</a></li>
+                <li role="presentation"><a href="#add-procedure" aria-controls="add-procedure" role="tab" data-toggle="tab">Procedure</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="add-medication">
+                  <div class="medication-form-wrapper">
+                    <form accept-charset="UTF-8"  action="/charts/cholesterol/intervention" data-remote="true" method="post" id="intervention-data" class="visible-intervention-form">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="hidden" name="index" value="1">
+                      <input type="hidden" name="intervention[1][type]" value="medication">
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="intervention[1][title]" class="pull-right">Medication</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="intervention[1][title]" placeholder="(ie: Crestor, Simcor...)">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="intervention[description]" class="pull-right">Dose</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="intervention[1][description]" placeholder="(ie: 40mg, 20mg...)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-sm-4 col-sm-offset-1">
+                          <label for="intervention[start]">Start date</label>
+                          <input type="date" class="form-control" name="intervention[1][start]">
+                        </div>
+                        <div class="form-group col-sm-4 col-sm-offset-2">
+                          <div class="row">
+                            <label for="intervention[end]">End date</label>
+                            <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add more medication</button>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-xs-8 col-xs-offset-1">
-                    <div class="col-sm-4">
-                      <label for="intervention[dose]" class="pull-right">Dose</label>
-                    </div>
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <input type="text" class="form-control" name="intervention[1][dose]" placeholder="(ie: 40mg, 20mg...)">
+                <div role="tabpanel" class="tab-pane" id="add-lifestyle">
+                  <div class="lifestyle-form-wrapper">
+                     <form accept-charset="UTF-8"  action="/charts/cholesterol/intervention" data-remote="true" method="post" id="intervention-data">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="hidden" name="index" value="1">
+                      <input type="hidden" name="intervention[1][type]" value="lifestyle">
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="intervention[1][title]" class="pull-right">Lifestyle:</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="intervention[1][title]" placeholder="(ie: Diet, exercise...)">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="intervention[1][description]" class="pull-right">Description</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="intervention[1][description]" placeholder="(ie: gluten-free, low-carb, gym...)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-sm-4 col-sm-offset-1">
+                          <label for="intervention[start]">Start date</label>
+                          <input type="date" class="form-control" name="intervention[1][start]">
+                        </div>
+                        <div class="form-group col-sm-4 col-sm-offset-2">
+                          <div class="row">
+                            <label for="intervention[end]">End date</label>
+                            <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add more medication</button>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="form-group col-sm-4 col-sm-offset-1">
-                    <label for="intervention[start]">Start date</label>
-                    <input type="date" class="form-control" name="intervention[1][start]">
-                  </div>
-                  <div class="form-group col-sm-4 col-sm-offset-2">
-                    <div class="row">
-                      <label for="intervention[end]">End date</label>
-                      <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
-                    </div>
-                    <div class="row">
-                      <div class="checkbox">
-                        <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                <div role="tabpanel" class="tab-pane" id="add-procedure">
+                  <div class="procedure-form-wrapper">
+                    <form accept-charset="UTF-8"  action="/charts/cholesterol/intervention" data-remote="true" method="post" id="intervention-data">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="hidden" name="index" value="1">
+                      <input type="hidden" name="intervention[1][type]" value="procedure">
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="intervention[1][title]" class="pull-right">Procedure</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="intervention[1][title]" placeholder="(ie: surgery...)">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="intervention[description]" class="pull-right">Description</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="intervention[1][description]" placeholder="(ie: ...)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-sm-4 col-sm-offset-1">
+                          <label for="intervention[start]">Start date</label>
+                          <input type="date" class="form-control" name="intervention[1][start]">
+                        </div>
+                        <div class="form-group col-sm-4 col-sm-offset-2">
+                          <div class="row">
+                            <label for="intervention[end]">End date</label>
+                            <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add more medication</button>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                      </div>
+                    </form>
                   </div>
-                </div>
-                <div class="row">
-                  <a href="#" class="btn btn-link pull-right">Click to add more medication</a>
                 </div>
               </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="lifestyle">...</div>
-            <div role="tabpanel" class="tab-pane" id="procedure">...</div>
+            <div class="col-sm-4">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div id="intervention-wrapper" style="margin-top:50px;">
+                <div class="row added-interventions">
+                  <span>Medications: </span>
+                  <ul class="list-unstyled" id="added-medication-interventions">
+                    <li><i>No medications added yet...</i></li>
+                  </ul>
+                </div>
+                <div class="row added-interventions">
+                  <span>Lifestyle: </span>
+                  <ul class="list-unstyled" id="added-lifestyle-interventions">
+                    <li><i>No lifestyle interventions added yet...</i></li>
+                  </ul>
+                </div>
+                <div class="row added-interventions">
+                  <span>Procedures: </span>
+                  <ul class="list-unstyled" id="added-procedure-interventions">
+                    <li><i>No procedures added yet...</i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="intervention-wrapper">
-            <span>Medication: </span>
-          </div>
-
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-success">Save</button>
+          <button type="submit" class="btn btn-danger" data-dismiss="modal">Exit</button>
         </div>
       </div>
-    </form>
   </div>
 </div>
 <%= yield %>
@@ -98,11 +228,11 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>
-$.ajaxSetup({
-  headers: {
-    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-  }
-});
+// $.ajaxSetup({
+//   headers: {
+//     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+//   }
+// });
   function createRow(index){
     // console.log(row.replace('index', parseInt(index)+1))
     return '<tr><td><span id="fa-'+(parseInt(index)+1)+'" class="fa fa-times text-danger"></span>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]" required></td></tr>';
@@ -217,7 +347,7 @@ $(document).on('click', 'td > .fa', function(e){
 
 $(document).on('change', '#end-date-current', function(e){
   if($(this).prop('checked')){
-    $('.intervention-end-date').val(multiDateParser((new Date()).toString()));
+    $(this).closest('form').find('.intervention-end-date').val(multiDateParser((new Date()).toString()));
     // console.log(multiDateParser((new Date()).toString()));
   }
   else{
@@ -262,7 +392,16 @@ $(document).on('change', '#end-date-current', function(e){
 
 // console.log('June 25th, 14'.indexOf("th"));
 // console.log('June 25th, 14'.indexOf(","));
+$('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+  console.log(e.target);
+  var content = $(e.target).attr("href");
+  $('form.visible-intervention-form').removeClass('visible-intervention-form');
+  $(content +' form').addClass('visible-intervention-form');
+})
 
+$('.submit-and-exit').on('click', function(e){
+  $('#myModal').modal('hide');
+});
 </script>
 </body>
 </html>

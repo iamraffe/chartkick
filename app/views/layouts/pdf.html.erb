@@ -174,7 +174,7 @@ var svg = d3.select("#graph")
           return d.value;
         })
         .style("fill", function(d) { // Add the colours dynamically
-            return color(d.symbol); 
+            return color(d.symbol);
         });
 
     if(data.interventions.length>0){
@@ -183,7 +183,7 @@ var svg = d3.select("#graph")
         d.start = parseInterventionDate(d.start);
         d.end = parseInterventionDate(d.end);
         d.title = d.title;
-        d.dose = d.dose;
+        d.description = d.description;
       });
 
 
@@ -212,7 +212,7 @@ var svg = d3.select("#graph")
       .enter()
       .append("text")
       .text(function(d){
-        return d.title+" - "+d.dose;
+        return d.title+" - "+d.description;
       })
       .style("opacity", 1)
       .attr('x', function(d) {

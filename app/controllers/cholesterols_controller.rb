@@ -3,7 +3,7 @@ class CholesterolsController < ApplicationController
   def new
     session[:chart_params] ||= {}
     session[:entry_params] ||= {}
-    session[:intervention_params] ||= {}
+    session[:intervention_params] ||= []
     @chart = Cholesterol.new(session[:chart_params])
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     # byebug
@@ -49,7 +49,7 @@ class CholesterolsController < ApplicationController
         start: intervention.start.strftime("%Y-%m-%d").to_s,
         end: intervention.end.strftime("%Y-%m-%d").to_s,
         title: intervention.title,
-        dose: intervention.dose
+        description: intervention.description
       }
     end
     @chart_data = {entries: all_entries, interventions: all_interventions}
@@ -96,13 +96,16 @@ class CholesterolsController < ApplicationController
   end
 
   def intervention_session
-    # byebug
-    # session[:intervention_params].deep_merge!(intervention_params) if intervention_params
-    session[:intervention_params]= [{start: '2014-06-06', end: '2015-03-03', title: 'Lipidor', dose: '40mg'}, {start: '2016-08-08', end: '2017-09-09', title: 'Bla bla', dose: '20mg'}]
+    @type = params[:intervention][params[:index].to_s]["type"]
+    @index = params[:index]
+    d3_session_data = session[:intervention_params].push(intervention_params[@index]) if intervention_params
+    @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }
+      # format.html
     end
+    d3_session_data
   end
 
   def clean_session

@@ -32,7 +32,7 @@ $(document).ready(function(e){
       url: '/cholesterol-session',
       dataType: 'json',
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         drawMultiLine({entries: data.entries, interventions: data.intervention});
       },
       error: function (result) {
@@ -96,7 +96,6 @@ var drag = d3.behavior.drag()
     .on("drag", function(d,i) {
         // x(d.date) += d3.event.dx
         // d.value += 40
-        console.log(d.value, d3.event.dy, y(d.value));
         d.value -= d3.event.dy
         d3.select(this).attr("transform", function(d,i){
           if(d.symbol === 'HDL' || d.symbol === 'LDL'){
@@ -250,7 +249,7 @@ var svg = d3.select("#graph")
         .append("text")
         .attr("id", function(d,i){
           return 'val'+d.symbol.replace(/\s+/g, '')+i;
-        }) 
+        })
         .attr('class', function(d,i){
           return 'text-values tag'+d.symbol.replace(/\s+/g, '');
         })
@@ -267,7 +266,7 @@ var svg = d3.select("#graph")
           return d.value;
         })
         .style("fill", function(d) { // Add the colours dynamically
-            return color(d.symbol); 
+            return color(d.symbol);
         })
         .on('click', function(d, i){
           d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
@@ -294,7 +293,7 @@ INTERVENTIONS
         d.start = parseInterventionDate(d.start);
         d.end = parseInterventionDate(d.end);
         d.title = d.title;
-        d.dose = d.dose;
+        d.description = d.description;
       });
 
 
@@ -325,7 +324,7 @@ INTERVENTIONS
       .append("text")
       .html(function(d){
         // console.log(d);
-        return d.title+" - "+d.dose;
+        return d.title+" - "+d.description;
       })
       .style("opacity", 1)
       .attr('x', function(d) {
@@ -350,7 +349,6 @@ function updateData() {
       url: '/cholesterol-session',
       dataType: 'json',
       success: function (data) {
-        console.log(data);
         updateMultiLine({entries: data.entries, interventions: data.intervention});
       },
       error: function (result) {
@@ -401,7 +399,7 @@ var priceline = d3.svg.line()
     x.domain(d3.extent(data.entries, function(d) { return d.date; }));
     y.domain([0, d3.max(data.entries, function(d) { return d.value; })+75]);
 
-      console.log(d3.select("#graph").selectAll('rect').empty());
+      // console.log(d3.select("#graph").selectAll('rect').empty());
 
 
         var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
@@ -409,11 +407,11 @@ var priceline = d3.svg.line()
           d.start = parseInterventionDate(d.start);
           d.end = parseInterventionDate(d.end);
           d.title = d.title;
-          d.dose = d.dose;
+          d.description = d.description;
         });
 
 
-    if(d3.select("#graph").selectAll('rect').empty()){
+    // if(d3.select("#graph").selectAll('rect').empty()){
         var svg = d3.select("svg");
         var rect = svg.selectAll("rect").data(data.interventions);
         var rectEnter = rect.enter().append("rect");
@@ -439,7 +437,7 @@ var priceline = d3.svg.line()
           .append("text")
           .html(function(d){
             console.log(d.title);
-            return d.title+" - "+d.dose;
+            return d.title+" - "+d.description;
           })
           .style("opacity", 1)
           .attr('x', function(d) {
@@ -452,37 +450,37 @@ var priceline = d3.svg.line()
               return x(d.end)-x(d.start);
           })
           .attr("fill", "black");
-    }
-    else{
-          // Select the section we want to apply our changes to
-          var svg = d3.select("#graph").transition();
+    // }
+    // else{
+    //       // Select the section we want to apply our changes to
+    //       var svg = d3.select("#graph").transition();
 
-          svg.selectAll('rect')
-              .duration(750)
-              // .attr("fill", "red")
-              .attr('x', function(d,i) {
-                // console.log(d, data.interventions, x(data.interventions[i].start)+25);
-                return x(data.interventions[i].start);
-              })
-              .attr("width", function(d, i){
-                  return x(data.interventions[i].end)-x(data.interventions[i].start);
-              });
+    //       svg.selectAll('rect')
+    //           .duration(750)
+    //           // .attr("fill", "red")
+    //           .attr('x', function(d,i) {
+    //             // console.log(d, data.interventions, x(data.interventions[i].start)+25);
+    //             return x(data.interventions[i].start);
+    //           })
+    //           .attr("width", function(d, i){
+    //               return x(data.interventions[i].end)-x(data.interventions[i].start);
+    //           });
 
-          svg.selectAll(".intervention-text")
-              .duration(750)
-              // .attr("fill", "red")
-              .attr('x', function(d,i) {
-                // console.log(d, data.interventions, x(data.interventions[i].start)+25);
-                return x(data.interventions[i].start)+25;
-              })
-              .attr("width", function(d, i){
-                  return x(data.interventions[i].end)-x(data.interventions[i].start);
-              })
-              .text(function(d, i){
-                // console.log(d);
-                return data.interventions[i].title+" - "+data.interventions[i].dose;
-              });
-    }
+    //       svg.selectAll(".intervention-text")
+    //           .duration(750)
+    //           // .attr("fill", "red")
+    //           .attr('x', function(d,i) {
+    //             // console.log(d, data.interventions, x(data.interventions[i].start)+25);
+    //             return x(data.interventions[i].start)+25;
+    //           })
+    //           .attr("width", function(d, i){
+    //               return x(data.interventions[i].end)-x(data.interventions[i].start);
+    //           })
+    //           .text(function(d, i){
+    //             // console.log(d);
+    //             return data.interventions[i].title+" - "+data.interventions[i].description;
+    //           });
+    // }
 
 
 }

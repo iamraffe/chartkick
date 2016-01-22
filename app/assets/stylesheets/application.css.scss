@@ -320,8 +320,39 @@ tr{
 //   font-weight: 700;
 //   cursor: pointer;
 // }
-// 
+//
 .tab-content{
   padding-top: 75px;
   overflow: hidden;
+  border-right: 1px solid #e7e7e7;
+}
+
+@media (min-width: 768px){
+  .modal-dialog{
+    width: 768px;
+  }
+}
+
+.added-interventions{
+  min-height: 100px;
+
+  ul{
+    li{
+      font-size: 10px;
+      .added-title{
+        font-weight: bold;
+      }
+      .added-description{
+        margin-right: 7.5px;
+      }
+      .added-dates{
+        font-style: italic;
+      }
+    }
+  }
+}
+
+.submit-and-exit{
+  margin-right: 35px;
+  margin-top: 25px;
 }
