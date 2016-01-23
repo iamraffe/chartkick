@@ -403,8 +403,22 @@ $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) 
 })
 
 $('.submit-and-exit').on('click', function(e){
+  console.log($('.visible-intervention-form input[type=text]').val() === '');
+  if($('.visible-intervention-form input[type=text]').val() === ''){
+    e.preventDefault();
+  }
   $('#myModal').modal('hide');
 });
+
+// $('h1').on('click', function(){
+//   // console.log( $('.line'), $('.line').addClass('hide'));
+//   $('.line.above').css('display', 'none');
+// });
+// $('h2').on('click', function(){
+//   console.log( $('.line.above'), $('.line.above').css('display', 'block'));
+
+//   $('.line.above').css('display', 'block');
+// });
 </script>
 </body>
 </html>
