@@ -169,24 +169,27 @@ var svg = d3.select("#graph")
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
+    var th =d3.scale.ordinal().range([50, 100, 20, 150]);
+    var thd =d3.scale.ordinal().domain([50, 100, 20, 150]);
+
 
 
     // Loop through each symbol / key
     dataNest.forEach(function(d,i) {
-        var th =[50, 100, 20, 150];
+         console.log(th(d.key));
 
         svg.append("clipPath")
               .attr("id", "clip-above")
             .append("rect")
               .attr("width", width)
-              .attr("height", y(th[i]));
+              .attr("height", y(th(d.key)));
 
           svg.append("clipPath")
               .attr("id", "clip-below")
             .append("rect")
-              .attr("y", y(th[i]))
+              .attr("y", y(th(d.key)))
               .attr("width", width)
-              .attr("height", height - y(th[i]));
+              .attr("height", height - y(th(d.key)));
 
           var clip = ["above", "below"];
 
@@ -217,45 +220,6 @@ var svg = d3.select("#graph")
               });
 
           });
-
-          // var lines = svg.selectAll(".line")
-          //     .data(["above", "below"]);
-
-          //     lines.enter()
-          //     .append("path")
-          //     .attr("class", function(d) { return "line " + d; })
-          //     .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
-          //     .style("stroke", function(){
-          //       return color(d.key);
-          //     })
-          //     // .datum(d.values)
-          //     lines.attr("d", function(){
-          //       console.log(d);
-          //       return priceline(d.values);
-          //     });
-
-          //   lines.exit();
-
-        // svg.append("path")
-        //     .attr("class", "line")
-        //     .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-        //     .attr("d", priceline(d.values))
-        //     .style("stroke", function() { // Add the colours dynamically
-        //         return d.color = color(d.key); })
-        //     .on("click", function(){
-        //       // Determine if current line is visible
-        //         var active   = d.active ? false : true;
-        //         newOpacity = active ? 0 : 1;
-        //         // Hide or show the elements based on the ID
-        //         d3.select("#tag"+d.key.replace(/\s+/g, ''))
-        //             .transition().duration(100)
-        //             .style("opacity", newOpacity);
-        //         d3.selectAll(".tag"+d.key.replace(/\s+/g, ''))
-        //             .transition().duration(100)
-        //             .style("opacity", newOpacity);
-        //         // Update whether or not the elements
-        //         d.active = active;
-        //     });
 
         // Add the Legend
         svg.append("text")
@@ -303,9 +267,19 @@ var svg = d3.select("#graph")
         })
         .attr('clip-path', "url(#clip)")
         .append('circle')
-        .attr("r", 2.5)
+        .attr("r", 5)
         .attr('fill', function(d,i){
-          return d.color = color(d.symbol);
+          if(th(d.symbol) < d.value){
+            return "#fff";
+          }
+          else{
+            return d.color = color(d.symbol);
+          }
+          // console.log(th(d.symbol));
+
+        })
+        .attr('stroke', function(d,i){
+          return color(d.symbol);
         })
         .attr("transform", function(d) {
           return "translate("+x(d.date)+","+y(d.value)+")";

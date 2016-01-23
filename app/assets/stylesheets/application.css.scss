@@ -381,10 +381,11 @@ form#intervention-data{
 .line {
   fill: none;
   stroke: #000;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
 }
 
 .line.above {
   // stroke: #f00;
   stroke-dasharray: 3, 3;
+  stroke-width: 1px;
 }
