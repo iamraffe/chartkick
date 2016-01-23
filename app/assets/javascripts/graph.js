@@ -136,7 +136,7 @@ var priceline = d3.svg.line()
 // Adds the svg canvas
 var svg = d3.select("#graph")
     .append("svg")
-    .attr("class", "chart")
+        .attr("class", "chart")
         .attr("width", 925)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -151,98 +151,97 @@ var svg = d3.select("#graph")
 
 
     // Scale the range of the data
-    x.domain(d3.extent(data.entries, function(d) { return d.date; }));
-    y.domain([0, d3.max(data.entries, function(d) { return d.value; })+75]);
+    var minDate = new Date(data.entries[0].date.getFullYear()-1, data.entries[0].date.getMonth()+1,data.entries[0].date.getDate());
+    var maxDate = new Date(data.entries[data.entries.length - 1].date.getFullYear()+1, data.entries[data.entries.length - 1].date.getMonth()+1,data.entries[data.entries.length - 1].date.getDate());
+
+    x.domain([minDate, maxDate]);
+    // x.domain(d3.extent(data.entries, function(d) { return d.date; }));
+    y.domain([d3.min(data.entries, function(d) { return d.value; })-75, d3.max(data.entries, function(d) { return d.value; })+75]);
 
     // Nest the entries by symbol
-    // var dataNest = d3.nest()
-    //     .key(function(d) {return d.symbol;})
-    //     .entries(data.entries);
-
-      var dataNest = d3.nest()
+    var dataNest = d3.nest()
         .key(function(d) {return d.symbol;})
         .entries(data.entries);
 
     // var color = d3.scale.category20();   // set the colour scale
     var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
-
-    var warning_color = d3.scale.ordinal().range(['#DBAD1F', '#F2AE2E', '#DB841F', '#F97723']);
     // console.log(dataNest.length);
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
+
+
     // Loop through each symbol / key
     dataNest.forEach(function(d,i) {
-        // console.log(d);
+        var th =[50, 100, 20, 150];
 
-        d.values = d.values.map(function(d,i, arr){
-          var next = arr[i + 1],
-              prev = arr[i - 1];
-          return {
-              x: d.date,
-              y: d.value,
-              x1: x(d.date),
-              y1: y(d.value),
-              x2: (next) ? x(arr[i+1].date) : x(d.date),
-              y2: (next) ? y(arr[i+1].value) : y(d.value)
-          };
-        });
+        svg.append("clipPath")
+              .attr("id", "clip-above")
+            .append("rect")
+              .attr("width", width)
+              .attr("height", y(th[i]));
 
-        // console.log(d.values);
+          svg.append("clipPath")
+              .attr("id", "clip-below")
+            .append("rect")
+              .attr("y", y(th[i]))
+              .attr("width", width)
+              .attr("height", height - y(th[i]));
 
-        svg.selectAll('.chart')
-        .data(d.values)
-        .enter()
-        .append('line')
-        .attr('x1', function(d) { return d.x1; })
-        .attr('y1', function(d) { return d.y1; })
-        .attr('x2', function(d) { return d.x2; })
-        .attr('y2', function(d) { return d.y2; })
-        .attr("stroke", function (h) {
-            console.log(h.y);
-            return (h.y > 50) ? warning_color(d.key) : color(d.key);
-        })
-        .attr("fill", "none")
-        .attr("stroke-width", function (h) {
-          // console.log(d.y);
-            return (h.y > 50) ? 1 : 2;
-        })
-        .attr("stroke-dasharray", function (h) {
-          // console.log(d.y);
-            return (h.y > 50) ? ("3, 3") : ("0, 0");
-        });
+          var clip = ["above", "below"];
 
-        // svg.append("line")
+
+
+          // console.log(i, th[i], color(d.key), d.key);
+
+          clip.forEach(function(v,i){
+            svg.append("path")
+              .attr("class", function() { return 'tag'+d.key.replace(/\s+/g, '') + " line " + v; })
+              .attr("clip-path", function() { return "url(#clip-" + v + ")"; })
+              .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
+              .attr("d", priceline(d.values))
+              .style("stroke", function() { // Add the colours dynamically
+                  return d.color = color(d.key); })
+              .on("click", function(){
+                  var active   = d.active ? false : true;
+                  newOpacity = active ? 0 : 1;
+                  // Hide or show the elements based on the ID
+                  // d3.select("#tag"+d.key.replace(/\s+/g, ''))
+                  //     .transition().duration(100)
+                  //     .style("opacity", newOpacity);
+                  d3.selectAll(".tag"+d.key.replace(/\s+/g, ''))
+                      .transition().duration(100)
+                      .style("opacity", newOpacity);
+                  // Update whether or not the elements
+                  d.active = active;
+              });
+
+          });
+
+          // var lines = svg.selectAll(".line")
+          //     .data(["above", "below"]);
+
+          //     lines.enter()
+          //     .append("path")
+          //     .attr("class", function(d) { return "line " + d; })
+          //     .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
+          //     .style("stroke", function(){
+          //       return color(d.key);
+          //     })
+          //     // .datum(d.values)
+          //     lines.attr("d", function(){
+          //       console.log(d);
+          //       return priceline(d.values);
+          //     });
+
+          //   lines.exit();
+
+        // svg.append("path")
         //     .attr("class", "line")
         //     .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-        //     .attr('x1', function(d) { return d.x1; })
-        //     .attr('y1', function(d) { return d.y1; })
-        //     .attr('x2', function(d) { return d.x2; })
-        //     .attr('y2', function(d) { return d.y2; })
-        //     .attr("stroke", function (d) {
-        //         return (d.x > 50) ? 'red' : 'blue';
-        //     })
-        //     // .attr("d", priceline(d.values))
-        //     // .style("stroke", function() { // Add the colours dynamically
-        //     //     console.log(d, d.values < 140);
-        //     //     d.values.forEach(function(d,i){
-        //     //       // console.log(d,i);
-        //     //       // return d.color = color(d.key); 
-        //     //       if(d.entries < 150){
-        //     //         return "red";
-        //     //       }
-        //     //       else{
-        //     //         return d.color = color(i); 
-        //     //       }
-        //     //     });
-        //     //     // return d.color = color(d.key); 
-        //     //     // if(d.entries < 150){
-        //     //     //   return "red";
-        //     //     // }
-        //     //     // else{
-        //     //     //   return d.color = color(d.key); 
-        //     //     // }
-        //     // })
+        //     .attr("d", priceline(d.values))
+        //     .style("stroke", function() { // Add the colours dynamically
+        //         return d.color = color(d.key); })
         //     .on("click", function(){
         //       // Determine if current line is visible
         //         var active   = d.active ? false : true;
@@ -558,4 +557,3 @@ var priceline = d3.svg.line()
 function error() {
     console.log("error")
 }
-
