@@ -165,17 +165,22 @@ var svg = d3.select("#graph")
             })
             .text(d.key)
             .on("click", function(){
-                // console.log("enter");
                 var active   = d.active ? false : true;
                 newOpacity = active ? 0.05 : 1;
-                var s = d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.above');
-                // console.log(s);
-                    s.transition().duration(500)
-                    // .style("opacity", newOpacity)
-                    .style("stroke", "red");
-                // d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.below')
-                //     .transition().duration(500)
-                //     .style("opacity", newOpacity);
+                d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.above')
+                    .transition().duration(500)
+                    .style("opacity", newOpacity)
+                    .style("stroke-dasharray", function(){
+                      if(active){
+                        return ("0, 0");
+                      }
+                      else{
+                        return ("5, 5");
+                      }
+                    });
+                d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.below')
+                    .transition().duration(500)
+                    .style("opacity", newOpacity);
                 d3.selectAll(".dots.tag"+d.key.replace(/\s+/g, ''))
                     .transition().duration(250)
                     .style("opacity", newOpacity);
