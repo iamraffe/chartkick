@@ -342,7 +342,7 @@ function updateData() {
 }
 
 function updateMultiLine(data){
-  console.log(data, data.entries, data.interventions);
+  // console.log(data, data.entries, data.interventions);
   // var color = d3.scale.category20();   // set the colour scale
   var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 // console.log(data);
@@ -394,8 +394,6 @@ var yAxis = d3.svg.axis().scale(y)
           d.description = d.description;
         });
 
-
-    // if(d3.select("#graph").selectAll('rect').empty()){
         var svg = d3.select("svg");
         var rect = svg.selectAll(".new-interventions").data(data.interventions);
         var rectEnter = rect.enter().append("rect");
@@ -409,13 +407,13 @@ var yAxis = d3.svg.axis().scale(y)
             return x(d.start)+margin.left;
           })
         .attr('y', function(d,i){
-          return 75+margin.top -(25*i);
+          return 75+margin.top +(25*i);
         })
         .attr('height', function(d,i) {
           return height-75-(25*i)
         })
         .attr("class", function(d){
-          return "intervention "+d.id;
+          return "intervention-"+d.id;
         })
         .attr("fill", function(d){
             return color(x(d.end)-x(d.start));
@@ -434,10 +432,10 @@ var yAxis = d3.svg.axis().scale(y)
               return x(d.start)+(margin.left+2);
             })
           .attr('y', function(d,i){
-            return 90-(25*i);
+            return 90+(25*i);
           })
           .attr("class", function(d){
-            return "intervention-text "+d.id;
+            return "intervention-text-"+d.id;
           })
           // .attr('y', margin.top+75)
           // .attr("class", "intervention-text")
@@ -446,46 +444,13 @@ var yAxis = d3.svg.axis().scale(y)
               return x(d.end)-x(d.start);
           })
           .attr("fill", "black");
-    // }
-    // else{
-    //       // Select the section we want to apply our changes to
-    //       var svg = d3.select("#graph").transition();
-
-    //       svg.selectAll('rect')
-    //           .duration(750)
-    //           // .attr("fill", "red")
-    //           .attr('x', function(d,i) {
-    //             // console.log(d, data.interventions, x(data.interventions[i].start)+25);
-    //             return x(data.interventions[i].start);
-    //           })
-    //           .attr("width", function(d, i){
-    //               return x(data.interventions[i].end)-x(data.interventions[i].start);
-    //           });
-
-    //       svg.selectAll(".intervention-text")
-    //           .duration(750)
-    //           // .attr("fill", "red")
-    //           .attr('x', function(d,i) {
-    //             // console.log(d, data.interventions, x(data.interventions[i].start)+25);
-    //             return x(data.interventions[i].start)+25;
-    //           })
-    //           .attr("width", function(d, i){
-    //               return x(data.interventions[i].end)-x(data.interventions[i].start);
-    //           })
-    //           .text(function(d, i){
-    //             // console.log(d);
-    //             return data.interventions[i].title+" - "+data.interventions[i].description;
-    //           });
-    // }
-
-
 }
 
 
 function updateIntervention(data){
 
   var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
-console.log(data);
+
 var margin = {top: 30, right: 20, bottom: 70, left: 50},
     width = 768 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -523,23 +488,23 @@ var yAxis = d3.svg.axis().scale(y)
     var maxDate = new Date(data.entries[data.entries.length - 1].date.getFullYear()+1, data.entries[data.entries.length - 1].date.getMonth()+1,data.entries[data.entries.length - 1].date.getDate());
 
     x.domain([minDate, maxDate]);
-    // x.domain(d3.extent(data.entries, function(d) { return d.date; }));
     y.domain([d3.min(data.entries, function(d) { return d.value; })-75, d3.max(data.entries, function(d) { return d.value; })+75]);
 
     var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
 
     // Select the section we want to apply our changes to
-    var svg = d3.select("#graph").transition();
-
+    var svg = d3.select(".chart").transition();
 
     data.interventions.forEach(function(intervention, index) {
+      console.log(intervention, index, '.intervention-'+intervention.id, svg.select(".intervention-"+intervention.id));
+
       intervention.start = parseInterventionDate(intervention.start);
       intervention.end = parseInterventionDate(intervention.end);
       intervention.title = intervention.title;
       intervention.description = intervention.description;
 
-      svg.select('.'+intervention.id)
+      svg.select('.intervention-'+intervention.id)
           .duration(750)
           .attr('x', function() {
             return parseInt(x(intervention.start))+50;
@@ -547,8 +512,7 @@ var yAxis = d3.svg.axis().scale(y)
           .attr("width", function(){
               return x(intervention.end)-x(intervention.start);
           });
-
-      svg.select(".intervention-text."+intervention.id)
+      svg.select(".intervention-text-"+intervention.id)
           .duration(750)
           .attr('x', function() {
             return parseInt(x(intervention.start))+50;
@@ -559,9 +523,40 @@ var yAxis = d3.svg.axis().scale(y)
           .text(function(){
             return intervention.title+" - "+intervention.description;
           });
-
-
     });
+
+    // data.interventions.each(function(intervention, index) {
+    //   console.log(invervention, index, svg);
+
+    //   // intervention.start = parseInterventionDate(intervention.start);
+    //   // intervention.end = parseInterventionDate(intervention.end);
+    //   // intervention.title = intervention.title;
+    //   // intervention.description = intervention.description;
+
+    //   console.log(svg.selectAll('.intervention-'+intervention.id));
+    //   // svg.selectAll('.intervention-'+intervention.id)
+    //   //     .duration(750)
+    //   //     .attr('x', function() {
+    //   //       return parseInt(x(intervention.start))+50;
+    //   //     })
+    //   //     .attr("width", function(){
+    //   //         return x(intervention.end)-x(intervention.start);
+    //   //     });
+
+    //   // svg.selectAll(".intervention-text-"+intervention.id)
+    //   //     .duration(750)
+    //   //     .attr('x', function() {
+    //   //       return parseInt(x(intervention.start))+50;
+    //   //     })
+    //   //     .attr("width", function(){
+    //   //         return x(intervention.end)-x(intervention.start);
+    //   //     })
+    //   //     .text(function(){
+    //   //       return intervention.title+" - "+intervention.description;
+    //   //     });
+
+
+    // });
 
 
 

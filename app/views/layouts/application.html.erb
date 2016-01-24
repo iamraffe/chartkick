@@ -78,7 +78,6 @@
                       </div>
                     </form>
                     <form accept-charset="UTF-8" data-remote="true" method="post" id="edit-intervention-data" class="hide" data-edit-type="medication">
-                      <!-- <legend>Edit</legend> -->
                       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                       <input type="hidden" name="edit_intervention[type]" value="medication">
                       <input type="hidden" name="edit_intervention[id]" value="">
@@ -123,11 +122,11 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row" style="visibility: hidden;">
-                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add more medication</button>
+                      <div class="row">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
                       </div>
                       <div class="row">
-                        <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="update-and-exit btn btn-success pull-right">Update &amp; Exit</button>
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -460,8 +459,21 @@ $('.submit-and-exit').on('click', function(e){
   // console.log($('.visible-intervention-form input[type=text]'), $('.visible-intervention-form input[type=text]').val(), $('.visible-intervention-form input[type=text]').val() === '');
   if($('.visible-intervention-form input[type=text]').val() === ''){
     e.preventDefault();
+    alert("Please fill out form");
   }
   $('#myModal').modal('hide');
+});
+
+$('.update-and-exit').on('click', function(e){
+  // console.log($('.visible-intervention-form input[type=text]'), $('.visible-intervention-form input[type=text]').val(), $('.visible-intervention-form input[type=text]').val() === '');
+  if($('.visible-intervention-form input[type=text]').val() === ''){
+    console.log("empty");
+    e.preventDefault();
+    alert("Please fill out form");
+  }
+  else{
+    $('#myModal').modal('hide');
+  }
 });
 
 // $('h1').on('click', function(){

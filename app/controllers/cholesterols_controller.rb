@@ -84,7 +84,7 @@ class CholesterolsController < ApplicationController
     @type = params[:intervention][params[:index].to_s]["type"]
     @index = params[:index]
     # byebug
-    session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex})) if intervention_params
+    session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex(5)})) if intervention_params
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     @d3_session_data = parse_session
     respond_to do |format|
@@ -95,16 +95,15 @@ class CholesterolsController < ApplicationController
   end
 
   def edit_intervention_session
+    @type = params[:edit_intervention]["type"]
     session[:intervention_params][params[:id].to_i]["title"] = params[:edit_intervention]['title']
     session[:intervention_params][params[:id].to_i]["description"] = params[:edit_intervention]['description']
     session[:intervention_params][params[:id].to_i]["start"] = params[:edit_intervention]['start']
     session[:intervention_params][params[:id].to_i]["end"] = params[:edit_intervention]['end']
     @d3_session_data = parse_session
-    # @d3_session_data = {"id" => params[:edit_intervention]['id'], "title" => params[:edit_intervention]['title'], "description" => params[:edit_intervention]['description'], "start" => params[:edit_intervention]['start'], "end" => params[:edit_intervention]['end']}
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }
-      # format.html
     end
   end
 
