@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   post '/charts/cholesterol/intervention', to: "cholesterols#intervention_session"
 
+  post '/charts/cholesterol/intervention/:id/edit', to: "cholesterols#edit_intervention_session"
+
   resources :cholesterol, controller: 'cholesterols', path: '/charts/cholesterol'
 
   get '/clean', to: 'cholesterols#clean_session'

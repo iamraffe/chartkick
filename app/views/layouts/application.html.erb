@@ -77,6 +77,60 @@
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
+                    <form accept-charset="UTF-8" data-remote="true" method="post" id="edit-intervention-data" class="hide" data-edit-type="medication">
+                      <!-- <legend>Edit</legend> -->
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="hidden" name="edit_intervention[type]" value="medication">
+                      <input type="hidden" name="edit_intervention[id]" value="">
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="edit_intervention[title]" class="pull-right">Medication</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="edit_intervention[title]" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="edit_intervention[description]" class="pull-right">Dose</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="edit_intervention[description]" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-sm-5">
+                          <label for="edit_intervention[start]">Start date</label>
+                          <input type="date" class="form-control" name="edit_intervention[start]">
+                        </div>
+                        <div class="form-group col-sm-5 col-sm-offset-1">
+                          <div class="row">
+                            <label for="edit_intervention[end]">End date</label>
+                            <input type="date" class="form-control intervention-end-date" name="edit_intervention[end]">
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" style="visibility: hidden;">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add more medication</button>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="add-lifestyle">
@@ -200,19 +254,19 @@
               <div id="intervention-wrapper" style="margin-top:50px;">
                 <div class="row added-interventions">
                   <span>Medications: </span>
-                  <ul class="list-unstyled" id="added-medication-interventions">
+                  <ul class="list-unstyled" id="added-medication-interventions" data-type="medication">
                     <li><i>No medications added yet...</i></li>
                   </ul>
                 </div>
                 <div class="row added-interventions">
                   <span>Lifestyle: </span>
-                  <ul class="list-unstyled" id="added-lifestyle-interventions">
+                  <ul class="list-unstyled" id="added-lifestyle-interventions" data-type="lifestyle">
                     <li><i>No lifestyle interventions added yet...</i></li>
                   </ul>
                 </div>
                 <div class="row added-interventions">
                   <span>Procedures: </span>
-                  <ul class="list-unstyled" id="added-procedure-interventions">
+                  <ul class="list-unstyled" id="added-procedure-interventions" data-type="procedure">
                     <li><i>No procedures added yet...</i></li>
                   </ul>
                 </div>
@@ -403,7 +457,7 @@ $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) 
 })
 
 $('.submit-and-exit').on('click', function(e){
-  console.log($('.visible-intervention-form input[type=text]').val() === '');
+  // console.log($('.visible-intervention-form input[type=text]'), $('.visible-intervention-form input[type=text]').val(), $('.visible-intervention-form input[type=text]').val() === '');
   if($('.visible-intervention-form input[type=text]').val() === ''){
     e.preventDefault();
   }
@@ -419,6 +473,39 @@ $('.submit-and-exit').on('click', function(e){
 
 //   $('.line.above').css('display', 'block');
 // });
+
+function hideElement(e){
+  e.addClass('hide');
+  $('#edit-intervention-data[data-edit-type="'+type+'"]').addClass('visible-intervention-form bounceInRight animated').removeClass('hide');
+}
+
+$(document).on('click', "span.fa.fa-pencil.not-active", function(){
+  var type = $(this).closest('ul').attr('data-type');
+  var id = $(this).attr('data-id');
+  var index = $(this).attr('data-index');
+  var title = $(this).siblings('.added-title').text();
+  var description = $(this).siblings('.added-description').text();
+  var start = $(this).siblings('.added-dates').children('.added-date-start').text();
+  var end = $(this).siblings('.added-dates').children('.added-date-end').text();
+
+  $(this).addClass('active').removeClass('not-active');
+
+  $('.visible-intervention-form#intervention-data').addClass('bounceOutRight animated').removeClass('visible-intervention-form');
+
+  $('#intervention-data').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+    // console.log($(this).attr('class'));
+    $(this).removeClass('bounceOutRight animated');
+    hideElement($(this));
+  });
+
+  $('#edit-intervention-data[data-edit-type="'+type+'"]').attr('action', "/charts/cholesterol/intervention/"+index+"/edit" );
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[id]"]').val(id);
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[title]"]').val(title).attr('placeholder', title);
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[description]"]').val(description).attr('placeholder', description);
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[start]"]').val(start).attr('placeholder', start);
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[end]"]').val(end).attr('placeholder', end);
+
+});
 </script>
 </body>
 </html>

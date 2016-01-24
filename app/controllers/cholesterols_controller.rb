@@ -72,6 +72,43 @@ class CholesterolsController < ApplicationController
   end
 
   def cholesterol_session
+    render json: parse_session
+  end
+
+  def update_session
+    session[:entry_params].each{|key, value| value.delete("#{params[:id].to_i+1}") }
+    render json:{ status: "ok"}
+  end
+
+  def intervention_session
+    @type = params[:intervention][params[:index].to_s]["type"]
+    @index = params[:index]
+    # byebug
+    session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex})) if intervention_params
+    @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
+    @d3_session_data = parse_session
+    respond_to do |format|
+      format.js   {}
+      format.json { render json:{ status: "ok"} }
+      # format.html
+    end
+  end
+
+  def edit_intervention_session
+    session[:intervention_params][params[:id].to_i]["title"] = params[:edit_intervention]['title']
+    session[:intervention_params][params[:id].to_i]["description"] = params[:edit_intervention]['description']
+    session[:intervention_params][params[:id].to_i]["start"] = params[:edit_intervention]['start']
+    session[:intervention_params][params[:id].to_i]["end"] = params[:edit_intervention]['end']
+    @d3_session_data = parse_session
+    # @d3_session_data = {"id" => params[:edit_intervention]['id'], "title" => params[:edit_intervention]['title'], "description" => params[:edit_intervention]['description'], "start" => params[:edit_intervention]['start'], "end" => params[:edit_intervention]['end']}
+    respond_to do |format|
+      format.js   {}
+      format.json { render json:{ status: "ok"} }
+      # format.html
+    end
+  end
+
+  def parse_session
     entry_params = Array.new
     session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
     # byebug
@@ -85,27 +122,7 @@ class CholesterolsController < ApplicationController
       entry_params.push(ldl,hdl, triglycerides, cholesterol)
     end
     intervention = session[:intervention_params]
-    render json: {entries: entry_params, intervention: intervention}
-  end
-
-  def update_session
-    # byebug
-    session[:entry_params].each{|key, value| value.delete("#{params[:id].to_i+1}") }
-    # byebug
-    render json:{ status: "ok"}
-  end
-
-  def intervention_session
-    @type = params[:intervention][params[:index].to_s]["type"]
-    @index = params[:index]
-    d3_session_data = session[:intervention_params].push(intervention_params[@index]) if intervention_params
-    @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
-    respond_to do |format|
-      format.js   {}
-      format.json { render json:{ status: "ok"} }
-      # format.html
-    end
-    d3_session_data
+    {entries: entry_params, interventions: intervention}
   end
 
   def clean_session

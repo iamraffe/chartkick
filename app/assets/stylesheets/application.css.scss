@@ -360,7 +360,7 @@ tr{
   margin-top: 25px;
 }
 
-form#intervention-data{
+form#intervention-data, form#edit-intervention-data{
   button.btn-danger.pull-right{
     margin-top: 25px;
     margin-right: 35px;
@@ -386,7 +386,10 @@ form#intervention-data{
 
 .line.above {
   // stroke: #f00;
-  // stroke-dasharray: 3, 3;
+  stroke-dasharray: 3, 3;
   stroke-width: 1px;
 }
 
+.fadeOut#intervention-data{
+  display: none;
+}
