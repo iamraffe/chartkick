@@ -631,7 +631,7 @@ function deleteName(){
 }
 $('button#export-svg').on('click', function(e){
 var name = $('#graph').attr('data-name');
-d3.select("svg").append('text').attr('class', 'patient-name-svg').text('Cholesterol chart: ' + name).attr('x', 475).attr('y', 75).style('fill', 'black')
+d3.select("svg").append('text').attr('class', 'patient-name-svg').text('Cholesterol chart: ' + name).attr('x', 215).attr('y', 75).style('fill', 'black')
                             .style("font-weight", "bold")
                             .style("font-size", 26)
             .style('font-family', 'Arial, Helvetica, sans-serif');
