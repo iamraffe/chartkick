@@ -1,8 +1,76 @@
 $(document).ready(function(e){
+
   if($('#session-graph-container').length > 0){
     drawGraphFromSession();
   }
+
+    d3.selectAll("[type=checkbox][name=triglycerides_hdl]").on("change", function() {
+
+    var selected = this.value;
+    opacity = this.checked ? 1 : 0;
+
+    console.log(opacity);
+
+    d3.selectAll(".tagLDL")
+        .transition().duration(500)
+        .style("opacity", opacity);
+        // .style("stroke-dasharray", function(){
+        //   if(opacity){
+        //     return ("0, 0");
+        //   }
+        //   else{
+        //     return ("5, 5");
+        //   }
+        // });
+
+    d3.selectAll(".tagCHOLESTEROL")
+        .transition().duration(500)
+        .style("opacity", opacity);
+        // .style("stroke-dasharray", function(){
+        //   if(opacity){
+        //     return ("0, 0");
+        //   }
+        //   else{
+        //     return ("5, 5");
+        //   }
+        // });
+
+    });
+
+  d3.selectAll("[type=checkbox][name=cholesterol_ldl]").on("change", function() {
+
+    var selected = this.value;
+    opacity = this.checked ? 1 : 0;
+
+    console.log(opacity);
+
+    d3.selectAll(".tagHDL")
+        .transition().duration(500)
+        .style("opacity", opacity);
+        // .style("stroke-dasharray", function(){
+        //   if(opacity){
+        //     return ("0, 0");
+        //   }
+        //   else{
+        //     return ("5, 5");
+        //   }
+        // });
+
+    d3.selectAll(".tagTRIGLYCERIDES")
+        .transition().duration(500)
+        .style("opacity", opacity);
+        // .style("stroke-dasharray", function(){
+        //   if(opacity){
+        //     return ("0, 0");
+        //   }
+        //   else{
+        //     return ("5, 5");
+        //   }
+        // });
+
+    });
 });
+
 
 $(document).ready(function(e){
   // console.log(document.URL.split("/").pop());
@@ -163,32 +231,32 @@ var svg = d3.select("#graph")
             .style("fill", function() {
                 return color(d.key);
             })
-            .text(d.key)
-            .on("click", function(){
-                var active   = d.active ? false : true;
-                newOpacity = active ? 0.05 : 1;
-                d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.above')
-                    .transition().duration(500)
-                    .style("opacity", newOpacity)
-                    .style("stroke-dasharray", function(){
-                      if(active){
-                        return ("0, 0");
-                      }
-                      else{
-                        return ("5, 5");
-                      }
-                    });
-                d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.below')
-                    .transition().duration(500)
-                    .style("opacity", newOpacity);
-                d3.selectAll(".dots.tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(250)
-                    .style("opacity", newOpacity);
-                d3.selectAll(".text-values.tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(250)
-                    .style("opacity", newOpacity);
-                d.active = active;
-            });
+            .text(d.key);
+            // .on("click", function(){
+            //     var active   = d.active ? false : true;
+            //     newOpacity = active ? 0.05 : 1;
+            //     d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.above')
+            //         .transition().duration(500)
+            //         .style("opacity", newOpacity)
+            //         .style("stroke-dasharray", function(){
+            //           if(active){
+            //             return ("0, 0");
+            //           }
+            //           else{
+            //             return ("5, 5");
+            //           }
+            //         });
+            //     d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.below')
+            //         .transition().duration(500)
+            //         .style("opacity", newOpacity);
+            //     d3.selectAll(".dots.tag"+d.key.replace(/\s+/g, ''))
+            //         .transition().duration(250)
+            //         .style("opacity", newOpacity);
+            //     d3.selectAll(".text-values.tag"+d.key.replace(/\s+/g, ''))
+            //         .transition().duration(250)
+            //         .style("opacity", newOpacity);
+            //     d.active = active;
+            // });
 
     });
 
@@ -255,20 +323,20 @@ var svg = d3.select("#graph")
         })
         .style("fill", function(d) { // Add the colours dynamically
             return color(d.symbol);
-        })
-        .on('click', function(d, i){
-          d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
-                    .transition().duration(100)
-                    .attr("transform", function(d) {
-                    if(d.symbol === 'HDL' || d.symbol === 'LDL'){
-                      return "translate("+(x(d.date)-7.5)+","+(y(d.value)+40)+")";
-                    }
-                    else{
-                      return "translate("+(x(d.date)-7.5)+","+(y(d.value)-30)+")";
-                    }
-                  });
-        })
-        .call(drag);
+        });
+        // .on('click', function(d, i){
+        //   d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
+        //             .transition().duration(100)
+        //             .attr("transform", function(d) {
+        //             if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)+40)+")";
+        //             }
+        //             else{
+        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)-30)+")";
+        //             }
+        //           });
+        // })
+        // .call(drag);
 
 /*
 INTERVENTIONS
@@ -412,10 +480,10 @@ var yAxis = d3.svg.axis().scale(y)
             return x(d.start)+margin.left;
           })
         .attr('y', function(d,i){
-          return 75+margin.top +(25*i);
+          return 75+margin.top +(25*d.index);
         })
         .attr('height', function(d,i) {
-          return height-75-(25*i)
+          return height-75-(25*d.index)
         })
         .attr("class", function(d){
           return "intervention-"+d.id;
@@ -437,7 +505,7 @@ var yAxis = d3.svg.axis().scale(y)
               return x(d.start)+(margin.left+2);
             })
           .attr('y', function(d,i){
-            return 90+(25*i);
+            return 90+(25*d.index);
           })
           .attr("class", function(d){
             return "intervention-text-"+d.id;

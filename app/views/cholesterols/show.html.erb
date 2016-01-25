@@ -2,6 +2,12 @@
   <div class="row">
     <h1>Patient name:  <span class="patient-name"><%= @chart.name %></span></h1>
   </div>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-4">
+        <label  class="pull-right"><input name="triglycerides_hdl" type="checkbox" checked class="pull-right"> Triglycerides + HDL</label>
+        <label  class="pull-right"><input name="cholesterol_ldl" type="checkbox" checked class="pull-right"> Cholesterol + LDL</label>
+    </div>
+  </div>
   <div class="row" id="db-graph-container"><div id="graph"></div></div>
 
   </div>

@@ -86,7 +86,7 @@ class CholesterolsController < ApplicationController
     # byebug
     session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex(5)})) if intervention_params
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
-    @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params].last]}
+    @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params].last.deep_merge({"index" => (session[:intervention_params].size-1)})]}
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }

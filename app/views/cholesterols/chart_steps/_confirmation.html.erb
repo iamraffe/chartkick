@@ -1,3 +1,9 @@
 <h2>You're all set!</h2>
 <h3>A <i><em>Cholesterol</em> Data Chart</i> for the patient <strong class="patient-name"><%= @chart.name %></strong> has been created.</h3>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-4">
+      <label  class="pull-right"><input name="triglycerides_hdl" type="checkbox" checked class="pull-right"> Triglycerides + HDL</label>
+      <label  class="pull-right"><input name="cholesterol_ldl" type="checkbox" checked class="pull-right"> Cholesterol + LDL</label>
+  </div>
+</div>
 <div class="row" id="session-graph-container"><div id="graph"></div></div>
