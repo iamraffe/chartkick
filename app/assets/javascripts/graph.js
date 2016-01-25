@@ -182,8 +182,8 @@ var svg = d3.select("#graph")
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
-    var th =d3.scale.ordinal().range([50, 100, 20, 150]);
-    var thd =d3.scale.ordinal().domain([50, 100, 20, 150]);
+    var th =d3.scale.ordinal().range([130, 46, 150, 200]);
+    var thd =d3.scale.ordinal().domain([130, 46, 150, 200]);
 
 
 
