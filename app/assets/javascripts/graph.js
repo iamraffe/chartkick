@@ -218,6 +218,7 @@ var svg = d3.select("#graph")
                     return ("3, 3");
                   }
               })
+              .style('fill', 'none')
               .style("stroke", function() { // Add the colours dynamically
                   return color(d.key);
               });
@@ -228,6 +229,9 @@ var svg = d3.select("#graph")
             .attr("x", (legendSpace/2)+i*legendSpace)
             .attr("y", height + (margin.bottom/2)+ 5)
             .attr("class", "legend")
+            .style('font-family', 'sans-serif')
+            .style('fill', 'none')
+            .style('stroke', 'none')
             .style("fill", function() {
                 return color(d.key);
             })
@@ -264,11 +268,21 @@ var svg = d3.select("#graph")
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
+        .style('stroke', '#000')
+        // .style('stroke-width', '0.5px')
+        .style('shape-rendering', 'crispEdges')
+        .style('fill', 'none')
+        .style('font-family', 'sans-serif')
         .call(xAxis);
 
     // Add the Y Axis
     svg.append("g")
         .attr("class", "y axis")
+        .style('stroke', '#000')
+        // .style('stroke-width', '0.5px')
+        .style('shape-rendering', 'crispEdges')
+        .style('fill', 'none')
+        .style('font-family', 'sans-serif')
         .call(yAxis);
 
     // Add the dots
@@ -321,6 +335,7 @@ var svg = d3.select("#graph")
         .text(function(d){
           return d.value;
         })
+        .style('font-family', 'sans-serif')
         .style("fill", function(d) { // Add the colours dynamically
             return color(d.symbol);
         });
@@ -392,8 +407,8 @@ INTERVENTIONS
         // console.log(x(d.end)-x(d.start));
           return x(d.end)-x(d.start);
       })
-      .style('background-color', 'red')
-      .attr("fill", "black");
+      .style('font-family', 'sans-serif')
+      .attr("fill", "none");
     }
 }
 
