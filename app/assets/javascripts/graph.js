@@ -4,7 +4,7 @@ $(document).ready(function(e){
     drawGraphFromSession();
   }
 
-    d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
+    d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
 
     var selected = this.value;
     opacity = this.checked ? 1 : 0;
@@ -37,7 +37,7 @@ $(document).ready(function(e){
 
     });
 
-  d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
+  d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
 
     var selected = this.value;
     opacity = this.checked ? 1 : 0;
