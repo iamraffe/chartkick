@@ -193,7 +193,10 @@ var svg = d3.select("#graph")
               .attr("id", "clip-above")
             .append("rect")
               .attr("width", width)
-              .attr("height", y(th(d.key)));
+              .attr("height", function(){
+                console.log(th(d.key), d.key);
+                return y(th(d.key));
+              });
 
           svg.append("clipPath")
               .attr("id", "clip-below")

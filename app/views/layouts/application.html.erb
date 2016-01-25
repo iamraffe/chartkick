@@ -628,27 +628,27 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
 });
 
 $('button#export-svg').on('click', function(e){
-// $('#download').remove();
-// var html = d3.select("svg")
-//         .attr("title", "Cholesterol Chart")
-//         .attr("version", 1.1)
-//         .attr("xmlns", "http://www.w3.org/2000/svg")
-//         .node().parentNode.innerHTML;
-// // d3.select("#db-graph-container").append("div")
-// //         .attr("id", "download")
-// //         // .html("Right-click on this preview and choose Save as<br />Left-Click to dismiss<br />")
-// //         .append("img")
-// //         .attr('class', 'exported-image')
-// //         .attr("src", "data:image/svg+xml;base64,"+ btoa(html));  
-// var link = document.createElement('a');
-// link.href = "data:image/svg+xml;base64,"+ btoa(html);
-// link.download = 'export.svg';
-// document.body.appendChild(link);
-// link.click();
+$('#download').remove();
+var html = d3.select("svg")
+        .attr("title", "Cholesterol Chart")
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .node().parentNode.innerHTML;
+// d3.select("#db-graph-container").append("div")
+//         .attr("id", "download")
+//         // .html("Right-click on this preview and choose Save as<br />Left-Click to dismiss<br />")
+//         .append("img")
+//         .attr('class', 'exported-image')
+//         .attr("src", "data:image/svg+xml;base64,"+ btoa(html));  
+var link = document.createElement('a');
+link.href = "data:image/svg+xml;base64,"+ btoa(html);
+link.download = 'export.svg';
+document.body.appendChild(link);
+link.click();
     
     // d3.selectAll(".axis").style('font-family', 'sans-serif');
-    var wrapper = document.getElementById('graph');
-    var svg = wrapper.querySelector("svg");
+    // var wrapper = document.getElementById('graph');
+    // var svg = wrapper.querySelector("svg");
 
     // if (typeof window.XMLSerializer != "undefined") {
     //     var svgData = (new XMLSerializer()).serializeToString(svg);
@@ -659,25 +659,25 @@ $('button#export-svg').on('click', function(e){
 
 
 
-    var svgData = (new XMLSerializer()).serializeToString(svg);
+    // var svgData = (new XMLSerializer()).serializeToString(svg);
 
-    var canvas = document.createElement("canvas");
-    var svgSize = svg.getBoundingClientRect();
-    canvas.width = svgSize.width;
-    canvas.height = svgSize.height;
-    var ctx = canvas.getContext("2d");
+    // var canvas = document.createElement("canvas");
+    // var svgSize = svg.getBoundingClientRect();
+    // canvas.width = svgSize.width;
+    // canvas.height = svgSize.height;
+    // var ctx = canvas.getContext("2d");
 
-    var img = document.createElement("img");
+    // var img = document.createElement("img");
     
 
-    img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))) );
-    ctx.drawImage(img, 0, 0);
-    var imgsrc = canvas.toDataURL("image/png");
+    // img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))) );
+    // ctx.drawImage(img, 0, 0);
+    // var imgsrc = canvas.toDataURL("image/png");
 
-    var a = document.createElement("a");
-    a.download = "export.png";
-    a.href = imgsrc;
-    a.click();
+    // var a = document.createElement("a");
+    // a.download = "export.png";
+    // a.href = imgsrc;
+    // a.click();
 
 });
 
