@@ -4,14 +4,14 @@ $(document).ready(function(e){
     drawGraphFromSession();
   }
 
-    d3.selectAll("[type=checkbox][name=triglycerides_hdl]").on("change", function() {
+    d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
 
     var selected = this.value;
     opacity = this.checked ? 1 : 0;
 
     console.log(opacity);
 
-    d3.selectAll(".tagLDL")
+    d3.selectAll(".tagHDL")
         .transition().duration(500)
         .style("opacity", opacity);
         // .style("stroke-dasharray", function(){
@@ -37,14 +37,14 @@ $(document).ready(function(e){
 
     });
 
-  d3.selectAll("[type=checkbox][name=cholesterol_ldl]").on("change", function() {
+  d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
 
     var selected = this.value;
     opacity = this.checked ? 1 : 0;
 
     console.log(opacity);
 
-    d3.selectAll(".tagHDL")
+    d3.selectAll(".tagLDL")
         .transition().duration(500)
         .style("opacity", opacity);
         // .style("stroke-dasharray", function(){
