@@ -642,7 +642,7 @@ var html = d3.select("svg")
 //         .attr("src", "data:image/svg+xml;base64,"+ btoa(html));  
 var link = document.createElement('a');
 link.href = "data:image/svg+xml;base64,"+ btoa(html);
-link.download = 'export.png';
+link.download = 'export.svg';
 document.body.appendChild(link);
 link.click();
 });

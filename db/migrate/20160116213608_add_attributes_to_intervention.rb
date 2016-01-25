@@ -3,7 +3,7 @@ class AddAttributesToIntervention < ActiveRecord::Migration
     add_column :interventions, :title, :string
     add_column :interventions, :start, :datetime
     add_column :interventions, :end, :datetime
-    add_column :interventions, :dose, :string
+    add_column :interventions, :description, :string
     add_column :interventions, :cholesterol_id, :integer
   end
 end

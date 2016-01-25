@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20160116213608) do
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
-    t.string   "dose"
+    t.string   "description"
     t.integer  "cholesterol_id"
   end
 
