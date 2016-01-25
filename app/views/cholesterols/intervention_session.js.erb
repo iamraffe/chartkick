@@ -17,12 +17,9 @@
       $('.'+type+'-form-wrapper #end-date-current').prop('checked', false); // Unchecks it
       $(' ul#added-'+type+'-interventions').html('');
       interventions.forEach(function(d,i){
-        // console.log(d,i, newIndex);
         $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="fa fa-pencil not-active" data-index="'+i.toString()+'" data-id="'+d.id+'"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
       });
     }
-
-    // updateData();
 
     updateMultiLine(<%= @d3_session_data.to_json.html_safe %>);
 
@@ -30,9 +27,10 @@
 
     updateInputs(index, type);
 
-    $('.bounceOutRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+    $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
       // console.log($(this).attr('class'));
-      $(this).removeClass('bounceOutRight animated');
+      $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated bounceInRight');
+      console.log('enter', $(this));
       bringBackDown(index, type);
     });
 

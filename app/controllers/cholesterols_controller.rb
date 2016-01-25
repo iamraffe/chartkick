@@ -86,7 +86,7 @@ class CholesterolsController < ApplicationController
     # byebug
     session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex(5)})) if intervention_params
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
-    @d3_session_data = parse_session
+    @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params].last]}
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }
@@ -100,7 +100,7 @@ class CholesterolsController < ApplicationController
     session[:intervention_params][params[:id].to_i]["description"] = params[:edit_intervention]['description']
     session[:intervention_params][params[:id].to_i]["start"] = params[:edit_intervention]['start']
     session[:intervention_params][params[:id].to_i]["end"] = params[:edit_intervention]['end']
-    @d3_session_data = parse_session
+    @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params][params[:id].to_i]]}
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }

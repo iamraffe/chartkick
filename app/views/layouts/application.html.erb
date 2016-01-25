@@ -53,11 +53,11 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group col-sm-4 col-sm-offset-1">
+                        <div class="form-group col-sm-5">
                           <label for="intervention[start]">Start date</label>
                           <input type="date" class="form-control" name="intervention[1][start]">
                         </div>
-                        <div class="form-group col-sm-4 col-sm-offset-2">
+                        <div class="form-group col-sm-5 col-sm-offset-1">
                           <div class="row">
                             <label for="intervention[end]">End date</label>
                             <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
@@ -141,7 +141,7 @@
                       <div class="row">
                         <div class="col-xs-8 col-xs-offset-1">
                           <div class="col-sm-4">
-                            <label for="intervention[1][title]" class="pull-right">Lifestyle:</label>
+                            <label for="intervention[1][title]" class="pull-right">Lifestyle</label>
                           </div>
                           <div class="col-sm-8">
                             <div class="form-group">
@@ -163,11 +163,11 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group col-sm-4 col-sm-offset-1">
+                        <div class="form-group col-sm-5">
                           <label for="intervention[start]">Start date</label>
                           <input type="date" class="form-control" name="intervention[1][start]">
                         </div>
-                        <div class="form-group col-sm-4 col-sm-offset-2">
+                        <div class="form-group col-sm-5 col-sm-offset-1">
                           <div class="row">
                             <label for="intervention[end]">End date</label>
                             <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
@@ -184,6 +184,59 @@
                       </div>
                       <div class="row">
                         <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                      </div>
+                    </form>
+                    <form accept-charset="UTF-8" data-remote="true" method="post" id="edit-intervention-data" class="hide" data-edit-type="lifestyle">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="hidden" name="edit_intervention[type]" value="lifestyle">
+                      <input type="hidden" name="edit_intervention[id]" value="">
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="edit_intervention[title]" class="pull-right">Lifestyle</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="edit_intervention[title]" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="edit_intervention[description]" class="pull-right">Description</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="edit_intervention[description]" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-sm-5">
+                          <label for="edit_intervention[start]">Start date</label>
+                          <input type="date" class="form-control" name="edit_intervention[start]">
+                        </div>
+                        <div class="form-group col-sm-5 col-sm-offset-1">
+                          <div class="row">
+                            <label for="edit_intervention[end]">End date</label>
+                            <input type="date" class="form-control intervention-end-date" name="edit_intervention[end]">
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="update-and-exit btn btn-success pull-right">Update &amp; Exit</button>
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -220,11 +273,11 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group col-sm-4 col-sm-offset-1">
+                        <div class="form-group col-sm-5">
                           <label for="intervention[start]">Start date</label>
                           <input type="date" class="form-control" name="intervention[1][start]">
                         </div>
-                        <div class="form-group col-sm-4 col-sm-offset-2">
+                        <div class="form-group col-sm-5 col-sm-offset-1">
                           <div class="row">
                             <label for="intervention[end]">End date</label>
                             <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
@@ -241,6 +294,59 @@
                       </div>
                       <div class="row">
                         <button type="submit" class="submit-and-exit btn btn-success pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                      </div>
+                    </form>
+                    <form accept-charset="UTF-8" data-remote="true" method="post" id="edit-intervention-data" class="hide" data-edit-type="procedure">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="hidden" name="edit_intervention[type]" value="procedure">
+                      <input type="hidden" name="edit_intervention[id]" value="">
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="edit_intervention[title]" class="pull-right">Procedure</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="edit_intervention[title]" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-1">
+                          <div class="col-sm-4">
+                            <label for="edit_intervention[description]" class="pull-right">Description</label>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="edit_intervention[description]" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-sm-5">
+                          <label for="edit_intervention[start]">Start date</label>
+                          <input type="date" class="form-control" name="edit_intervention[start]">
+                        </div>
+                        <div class="form-group col-sm-5 col-sm-offset-1">
+                          <div class="row">
+                            <label for="edit_intervention[end]">End date</label>
+                            <input type="date" class="form-control intervention-end-date" name="edit_intervention[end]">
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="btn btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
+                      </div>
+                      <div class="row">
+                        <button type="submit" class="update-and-exit btn btn-success pull-right">Update &amp; Exit</button>
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -461,7 +567,9 @@ $('.submit-and-exit').on('click', function(e){
     e.preventDefault();
     alert("Please fill out form");
   }
-  $('#myModal').modal('hide');
+  else{
+    $('#myModal').modal('hide');
+  }
 });
 
 $('.update-and-exit').on('click', function(e){
@@ -486,9 +594,10 @@ $('.update-and-exit').on('click', function(e){
 //   $('.line.above').css('display', 'block');
 // });
 
-function hideElement(e){
-  e.addClass('hide');
-  $('#edit-intervention-data[data-edit-type="'+type+'"]').addClass('visible-intervention-form bounceInRight animated').removeClass('hide');
+function hideElement(type){
+  $('#intervention-data.visible-intervention-form').removeClass('visible-intervention-form').addClass('hide');
+  $('#edit-intervention-data[data-edit-type="'+type+'"]').addClass('visible-intervention-form').removeClass('hide');
+  $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
 }
 
 $(document).on('click', "span.fa.fa-pencil.not-active", function(){
@@ -502,12 +611,14 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
 
   $(this).addClass('active').removeClass('not-active');
 
-  $('.visible-intervention-form#intervention-data').addClass('bounceOutRight animated').removeClass('visible-intervention-form');
+  $('.'+type+'-form-wrapper').addClass('bounceOutRight animated').removeClass('visible-intervention-form');
 
-  $('#intervention-data').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+  $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
+
     // console.log($(this).attr('class'));
-    $(this).removeClass('bounceOutRight animated');
-    hideElement($(this));
+    console.log("enter?");
+    $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated');
+    hideElement(type);
   });
 
   $('#edit-intervention-data[data-edit-type="'+type+'"]').attr('action', "/charts/cholesterol/intervention/"+index+"/edit" );

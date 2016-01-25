@@ -1,17 +1,36 @@
+    var type = "<%= @type %>";
+    function bringBackDown(form, type){
+      console.log(form, type);
+      form.addClass('hide').removeClass('.visible-intervention-form');
+
+      form.siblings('#intervention-data').addClass('visible-intervention-form').removeClass('hide');
+
+      $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
+    }
 
     updateIntervention(<%= @d3_session_data.to_json.html_safe %>);
 
-    // $('.visible-intervention-form input').each(function(){
-    //   $(this).val('').attr('placeholder', '');
-    // });
+    $('.visible-intervention-form input').each(function(){
+      $(this).val('').attr('placeholder', '');
+    });
 
-    // $('.visible-intervention-form').addClass('bounceOutRight animated');
+    $('.'+type+'-form-wrapper').addClass('bounceOutRight animated');
+
+    var form = $('#edit-intervention-data.visible-intervention-form');
+
+    $('.fa.fa-pencil.active').removeClass('active').addClass('not-active');
 
     // console.log('wtf');
 
+    $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
+      $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated bounceInRight');
+      console.log("enter here");
+      bringBackDown(form, type);
+    });
 
 
-    // $('.visible-intervention-form').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+    // $('#edit-intervention-data.visible-intervention-form.bounceOutRight').one('animationend webkitAnimationEnd oanimationend', function(){
     //   $(this).addClass('hide').removeClass('visible-intervention-form bounceOutRight animated');
-    //   // $(this).siblings('#intervention-data').addClass('visible-intervention-form bounceInRight animated').removeClass('hide');
+    //   console.log($(this),$(this).siblings('#intervention-data') );
+    //   bringBackDown($(this));
     // });
