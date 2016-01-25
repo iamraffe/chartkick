@@ -626,14 +626,21 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[type]"]').val(type).attr('placeholder', type);
 
 });
-
+function deleteName(){
+ $('.patient-name-svg').remove();
+}
 $('button#export-svg').on('click', function(e){
-$('#download').remove();
+var name = $('#graph').attr('data-name');
+d3.select("svg").append('text').attr('class', 'patient-name-svg').text('Cholesterol chart: ' + name).attr('x', 475).attr('y', 75).style('fill', 'black')
+                            .style("font-weight", "bold")
+                            .style("font-size", 26)
+            .style('font-family', 'Arial, Helvetica, sans-serif');
 var html = d3.select("svg")
         .attr("title", "Cholesterol Chart")
         .attr("version", 1.1)
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .node().parentNode.innerHTML;
+        console.log(html);
 // d3.select("#db-graph-container").append("div")
 //         .attr("id", "download")
 //         // .html("Right-click on this preview and choose Save as<br />Left-Click to dismiss<br />")
@@ -645,6 +652,7 @@ link.href = "data:image/svg+xml;base64,"+ btoa(html);
 link.download = 'export.svg';
 document.body.appendChild(link);
 link.click();
+deleteName();
     
     // d3.selectAll(".axis").style('font-family', 'sans-serif');
     // var wrapper = document.getElementById('graph');
