@@ -522,6 +522,8 @@ var yAxis = d3.svg.axis().scale(y)
 
 function updateIntervention(data){
 
+  console.log(data)
+
   var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
 var margin = {top: 30, right: 20, bottom: 70, left: 50},

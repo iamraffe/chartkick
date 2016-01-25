@@ -1,5 +1,6 @@
     var type = "<%= @type %>";
     var index = <%= @index %>;
+    var interventions_size = <%= @interventions_size %>;
     var interventions =  <%= raw(@interventions) %>;
 
     function bringBackDown(index, type){
@@ -17,7 +18,7 @@
       $('.'+type+'-form-wrapper #end-date-current').prop('checked', false); // Unchecks it
       $(' ul#added-'+type+'-interventions').html('');
       interventions.forEach(function(d,i){
-        $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="fa fa-pencil not-active" data-index="'+i.toString()+'" data-id="'+d.id+'"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
+        $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="fa fa-pencil not-active" data-index="'+interventions_size.toString()+'" data-id="'+d.id+'"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
       });
     }
 

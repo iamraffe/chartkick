@@ -555,7 +555,6 @@ $(document).on('change', '#end-date-current', function(e){
 // console.log('June 25th, 14'.indexOf("th"));
 // console.log('June 25th, 14'.indexOf(","));
 $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-  console.log(e.target);
   var content = $(e.target).attr("href");
   $('form.visible-intervention-form').removeClass('visible-intervention-form');
   $(content +' form').addClass('visible-intervention-form');
@@ -575,7 +574,6 @@ $('.submit-and-exit').on('click', function(e){
 $('.update-and-exit').on('click', function(e){
   // console.log($('.visible-intervention-form input[type=text]'), $('.visible-intervention-form input[type=text]').val(), $('.visible-intervention-form input[type=text]').val() === '');
   if($('.visible-intervention-form input[type=text]').val() === ''){
-    console.log("empty");
     e.preventDefault();
     alert("Please fill out form");
   }
@@ -602,6 +600,7 @@ function hideElement(type){
 
 $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   var type = $(this).closest('ul').attr('data-type');
+  $('a[href="#add-'+type+'"]').tab('show');
   var id = $(this).attr('data-id');
   var index = $(this).attr('data-index');
   var title = $(this).siblings('.added-title').text();
@@ -614,9 +613,6 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   $('.'+type+'-form-wrapper').addClass('bounceOutRight animated').removeClass('visible-intervention-form');
 
   $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
-
-    // console.log($(this).attr('class'));
-    console.log("enter?");
     $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated');
     hideElement(type);
   });
