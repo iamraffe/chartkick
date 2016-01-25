@@ -229,6 +229,8 @@ var svg = d3.select("#graph")
             .attr("x", (legendSpace/2)+i*legendSpace)
             .attr("y", height + (margin.bottom/2)+ 5)
             .attr("class", "legend")
+            .style("font-weight", "bold")
+            .style('font-family', 'Arial, Helvetica, sans-serif')
             .style("fill", function() {
                 return color(d.key);
             })
@@ -265,12 +267,28 @@ var svg = d3.select("#graph")
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
+        // // .style('fill', 'none')
+        // .style('font-family', 'sans-serif')
         .call(xAxis);
 
     // Add the Y Axis
     svg.append("g")
         .attr("class", "y axis")
+        // // .style('fill', 'none')
+        // .style('font-family', 'sans-serif')
         .call(yAxis);
+
+    svg.selectAll('.axis text')
+    .style('fill', 'black')
+    .style('stroke-width', 0)
+    .style('font-family', 'Arial, Helvetica, sans-serif');
+
+    svg.selectAll('.axis path')
+        .style('stroke', 'black')
+        .style('fill', 'none')
+        .style('stroke-width', 2);
+
+    // svg.selectAll('.tick line').style('fill', 'black');
 
     // Add the dots
     svg.selectAll('.dots')
@@ -304,6 +322,9 @@ var svg = d3.select("#graph")
         .data(data.entries)
         .enter()
         .append("text")
+        .style('font-family', 'Helvetica, Arial, sans-serif')
+        .style("font-weight", "bold")
+        .style("font-size", 10)
         .attr("id", function(d,i){
           return 'val'+d.symbol.replace(/\s+/g, '')+i;
         })
@@ -389,6 +410,9 @@ INTERVENTIONS
         })
       .attr('y', 60)
       .attr("class", "intervention-text")
+      .style('font-family', 'Arial, Helvetica, sans-serif')
+      .style("font-weight", "bold")
+      .style("text-transform", "uppercase")
       .attr('width', function(d,i){
         // console.log(x(d.end)-x(d.start));
           return x(d.end)-x(d.start);

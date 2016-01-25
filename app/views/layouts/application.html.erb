@@ -645,7 +645,8 @@ $('button#export-svg').on('click', function(e){
 // link.download = 'export.svg';
 // document.body.appendChild(link);
 // link.click();
-// 
+    
+    // d3.selectAll(".axis").style('font-family', 'sans-serif');
     var wrapper = document.getElementById('graph');
     var svg = wrapper.querySelector("svg");
 
@@ -654,6 +655,9 @@ $('button#export-svg').on('click', function(e){
     // } else if (typeof svg.xml != "undefined") {
     //     var svgData = svg.xml;
     // }
+    
+
+
 
     var svgData = (new XMLSerializer()).serializeToString(svg);
 
