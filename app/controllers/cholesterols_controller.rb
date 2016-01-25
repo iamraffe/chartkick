@@ -102,6 +102,8 @@ class CholesterolsController < ApplicationController
     session[:intervention_params][params[:id].to_i]["start"] = params[:edit_intervention]['start']
     session[:intervention_params][params[:id].to_i]["end"] = params[:edit_intervention]['end']
     @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params][params[:id].to_i]]}
+    @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
+    @interventions_size = session[:intervention_params].size
     # byebug
     respond_to do |format|
       format.js   {}
