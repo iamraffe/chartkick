@@ -21,6 +21,7 @@ gem "d3-rails"
 gem "font-awesome-rails"
 gem "animate-rails"
 gem 'sprockets-rails', '2.3.3'
+# gem 'phantomjs.rb', '~> 2.1'
 
 group :development, :test do
   gem 'byebug'

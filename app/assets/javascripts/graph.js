@@ -190,7 +190,7 @@ var svg = d3.select("#graph")
     // Loop through each symbol / key
     dataNest.forEach(function(d,i) {
         svg.append("clipPath")
-              .attr("id", "clip-above")
+              .attr("id", "clip-"+d.key+"-above")
             .append("rect")
               .attr("width", width)
               .attr("height", function(){
@@ -199,7 +199,7 @@ var svg = d3.select("#graph")
               });
 
           svg.append("clipPath")
-              .attr("id", "clip-below")
+              .attr("id", "clip-"+d.key+"-below")
             .append("rect")
               .attr("y", y(th(d.key)))
               .attr("width", width)
@@ -210,17 +210,17 @@ var svg = d3.select("#graph")
           clip.forEach(function(v,i){
             svg.append("path")
               .attr("class", function() { return 'tag'+d.key.replace(/\s+/g, '') + " line " + v; })
-              .attr("clip-path", function() { return "url(#clip-" + v + ")"; })
+              .attr("clip-path", function() { return "url(#clip-"+d.key+"-" + v + ")"; })
+              .style("stroke-dasharray", function(){
+                if(i == 0){
+                  return ("0, 0");
+                }
+                else{
+                  return ("5, 5");
+                }
+              })
               // .attr("id", 'tag'+d.key.replace(/\s+/g, ''))
               .attr("d", priceline(d.values))
-              .style("stroke-dasharray", function(){
-                  if(i === 0){
-                    return ("0, 0");
-                  }
-                  else{
-                    return ("3, 3");
-                  }
-              })
               .style('fill', 'none')
               .style("stroke", function() { // Add the colours dynamically
                   return color(d.key);
