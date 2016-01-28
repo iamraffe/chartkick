@@ -232,8 +232,9 @@ var svg = d3.select("#graph")
             .attr("x", (legendSpace/2)+i*legendSpace)
             .attr("y", height + (margin.bottom/2)+ 5)
             .attr("class", "legend")
-            .style("font-weight", "bold")
-            .style('font-family', 'Arial, Helvetica, sans-serif')
+            .attr('style', 'font-family: "Times new roman"')
+            // .style("font-weight", "bold")
+            // .style('font-family', 'Arial, Helvetica, sans-serif')
             .style("fill", function() {
                 return color(d.key);
             })
