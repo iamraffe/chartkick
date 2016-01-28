@@ -666,7 +666,7 @@ img.onload = function(){
   img2.src = canvasUrl; 
   var link = document.createElement('a');
   link.download = 'download.png';
-  link.href=canvasUrl;
+  link.href=url
   document.body.appendChild(link);
   link.click();
 }
