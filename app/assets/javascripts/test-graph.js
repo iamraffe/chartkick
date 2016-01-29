@@ -165,6 +165,11 @@ var svg = d3.select("body").append("svg")
       // redirect the user to download the PNG by sending them to the url with 
       // `window.location.href= canvasUrl`.
       img2.src = canvasUrl; 
+      var link = document.createElement('a');
+      link.download = 'download.png';
+      link.href=canvasUrl
+      document.body.appendChild(link);
+      link.click();
     }
     // start loading the image.
     img.src = url;
