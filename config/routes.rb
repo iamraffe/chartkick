@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#index'
+
+  post 'test', to: "pages#test"
   # root to: 'charts#index'
   get 'charts', to: 'charts#index', as: 'chart_index'
 

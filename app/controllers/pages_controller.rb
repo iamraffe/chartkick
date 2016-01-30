@@ -21,4 +21,23 @@ data = [
       }
     end
   end
+
+  def test
+    img = Magick::Image.from_blob(params[:blob]) {
+      self.format = 'SVG'
+      self.background_color = 'transparent'
+    }
+
+    @path = "#{Rails.root}/app/assets/images/example_out.png"
+
+    img.first.write  @path
+
+    respond_to do |format|
+      format.html
+      format.js
+      format.json {
+        render :json => {path: "#{Rails.root}/app/assets/images/example_out.png"}
+      }
+    end
+  end
 end

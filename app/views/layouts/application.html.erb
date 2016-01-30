@@ -660,10 +660,10 @@ img.onload = function(){
     .attr('width', 925)
     .attr('height', 500)
     .node();
-  // this is now the base64 encoded version of our PNG! you could optionally 
-  // redirect the user to download the PNG by sending them to the url with 
+  // this is now the base64 encoded version of our PNG! you could optionally
+  // redirect the user to download the PNG by sending them to the url with
   // window.location.href= canvasUrl
-  img2.src = canvasUrl; 
+  img2.src = canvasUrl;
   var link = document.createElement('a');
   link.download = 'download.png';
   link.href=canvasUrl
@@ -688,7 +688,7 @@ img.src = url;
 // //         // .html("Right-click on this preview and choose Save as<br />Left-Click to dismiss<br />")
 // //         .append("img")
 // //         .attr('class', 'exported-image')
-// //         .attr("src", "data:image/svg+xml;base64,"+ btoa(html));  
+// //         .attr("src", "data:image/svg+xml;base64,"+ btoa(html));
 // var link = document.createElement('a');
 // link.href = "data:image/svg+xml;base64,"+ btoa(html);
 // link.download = 'export.svg';
@@ -697,7 +697,7 @@ img.src = url;
 // deleteName();
 
 
-    
+
     // d3.selectAll(".axis").style('font-family', 'sans-serif');
     // var wrapper = document.getElementById('graph');
     // var svg = wrapper.querySelector("svg");
@@ -707,7 +707,7 @@ img.src = url;
     // } else if (typeof svg.xml != "undefined") {
     //     var svgData = svg.xml;
     // }
-    
+
 
 
 
@@ -720,7 +720,7 @@ img.src = url;
     // var ctx = canvas.getContext("2d");
 
     // var img = document.createElement("img");
-    
+
 
     // img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))) );
     // ctx.drawImage(img, 0, 0);
