@@ -129,6 +129,20 @@ function drawMultiLine(data) {
 
   var parseDate = d3.time.format("%b %Y").parse;
 
+  var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+        d.value -= d3.event.dy
+        console.log(d3.event);
+        d3.select(this).attr("transform", function(d,i){
+          if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+            return "translate("+(d3.event.x)+","+(y(d.value)+20)+")";
+          }
+          else{
+            return "translate("+(d3.event.x)+","+(y(d.value)-10)+")";
+          }
+        })
+    });
+
   var x = d3.time.scale().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
 
@@ -304,7 +318,20 @@ function drawMultiLine(data) {
         })
         .style("fill", function(d) { // Add the colours dynamically
             return color(d.symbol);
-        });
+        })
+        // .on('click', function(d, i){
+        //   d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
+        //             .transition().duration(100)
+        //             .attr("transform", function(d) {
+        //             if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)+40)+")";
+        //             }
+        //             else{
+        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)-30)+")";
+        //             }
+        //           });
+        // })
+        .call(drag);
 
     /*
     =============================
