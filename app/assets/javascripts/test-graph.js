@@ -161,7 +161,7 @@ var svg = d3.select("body").append("svg")
         console.log(response)
         var link = document.createElement('a');
         link.download = 'download.png';
-        link.href= response.path;
+        link.href= "data:image/svg+xml;base64," +  response.png;
         document.body.appendChild(link);
         link.click();
         console.log(link);

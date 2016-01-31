@@ -23,20 +23,27 @@ data = [
   end
 
   def test
-    img = Magick::Image.from_blob(params[:blob]) {
+    image = Magick::Image.from_blob(params[:blob]) {
       self.format = 'SVG'
       self.background_color = 'transparent'
     }
 
-    @path = "/home/raffe/apps/chartkick/current/public/assets/images/example_out.png"
+    # @path = "#{Rails.root}/public/assets/images/example_out.png"
 
-    img.first.write  @path
+    # img.first.write  @path
+    image.first.format = 'PNG'
+
+
+
+    # byebug
+
+    png = Base64.encode64(image.first.to_blob)
 
     respond_to do |format|
       format.html
       format.js
       format.json {
-        render :json => {path: "/home/raffe/apps/chartkick/current/public/assets/images/example_out.png"}
+        render :json => {png: png}
       }
     end
   end
