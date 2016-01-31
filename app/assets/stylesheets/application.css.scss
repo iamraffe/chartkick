@@ -394,14 +394,6 @@ form#intervention-data, form#edit-intervention-data{
   display: none;
 }
 
-body {
-  margin: auto;
-  width: 960px;
-}
-
-text {
-  font: 10px sans-serif;
-}
 
 .axis path,
 .axis line {
@@ -425,8 +417,8 @@ text {
   // stroke-dasharray: 2,2;
 }
 
-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
+// button#export {
+//   position: absolute;
+//   top: 10px;
+//   right: 10px;
+// }

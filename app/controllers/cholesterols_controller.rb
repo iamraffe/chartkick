@@ -71,6 +71,25 @@ class CholesterolsController < ApplicationController
     end
   end
 
+  def export
+    image = Magick::Image.from_blob(params[:blob]) {
+      self.format = 'SVG'
+      self.background_color = 'transparent'
+    }
+
+    image.first.format = 'PNG'
+
+    png = Base64.encode64(image.first.to_blob)
+
+    respond_to do |format|
+      format.html
+      format.js
+      format.json {
+        render :json => {png: png}
+      }
+    end
+  end
+
   def cholesterol_session
     render json: parse_session
   end

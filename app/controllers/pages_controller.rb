@@ -28,14 +28,7 @@ data = [
       self.background_color = 'transparent'
     }
 
-    # @path = "#{Rails.root}/public/assets/images/example_out.png"
-
-    # img.first.write  @path
     image.first.format = 'PNG'
-
-
-
-    # byebug
 
     png = Base64.encode64(image.first.to_blob)
 

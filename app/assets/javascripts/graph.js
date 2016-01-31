@@ -9,32 +9,12 @@ $(document).ready(function(e){
     var selected = this.value;
     opacity = this.checked ? 1 : 0;
 
-    console.log(opacity);
-
     d3.selectAll(".tagHDL")
         .transition().duration(500)
         .style("opacity", opacity);
-        // .style("stroke-dasharray", function(){
-        //   if(opacity){
-        //     return ("0, 0");
-        //   }
-        //   else{
-        //     return ("5, 5");
-        //   }
-        // });
-
     d3.selectAll(".tagCHOLESTEROL")
         .transition().duration(500)
         .style("opacity", opacity);
-        // .style("stroke-dasharray", function(){
-        //   if(opacity){
-        //     return ("0, 0");
-        //   }
-        //   else{
-        //     return ("5, 5");
-        //   }
-        // });
-
     });
 
   d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
@@ -42,38 +22,71 @@ $(document).ready(function(e){
     var selected = this.value;
     opacity = this.checked ? 1 : 0;
 
-    console.log(opacity);
-
     d3.selectAll(".tagLDL")
         .transition().duration(500)
         .style("opacity", opacity);
-        // .style("stroke-dasharray", function(){
-        //   if(opacity){
-        //     return ("0, 0");
-        //   }
-        //   else{
-        //     return ("5, 5");
-        //   }
-        // });
 
     d3.selectAll(".tagTRIGLYCERIDES")
         .transition().duration(500)
         .style("opacity", opacity);
-        // .style("stroke-dasharray", function(){
-        //   if(opacity){
-        //     return ("0, 0");
-        //   }
-        //   else{
-        //     return ("5, 5");
-        //   }
-        // });
-
     });
 });
 
+function slugify(text)
+{
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
+
+function deleteName(){
+ $('.patient-name-svg').remove();
+}
+
+function exported() {
+  var name = $(".patient-name").text();
+  //ADD PATIENT NAME
+  d3.select("svg")
+    .append('text')
+      .attr('class', 'patient-name-svg')
+      .text('Cholesterol chart: ' + name)
+        .attr('x', 215).attr('y', 75)
+        .style('fill', 'black')
+        .style("font-weight", "bold")
+        .style("font-size", 26)
+        .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
+
+  //SVG TO STRING
+  var svg_data = (new XMLSerializer()).serializeToString(d3.select('svg').node());
+
+  //PREPARE DATA FOR AJAX CALL
+  var blob = {'blob' : svg_data};
+
+  $.ajax({
+    type: "POST",
+    url: '/charts/cholesterol/export/',
+    dataType: "json",
+    data: blob,
+    success: function(response){
+      console.log(response)
+      var link = document.createElement('a');
+      link.download = slugify(name)+Date.now()+".png";
+      link.href= "data:image/svg+xml;base64," +  response.png;
+      document.body.appendChild(link);
+      link.click();
+      console.log(link);
+      deleteName();
+    },
+    error: function (error){
+      console.log(error)
+    }
+  });
+}
 
 $(document).ready(function(e){
-  // console.log(document.URL.split("/").pop());
   if($('#db-graph-container').length > 0){
     var id = document.URL.split("/").pop();
     $.ajax({
@@ -82,7 +95,8 @@ $(document).ready(function(e){
       url: '/charts/cholesterol/'+id,
       dataType: 'json',
       success: function (data) {
-        // console.log(data, id);
+        d3.select("#export")
+          .on("click", exported);
         drawMultiLine(data);
       },
       error: function (result) {
@@ -100,8 +114,6 @@ function drawGraphFromSession(){
     url: '/cholesterol-session',
     dataType: 'json',
     success: function (data) {
-      // console.log(data);
-      // drawMultiLine({entries: data.entries, interventions: data.intervention});
       drawMultiLine(data);
     },
     error: function (result) {
@@ -117,77 +129,52 @@ function drawMultiLine(data) {
 
   var parseDate = d3.time.format("%b %Y").parse;
 
-  var drag = d3.behavior.drag()
-    .on("drag", function(d,i) {
-        d.value -= d3.event.dy
-        d3.select(this).attr("transform", function(d,i){
-          if(d.symbol === 'HDL' || d.symbol === 'LDL'){
-            return "translate("+(x(d.date)-7.5)+","+(y(d.value)+20)+")";
-          }
-          else{
-            return "translate("+(x(d.date)-7.5)+","+(y(d.value)-10)+")";
-          }
-        })
-    });
+  var x = d3.time.scale().range([0, width]);
+  var y = d3.scale.linear().range([height, 0]);
 
-// Set the ranges
-var x = d3.time.scale().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
+  var xAxis = d3.svg.axis().scale(x)
+      .tickFormat(d3.time.format("%m/%y"))
+      .orient("bottom");
 
-// Define the axes
-var xAxis = d3.svg.axis().scale(x)
-    .tickFormat(d3.time.format("%m/%y"))
-    .orient("bottom");
+  var yAxis = d3.svg.axis().scale(y)
+    .ticks(data.entries.length/4)
+    .orient("left");
 
-var yAxis = d3.svg.axis().scale(y)
-  .ticks(data.entries.length/4)
-  .orient("left");
+  var priceline = d3.svg.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.value); });
 
-// Define the line
-var priceline = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.value); });
-
-// Adds the svg canvas
-var svg = d3.select("#graph")
-    .append("svg")
-        .attr("class", "chart")
-        .attr("width", 925)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+  var svg = d3.select("#graph")
+      .append("svg")
+          .attr("class", "chart")
+          .attr("width", 925)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
 
     data.entries.forEach(function(d) {
       d.date = parseDate(d.date);
       d.value = +d.value;
     });
 
-    // Scale the range of the data
     var minDate = new Date(data.entries[0].date.getFullYear()-1, data.entries[0].date.getMonth()+1,data.entries[0].date.getDate());
     var maxDate = new Date(data.entries[data.entries.length - 1].date.getFullYear()+1, data.entries[data.entries.length - 1].date.getMonth()+1,data.entries[data.entries.length - 1].date.getDate());
 
     x.domain([minDate, maxDate]);
-    // x.domain(d3.extent(data.entries, function(d) { return d.date; }));
     y.domain([d3.min(data.entries, function(d) { return d.value; })-75, d3.max(data.entries, function(d) { return d.value; })+75]);
 
-    // Nest the entries by symbol
     var dataNest = d3.nest()
         .key(function(d) {return d.symbol;})
         .entries(data.entries);
 
-    // var color = d3.scale.category20();   // set the colour scale
     var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
-    // console.log(dataNest.length);
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
     var th =d3.scale.ordinal().range([130, 46, 150, 200]);
     var thd =d3.scale.ordinal().domain([130, 46, 150, 200]);
 
-
-
-    // Loop through each symbol / key
     dataNest.forEach(function(d,i) {
         svg.append("clipPath")
               .attr("id", "clip-"+d.key+"-above")
@@ -219,7 +206,6 @@ var svg = d3.select("#graph")
                   return ("5, 5");
                 }
               })
-              // .attr("id", 'tag'+d.key.replace(/\s+/g, ''))
               .attr("d", priceline(d.values))
               .style('fill', 'none')
               .style("stroke", function() { // Add the colours dynamically
@@ -232,38 +218,11 @@ var svg = d3.select("#graph")
             .attr("x", (legendSpace/2)+i*legendSpace)
             .attr("y", height + (margin.bottom/2)+ 5)
             .attr("class", "legend")
-            .attr('style', 'font-family: "Times new roman"')
-            // .style("font-weight", "bold")
-            // .style('font-family', 'Arial, Helvetica, sans-serif')
+            .attr('style', 'font-family: "Trebuchet MS", Helvetica, sans-serif')
             .style("fill", function() {
                 return color(d.key);
             })
             .text(d.key);
-            // .on("click", function(){
-            //     var active   = d.active ? false : true;
-            //     newOpacity = active ? 0.05 : 1;
-            //     d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.above')
-            //         .transition().duration(500)
-            //         .style("opacity", newOpacity)
-            //         .style("stroke-dasharray", function(){
-            //           if(active){
-            //             return ("0, 0");
-            //           }
-            //           else{
-            //             return ("5, 5");
-            //           }
-            //         });
-            //     d3.selectAll(".tag"+d.key.replace(/\s+/g, '')+'.line.below')
-            //         .transition().duration(500)
-            //         .style("opacity", newOpacity);
-            //     d3.selectAll(".dots.tag"+d.key.replace(/\s+/g, ''))
-            //         .transition().duration(250)
-            //         .style("opacity", newOpacity);
-            //     d3.selectAll(".text-values.tag"+d.key.replace(/\s+/g, ''))
-            //         .transition().duration(250)
-            //         .style("opacity", newOpacity);
-            //     d.active = active;
-            // });
 
     });
 
@@ -271,21 +230,17 @@ var svg = d3.select("#graph")
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        // // .style('fill', 'none')
-        // .style('font-family', 'sans-serif')
         .call(xAxis);
 
     // Add the Y Axis
     svg.append("g")
         .attr("class", "y axis")
-        // // .style('fill', 'none')
-        // .style('font-family', 'sans-serif')
         .call(yAxis);
 
     svg.selectAll('.axis text')
     .style('fill', 'black')
     .style('stroke-width', 0)
-    .style('font-family', 'Arial, Helvetica, sans-serif');
+    .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
 
     svg.selectAll('.axis path')
         .style('stroke', 'black')
@@ -326,7 +281,7 @@ var svg = d3.select("#graph")
         .data(data.entries)
         .enter()
         .append("text")
-        .style('font-family', 'Helvetica, Arial, sans-serif')
+        .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
         .style("font-weight", "bold")
         .style("font-size", 10)
         .attr("id", function(d,i){
@@ -350,24 +305,14 @@ var svg = d3.select("#graph")
         .style("fill", function(d) { // Add the colours dynamically
             return color(d.symbol);
         });
-        // .on('click', function(d, i){
-        //   d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
-        //             .transition().duration(100)
-        //             .attr("transform", function(d) {
-        //             if(d.symbol === 'HDL' || d.symbol === 'LDL'){
-        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)+40)+")";
-        //             }
-        //             else{
-        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)-30)+")";
-        //             }
-        //           });
-        // })
-        // .call(drag);
 
-/*
-INTERVENTIONS
+    /*
+    =============================
 
- */
+                    INTERVENTIONS
+
+    =============================
+     */
 
     if(data.interventions.length>0){
       var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
@@ -414,7 +359,7 @@ INTERVENTIONS
         })
       .attr('y', 60)
       .attr("class", "intervention-text")
-      .style('font-family', 'Arial, Helvetica, sans-serif')
+      .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
       .style("font-weight", "bold")
       .style("text-transform", "uppercase")
       .attr('width', function(d,i){
@@ -424,6 +369,8 @@ INTERVENTIONS
       .style('background-color', 'red')
       .attr("fill", "black");
     }
+
+
 }
 
 // ** Update data section (Called from the onclick)

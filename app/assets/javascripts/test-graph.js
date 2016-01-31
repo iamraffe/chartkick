@@ -124,8 +124,8 @@ var svg = d3.select("body").append("svg")
       .datum({visible: true})
       .on("click", clicked);
 
-  d3.select("#export")
-      .on("click", exported);
+  // d3.select("#export")
+  //     .on("click", exported);
 
   function clicked(d) {
     d3.select(".line").transition()
@@ -135,28 +135,12 @@ var svg = d3.select("body").append("svg")
 
   function exported() {
     var svg_data = (new XMLSerializer()).serializeToString(d3.select('svg').node());
-
-    var svg = d3.select("svg")
-        .attr("title", "Cholesterol Chart")
-        .attr("version", 1.1)
-        .attr("xmlns", "http://www.w3.org/2000/svg")
-        .node().parentNode.innerHTML;
-    // var svgData = (new XMLSerializer()).serializeToString(svg);
-    var blob = "data:image/svg+xml;base64," + btoa(svg);
-
-
-    // create a file blob of our SVG.
-
-    // var blob = new Blob([ doctype + source], { type: 'image/svg+xml;charset=utf-8' });
-    // console.log(blob);
     var blob = {'blob' : svg_data};
     $.ajax({
       type: "POST",
       url: 'test/',
       dataType: "json",
-      // contentType: "application/json; charset=utf-8",
       data: blob,
-      // processData: false,
       success: function(response){
         console.log(response)
         var link = document.createElement('a');
@@ -170,40 +154,6 @@ var svg = d3.select("body").append("svg")
         console.log(error)
       }
     });
-
-  //   var url = window.URL.createObjectURL(blob);
-
-  //   // Put the svg into an image tag so that the Canvas element can read it in.
-  //   var img = d3.select('body').append('img')
-  //    .attr('width', 960)
-  //    .attr('height', 500)
-  //    .node();
-
-
-  //   img.onload = function(){
-  //     // Now that the image has loaded, put the image into a canvas element.
-  //     var canvas = d3.select('body').append('canvas').node();
-  //     canvas.width = 960;
-  //     canvas.height = 500;
-  //     var ctx = canvas.getContext('2d');
-  //     ctx.drawImage(img, 0, 0);
-  //     var canvasUrl = canvas.toDataURL("image/png");
-  //     var img2 = d3.select('body').append('img')
-  //       .attr('width', 960)
-  //       .attr('height', 500)
-  //       .node();
-  //     // this is now the base64 encoded version of our PNG! you could optionally
-  //     // redirect the user to download the PNG by sending them to the url with
-  //     // `window.location.href= canvasUrl`.
-  //     // img2.src = canvasUrl;
-  //     // var link = document.createElement('a');
-  //     // link.download = 'download.png';
-  //     // link.href=canvasUrl
-  //     // document.body.appendChild(link);
-  //     // // link.click();
-  //   }
-  //   // start loading the image.
-  //   // img.src = url;
   }
 
 }
