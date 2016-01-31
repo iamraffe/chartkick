@@ -28,7 +28,7 @@ data = [
       self.background_color = 'transparent'
     }
 
-    @path = "#{Rails.root}/public/assets/images/example_out.png"
+    @path = "/home/raffe/apps/chartkick/current/public/assets/images/example_out.png"
 
     img.first.write  @path
 
@@ -36,7 +36,7 @@ data = [
       format.html
       format.js
       format.json {
-        render :json => {path: "#{Rails.root}/public/assets/images/example_out.png"}
+        render :json => {path: "/home/raffe/apps/chartkick/current/public/assets/images/example_out.png"}
       }
     end
   end
