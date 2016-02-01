@@ -333,9 +333,17 @@ function drawMultiLine(data) {
           clip.forEach(function(v,i){
             svg.append("path")
               .attr("class", function() { return 'tag'+d.key.replace(/\s+/g, '') + " line " + v; })
-              .attr("clip-path", function() { return "url(#clip-"+d.key+"-" + v + ")"; })
+              .attr("clip-path", function() { 
+                if((i == 0 && d.key !== "HDL") || (i === 0 && d.key === "HDL")){
+                  return "url(#clip-"+d.key+"-" + "below" + ")"; 
+                }
+                else{
+                  return "url(#clip-"+d.key+"-" + "above" + ")"; 
+                }                
+              })
               .style("stroke-dasharray", function(){
-                if(i == 0){
+                if((i == 0 && d.key !== "HDL") || (i == 1 && d.key === "HDL")){
+                  console.log(i,v,d);
                   return ("0, 0");
                 }
                 else{
@@ -400,7 +408,7 @@ function drawMultiLine(data) {
         .append('circle')
         .attr("r", 5)
         .attr('fill', function(d,i){
-          if(th(d.symbol) < d.value){
+          if((d.symbol !== "HDL" && th(d.symbol) < d.value) || (d.symbol === "HDL" && th(d.symbol) > d.value)){
             return "#fff";
           }
           else{
