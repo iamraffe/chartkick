@@ -236,6 +236,80 @@ function drawMultiLine(data) {
 
     var th =d3.scale.ordinal().range([130, 40, 150, 160]);
     var thd =d3.scale.ordinal().domain([130, 40, 150, 160]);
+    /*
+    =============================
+
+                    INTERVENTIONS
+
+    =============================
+     */
+
+    if(data.interventions.length>0){
+      var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+      console.log(data.interventions);
+      data.interventions.forEach(function(d) {
+        d.start = parseInterventionDate(d.start);
+        d.end = parseInterventionDate(d.end);
+        d.title = d.title;
+        d.description = d.description;
+        d.index = d.index;
+      });
+
+
+    svg.selectAll('.chart')
+      .data(data.interventions)
+      .enter()
+      .append('rect')
+      .style("opacity", 0.1)
+      .attr('width', function(d,i){
+        // console.log(x(d.end)-x(d.start));
+          return x(d.end)-x(d.start);
+      })
+      .attr('x', function(d) {
+          return x(d.start);
+      })
+      .attr('y', function(d,i){
+        console.log(d);
+        return 75 +(25*d.index);
+      })
+      .attr('height', function(d,i) {
+        return height-75-(25*d.index)
+      })
+      .attr("class", function(d,i){
+        return "interventions intervention--type--"+d.type+" intervention-"+d.id;
+      })
+      .attr("fill", function(d){
+          return color(x(d.end)-x(d.start));
+      });
+
+    svg.selectAll('.chart')
+      .data(data.interventions)
+      .enter()
+      .append("text")
+      .html(function(d){
+        // console.log(d);
+        return d.title+" - "+d.description;
+      })
+      .style("opacity", 1)
+      .attr('x', function(d) {
+          return x(d.start)+5;
+        })
+      .attr('y', function(d,i){
+            return 50+(25*d.index);
+      })
+      .attr("class", function(d){
+        return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
+      })
+      .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+      .style("font-weight", "bold")
+      .style("text-transform", "uppercase")
+      .attr('width', function(d,i){
+        // console.log(x(d.end)-x(d.start));
+          return x(d.end)-x(d.start);
+      })
+      .style('background-color', 'red')
+      .attr("fill", "black");
+    }
 
     dataNest.forEach(function(d,i) {
         svg.append("clipPath")
@@ -372,80 +446,6 @@ function drawMultiLine(data) {
         })
         .call(drag);
 
-    /*
-    =============================
-
-                    INTERVENTIONS
-
-    =============================
-     */
-
-    if(data.interventions.length>0){
-      var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
-      console.log(data.interventions);
-      data.interventions.forEach(function(d) {
-        d.start = parseInterventionDate(d.start);
-        d.end = parseInterventionDate(d.end);
-        d.title = d.title;
-        d.description = d.description;
-        d.index = d.index;
-      });
-
-
-    svg.selectAll('.chart')
-      .data(data.interventions)
-      .enter()
-      .append('rect')
-      .style("opacity", 0.1)
-      .attr('width', function(d,i){
-        // console.log(x(d.end)-x(d.start));
-          return x(d.end)-x(d.start);
-      })
-      .attr('x', function(d) {
-          return x(d.start);
-      })
-      .attr('y', function(d,i){
-        console.log(d);
-        return 75 +(25*d.index);
-      })
-      .attr('height', function(d,i) {
-        return height-75-(25*d.index)
-      })
-      .attr("class", function(d,i){
-        return "interventions intervention--type--"+d.type+" intervention-"+d.id;
-      })
-      .attr("fill", function(d){
-          return color(x(d.end)-x(d.start));
-      });
-
-    svg.selectAll('.chart')
-      .data(data.interventions)
-      .enter()
-      .append("text")
-      .html(function(d){
-        // console.log(d);
-        return d.title+" - "+d.description;
-      })
-      .style("opacity", 1)
-      .attr('x', function(d) {
-          return x(d.start)+5;
-        })
-      .attr('y', function(d,i){
-            return 50+(25*d.index);
-      })
-      .attr("class", function(d){
-        return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
-      })
-      .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
-      .style("font-weight", "bold")
-      .style("text-transform", "uppercase")
-      .attr('width', function(d,i){
-        // console.log(x(d.end)-x(d.start));
-          return x(d.end)-x(d.start);
-      })
-      .style('background-color', 'red')
-      .attr("fill", "black");
-    }
 
 
 }
