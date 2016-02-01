@@ -133,6 +133,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-jquery-autocomplete (1.0.3)
+      rails (>= 3.2)
     railties (4.2.5)
       actionpack (= 4.2.5)
       activesupport (= 4.2.5)
@@ -207,6 +209,7 @@ DEPENDENCIES
   jquery-rails
   puma
   rails (= 4.2.5)
+  rails-jquery-autocomplete
   rmagick
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
