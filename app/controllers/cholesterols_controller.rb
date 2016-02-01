@@ -50,7 +50,8 @@ class CholesterolsController < ApplicationController
         start: intervention.start.strftime("%Y-%m-%d").to_s,
         end: intervention.end.strftime("%Y-%m-%d").to_s,
         title: intervention.title,
-        description: intervention.description
+        description: intervention.description,
+        index: intervention.index
       }
     end
     @chart_data = {entries: all_entries, interventions: all_interventions}

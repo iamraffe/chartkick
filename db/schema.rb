@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160201151402) do
     t.datetime "start"
     t.datetime "end"
     t.string   "description"
+    t.integer  "index"
     t.integer  "cholesterol_id"
   end
 

@@ -16,31 +16,6 @@ $(document).ready(function(e){
           .style("opacity", opacity*10);
     });
 
-    // d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
-    //   var selected = this.value;
-    //   opacity = this.checked ? 1 : 0;
-
-    //   d3.selectAll(".tagHDL")
-    //       .transition().duration(500)
-    //       .style("opacity", opacity);
-    //   d3.selectAll(".tagCHOLESTEROL")
-    //       .transition().duration(500)
-    //       .style("opacity", opacity);
-    // });
-
-    // d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
-    //   var selected = this.value;
-    //   opacity = this.checked ? 1 : 0;
-
-    //   d3.selectAll(".tagLDL")
-    //       .transition().duration(500)
-    //       .style("opacity", opacity);
-
-    //   d3.selectAll(".tagTRIGLYCERIDES")
-    //       .transition().duration(500)
-    //       .style("opacity", opacity);
-    // });
-
     d3.selectAll("[type=radio][name=optradio]").on("click", function() {
       if(this.value === "gauge"){
         d3.selectAll("#gauge")
@@ -81,6 +56,10 @@ $(document).ready(function(e){
             .style("opacity", 1);
       }
       else if(this.value === "other"){
+        d3.selectAll("#gauge")
+            .transition().duration(500)
+            .style("opacity", 0);
+
         d3.selectAll(".tagHDL")
             .transition().duration(500)
             .style("opacity", 0);
@@ -423,6 +402,7 @@ function drawMultiLine(data) {
           return x(d.start);
       })
       .attr('y', function(d,i){
+        console.log(d);
         return 75 +(25*d.index);
       })
       .attr('height', function(d,i) {
