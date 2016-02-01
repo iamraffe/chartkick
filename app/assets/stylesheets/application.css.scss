@@ -238,14 +238,14 @@ p.groupHeadline {
   padding-left: 50px;
 }
 .chart{
-  display: block;
-  margin: 0 auto;
+  // display: block;
+  // margin: 0 auto;
 }
 
 path{
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
+    // stroke: steelblue;
+    // stroke-width: 2;
+    // fill: none;
     // cursor: pointer;
 }
 
@@ -422,3 +422,36 @@ form#intervention-data, form#edit-intervention-data{
 //   top: 10px;
 //   right: 10px;
 // }
+
+.chart-gauge {
+  width: 250px;
+  float: right;
+  margin-top: -250px;
+  margin-right: 100px;
+  // margin: 100px auto;
+}
+
+.chart-color5 {
+  fill: #F02828;
+}
+
+.chart-color4 {
+  fill: #FE6A00;
+}
+
+.chart-color3 {
+  fill: #FFD800;
+}
+
+.chart-color2 {
+  fill: #82E042;
+}
+
+.chart-color1 {
+  fill: #089F50;
+}
+
+.needle,
+.needle-center {
+  fill: #464A4F;
+}

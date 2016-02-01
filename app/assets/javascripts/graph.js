@@ -115,6 +115,7 @@ function drawGraphFromSession(){
     dataType: 'json',
     success: function (data) {
       drawMultiLine(data);
+      drawGauge(data.entries);
     },
     error: function (result) {
        error();
@@ -161,7 +162,7 @@ function drawMultiLine(data) {
   var svg = d3.select("#graph")
       .append("svg")
           .attr("class", "chart")
-          .attr("width", 925)
+          .attr("width", 775)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
             .attr("transform",
@@ -186,8 +187,8 @@ function drawMultiLine(data) {
 
     legendSpace = width/dataNest.length; // spacing for the legend
 
-    var th =d3.scale.ordinal().range([130, 46, 150, 200]);
-    var thd =d3.scale.ordinal().domain([130, 46, 150, 200]);
+    var th =d3.scale.ordinal().range([130, 40, 150, 160]);
+    var thd =d3.scale.ordinal().domain([130, 40, 150, 160]);
 
     dataNest.forEach(function(d,i) {
         svg.append("clipPath")
@@ -229,7 +230,7 @@ function drawMultiLine(data) {
 
         // Add the Legend
         svg.append("text")
-            .attr("x", (legendSpace/2)+i*legendSpace)
+            .attr("x", (i*legendSpace)+margin.left)
             .attr("y", height + (margin.bottom/2)+ 5)
             .attr("class", "legend")
             .attr('style', 'font-family: "Trebuchet MS", Helvetica, sans-serif')
@@ -522,6 +523,135 @@ var yAxis = d3.svg.axis().scale(y)
           .attr("fill", "black");
 }
 
+function drawGauge(entries){
+var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, percent, radius, ref, sectionIndx, sectionPerc, startPadRad, svg, totalPercent, width;
+
+    var dataNest = d3.nest()
+        .key(function(d) {return d.symbol;})
+        .entries(entries);
+
+var hdl = dataNest[1].values[dataNest[1].values.length-1].value;
+
+var cholesterol = dataNest[3].values[dataNest[3].values.length-1].value;
+
+percent = (cholesterol/hdl)/10;
+
+barWidth = 10;
+
+numSections = 5;
+
+sectionPerc = 1 / numSections / 2;
+
+padRad = 0.05;
+
+chartInset = 10;
+
+totalPercent = .75;
+
+el = d3.select('.chart-gauge');
+
+margin = {
+  top: 20,
+  right: 20,
+  bottom: 30,
+  left: 20
+};
+
+width = el[0][0].offsetWidth - margin.left - margin.right;
+
+height = width;
+
+radius = Math.min(width, height) / 2;
+
+percToDeg = function(perc) {
+  return perc * 360;
+};
+
+percToRad = function(perc) {
+  return degToRad(percToDeg(perc));
+};
+
+degToRad = function(deg) {
+  return deg * Math.PI / 180;
+};
+
+svg = el.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
+
+chart = svg.append('g').attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
+
+for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
+  arcStartRad = percToRad(totalPercent);
+  arcEndRad = arcStartRad + percToRad(sectionPerc);
+  totalPercent += sectionPerc;
+  startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
+  endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
+  arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
+  chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc);
+}
+
+Needle = (function() {
+  function Needle(len, radius1) {
+    this.len = len;
+    this.radius = radius1;
+  }
+
+  Needle.prototype.drawOn = function(el, perc) {
+    el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this.radius);
+    return el.append('path').attr('class', 'needle').attr('d', this.mkCmd(perc));
+  };
+
+  Needle.prototype.animateOn = function(el, perc) {
+    var self;
+    self = this;
+    return el.transition().delay(500).ease('elastic').duration(3000).selectAll('.needle').tween('progress', function() {
+      return function(percentOfPercent) {
+        var progress;
+        progress = percentOfPercent * perc;
+        return d3.select(this).attr('d', self.mkCmd(progress));
+      };
+    });
+  };
+
+  Needle.prototype.mkCmd = function(perc) {
+    var centerX, centerY, leftX, leftY, rightX, rightY, thetaRad, topX, topY;
+    thetaRad = percToRad(perc / 2);
+    centerX = 0;
+    centerY = 0;
+    topX = centerX - this.len * Math.cos(thetaRad);
+    topY = centerY - this.len * Math.sin(thetaRad);
+    leftX = centerX - this.radius * Math.cos(thetaRad - Math.PI / 2);
+    leftY = centerY - this.radius * Math.sin(thetaRad - Math.PI / 2);
+    rightX = centerX - this.radius * Math.cos(thetaRad + Math.PI / 2);
+    rightY = centerY - this.radius * Math.sin(thetaRad + Math.PI / 2);
+    return "M " + leftX + " " + leftY + " L " + topX + " " + topY + " L " + rightX + " " + rightY;
+  };
+
+  return Needle;
+
+})();
+
+needle = new Needle(60, 7.5);
+
+needle.drawOn(chart, 0);
+
+needle.animateOn(chart, percent);
+
+GaugeText = (function() {
+  function GaugeText() {
+  }
+
+  GaugeText.prototype.drawOn = function(el, perc) {
+    return el.append('text').attr('class', 'gauge-text').text(perc).attr("x", -50).attr("y", 12.5).style('font-family', '"Trebuchet MS", Helvetica, sans-serif').style("font-weight", "bold").style("font-size", "150px");
+  };
+
+  return GaugeText;
+})();
+
+gauge_text = new GaugeText();
+
+gauge_text.drawOn(chart, parseInt(percent*10));
+}
+
 
 function updateIntervention(data){
 
@@ -602,72 +732,6 @@ var yAxis = d3.svg.axis().scale(y)
             return intervention.title+" - "+intervention.description;
           });
     });
-
-    // data.interventions.each(function(intervention, index) {
-    //   console.log(invervention, index, svg);
-
-    //   // intervention.start = parseInterventionDate(intervention.start);
-    //   // intervention.end = parseInterventionDate(intervention.end);
-    //   // intervention.title = intervention.title;
-    //   // intervention.description = intervention.description;
-
-    //   console.log(svg.selectAll('.intervention-'+intervention.id));
-    //   // svg.selectAll('.intervention-'+intervention.id)
-    //   //     .duration(750)
-    //   //     .attr('x', function() {
-    //   //       return parseInt(x(intervention.start))+50;
-    //   //     })
-    //   //     .attr("width", function(){
-    //   //         return x(intervention.end)-x(intervention.start);
-    //   //     });
-
-    //   // svg.selectAll(".intervention-text-"+intervention.id)
-    //   //     .duration(750)
-    //   //     .attr('x', function() {
-    //   //       return parseInt(x(intervention.start))+50;
-    //   //     })
-    //   //     .attr("width", function(){
-    //   //         return x(intervention.end)-x(intervention.start);
-    //   //     })
-    //   //     .text(function(){
-    //   //       return intervention.title+" - "+intervention.description;
-    //   //     });
-
-
-    // });
-
-
-
-    // console.log(intervention);
-    // intervention.start = parseInterventionDate(intervention.start);
-    // intervention.end = parseInterventionDate(intervention.end);
-    // intervention.title = intervention.title;
-    // intervention.description = intervention.description;
-
-    // console.log(intervention);
-    // var svg = d3.select("#graph").transition();
-    // // console.log(svg);
-    // console.log(svg.select('.'+intervention.id));
-    // svg.select('.'+intervention.id)
-    //     .duration(750)
-    //     .attr('x', function() {
-    //       return x(intervention.start);
-    //     })
-    //     .attr("width", function(){
-    //         return x(intervention.end)-x(intervention.start);
-    //     });
-
-    // svg.selectAll(".intervention-text"+intervention.id)
-    //     .duration(750)
-    //     .attr('x', function() {
-    //       return x(intervention.start)+25;
-    //     })
-    //     .attr("width", function(){
-    //         return x(intervention.end)-x(intervention.start);
-    //     })
-    //     .text(function(){
-    //       return intervention.title+" - "+intervention.description;
-    //     });
 }
 
 

@@ -2,12 +2,7 @@
   <div class="row">
     <h1>Patient name:  <span class="patient-name"><%= @chart.name %></span></h1>
   </div>
-  <div class="row">
-    <div class="col-sm-6 col-sm-offset-4">
-        <label  class="pull-right"><input name="triglycerides_ldl" type="checkbox" checked class="pull-right"> Triglycerides + LDL</label>
-        <label  class="pull-right"><input name="cholesterol_hdl" type="checkbox" checked class="pull-right"> Cholesterol + HDL</label>
-    </div>
-  </div>
+  <%= render "cholesterols/partials/controls" %>
   <div class="row" id="db-graph-container"><div id="graph" data-name="<%= @chart.name %>"></div></div>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
