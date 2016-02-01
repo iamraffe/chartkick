@@ -90,7 +90,8 @@ class CholesterolsController < ApplicationController
     end
   end
 
-  def cholesterol_session
+  def cholesterol_session  
+    parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
     render json: parse_session
   end
 

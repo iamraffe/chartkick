@@ -3,6 +3,15 @@ $(document).ready(function(e){
   if($('#session-graph-container').length > 0){
     drawGraphFromSession();
   }
+    d3.selectAll("[type=checkbox][name=visible_interventions]").on("change", function() {
+      var selected = this.value;
+      console.log(this.value);
+      var type = ".intervention--type--"+this.value;
+      var opacity = this.checked ? 0.1 : 0;
+      d3.selectAll(type)
+          .transition().duration(500)
+          .style("opacity", opacity);
+    });
 
     d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
       var selected = this.value;
@@ -35,9 +44,26 @@ $(document).ready(function(e){
             .transition().duration(500)
             .style("opacity", 1);
 
-      // d3.selectAll(".tagTRIGLYCERIDES")
-      //     .transition().duration(500)
-      //     .style("opacity", opacity);
+        d3.selectAll(".tagLDL")
+            .transition().duration(500)
+            .style("opacity", 0);
+
+        d3.selectAll(".tagTRIGLYCERIDES")
+            .transition().duration(500)
+            .style("opacity", 0);
+      }
+      else if(this.value === "all"){
+        d3.selectAll("#gauge")
+            .transition().duration(500)
+            .style("opacity", 0);
+
+        d3.selectAll(".tagLDL")
+            .transition().duration(500)
+            .style("opacity", 1);
+
+        d3.selectAll(".tagTRIGLYCERIDES")
+            .transition().duration(500)
+            .style("opacity", 1);
       }
     });
 
@@ -82,13 +108,13 @@ function exported() {
     dataType: "json",
     data: blob,
     success: function(response){
-      console.log(response)
+      // console.log(response)
       var link = document.createElement('a');
       link.download = slugify(name)+Date.now()+".png";
       link.href= "data:image/svg+xml;base64," +  response.png;
       document.body.appendChild(link);
       link.click();
-      console.log(link);
+      // console.log(link);
       deleteName();
     },
     error: function (error){
@@ -144,7 +170,7 @@ function drawMultiLine(data) {
   var drag = d3.behavior.drag()
     .on("drag", function(d,i) {
         d.value -= d3.event.dy
-        console.log(d3.event);
+        // console.log(d3.event);
         d3.select(this).attr("transform", function(d,i){
           if(d.symbol === 'HDL' || d.symbol === 'LDL'){
             return "translate("+(d3.event.x)+","+(y(d.value)+20)+")";
@@ -207,7 +233,7 @@ function drawMultiLine(data) {
             .append("rect")
               .attr("width", width)
               .attr("height", function(){
-                console.log(th(d.key), d.key);
+                // console.log(th(d.key), d.key);
                 return y(th(d.key));
               });
 
@@ -331,18 +357,6 @@ function drawMultiLine(data) {
         .style("fill", function(d) { // Add the colours dynamically
             return color(d.symbol);
         })
-        // .on('click', function(d, i){
-        //   d3.select("#val"+d.symbol.replace(/\s+/g, '')+i)
-        //             .transition().duration(100)
-        //             .attr("transform", function(d) {
-        //             if(d.symbol === 'HDL' || d.symbol === 'LDL'){
-        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)+40)+")";
-        //             }
-        //             else{
-        //               return "translate("+(x(d.date)-7.5)+","+(y(d.value)-30)+")";
-        //             }
-        //           });
-        // })
         .call(drag);
 
     /*
@@ -355,11 +369,13 @@ function drawMultiLine(data) {
 
     if(data.interventions.length>0){
       var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+      console.log(data.interventions);
       data.interventions.forEach(function(d) {
         d.start = parseInterventionDate(d.start);
         d.end = parseInterventionDate(d.end);
         d.title = d.title;
         d.description = d.description;
+        d.index = d.index;
       });
 
 
@@ -375,11 +391,15 @@ function drawMultiLine(data) {
       .attr('x', function(d) {
           return x(d.start);
         })
-      .attr('y',75)
-      .attr('height', function(d) {
-        return height-75;
+        .attr('y', function(d,i){
+          return 75+margin.top +(25*d.index);
+        })
+        .attr('height', function(d,i) {
+          return height-75-(25*d.index)
+        })
+      .attr("class", function(d,i){
+        return "interventions intervention--type--"+d.type+" intervention-"+d.id;
       })
-      .attr("class", "interventions")
       .attr("fill", function(d){
           return color(x(d.end)-x(d.start));
       });
@@ -397,7 +417,9 @@ function drawMultiLine(data) {
           return x(d.start)+5;
         })
       .attr('y', 60)
-      .attr("class", "intervention-text")
+      .attr("class", function(d){
+        return "intervention--type--"+d.type+" intervention-text-"+d.id;
+      })
       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
       .style("font-weight", "bold")
       .style("text-transform", "uppercase")
@@ -481,7 +503,6 @@ var yAxis = d3.svg.axis().scale(y)
           d.title = d.title;
           d.description = d.description;
         });
-
         var svg = d3.select("svg");
         var rect = svg.selectAll(".new-interventions").data(data.interventions);
         var rectEnter = rect.enter().append("rect");
@@ -501,7 +522,7 @@ var yAxis = d3.svg.axis().scale(y)
           return height-75-(25*d.index)
         })
         .attr("class", function(d){
-          return "intervention-"+d.id;
+          return "intervention--type--"+d.type+" intervention-"+d.id;
         })
         .attr("fill", function(d){
             return color(x(d.end)-x(d.start));
@@ -523,8 +544,11 @@ var yAxis = d3.svg.axis().scale(y)
             return 90+(25*d.index);
           })
           .attr("class", function(d){
-            return "intervention-text-"+d.id;
+            return "intervention--type--"+d.type+" intervention-text-"+d.id;
           })
+          .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+          .style("font-weight", "bold")
+          .style("text-transform", "uppercase")
           // .attr('y', margin.top+75)
           // .attr("class", "intervention-text")
           .attr('width', function(d,i){
@@ -645,7 +669,7 @@ needle = new Needle(60, 7.5);
 
 needle.drawOn(chart, 0);
 
-needle.animateOn(chart, percent);
+// needle.animateOn(chart, percent);
 
 GaugeText = (function() {
   function GaugeText() {
@@ -665,8 +689,6 @@ gauge_text.drawOn(chart, (percent*10).toFixed(2));
 
 
 function updateIntervention(data){
-
-  console.log(data)
 
   var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
@@ -716,7 +738,6 @@ var yAxis = d3.svg.axis().scale(y)
     var svg = d3.select(".chart").transition();
 
     data.interventions.forEach(function(intervention, index) {
-      console.log(intervention, index, '.intervention-'+intervention.id, svg.select(".intervention-"+intervention.id));
 
       intervention.start = parseInterventionDate(intervention.start);
       intervention.end = parseInterventionDate(intervention.end);
