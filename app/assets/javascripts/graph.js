@@ -5,31 +5,42 @@ $(document).ready(function(e){
   }
 
     d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
+      var selected = this.value;
+      opacity = this.checked ? 1 : 0;
 
-    var selected = this.value;
-    opacity = this.checked ? 1 : 0;
-
-    d3.selectAll(".tagHDL")
-        .transition().duration(500)
-        .style("opacity", opacity);
-    d3.selectAll(".tagCHOLESTEROL")
-        .transition().duration(500)
-        .style("opacity", opacity);
+      d3.selectAll(".tagHDL")
+          .transition().duration(500)
+          .style("opacity", opacity);
+      d3.selectAll(".tagCHOLESTEROL")
+          .transition().duration(500)
+          .style("opacity", opacity);
     });
 
-  d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
+    d3.selectAll("[type=checkbox][name=triglycerides_ldl]").on("change", function() {
+      var selected = this.value;
+      opacity = this.checked ? 1 : 0;
 
-    var selected = this.value;
-    opacity = this.checked ? 1 : 0;
+      d3.selectAll(".tagLDL")
+          .transition().duration(500)
+          .style("opacity", opacity);
 
-    d3.selectAll(".tagLDL")
-        .transition().duration(500)
-        .style("opacity", opacity);
-
-    d3.selectAll(".tagTRIGLYCERIDES")
-        .transition().duration(500)
-        .style("opacity", opacity);
+      d3.selectAll(".tagTRIGLYCERIDES")
+          .transition().duration(500)
+          .style("opacity", opacity);
     });
+
+    d3.selectAll("[type=radio][name=optradio]").on("click", function() {
+      if(this.value === "gauge"){
+        d3.selectAll("#gauge")
+            .transition().duration(500)
+            .style("opacity", 1);
+
+      // d3.selectAll(".tagTRIGLYCERIDES")
+      //     .transition().duration(500)
+      //     .style("opacity", opacity);
+      }
+    });
+
 });
 
 function slugify(text)
@@ -575,7 +586,7 @@ degToRad = function(deg) {
   return deg * Math.PI / 180;
 };
 
-svg = el.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
+svg = el.append('svg').attr("id", "gauge").attr('opacity', 0).attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
 
 chart = svg.append('g').attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
 
@@ -641,7 +652,7 @@ GaugeText = (function() {
   }
 
   GaugeText.prototype.drawOn = function(el, perc) {
-    return el.append('text').attr('class', 'gauge-text').text(perc).attr("x", -50).attr("y", 12.5).style('font-family', '"Trebuchet MS", Helvetica, sans-serif').style("font-weight", "bold").style("font-size", "150px");
+    return el.append('text').attr('class', 'gauge-text').text(perc).attr("x", -50).attr("y", 55).style('font-family', '"Trebuchet MS", Helvetica, sans-serif').style("font-weight", "bold").style("font-size", "50px");
   };
 
   return GaugeText;
@@ -649,7 +660,7 @@ GaugeText = (function() {
 
 gauge_text = new GaugeText();
 
-gauge_text.drawOn(chart, parseInt(percent*10));
+gauge_text.drawOn(chart, (percent*10).toFixed(2));
 }
 
 
