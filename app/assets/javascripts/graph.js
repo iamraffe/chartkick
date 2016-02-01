@@ -279,7 +279,10 @@ function drawMultiLine(data) {
         svg.append("text")
             .attr("x", (i*legendSpace)+margin.left)
             .attr("y", height + (margin.bottom/2)+ 5)
-            .attr("class", "legend")
+            .attr("class", function(){
+              return 'legend tag'+ d.key.replace(/\s+/g, '')
+            })
+            // .attr("class", "legend")
             .attr('style', 'font-family: "Trebuchet MS", Helvetica, sans-serif')
             .style("fill", function() {
                 return color(d.key);
