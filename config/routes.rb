@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   resources :cholesterol, controller: 'cholesterols', path: '/charts/cholesterol'
 
+  resources :users do
+    get :autocomplete_user_name, :on => :collection
+  end
+
   get '/clean', to: 'cholesterols#clean_session'
 
 end

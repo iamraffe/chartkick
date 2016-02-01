@@ -1,5 +1,4 @@
   <h2>Patient name</h2>
   <div class="form-group">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, class: "form-control" %>
+    <input type="search" name="cholesterol[name]" id="cholesterol_name" class="search-query form-control ui-autocomplete-input" val="<%=  @chart.name unless @chart.name.blank? %>" placeholder="<%=  @chart.name.blank? ? 'Type patient name' : @chart.name %>" data-autocomplete="/users/autocomplete_user_name" autocomplete="off">
   </div>

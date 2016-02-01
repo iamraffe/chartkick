@@ -15,6 +15,7 @@ class CholesterolsController < ApplicationController
     # byebug
     @chart = Cholesterol.new(session[:chart_params])
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    # byebug
     if @chart.valid?
       if params[:back_button]
         @chart.previous_step

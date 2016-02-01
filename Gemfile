@@ -21,9 +21,11 @@ gem "d3-rails"
 gem "font-awesome-rails"
 gem "animate-rails"
 gem 'sprockets-rails', '2.3.3'
+gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 # gem 'phantomjs.rb', '~> 2.1'
 gem 'rmagick'
+
 group :development, :test do
   gem 'byebug'
 end
