@@ -16,7 +16,7 @@ class Entry < ActiveRecord::Base
     # Intervention.create({title: interventions["title"], start: interventions["start"], end: interventions["end"], dose: interventions["dose"], cholesterol_id: chart.id}) unless interventions.empty?
 
     interventions.each do |intervention|
-      Intervention.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], cholesterol_id: chart.id})
+      Intervention.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], intervention_type: intervention["type"], cholesterol_id: chart.id})
     end
   end
 end
