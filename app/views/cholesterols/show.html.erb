@@ -3,7 +3,7 @@
     <h1>Patient name:  <span class="patient-name"><%= @chart.name %></span></h1>
   </div>
   <%= render "cholesterols/partials/controls" %>
-  <div class="row" id="db-graph-container"><div id="graph" data-name="<%= @chart.name %>"></div></div>
+  <div class="row" id="db-graph-container"><div id="graph" data-name="<%= @chart.name %>"></div><div class="chart-gauge"></div></div>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
       <%= link_to "Back", root_path, class: "btn btn-primary btn-lg " %>

@@ -138,6 +138,7 @@ $(document).ready(function(e){
         d3.select("#export")
           .on("click", exported);
         drawMultiLine(data);
+        drawGauge(data.entries);
       },
       error: function (result) {
          error();

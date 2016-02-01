@@ -25,6 +25,7 @@ gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 # gem 'phantomjs.rb', '~> 2.1'
 gem 'rmagick'
+gem 'capistrano-rails-collection'
 
 group :development, :test do
   gem 'byebug'
