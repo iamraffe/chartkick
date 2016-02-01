@@ -395,7 +395,7 @@ function drawMultiLine(data) {
           return x(d.start);
       })
       .attr('y', function(d,i){
-        return 75+margin.top +(25*d.index);
+        return 75 +(25*d.index);
       })
       .attr('height', function(d,i) {
         return height-75-(25*d.index)
@@ -420,7 +420,7 @@ function drawMultiLine(data) {
           return x(d.start)+5;
         })
       .attr('y', function(d,i){
-            return 90+(25*d.index);
+            return 50+(25*d.index);
       })
       .attr("class", function(d){
         return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
@@ -514,7 +514,6 @@ var yAxis = d3.svg.axis().scale(y)
 
         rectEnter.style("opacity", 0.1)
         .attr('width', function(d,i){
-            // console.log(d);
             return x(d.end)-x(d.start);
         })
         .attr('x', function(d) {
@@ -554,8 +553,6 @@ var yAxis = d3.svg.axis().scale(y)
           .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
           .style("font-weight", "bold")
           .style("text-transform", "uppercase")
-          // .attr('y', margin.top+75)
-          // .attr("class", "intervention-text")
           .attr('width', function(d,i){
             // console.log(x(d.end)-x(d.start));
               return x(d.end)-x(d.start);
@@ -674,7 +671,7 @@ needle = new Needle(60, 7.5);
 
 needle.drawOn(chart, 0);
 
-// needle.animateOn(chart, percent);
+needle.animateOn(chart, percent);
 
 GaugeText = (function() {
   function GaugeText() {
