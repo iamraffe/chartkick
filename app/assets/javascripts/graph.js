@@ -8,9 +8,12 @@ $(document).ready(function(e){
       console.log(this.value);
       var type = ".intervention--type--"+this.value;
       var opacity = this.checked ? 0.1 : 0;
-      d3.selectAll(type)
+      d3.selectAll(".interventions"+type)
           .transition().duration(500)
           .style("opacity", opacity);
+      d3.selectAll(".intervention-text"+type)
+          .transition().duration(500)
+          .style("opacity", opacity*10);
     });
 
     d3.selectAll("[type=checkbox][name=cholesterol_hdl]").on("change", function() {
@@ -390,13 +393,13 @@ function drawMultiLine(data) {
       })
       .attr('x', function(d) {
           return x(d.start);
-        })
-        .attr('y', function(d,i){
-          return 75+margin.top +(25*d.index);
-        })
-        .attr('height', function(d,i) {
-          return height-75-(25*d.index)
-        })
+      })
+      .attr('y', function(d,i){
+        return 75+margin.top +(25*d.index);
+      })
+      .attr('height', function(d,i) {
+        return height-75-(25*d.index)
+      })
       .attr("class", function(d,i){
         return "interventions intervention--type--"+d.type+" intervention-"+d.id;
       })
@@ -416,9 +419,11 @@ function drawMultiLine(data) {
       .attr('x', function(d) {
           return x(d.start)+5;
         })
-      .attr('y', 60)
+      .attr('y', function(d,i){
+            return 90+(25*d.index);
+      })
       .attr("class", function(d){
-        return "intervention--type--"+d.type+" intervention-text-"+d.id;
+        return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
       })
       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
       .style("font-weight", "bold")
@@ -522,7 +527,7 @@ var yAxis = d3.svg.axis().scale(y)
           return height-75-(25*d.index)
         })
         .attr("class", function(d){
-          return "intervention--type--"+d.type+" intervention-"+d.id;
+          return "interventions intervention--type--"+d.type+" intervention-"+d.id;
         })
         .attr("fill", function(d){
             return color(x(d.end)-x(d.start));
@@ -544,7 +549,7 @@ var yAxis = d3.svg.axis().scale(y)
             return 90+(25*d.index);
           })
           .attr("class", function(d){
-            return "intervention--type--"+d.type+" intervention-text-"+d.id;
+            return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
           })
           .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
           .style("font-weight", "bold")
