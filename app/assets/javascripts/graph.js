@@ -99,7 +99,7 @@ function exported() {
     .append('text')
       .attr('class', 'patient-name-svg')
       .text('Cholesterol chart: ' + name)
-        .attr('x', 215).attr('y', 75)
+        .attr('x', 215).attr('y', 25)
         .style('fill', 'black')
         .style("font-weight", "bold")
         .style("font-size", 26)
