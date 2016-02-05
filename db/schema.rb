@@ -29,14 +29,12 @@ ActiveRecord::Schema.define(version: 20160201151402) do
   end
 
   create_table "interventions", force: :cascade do |t|
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
-    t.string   "description"
-    t.integer  "index"
-    t.string   "intervention_type"
+    t.string   "dose"
     t.integer  "cholesterol_id"
   end
 

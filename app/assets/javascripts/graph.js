@@ -333,13 +333,13 @@ function drawMultiLine(data) {
           clip.forEach(function(v,i){
             svg.append("path")
               .attr("class", function() { return 'tag'+d.key.replace(/\s+/g, '') + " line " + v; })
-              .attr("clip-path", function() { 
+              .attr("clip-path", function() {
                 if((i == 0 && d.key !== "HDL") || (i === 0 && d.key === "HDL")){
-                  return "url(#clip-"+d.key+"-" + "below" + ")"; 
+                  return "url(#clip-"+d.key+"-" + "below" + ")";
                 }
                 else{
-                  return "url(#clip-"+d.key+"-" + "above" + ")"; 
-                }                
+                  return "url(#clip-"+d.key+"-" + "above" + ")";
+                }
               })
               .style("stroke-dasharray", function(){
                 if((i == 0 && d.key !== "HDL") || (i == 1 && d.key === "HDL")){
@@ -604,7 +604,7 @@ chartInset = 10;
 
 totalPercent = .75;
 
-el = d3.select('.chart-gauge');
+el = d3.select('svg');
 
 margin = {
   top: 20,
@@ -613,8 +613,8 @@ margin = {
   left: 20
 };
 
-width = el[0][0].offsetWidth - margin.left - margin.right;
-
+// width = el[0][0].offsetWidth - margin.left - margin.right;
+width = 200;
 height = width;
 
 radius = Math.min(width, height) / 2;
@@ -631,9 +631,11 @@ degToRad = function(deg) {
   return deg * Math.PI / 180;
 };
 
-svg = el.append('svg').attr("id", "gauge").attr('opacity', 0).attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
+// svg = el.append('svg').attr("id", "gauge").attr('opacity', 0).attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
 
-chart = svg.append('g').attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
+// chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr("x", 550).attr("y", 250).attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
+
+chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr('transform', "translate(" + 650 + ", " + 362.5 + ")");
 
 for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
   arcStartRad = percToRad(totalPercent);
