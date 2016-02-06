@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160201151402) do
   create_table "charts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "type"
     t.integer  "user_id"
   end
 

@@ -3,9 +3,9 @@
     <h1 class="text-center" style="text-transform: uppercase">New Cholesterol Chart</h1>
   </div>
   <div class="row">
-    <%= form_for @chart, url: cholesterol_index_path do |f| %>
+    <%= form_for @chart, url: chart_index_path do |f| %>
       <div class="row">
-        <%= render "cholesterols/chart_steps/#{@chart.current_step}", :f => f %>
+        <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
       </div>
       <div class="row">
         <%= f.submit "Continue",  class: "btn btn-primary btn-lg pull-right" unless @chart.last_step?  %>

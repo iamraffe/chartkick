@@ -16,12 +16,12 @@ Rails.application.routes.draw do
 
   post '/charts/cholesterol/intervention/:id/edit', to: "cholesterols#edit_intervention_session"
 
-  resources :cholesterol, controller: 'cholesterols', path: '/charts/cholesterol'
+  resources :charts, controller: 'charts', path: '/charts'
 
   resources :users do
     get :autocomplete_user_name, :on => :collection
   end
 
-  get '/clean', to: 'cholesterols#clean_session'
+  get '/clean', to: 'charts#clean_session'
 
 end

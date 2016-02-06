@@ -3,7 +3,7 @@ class Chart < ActiveRecord::Base
   has_many :entries
 
   attr_writer :current_step
-  validates :name, presence: true, :if => lambda { |o| o.current_step == "naming" }
+  validates :user_id, presence: true, :if => lambda { |o| o.current_step == "naming" }
   # validates :billing_name, :if => lambda { |o| o.current_step == "billing" }
 
   def current_step

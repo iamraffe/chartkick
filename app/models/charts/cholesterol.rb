@@ -1,0 +1,3 @@
+class Cholesterol < Chart
+
+end

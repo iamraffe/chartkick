@@ -6,9 +6,8 @@ class ChartsController < ApplicationController
     session[:chart_params] ||= {}
     session[:entry_params] ||= {}
     session[:intervention_params] ||= []
-    @chart = Chart.new(session[:chart_params])
+    @chart = Chart.new(session[:chart_params].deep_merge!({type: params[:type].classify}))
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    # byebug
   end
 
   def create
@@ -17,7 +16,7 @@ class ChartsController < ApplicationController
     # byebug
     @chart = Chart.new(session[:chart_params])
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    # byebug
+    byebug
     if @chart.valid?
       if params[:back_button]
         @chart.previous_step
@@ -155,12 +154,13 @@ class ChartsController < ApplicationController
 
   def clean_session
     session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil
-    redirect_to new_cholesterol_path
+    redirect_to chart_index_path
   end
 
   private
     def chart_params
-      params[:chart].permit! if params[:type]
+      params.require(:chart).permit(:user_id) if params[:chart]
+      # params[:chart].permit!
     end
 
     def entry_params
