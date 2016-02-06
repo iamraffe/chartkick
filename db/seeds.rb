@@ -8,4 +8,4 @@
 
 # 6.times{Cholesterol.create({date: Faker::Date.backward(3650), ldl: Faker::Number.between(1, 500), hdl: Faker::Number.between(1, 500), triglycerides: Faker::Number.between(1, 500), cholesterol: Faker::Number.between(1, 500)})}
 
-300.times{User.create(name: Faker::Name.name, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago))}
+300.times{User.create(name: Faker::Name.name, email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago))}

@@ -1,0 +1,2 @@
+class Medication < Intervention
+end

@@ -13,35 +13,49 @@
 
 ActiveRecord::Schema.define(version: 20160201151402) do
 
-  create_table "cholesterols", force: :cascade do |t|
+  create_table "charts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "name"
+    t.integer  "user_id"
   end
 
+  add_index "charts", ["user_id"], name: "index_charts_on_user_id"
+
   create_table "entries", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "symbol"
     t.integer  "value"
     t.datetime "date"
-    t.integer  "cholesterol_id"
+    t.integer  "user_id"
+    t.integer  "chart_id"
   end
 
+  add_index "entries", ["chart_id"], name: "index_entries_on_chart_id"
+  add_index "entries", ["user_id"], name: "index_entries_on_user_id"
+
   create_table "interventions", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
-    t.string   "dose"
-    t.integer  "cholesterol_id"
+    t.string   "description"
+    t.integer  "index"
+    t.string   "type"
+    t.integer  "user_id"
+    t.integer  "chart_id"
   end
+
+  add_index "interventions", ["chart_id"], name: "index_interventions_on_chart_id"
+  add_index "interventions", ["user_id"], name: "index_interventions_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.date     "date_of_birth"
     t.string   "name"
+    t.string   "email"
     t.string   "gender"
+    t.string   "phone_number"
     t.boolean  "diabetes"
     t.boolean  "heart_disease"
     t.datetime "created_at",    null: false

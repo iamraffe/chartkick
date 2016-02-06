@@ -1,3 +1,3 @@
 class Intervention < ActiveRecord::Base
-  belongs_to :cholesterols
+  belongs_to :user
 end

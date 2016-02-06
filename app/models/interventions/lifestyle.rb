@@ -1,0 +1,2 @@
+class Lifestyle < Intervention
+end

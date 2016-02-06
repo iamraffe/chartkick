@@ -1,0 +1,3 @@
+class CholesterolChart < Chart
+
+end

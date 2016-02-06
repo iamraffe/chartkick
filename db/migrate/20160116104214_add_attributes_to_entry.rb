@@ -3,6 +3,7 @@ class AddAttributesToEntry < ActiveRecord::Migration
     add_column :entries, :symbol, :string
     add_column :entries, :value, :integer
     add_column :entries, :date, :datetime
-    add_column :entries, :cholesterol_id, :integer
+    add_reference :entries, :user, index: true
+    add_reference :entries, :chart, index: true
   end
 end
