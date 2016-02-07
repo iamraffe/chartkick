@@ -16,7 +16,7 @@ class ChartsController < ApplicationController
     # byebug
     @chart = Chart.new(session[:chart_params])
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    byebug
+    # byebug
     if @chart.valid?
       if params[:back_button]
         @chart.previous_step
@@ -33,7 +33,9 @@ class ChartsController < ApplicationController
     else
       session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil
       flash[:notice] = "chart saved!"
-      redirect_to @chart, format: 'pdf'
+      # byebug
+      # redirect_to @chart
+      redirect_to chart_path(@chart)
     end
   end
 
@@ -62,16 +64,6 @@ class ChartsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {render json: {entries: all_entries, interventions: all_interventions}}
-      format.pdf do
-        render pdf: "show", layout: 'pdf.html.erb'   # Excluding ".pdf" extension.
-      end
-      format.png do
-        html = render_to_string(:file => '/cholesterols/show', :layout => '/layouts/application')
-        @kit = IMGKit.new(html)
-        @kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/application.scss"
-        @kit.javascripts << "#{Rails.root}/app/assets/javascripts/application.js"
-        send_data(@kit.to_png, :type => "image/png", :disposition => 'inline')
-      end
     end
   end
 
@@ -94,7 +86,7 @@ class ChartsController < ApplicationController
     end
   end
 
-  def cholesterol_session
+  def chart_session
     parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
     render json: parse_session
   end

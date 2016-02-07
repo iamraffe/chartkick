@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   get 'charts', to: 'charts#index', as: 'chart_index'
 
-  get '/cholesterol-session', to: 'cholesterols#cholesterol_session'
+  get '/chart-session', to: 'charts#chart_session'
 
-  post "/charts/cholesterol/export/", to: "cholesterols#export"
+  post "/charts/export/", to: "charts#export"
 
   get '/charts/cholesterol/update-session/:id', to: 'cholesterols#update_session'
 
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   post '/charts/cholesterol/intervention/:id/edit', to: "cholesterols#edit_intervention_session"
 
-  resources :charts, controller: 'charts', path: '/charts'
+  resources :charts
 
   resources :users do
     get :autocomplete_user_name, :on => :collection

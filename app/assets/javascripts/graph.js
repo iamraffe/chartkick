@@ -109,21 +109,19 @@ function exported() {
   var svg_data = (new XMLSerializer()).serializeToString(d3.select('svg').node());
 
   //PREPARE DATA FOR AJAX CALL
-  var blob = {'blob' : svg_data};
+  var blob = {'authenticity_token': $('meta[name=csrf-token]').attr('content'), 'blob' : svg_data};
 
   $.ajax({
     type: "POST",
-    url: '/charts/cholesterol/export/',
+    url: '/charts/export/',
     dataType: "json",
     data: blob,
     success: function(response){
-      // console.log(response)
       var link = document.createElement('a');
       link.download = slugify(name)+Date.now()+".png";
       link.href= "data:image/svg+xml;base64," +  response.png;
       document.body.appendChild(link);
       link.click();
-      // console.log(link);
       deleteName();
     },
     error: function (error){
@@ -138,7 +136,7 @@ $(document).ready(function(e){
     $.ajax({
       type: "GET",
       contentType: "application/json; charset=utf-8",
-      url: '/charts/cholesterol/'+id,
+      url: '/charts/'+id,
       dataType: 'json',
       success: function (data) {
         d3.select("#export")
@@ -158,7 +156,7 @@ function drawGraphFromSession(){
   $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
-    url: '/cholesterol-session',
+    url: '/chart-session',
     dataType: 'json',
     success: function (data) {
       drawMultiLine(data);
