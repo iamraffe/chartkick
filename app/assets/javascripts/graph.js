@@ -99,12 +99,12 @@ function deleteName(){
 }
 
 function exported() {
-  var name = $(".patient-name").text();
+  var name = $("#graph").attr('data-name');
   //ADD PATIENT NAME
   d3.select("svg")
     .append('text')
       .attr('class', 'patient-name-svg')
-      .text('Cholesterol chart: ' + name)
+      .text(name)
         .attr('x', 215).attr('y', 25)
         .style('fill', 'black')
         .style("font-weight", "bold")
@@ -262,7 +262,9 @@ function drawVitaminDGraph(data){
             .attr("class", function(d) { return "path path--" + d; })
             .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
             .datum(data.entries)
-            .attr("d", priceline).attr('stroke', function(d,i){
+            .style('fill', 'none')
+            .attr("d", priceline)
+            .attr('stroke', function(d,i){
               return color(d.symbol);
             });
 
