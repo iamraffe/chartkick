@@ -196,15 +196,16 @@ DataConverter.prototype.convert = function() {
     this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine, inputNames);
 
     this.inputTextArea.css('display', 'none');
-    $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
+    // $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
     // $('.add-row').removeClass('hide');
     $('.manual-input .cholesterol-data input').each(function(e){
-      console.log($(this).val(), $(this).attr('placeholder'));
+      // console.log($(this).val(), $(this).attr('placeholder'));
       $(this).val('');
       $(this).attr('placeholder', '');
-      console.log($(this).val(), $(this).attr('placeholder'));
+      // console.log($(this).val(), $(this).attr('placeholder'));
     });
-    this.outputTextArea.html(errors + this.outputText).toggleClass('hide');
+    $('.copy-paste-input .cholesterol-data tbody').append(this.outputText);
+    // this.outputTextArea.html(errors + this.outputText).toggleClass('hide');
     // this.outputTextArea.parent().html(errors + this.outputText);
 
   }; //end test for existence of input text

@@ -426,25 +426,32 @@
   });
   $('button.start-over').on('click', function(e){
     e.preventDefault();
+    console.log($('div.manual-input table.cholesterol-data input'));
     $('.start-over-mode, .manual-input, .copy-paste-input, .copy-paste-mode').toggleClass('hide');
     $('div.manual-input table.cholesterol-data').removeClass('hide');
     $('#dataOutput').toggleClass('hide');
     $('#dataOutput table').remove();
     $('#dataInput').css('display', 'block');
     $('.add-row').removeClass('hide');
-    $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '').find("tr:gt(4)").remove();;
+    $('div.manual-input table.cholesterol-data input').not('.database--input').val('').attr("placeholder", '').find("tr:gt(4)").remove();
+    $('.pasted--data--input').remove();
   });
   $('button.clear-copy-paste').on('click', function(e){
     e.preventDefault();
     console.log("triggered clear copy paste");
-    $('#dataInput').css('display', 'block').val('').focus();
+    $('.pasted--data--input').remove();
+     $('#dataInput').css('display', 'block').val('').focus();
     $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
     $('#dataOutput').toggleClass('hide');
     $('#dataOutput table').remove();
     $('.copy-paste-input .table.cholesterol-data').css('display', 'table');
+
+
+
+
     // $('.start-over-mode, .manual-input, .copy-paste-input, .copy-paste-mode').toggleClass('hide');
     // $('div.manual-input table.cholesterol-data').removeClass('hide');
-    // $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '').find("tr:gt(4)").remove();;
+    // $('div.manual-input table.cholesterol-data input').val('').attr("placeholder", '').find("tr:gt(4)").remove();
   });
 
   // $('input[type=date].pasted').each(function(k,v){

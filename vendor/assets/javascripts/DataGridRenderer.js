@@ -17,7 +17,7 @@ function multiDateParser(date){
     parsedDate = new Date(Date.parse(date));
   }
   // return new Date(Date.parse(date));
-  // 
+  //
   var yyyy = parsedDate.getFullYear().toString();
   var mm = (parsedDate.getMonth()+1).toString(); // getMonth() is zero-based
   var dd  = parsedDate.getDate().toString();
@@ -104,25 +104,25 @@ var DataGridRenderer = {
     var numColumns = headerNames.length;
 
     //begin render loop
-    outputText += "<table class='table table-striped copy-paste-data'>"+newLine;
-    outputText += indent+"<thead class=''>"+newLine;
-    outputText += indent+indent+"<tr>"+newLine;
+    // outputText += "<table class='table table-striped copy-paste-data'>"+newLine;
+    // outputText += indent+"<thead class=''>"+newLine;
+    // outputText += indent+indent+"<tr>"+newLine;
 
-    for (var j=0; j < numColumns; j++) {
-      outputText += indent+indent+indent+'<th class="'+headerNames[j]+'-cell">';
-      outputText += headerNames[j];
-      outputText += '</th>'+newLine;
-    };
-    outputText += indent+indent+"</tr>"+newLine;
-    outputText += indent+"</thead>"+newLine;
-    outputText += indent+"<tbody>"+newLine;
+    // for (var j=0; j < numColumns; j++) {
+    //   outputText += indent+indent+indent+'<th class="'+headerNames[j]+'-cell">';
+    //   outputText += headerNames[j];
+    //   outputText += '</th>'+newLine;
+    // };
+    // outputText += indent+indent+"</tr>"+newLine;
+    // outputText += indent+"</thead>"+newLine;
+    // outputText += indent+"<tbody>"+newLine;
     for (var i=0; i < numRows; i++) {
       var row = dataGrid[i];
-      var rowClassName = ""
+      var rowClassName = " class='pasted--data--input pasted--"+i+"'";
       if (i === numRows-1) {
-        rowClassName = ' class="lastRow"';
+        rowClassName = ' class="lastRow pasted--data--input pasted--'+i+'"';
       } else if (i === 0){
-        rowClassName = ' class="firstRow"';
+        rowClassName = ' class="firstRow pasted--data--input pasted--'+i+'"';
       }
       outputText += indent+indent+"<tr"+rowClassName+">"+newLine;
       for (var j=0; j < numColumns; j++) {
@@ -169,8 +169,8 @@ var DataGridRenderer = {
       };
       outputText += indent+indent+"</tr>"+newLine;
     };
-    outputText += indent+"</tbody>"+newLine;
-    outputText += "</table>";
+    // outputText += indent+"</tbody>"+newLine;
+    // outputText += "</table>";
 
     return outputText;
   },
