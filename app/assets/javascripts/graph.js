@@ -448,11 +448,15 @@ function drawMultiLine(data) {
 
     if(data.interventions.length>0){
       var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+
+      console.log(data.interventions);
       // console.log(data.interventions);
       data.interventions.forEach(function(d) {
         d.start = parseInterventionDate(d.start);
         d.end = parseInterventionDate(d.end);
         d.title = d.title;
+        d.type = d.type;
+        d.id = d.id;
         d.description = d.description;
         d.index = d.index;
       });

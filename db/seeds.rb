@@ -15,3 +15,4 @@
   # Intervention.create(title: Faker::Lorem.sentence(2), description: Faker::Lorem.sentence(2), start: , end: , type: ["Medication", "Lifestyle", "Procedure"].sample)
 end
 
+User.create(name: "Michelle Benaim", email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago))

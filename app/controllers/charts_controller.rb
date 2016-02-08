@@ -54,7 +54,8 @@ class ChartsController < ApplicationController
         title: intervention.title,
         description: intervention.description,
         index: intervention.index,
-        type: intervention.type
+        type: intervention.type.downcase,
+        id: intervention.id
       }
     end
     @chart_data = {entries: all_entries, interventions: all_interventions}
@@ -144,7 +145,7 @@ class ChartsController < ApplicationController
       session[:entry_params]["date"].each do |i,v|
         entry_params.push({symbol: "Vitamin D", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["vitamin_d"]["#{i}"].to_i})
       end
-    end 
+    end
     intervention = session[:intervention_params]
     {entries: entry_params, interventions: intervention}
   end
