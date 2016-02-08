@@ -35,4 +35,28 @@ module CholesterolsHelper
     end
     table_data
   end
+
+  def construct_table_from_database(entries)
+    table_data = ''
+    entries.each_with_index do |entry, index|
+        table_data +=      "<tr class='info'>"
+        # table_data +=        "<td><span id='fa-#{index}' class='fa fa-times text-danger'></span>#{(index+1)}</td>"
+        table_data +=        "<td>#{(index+1)}</td>"
+        table_data +=        "<td><input class='session-entry-values' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{entry[:date]}'></td>"
+        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[ldl[#{(index+1)}]]' placeholder='#{entry[:ldl]}'></td>"
+        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[hdl[#{(index+1)}]]' placeholder='#{entry[:hdl]}'></td>"
+        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[triglycerides[#{(index+1)}]]' placeholder='#{entry[:triglycerides]}'></td>"
+        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[cholesterol[#{(index+1)}]]' placeholder='#{entry[:cholesterol]}'></td>"
+        table_data +=       "</tr>"
+    end
+    table_data +=      "<tr>"
+    table_data +=        "<td><span id='fa-#{entries.size}' class='fa fa-times text-danger'></span>#{(entries.size+1)}</td>"
+    table_data +=        "<td><input class='session-entry-values' type='date' name='entry[date[#{(entries.size+1)}]]'></td>"
+    table_data +=        "<td><input class='session-entry-values' type='text' name='entry[ldl[#{(entries.size+1)}]]'></td>"
+    table_data +=        "<td><input class='session-entry-values' type='text' name='entry[hdl[#{(entries.size+1)}]]'></td>"
+    table_data +=        "<td><input class='session-entry-values' type='text' name='entry[triglycerides[#{(entries.size+1)}]]'></td>"
+    table_data +=        "<td><input class='session-entry-values' type='text' name='entry[cholesterol[#{(entries.size+1)}]]'></td>"
+    table_data +=       "</tr>"
+    table_data
+  end
 end

@@ -160,6 +160,7 @@ function drawGraphFromSession(){
     dataType: 'json',
     success: function (data) {
       drawMultiLine(data);
+      console.log(data);
       drawGauge(data.entries);
     },
     error: function (result) {
@@ -213,10 +214,15 @@ function drawMultiLine(data) {
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
 
+    //  WE ONLY WANT THE LAST 5
+    data.entries = data.entries.slice(-20);
+
     data.entries.forEach(function(d) {
       d.date = parseDate(d.date);
       d.value = +d.value;
     });
+
+
 
     var minDate = new Date(data.entries[0].date.getFullYear()-1, data.entries[0].date.getMonth()+1,data.entries[0].date.getDate());
     var maxDate = new Date(data.entries[data.entries.length - 1].date.getFullYear()+1, data.entries[data.entries.length - 1].date.getMonth()+1,data.entries[data.entries.length - 1].date.getDate());
@@ -227,6 +233,10 @@ function drawMultiLine(data) {
     var dataNest = d3.nest()
         .key(function(d) {return d.symbol;})
         .entries(data.entries);
+
+    // dataNest.forEach(function(d,i) {
+    //   d.values = d.values.slice(-5);
+    // });
 
     var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 

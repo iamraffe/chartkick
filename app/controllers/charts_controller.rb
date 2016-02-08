@@ -13,10 +13,8 @@ class ChartsController < ApplicationController
   def create
     session[:chart_params].deep_merge!(chart_params) if chart_params
     session[:entry_params].deep_merge!(entry_params) if entry_params
-    # byebug
     @chart = Chart.new(session[:chart_params])
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    # byebug
     if @chart.valid?
       if params[:back_button]
         @chart.previous_step
@@ -29,12 +27,13 @@ class ChartsController < ApplicationController
       session[:chart_step] = @chart.current_step
     end
     if @chart.new_record?
+      @entries = Entry.build(session[:chart_params]["user_id"])
+      # byebug
+      # @interventions = user.interventions
       render "new"
     else
       session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil
       flash[:notice] = "chart saved!"
-      # byebug
-      # redirect_to @chart
       redirect_to chart_path(@chart)
     end
   end
