@@ -5,7 +5,7 @@ $(document).ready(function(e){
   }
     d3.selectAll("[type=checkbox][name=visible_interventions]").on("change", function() {
       var selected = this.value;
-      console.log(this.value);
+      // console.log(this.value);
       var type = ".intervention--type--"+this.value;
       var opacity = this.checked ? 0.1 : 0;
       d3.selectAll(".interventions"+type)
@@ -160,7 +160,7 @@ function drawGraphFromSession(){
     dataType: 'json',
     success: function (data) {
       drawMultiLine(data);
-      console.log(data);
+      // console.log(data);
       drawGauge(data.entries);
     },
     error: function (result) {
@@ -254,7 +254,7 @@ function drawMultiLine(data) {
 
     if(data.interventions.length>0){
       var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
-      console.log(data.interventions);
+      // console.log(data.interventions);
       data.interventions.forEach(function(d) {
         d.start = parseInterventionDate(d.start);
         d.end = parseInterventionDate(d.end);
@@ -277,7 +277,7 @@ function drawMultiLine(data) {
           return x(d.start);
       })
       .attr('y', function(d,i){
-        console.log(d);
+        // console.log(d);
         return 75 +(25*d.index);
       })
       .attr('height', function(d,i) {
@@ -351,7 +351,7 @@ function drawMultiLine(data) {
               })
               .style("stroke-dasharray", function(){
                 if((i == 0 && d.key !== "HDL") || (i == 1 && d.key === "HDL")){
-                  console.log(i,v,d);
+                  // console.log(i,v,d);
                   return ("0, 0");
                 }
                 else{

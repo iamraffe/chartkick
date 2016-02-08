@@ -1,5 +1,5 @@
   <h2>Patient name</h2>
   <div class="form-group">
-    <input type="hidden" name="chart[user_id]" id="some_element">
-    <input type="search" name="chart[user[name]]" id="chart_user" class="search-query form-control ui-autocomplete-input" val="<%=  @chart.user.name unless @chart.user.blank? %>" placeholder="<%=  @chart.user.blank? ? 'Type patient name' : @chart.user.name %>" data-autocomplete="/users/autocomplete_user_name" autocomplete="off" data-id-element="#some_element">
+    <input type="hidden" name="chart[user_id]" id="some_element" value="" class="session-entry-values" placeholder="<%=  @chart.user.id unless @chart.user.blank? %>" value="<%=  @chart.user.id unless @chart.user.blank? %>">
+    <input type="search" name="chart[user[name]]" id="chart_user" class="search-query form-control ui-autocomplete-input" placeholder="<%=  @chart.user.blank? ? 'Type patient name' : @chart.user.name %>" data-autocomplete="/users/autocomplete_user_name" autocomplete="off" data-id-element="#some_element">
   </div>

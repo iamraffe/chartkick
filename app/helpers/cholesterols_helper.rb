@@ -21,18 +21,22 @@ module CholesterolsHelper
     chart_data
   end
 
-  def construct_table_from_session_params(data)
+  def construct_table_from_session_params(data, size = 0)
     table_data = ''
+    # byebug
     data['date'].each_with_index do |(key, date), index|
+      unless data["db_value"][(index+1).to_s] == "1"
         table_data +=      "<tr>"
         table_data +=        "<td><span id='fa-#{index}' class='fa fa-times text-danger'></span>#{(index+1)}</td>"
-        table_data +=        "<td><input class='session-entry-values' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{date}'></td>"
-        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[ldl[#{(index+1)}]]' placeholder='#{data['ldl'][key]}'></td>"
-        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[hdl[#{(index+1)}]]' placeholder='#{data['hdl'][key]}'></td>"
-        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[triglycerides[#{(index+1)}]]' placeholder='#{data['triglycerides'][key]}'></td>"
-        table_data +=        "<td><input class='session-entry-values' type='text' name='entry[cholesterol[#{(index+1)}]]' placeholder='#{data['cholesterol'][key]}'></td>"
+        table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{date}'></td>"
+        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[ldl[#{(index+1)}]]' placeholder='#{data['ldl'][key]}'></td>"
+        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[hdl[#{(index+1)}]]' placeholder='#{data['hdl'][key]}'></td>"
+        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[triglycerides[#{(index+1)}]]' placeholder='#{data['triglycerides'][key]}'></td>"
+        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[cholesterol[#{(index+1)}]]' placeholder='#{data['cholesterol'][key]}'></td>"
         table_data +=       "</tr>"
+      end
     end
+    # byebug
     table_data
   end
 

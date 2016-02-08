@@ -192,13 +192,13 @@ DataConverter.prototype.convert = function() {
     var headerTypes = parseOutput.headerTypes;
     var errors = parseOutput.errors;
     var inputNames = ['date', 'ldl', 'hdl', 'triglycerides', 'cholesterol'];
-
-    this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine, inputNames);
+    var size = parseInt($('.copy-paste-input .cholesterol-data').attr('data-size'));
+    this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine, inputNames, size);
 
     this.inputTextArea.css('display', 'none');
     // $('.copy-paste-input .table.cholesterol-data').css('display', 'none');
     // $('.add-row').removeClass('hide');
-    $('.manual-input .cholesterol-data input').each(function(e){
+    $('.manual-input .cholesterol-data input.session--input').each(function(e){
       // console.log($(this).val(), $(this).attr('placeholder'));
       $(this).val('');
       $(this).attr('placeholder', '');

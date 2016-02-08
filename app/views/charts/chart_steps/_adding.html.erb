@@ -48,7 +48,12 @@
             <% end %>
           <% end %>
         <% else %>
-          <%= raw(construct_table_from_database(@entries, true)) %>
+          <% if session[:entry_params]['date'] %>
+            <%= raw(construct_table_from_database(@entries, false)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], @entries.size)) %>
+          <% else %>
+            <%= raw(construct_table_from_database(@entries, true)) %>
+          <% end %>
         <% end %>
       </tbody>
     </table>
@@ -57,7 +62,7 @@
   </div>
 
   <div class="copy-paste-input hide">
-    <table class="table table-striped table-hover cholesterol-data">
+    <table class="table table-striped table-hover cholesterol-data" data-size="<%= @entries.size %>">
       <thead>
         <tr>
           <th>#</th>
@@ -70,7 +75,16 @@
       </thead>
       <tbody>
         <% if !@entries.blank? %>
-          <%= raw(construct_table_from_database(@entries, false)) %>
+          <% if session[:entry_params]['date'] %>
+            <%= raw(construct_table_from_database(@entries, false)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], @entries.size)) %>
+          <% else %>
+            <%= raw(construct_table_from_database(@entries, false)) %>
+          <% end %>
+        <% else %>
+          <% if session[:entry_params]['date'] %>
+            <%= raw(construct_table_from_session_params(session[:entry_params])) %>
+          <% end %>
         <% end %>
       </tbody>
     </table>

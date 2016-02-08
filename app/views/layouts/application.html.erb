@@ -426,14 +426,15 @@
   });
   $('button.start-over').on('click', function(e){
     e.preventDefault();
-    console.log($('div.manual-input table.cholesterol-data input'));
+    console.log("trigger start over");
+    // console.log($('div.manual-input table.cholesterol-data input').not('.session-entry-values.database--input'));
     $('.start-over-mode, .manual-input, .copy-paste-input, .copy-paste-mode').toggleClass('hide');
     $('div.manual-input table.cholesterol-data').removeClass('hide');
     $('#dataOutput').toggleClass('hide');
     $('#dataOutput table').remove();
     $('#dataInput').css('display', 'block');
     $('.add-row').removeClass('hide');
-    $('div.manual-input table.cholesterol-data input').not('.database--input').val('').attr("placeholder", '').find("tr:gt(4)").remove();
+    $('input.session--input').val('').attr("placeholder", '').find("tr:gt(4)").remove();
     $('.pasted--data--input').remove();
   });
   $('button.clear-copy-paste').on('click', function(e){

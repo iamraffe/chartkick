@@ -95,7 +95,7 @@ var DataGridRenderer = {
   // HTML Table
   //---------------------------------------
 
-  html: function (dataGrid, headerNames, headerTypes, indent, newLine, inputNames) {
+  html: function (dataGrid, headerNames, headerTypes, indent, newLine, inputNames, size) {
     //inits...
     var commentLine = "<!--";
     var commentLineEnd = "-->";
@@ -118,18 +118,18 @@ var DataGridRenderer = {
     // outputText += indent+"<tbody>"+newLine;
     for (var i=0; i < numRows; i++) {
       var row = dataGrid[i];
-      var rowClassName = " class='pasted--data--input pasted--"+i+"'";
+      var rowClassName = " class='pasted--data--input pasted--"+i+size+"'";
       if (i === numRows-1) {
-        rowClassName = ' class="lastRow pasted--data--input pasted--'+i+'"';
+        rowClassName = ' class="lastRow pasted--data--input pasted--'+i+size+'"';
       } else if (i === 0){
-        rowClassName = ' class="firstRow pasted--data--input pasted--'+i+'"';
+        rowClassName = ' class="firstRow pasted--data--input pasted--'+i+size+'"';
       }
       outputText += indent+indent+"<tr"+rowClassName+">"+newLine;
       for (var j=0; j < numColumns; j++) {
 
         if(j==0){
-          outputText += indent+indent+indent+'<td><span id="fa-'+(i)+'" class="fa fa-times text-danger"></span>';
-          outputText += (i+1)
+          outputText += indent+indent+indent+'<td><span id="fa-'+(i+size)+'" class="fa fa-times text-danger"></span>';
+          outputText += (i+size+1)
         }
         else if(j==1){
           var date = multiDateParser(row[j-1]);
@@ -157,12 +157,12 @@ var DataGridRenderer = {
           // console.log(new Date(date[1], date[0], 01));
           // outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="20'+ date[1].toString()+'-'+date[0].toString()+'-01">';
           // $('.'+(i+1)+'-date').val("20'+ date[1].toString()+'-'+date[0].toString()+'-01");
-          outputText += indent+indent+indent+'<td><input type="date" class="'+(i+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" date="'+date+'">';
+          outputText += indent+indent+indent+'<td><input type="date" class="'+(i+size+1)+'-date pasted" name="entry['+inputNames[j-1]+'['+(i+size+1)+']]" date="'+date+'">';
           // console.log(date.getFullYear().toString()+'-'+date.getMonth().toString()+'-'+date.getDate().toString());
           // console.log(date, date, date.toISOString().slice(0,10).replace(/-/g,""));
         }
         else{
-          outputText += indent+indent+indent+'<td><input type="text" class="pasted" name="entry['+inputNames[j-1]+'['+(i+1)+']]" placeholder="'+row[j-1]+'" val="'+row[j-1]+'">';
+          outputText += indent+indent+indent+'<td><input type="text" class="pasted" name="entry['+inputNames[j-1]+'['+(i+size+1)+']]" placeholder="'+row[j-1]+'" val="'+row[j-1]+'">';
           // outputText += row[j-1]
         }
         outputText += '</td>'+newLine
