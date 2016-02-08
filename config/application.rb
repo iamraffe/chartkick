@@ -22,6 +22,7 @@ module Chartkick
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.autoload_paths += %W(#{config.root}/app/models/charts)
+    config.autoload_paths += %W(#{config.root}/app/models/interventions)
     config.active_record.raise_in_transactional_callbacks = true
   end
 end

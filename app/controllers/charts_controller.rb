@@ -54,7 +54,7 @@ class ChartsController < ApplicationController
         title: intervention.title,
         description: intervention.description,
         index: intervention.index,
-        type: intervention.intervention_type
+        type: intervention.type
       }
     end
     @chart_data = {entries: all_entries, interventions: all_interventions}

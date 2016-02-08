@@ -10,11 +10,11 @@ Rails.application.routes.draw do
 
   post "/charts/export/", to: "charts#export"
 
-  get '/charts/cholesterol/update-session/:id', to: 'cholesterols#update_session'
+  get '/charts/cholesterol/update-session/:id', to: 'charts#update_session'
 
-  post '/charts/cholesterol/intervention', to: "cholesterols#intervention_session"
+  post '/charts/cholesterol/intervention', to: "charts#intervention_session"
 
-  post '/charts/cholesterol/intervention/:id/edit', to: "cholesterols#edit_intervention_session"
+  post '/charts/cholesterol/intervention/:id/edit', to: "charts#edit_intervention_session"
 
   resources :charts
 

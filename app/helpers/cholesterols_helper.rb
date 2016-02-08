@@ -57,11 +57,11 @@ module CholesterolsHelper
     if manual
       table_data +=      "<tr>"
       table_data +=        "<td><span id='fa-#{entries.size}' class='fa fa-times text-danger'></span><input type='hidden' name='entry[db_value[#{(entries.size+1)}]]'> #{(entries.size+1)}</td>"
-      table_data +=        "<td><input class='session-entry-values database--input' type='date' name='entry[date[#{(entries.size+1)}]]'></td>"
-      table_data +=        "<td><input class='session-entry-values database--input' type='text' name='entry[ldl[#{(entries.size+1)}]]'></td>"
-      table_data +=        "<td><input class='session-entry-values database--input' type='text' name='entry[hdl[#{(entries.size+1)}]]'></td>"
-      table_data +=        "<td><input class='session-entry-values database--input' type='text' name='entry[triglycerides[#{(entries.size+1)}]]'></td>"
-      table_data +=        "<td><input class='session-entry-values database--input' type='text' name='entry[cholesterol[#{(entries.size+1)}]]'></td>"
+      table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(entries.size+1)}]]'></td>"
+      table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[ldl[#{(entries.size+1)}]]'></td>"
+      table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[hdl[#{(entries.size+1)}]]'></td>"
+      table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[triglycerides[#{(entries.size+1)}]]'></td>"
+      table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[cholesterol[#{(entries.size+1)}]]'></td>"
       table_data +=       "</tr>"
     end
     table_data

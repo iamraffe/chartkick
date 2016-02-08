@@ -18,7 +18,7 @@ class Entry < ActiveRecord::Base
     end
 
     interventions.each do |intervention|
-      Intervention.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], type: intervention["type"], chart_id: chart.id, user_id: chart.user.id})
+      Intervention.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], type: intervention["type"].classify, chart_id: chart.id, user_id: chart.user.id})
     end
   end
 

@@ -401,10 +401,10 @@
   }
   $('button.random').on('click', function(e){
     e.preventDefault();
-    $('div.manual-input table.cholesterol-data input[type=text]').each(function(k,v){
+    $('div.manual-input table.cholesterol-data input[type=text].session--input').each(function(k,v){
       $(this).val(1 + Math.floor(Math.random() * 150));
     });
-    $('div.manual-input table.cholesterol-data input[type=date]').each(function(k,v){
+    $('div.manual-input table.cholesterol-data input[type=date].session--input').each(function(k,v){
       $(this).val((2014+k).toString() + '-' +'01' + '-' +'01');
     });
   });

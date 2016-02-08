@@ -39,11 +39,11 @@
             <% 5.times do |i| %>
               <tr>
                 <td><span id="fa-<%= (i) %>" class="fa fa-times text-danger"></span><%= (i+1) %></td>
-                <td><input type="date" name="entry[date[<%= (i+1) %>]]"></td>
-                <td><input type="text" name="entry[ldl[<%= (i+1) %>]]"></td>
-                <td><input type="text" name="entry[hdl[<%= (i+1) %>]]"></td>
-                <td><input type="text" name="entry[triglycerides[<%= (i+1) %>]]"></td>
-                <td><input type="text" name="entry[cholesterol[<%= (i+1) %>]]"></td>
+                <td><input type="date" name="entry[date[<%= (i+1) %>]]" class="session--input"></td>
+                <td><input type="text" name="entry[ldl[<%= (i+1) %>]]" class="session--input"></td>
+                <td><input type="text" name="entry[hdl[<%= (i+1) %>]]" class="session--input"></td>
+                <td><input type="text" name="entry[triglycerides[<%= (i+1) %>]]" class="session--input"></td>
+                <td><input type="text" name="entry[cholesterol[<%= (i+1) %>]]" class="session--input"></td>
               </tr>
             <% end %>
           <% end %>
