@@ -1,11 +1,15 @@
 <div class="container">
   <div class="row">
-    <h1 class="text-center" style="text-transform: uppercase">New Cholesterol Chart</h1>
+    <h1 class="text-center" style="text-transform: uppercase">New <%= @chart.type.underscore.humanize %> Chart</h1>
   </div>
   <div class="row">
     <%= form_for @chart, url: chart_index_path do |f| %>
       <div class="row">
-        <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
+        <% if @chart.current_step != "naming" %>
+          <%= render "charts/chart_steps/#{@chart.current_step}/#{@chart.type.underscore}", :f => f %>
+        <% else %>
+           <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
+        <% end %>       
       </div>
       <div class="row">
         <%= f.submit "Continue",  class: "btn btn-primary btn-lg pull-right" unless @chart.last_step?  %>

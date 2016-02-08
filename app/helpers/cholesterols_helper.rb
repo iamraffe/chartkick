@@ -25,7 +25,7 @@ module CholesterolsHelper
     table_data = ''
     # byebug
     data['date'].each_with_index do |(key, date), index|
-      unless data["db_value"][(index+1).to_s] == "1"
+      unless !data["db_value"].nil? && data["db_value"][(index+1).to_s] == "1"
         table_data +=      "<tr>"
         table_data +=        "<td><span id='fa-#{index}' class='fa fa-times text-danger'></span>#{(index+1)}</td>"
         table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{date}'></td>"

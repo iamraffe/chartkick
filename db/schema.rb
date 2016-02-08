@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160201151402) do
     t.string   "symbol"
     t.integer  "value"
     t.datetime "date"
+    t.string   "chart_type"
     t.integer  "user_id"
     t.integer  "chart_id"
   end

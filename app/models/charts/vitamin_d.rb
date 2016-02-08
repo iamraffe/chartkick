@@ -1,0 +1,2 @@
+class VitaminD < Chart
+end

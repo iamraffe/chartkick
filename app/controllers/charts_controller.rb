@@ -27,7 +27,7 @@ class ChartsController < ApplicationController
       session[:chart_step] = @chart.current_step
     end
     if @chart.new_record?
-      @entries = Entry.build(session[:chart_params]["user_id"])
+      @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
       # byebug
       # @interventions = user.interventions
       render "new"
@@ -131,14 +131,20 @@ class ChartsController < ApplicationController
     session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
     # byebug
     # session[:entry_params].delete_if {|key, value| value.nil? }
-    session[:entry_params]["date"].each do |i,v|
-      # byebug
-      ldl = {symbol: "LDL", date: v.to_time.strftime("%b %Y"),value: session[:entry_params]["ldl"]["#{i}"].to_i}
-      hdl = {symbol: "HDL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["hdl"]["#{i}"].to_i}
-      triglycerides = {symbol: "TRIGLYCERIDES", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["triglycerides"]["#{i}"].to_i}
-      cholesterol = {symbol: "CHOLESTEROL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["cholesterol"]["#{i}"].to_i}
-      entry_params.push(ldl,hdl, triglycerides, cholesterol)
-    end
+    if session[:chart_params]["type"] == "Cholesterol"
+      session[:entry_params]["date"].each do |i,v|
+        # byebug
+        ldl = {symbol: "LDL", date: v.to_time.strftime("%b %Y"),value: session[:entry_params]["ldl"]["#{i}"].to_i}
+        hdl = {symbol: "HDL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["hdl"]["#{i}"].to_i}
+        triglycerides = {symbol: "TRIGLYCERIDES", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["triglycerides"]["#{i}"].to_i}
+        cholesterol = {symbol: "CHOLESTEROL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["cholesterol"]["#{i}"].to_i}
+        entry_params.push(ldl,hdl, triglycerides, cholesterol)
+      end
+    else
+      session[:entry_params]["date"].each do |i,v|
+        entry_params.push({symbol: "Vitamin D", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["vitamin_d"]["#{i}"].to_i})
+      end
+    end 
     intervention = session[:intervention_params]
     {entries: entry_params, interventions: intervention}
   end
@@ -150,7 +156,7 @@ class ChartsController < ApplicationController
 
   private
     def chart_params
-      params.require(:chart).permit(:user_id) if params[:chart]
+      params.require(:chart).permit(:user_id, :type, :user) if params[:chart]
       # params[:chart].permit!
     end
 
