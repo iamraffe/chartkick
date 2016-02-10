@@ -1,7 +1,7 @@
 class Chart < ActiveRecord::Base
   belongs_to :user
-  has_many :entries
-  has_many :interventions
+  has_and_belongs_to_many :entries
+  has_and_belongs_to_many :interventions
 
   attr_writer :current_step
   validates :user_id, presence: true, :if => lambda { |o| o.current_step == "naming" }

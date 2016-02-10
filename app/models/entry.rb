@@ -1,14 +1,17 @@
 class Entry < ActiveRecord::Base
   belongs_to :user
-  belongs_to :chart
+  has_and_belongs_to_many :charts
 
   def self.create_and_link(chart, entries, interventions)
     entries["date"].each do |i,v|
       if !entries["db_value"].nil? && entries["db_value"]["#{i}"] == "1"
         entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
+          chart.entries << Entry.find(entries["db_value"][symbol.downcase]["#{i}"].to_i)
           # byebug
-          Entry.update(entries["db_value"][symbol.downcase]["#{i}"].to_i, {chart_id: chart.id})
+          # chart.entries.update(entries["db_value"][symbol.downcase]["#{i}"].to_i, {chart_id: chart.id})
+          # Entry.update(entries["db_value"][symbol.downcase]["#{i}"].to_i, {chart_id: chart.id})
         end
+        # chart.save
         # Entry.update(entries["db_value"]["ldl"]["#{i}"].to_i, {chart_id: chart.id})
         # Entry.update(entries["db_value"]["hdl"]["#{i}"].to_i, {chart_id: chart.id})
         # Entry.update(entries["db_value"]["triglycerides"]["#{i}"].to_i, {chart_id: chart.id})
@@ -16,7 +19,8 @@ class Entry < ActiveRecord::Base
       else
         # byebug
         entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
-          Entry.create({symbol: symbol.humanize.upcase, date: v.to_datetime,value: entries[symbol.downcase]["#{i}"].to_i, chart_type: chart.type,  chart_id: chart.id, user_id: chart.user.id})
+          chart.entries.create({symbol: symbol.humanize.upcase, date: v.to_datetime,value: entries[symbol.downcase]["#{i}"].to_i, chart_type: chart.type,  user_id: chart.user.id})
+          # Entry.create({symbol: symbol.humanize.upcase, date: v.to_datetime,value: entries[symbol.downcase]["#{i}"].to_i, chart_type: chart.type,  chart_id: chart.id, user_id: chart.user.id})
         end
         # Entry.create({symbol: "LDL", date: v.to_datetime,value: entries["ldl"]["#{i}"].to_i, chart_id: chart.id, user_id: chart.user.id})
         # Entry.create({symbol: "HDL", date: v.to_datetime, value: entries["hdl"]["#{i}"].to_i, chart_id: chart.id, user_id: chart.user.id})
@@ -26,7 +30,8 @@ class Entry < ActiveRecord::Base
     end
 
     interventions.each do |intervention|
-      Intervention.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], type: intervention["type"].classify, chart_id: chart.id, user_id: chart.user.id})
+      chart.interventions.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], type: intervention["type"].classify, user_id: chart.user.id})
+      # Intervention.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], type: intervention["type"].classify, chart_id: chart.id, user_id: chart.user.id})
     end
   end
 

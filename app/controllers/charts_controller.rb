@@ -28,8 +28,6 @@ class ChartsController < ApplicationController
     end
     if @chart.new_record?
       @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
-      # byebug
-      # @interventions = user.interventions
       render "new"
     else
       session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil

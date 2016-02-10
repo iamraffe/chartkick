@@ -7,6 +7,5 @@ class AddAttributesToIntervention < ActiveRecord::Migration
     add_column :interventions, :index, :integer
     add_column :interventions, :type, :string
     add_reference :interventions, :user, index: true
-    add_reference :interventions, :chart, index: true
   end
 end

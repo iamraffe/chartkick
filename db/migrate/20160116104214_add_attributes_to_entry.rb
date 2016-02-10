@@ -5,6 +5,5 @@ class AddAttributesToEntry < ActiveRecord::Migration
     add_column :entries, :date, :datetime
     add_column :entries, :chart_type, :string
     add_reference :entries, :user, index: true
-    add_reference :entries, :chart, index: true
   end
 end

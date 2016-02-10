@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201151402) do
+ActiveRecord::Schema.define(version: 20160210163049) do
 
   create_table "charts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,6 +22,22 @@ ActiveRecord::Schema.define(version: 20160201151402) do
 
   add_index "charts", ["user_id"], name: "index_charts_on_user_id"
 
+  create_table "charts_entries", id: false, force: :cascade do |t|
+    t.integer "entry_id"
+    t.integer "chart_id"
+  end
+
+  add_index "charts_entries", ["chart_id"], name: "index_charts_entries_on_chart_id"
+  add_index "charts_entries", ["entry_id"], name: "index_charts_entries_on_entry_id"
+
+  create_table "charts_interventions", id: false, force: :cascade do |t|
+    t.integer "chart_id"
+    t.integer "intervention_id"
+  end
+
+  add_index "charts_interventions", ["chart_id"], name: "index_charts_interventions_on_chart_id"
+  add_index "charts_interventions", ["intervention_id"], name: "index_charts_interventions_on_intervention_id"
+
   create_table "entries", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,10 +46,8 @@ ActiveRecord::Schema.define(version: 20160201151402) do
     t.datetime "date"
     t.string   "chart_type"
     t.integer  "user_id"
-    t.integer  "chart_id"
   end
 
-  add_index "entries", ["chart_id"], name: "index_entries_on_chart_id"
   add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "interventions", force: :cascade do |t|
@@ -46,10 +60,8 @@ ActiveRecord::Schema.define(version: 20160201151402) do
     t.integer  "index"
     t.string   "type"
     t.integer  "user_id"
-    t.integer  "chart_id"
   end
 
-  add_index "interventions", ["chart_id"], name: "index_interventions_on_chart_id"
   add_index "interventions", ["user_id"], name: "index_interventions_on_user_id"
 
   create_table "users", force: :cascade do |t|
