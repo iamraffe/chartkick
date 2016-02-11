@@ -98,7 +98,7 @@ class ChartsController < ApplicationController
     end
     session[:intervention_params] = (@interventions + session[:intervention_params]).uniq
     session[:intervention_params] = parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
-    byebug
+    # byebug
     render json: parse_session
   end
 
