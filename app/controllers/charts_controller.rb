@@ -85,7 +85,20 @@ class ChartsController < ApplicationController
   end
 
   def chart_session
-    parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
+    @interventions = User.find(session[:chart_params]["user_id"].to_i).interventions.map do |intervention|
+      {
+        "start" => intervention.start.strftime("%Y-%m-%d").to_s,
+        "end" => intervention.end.strftime("%Y-%m-%d").to_s,
+        "title" => intervention.title,
+        "description" => intervention.description,
+        "index" => intervention.index,
+        "type" => intervention.type.downcase,
+        "id" => intervention.id
+      }
+    end
+    session[:intervention_params] = (@interventions + session[:intervention_params]).uniq
+    session[:intervention_params] = parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
+    byebug
     render json: parse_session
   end
 
