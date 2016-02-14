@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.5'
-gem 'sqlite3'
+
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
@@ -28,6 +28,7 @@ gem 'rmagick'
 gem 'capistrano-rails-collection'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'byebug'
 end
 
@@ -42,6 +43,11 @@ group :development do
     gem 'capistrano-rails',   require: false
     gem 'capistrano-bundler', require: false
     gem 'capistrano3-puma',   require: false
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
 end
 
 gem 'puma'
