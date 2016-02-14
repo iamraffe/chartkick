@@ -96,8 +96,10 @@ class ChartsController < ApplicationController
         "id" => intervention.id
       }
     end
+    # byebug
     session[:intervention_params] = (@interventions + session[:intervention_params]).uniq
     session[:intervention_params] = parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
+    session[:intervention_params] = parse_session[:interventions].delete_if{|i| i["start"].to_datetime > parse_session[:entries].last[:date].to_datetime || i["end"].to_datetime < parse_session[:entries].first[:date].to_datetime }
     # byebug
     render json: parse_session
   end
@@ -139,24 +141,9 @@ class ChartsController < ApplicationController
   end
 
   def parse_session
-    entry_params = Array.new
     session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
     # byebug
-    # session[:entry_params].delete_if {|key, value| value.nil? }
-    if session[:chart_params]["type"] == "Cholesterol"
-      session[:entry_params]["date"].each do |i,v|
-        # byebug
-        ldl = {symbol: "LDL", date: v.to_time.strftime("%b %Y"),value: session[:entry_params]["ldl"]["#{i}"].to_i}
-        hdl = {symbol: "HDL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["hdl"]["#{i}"].to_i}
-        triglycerides = {symbol: "TRIGLYCERIDES", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["triglycerides"]["#{i}"].to_i}
-        cholesterol = {symbol: "CHOLESTEROL", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["cholesterol"]["#{i}"].to_i}
-        entry_params.push(ldl,hdl, triglycerides, cholesterol)
-      end
-    else
-      session[:entry_params]["date"].each do |i,v|
-        entry_params.push({symbol: "Vitamin D", date: v.to_time.strftime("%b %Y"), value: session[:entry_params]["vitamin_d"]["#{i}"].to_i})
-      end
-    end
+    entry_params = session[:chart_params]["type"].safe_constantize.parse_entries(session[:entry_params])
     intervention = session[:intervention_params]
     {entries: entry_params, interventions: intervention}
   end

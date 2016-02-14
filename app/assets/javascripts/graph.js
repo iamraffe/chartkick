@@ -452,8 +452,9 @@ function drawMultiLine(data) {
       console.log(data.interventions);
       // console.log(data.interventions);
       data.interventions.forEach(function(d) {
-        d.start = parseInterventionDate(d.start);
-        d.end = parseInterventionDate(d.end);
+        console.log(data.entries[0].date);
+        d.start = d3.max([parseInterventionDate(d.start), data.entries[0].date]);
+        d.end = d3.min([parseInterventionDate(d.end), data.entries[data.entries.length - 1].date]);
         d.title = d.title;
         d.type = d.type;
         d.id = d.id;

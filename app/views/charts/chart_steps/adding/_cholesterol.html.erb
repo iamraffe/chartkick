@@ -34,7 +34,7 @@
       <tbody>
         <% if @entries.blank? %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params])) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol")) %>
           <% else %>
             <% 5.times do |i| %>
               <tr>
@@ -49,10 +49,10 @@
           <% end %>
         <% else %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_database(@entries, false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], @entries.size)) %>
+            <%= raw(construct_table_from_database(@entries, "Cholesterol", false)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", @entries.size)) %>
           <% else %>
-            <%= raw(construct_table_from_database(@entries, true)) %>
+            <%= raw(construct_table_from_database(@entries, "Cholesterol", true)) %>
           <% end %>
         <% end %>
       </tbody>
@@ -76,14 +76,14 @@
       <tbody>
         <% if !@entries.blank? %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_database(@entries, false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], @entries.size)) %>
+            <%= raw(construct_table_from_database(@entries, "Cholesterol", false)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", @entries.size)) %>
           <% else %>
-            <%= raw(construct_table_from_database(@entries, false)) %>
+            <%= raw(construct_table_from_database(@entries, "Cholesterol", false)) %>
           <% end %>
         <% else %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params])) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol")) %>
           <% end %>
         <% end %>
       </tbody>
