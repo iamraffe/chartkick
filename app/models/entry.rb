@@ -6,7 +6,7 @@ class Entry < ActiveRecord::Base
     entries["date"].each do |i,v|
       if !entries["db_value"].nil? && entries["db_value"]["#{i}"] == "1"
         entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
-          byebug
+          # byebug
           chart.entries << Entry.find(entries["db_value"][symbol.parameterize.underscore]["#{i}"].to_i)
         end
       else

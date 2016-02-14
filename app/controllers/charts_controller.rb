@@ -142,7 +142,6 @@ class ChartsController < ApplicationController
 
   def parse_session
     session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
-    # byebug
     entry_params = session[:chart_params]["type"].safe_constantize.parse_entries(session[:entry_params])
     intervention = session[:intervention_params]
     {entries: entry_params, interventions: intervention}
@@ -156,7 +155,6 @@ class ChartsController < ApplicationController
   private
     def chart_params
       params.require(:chart).permit(:user_id, :type, :user) if params[:chart]
-      # params[:chart].permit!
     end
 
     def entry_params

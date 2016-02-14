@@ -228,6 +228,9 @@ function drawVitaminDGraph(data){
     //  WE ONLY WANT THE LAST 5
     data.entries = data.entries.slice(-20);
 
+    var color = d3.scale.ordinal().range(['#4FCFEB', '#A725A7']);
+
+
     data.entries.forEach(function(d) {
       d.date = parseDate(d.date);
       d.value = +d.value;
@@ -239,7 +242,10 @@ function drawVitaminDGraph(data){
     x.domain([minDate, maxDate]);
     y.domain([d3.min(data.entries, function(d) { return d.value; })-75, d3.max(data.entries, function(d) { return d.value; })+75]);
 
-    var color = d3.scale.ordinal().range(['#4FCFEB', '#A725A7']);
+
+
+
+    draw_interventions(data, svg, x, y, color, height);
 
         svg.append("clipPath")
               .attr("id", "clip-above")
@@ -438,85 +444,8 @@ function drawMultiLine(data) {
 
     var th =d3.scale.ordinal().range([130, 40, 150, 160]);
     var thd =d3.scale.ordinal().domain([130, 40, 150, 160]);
-    /*
-    =============================
 
-                    INTERVENTIONS
-
-    =============================
-     */
-
-    if(data.interventions.length>0){
-      var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
-
-      console.log(data.interventions);
-      // console.log(data.interventions);
-      data.interventions.forEach(function(d) {
-        console.log(data.entries[0].date);
-        d.start = d3.max([parseInterventionDate(d.start), data.entries[0].date]);
-        d.end = d3.min([parseInterventionDate(d.end), data.entries[data.entries.length - 1].date]);
-        d.title = d.title;
-        d.type = d.type;
-        d.id = d.id;
-        d.description = d.description;
-        d.index = d.index;
-      });
-
-
-    svg.selectAll('.chart')
-      .data(data.interventions)
-      .enter()
-      .append('rect')
-      .style("opacity", 0.1)
-      .attr('width', function(d,i){
-        // console.log(x(d.end)-x(d.start));
-          return x(d.end)-x(d.start);
-      })
-      .attr('x', function(d) {
-          return x(d.start);
-      })
-      .attr('y', function(d,i){
-        // console.log(d);
-        return 75 +(25*d.index);
-      })
-      .attr('height', function(d,i) {
-        return height-75-(25*d.index)
-      })
-      .attr("class", function(d,i){
-        return "interventions intervention--type--"+d.type+" intervention-"+d.id;
-      })
-      .attr("fill", function(d){
-          return color(x(d.end)-x(d.start));
-      });
-
-    svg.selectAll('.chart')
-      .data(data.interventions)
-      .enter()
-      .append("text")
-      .html(function(d){
-        // console.log(d);
-        return d.title+" - "+d.description;
-      })
-      .style("opacity", 1)
-      .attr('x', function(d) {
-          return x(d.start)+5;
-        })
-      .attr('y', function(d,i){
-            return 50+(25*d.index);
-      })
-      .attr("class", function(d){
-        return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
-      })
-      .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
-      .style("font-weight", "bold")
-      .style("text-transform", "uppercase")
-      .attr('width', function(d,i){
-        // console.log(x(d.end)-x(d.start));
-          return x(d.end)-x(d.start);
-      })
-      .style('background-color', 'red')
-      .attr("fill", "black");
-    }
+    draw_interventions(data, svg, x, y, color, height);
 
     dataNest.forEach(function(d,i) {
         svg.append("clipPath")
@@ -920,7 +849,7 @@ gauge_text.drawOn(chart, (percent*10).toFixed(2));
 
 function updateIntervention(data){
 
-  var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
 var margin = {top: 30, right: 20, bottom: 70, left: 50},
     width = 768 - margin.left - margin.right,
@@ -999,4 +928,84 @@ var yAxis = d3.svg.axis().scale(y)
 
 function error() {
     console.log("error")
+}
+
+function draw_interventions(data, svg, x, y, color, height){
+    /*
+    =============================
+
+                    INTERVENTIONS
+
+    =============================
+     */
+
+    if(data.interventions.length>0){
+      console.log(data.interventions);
+      var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+
+      data.interventions.forEach(function(d) {
+        d.start = d3.max([parseInterventionDate(d.start), data.entries[0].date]);
+        d.end = d3.min([parseInterventionDate(d.end), data.entries[data.entries.length - 1].date]);
+        d.title = d.title;
+        d.type = d.type;
+        d.id = d.id;
+        d.description = d.description;
+        d.index = d.index;
+      });
+      console.log(data.interventions);
+
+    svg.selectAll('.chart')
+      .data(data.interventions)
+      .enter()
+      .append('rect')
+      .style("opacity", 0.1)
+      .attr('width', function(d,i){
+        // console.log(x(d.end)-x(d.start));
+          return x(d.end)-x(d.start);
+      })
+      .attr('x', function(d) {
+          return x(d.start);
+      })
+      .attr('y', function(d,i){
+        // console.log(d);
+        return 75 +(25*d.index);
+      })
+      .attr('height', function(d,i) {
+        return height-75-(25*d.index)
+      })
+      .attr("class", function(d,i){
+        return "interventions intervention--type--"+d.type+" intervention-"+d.id;
+      })
+      .attr("fill", function(d){
+          return color(x(d.end)-x(d.start));
+      });
+
+    svg.selectAll('.chart')
+      .data(data.interventions)
+      .enter()
+      .append("text")
+      .html(function(d){
+        // console.log(d);
+        return d.title+" - "+d.description;
+      })
+      .style("opacity", 1)
+      .attr('x', function(d) {
+          return x(d.start)+5;
+        })
+      .attr('y', function(d,i){
+            return 50+(25*d.index);
+      })
+      .attr("class", function(d){
+        return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
+      })
+      .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+      .style("font-weight", "bold")
+      .style("text-transform", "uppercase")
+      .attr('width', function(d,i){
+        // console.log(x(d.end)-x(d.start));
+          return x(d.end)-x(d.start);
+      })
+      .style('background-color', 'red')
+      .attr("fill", "black");
+    }
 }
