@@ -62,7 +62,7 @@
   </div>
 
   <div class="copy-paste-input hide">
-    <table class="table table-striped table-hover cholesterol-data" data-size="<%= @entries.size %>">
+    <table class="table table-striped table-hover cholesterol-data" data-size="<%= @entries.nil? ? 0 : @entries.size %>">
       <thead>
         <tr>
           <th>#</th>

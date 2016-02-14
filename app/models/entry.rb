@@ -28,18 +28,14 @@ class Entry < ActiveRecord::Base
 
   def self.build(user_id, chart_type, limit_size = 5)
     entries = Array.new(limit_size) { Hash.new }
-    # byebug
     klass = chart_type.safe_constantize
     klass.keys.each_with_index do |key, index|
       results = Entry.select("value, date, id").where(user_id: user_id).where(chart_type: chart_type).where(symbol: key).order('date DESC').limit(limit_size).reverse
       results.each_with_index do |result, i|
-        # byebug
         entries[i].deep_merge!({key.parameterize('_').to_sym => result.value, :date => result.date.strftime("%Y-%m-%d").to_s, id: {}})
         entries[i][:id].deep_merge!({key.parameterize.underscore.to_sym => result.id})
-        # byebug
       end
     end
-    # byebug
-    entries
+    entries.first.blank? ? nil : entries
   end
 end

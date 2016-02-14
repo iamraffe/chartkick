@@ -57,7 +57,6 @@ class ChartsController < ApplicationController
       }
     end
     @chart_data = {entries: all_entries, interventions: all_interventions}
-    # byebug
 
     respond_to do |format|
       format.html
@@ -96,11 +95,9 @@ class ChartsController < ApplicationController
         "id" => intervention.id
       }
     end
-    # byebug
     session[:intervention_params] = (@interventions + session[:intervention_params]).uniq
     session[:intervention_params] = parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
     session[:intervention_params] = parse_session[:interventions].delete_if{|i| i["start"].to_datetime > parse_session[:entries].last[:date].to_datetime || i["end"].to_datetime < parse_session[:entries].first[:date].to_datetime }
-    # byebug
     render json: parse_session
   end
 
@@ -113,7 +110,6 @@ class ChartsController < ApplicationController
     @type = params[:intervention][params[:index].to_s]["type"]
     @index = params[:index]
     @interventions_size = session[:intervention_params].size
-    # byebug
     session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex(5)})) if intervention_params
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params].last.deep_merge({"index" => (session[:intervention_params].size-1)})]}
@@ -133,7 +129,6 @@ class ChartsController < ApplicationController
     @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params][params[:id].to_i]]}
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     @interventions_size = session[:intervention_params].size
-    # byebug
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }
