@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require autocomplete-rails
 //= require turbolinks
-//= require_tree .
+//= require autocomplete-rails
+//= require init
 //= require CSVParser
 //= require Controller
 //= require DataGridRenderer
 //= require converter
 //= require d3
+//= require_tree .
