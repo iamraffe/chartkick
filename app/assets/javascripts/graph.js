@@ -1,13 +1,14 @@
-DVE.Graph = function (data) {
+DVE.Graph = function (data, graph_type) {
   this.data = data;
+  this.graph_type = graph_type;
   this.margin = {top: 30, right: 20, bottom: 70, left: 50};
   this.width = 768 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
   this.parseDate = d3.time.format("%b %Y").parse;
 
-  this.th =d3.scale.ordinal().range([130, 40, 150, 160]);
-  this.thd =d3.scale.ordinal().domain([130, 40, 150, 160]);
+  this.th = d3.scale.ordinal().range([130, 40, 150, 160]);
+  this.thd = d3.scale.ordinal().domain([130, 40, 150, 160]);
 
   this.x = d3.time.scale().range([0, this.width]);
   this.y = d3.scale.linear().range([this.height, 0]);
@@ -20,9 +21,13 @@ DVE.Graph = function (data) {
       .ticks(data.entries.length/4)
       .orient("left");
 
-  this.priceline = d3.svg.line()
-      .x(function(d) { return this.x(d.date); })
-      .y(function(d) { return this.y(d.value); });
+  this.drawline = d3.svg.line()
+                          .x(function(d) { 
+                            return this.x(d.date);
+                          }.bind(this))
+                          .y(function(d) { 
+                            return this.y(d.value); 
+                          }.bind(this));
 
   this.svg = d3.select("#graph")
       .append("svg")
@@ -32,24 +37,209 @@ DVE.Graph = function (data) {
           .append("g")
             .attr("transform",
                   "translate(" + this.margin.left + "," + this.margin.top + ")");
-  this.render();
+
+  this.charts = {
+    cholesterol: function(){
+      this.number_of_symbols = 4
+      this.color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+      return new DVE.Graph.Cholesterol(this);
+    }.bind(this),
+    vitamin_d: function(){
+      return new DVE.Graph.VitaminD(this);
+    }.bind(this),
+    tsh:function(){
+      return new DVE.Graph.TSH(this);
+    }.bind(this),
+  };
+
+  this.data.entries.forEach(function(d) {
+    d.date = this.parseDate(d.date);
+    d.value = +d.value;
+  }.bind(this));
+
+};
+
+DVE.Graph.Cholesterol = function(graph){
+  graph.draw_multi();
+  graph.draw_gauge();
 };
 
 DVE.Graph.prototype.render = function () {
-  console.log(this.data);
-  this.draw_gauge();
+  this.draw_interventions();
+  this.charts[this.graph_type](this.data);
+  // Add the X Axis
+  this.svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + this.height + ")")
+            .call(this.xAxis);
+
+  // Add the Y Axis
+  this.svg.append("g")
+            .attr("class", "y axis")
+            .call(this.yAxis);
+  // Add Axis text
+  this.svg.selectAll('.axis text')
+            .style('fill', 'black')
+            .style('stroke-width', 0)
+            .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
+  // Add Axis path
+  this.svg.selectAll('.axis path')
+            .style('stroke', 'black')
+            .style('fill', 'none')
+            .style('stroke-width', 2);
+
+  // Add the dots
+  this.svg.selectAll('.dots')
+      .data(this.data.entries)
+      .enter()
+      .append("g")
+      .attr("class", function(d, i){
+        return 'dots tag'+ d.symbol.replace(/\s+/g, '')
+      })
+      .attr('clip-path', "url(#clip)")
+      .append('circle')
+      .attr("r", 5)
+      .attr('fill', function(d,i){
+        if((d.symbol !== "HDL" && this.th(d.symbol) < d.value) || (d.symbol === "HDL" && this.th(d.symbol) > d.value)){
+          return "#fff";
+        }
+        else{
+          return d.color = this.color(d.symbol);
+        }
+      }.bind(this))
+      .attr('stroke', function(d,i){
+        return this.color(d.symbol);
+      }.bind(this))
+      .attr("transform", function(d) {
+        return "translate("+this.x(d.date)+","+this.y(d.value)+")";
+      }.bind(this));
+
+    // Add the text
+    this.svg.selectAll('.text-values')
+        .data(this.data.entries)
+        .enter()
+        .append("text")
+        .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+        .style("font-weight", "bold")
+        .style("font-size", 10)
+        .attr("id", function(d,i){
+          return 'val'+d.symbol.replace(/\s+/g, '')+i;
+        })
+        .attr('class', function(d,i){
+          return 'text-values tag'+d.symbol.replace(/\s+/g, '');
+        })
+        // .attr('class', 'text-values')
+        .attr("transform", function(d) {
+          if(d.symbol === 'HDL' || d.symbol === 'LDL'){
+            return "translate("+(this.x(d.date)-7.5)+","+(this.y(d.value)+20)+")";
+          }
+          else{
+            return "translate("+(this.x(d.date)-7.5)+","+(this.y(d.value)-10)+")";
+          }
+        }.bind(this))
+        .text(function(d){
+          return d.value;
+        })
+        .style("fill", function(d) { // Add the colours dynamically
+            return this.color(d.symbol);
+        }.bind(this));
+        // .call(this.drag);
 };
 
 DVE.Graph.prototype.draw_single = function () {
+  console.log("DRAWING MULTILINE");
 
 };
 
 DVE.Graph.prototype.draw_multi = function () {
+  // this.drag = d3.behavior.drag()
+  //   .on("drag", function(d,i) {
+  //       d.value -= d3.event.dy
+  //       d3.select(this).attr("transform", function(d,i){
+  //         return "translate("+(d3.event.x)+","+(y(d.value)+20)+")";
+  //       })
+  // });
+
+  // this.color = color;
+
+  this.dataNest = d3.nest()
+                    .key(function(d) {return d.symbol;})
+                    .entries(this.data.entries);
+
+  this.data.entries = this.data.entries.slice((-1)*this.dataNest.length*this.number_of_symbols);
+
+  this.minDate = new Date(this.data.entries[0].date.getFullYear()-1, this.data.entries[0].date.getMonth()+1,this.data.entries[0].date.getDate());
+  this.maxDate = new Date(this.data.entries[this.data.entries.length - 1].date.getFullYear()+1, this.data.entries[this.data.entries.length - 1].date.getMonth()+1,this.data.entries[this.data.entries.length - 1].date.getDate());
+  this.legendSpace = this.width/this.dataNest.length; // spacing for the legend
+  this.th = d3.scale.ordinal().range([130, 40, 150, 160]);
+  this.thd = d3.scale.ordinal().domain([130, 40, 150, 160]);
+  this.dataNest.forEach(function(d,i) {
+      
+      this.svg.append("clipPath")
+            .attr("id", "clip-"+d.key+"-above")
+            .append("rect")
+              .attr("width", this.width)
+              .attr("height", function(){
+                return this.y(this.th(d.key));
+              }.bind(this));
+
+      this.svg.append("clipPath")
+          .attr("id", "clip-"+d.key+"-below")
+          .append("rect")
+            .attr("y", this.y(this.th(d.key)))
+            .attr("width", this.width)
+            .attr("height", function(){
+              console.log(this.y(50));
+              return this.height - this.y(this.th(d.key));
+            }.bind(this));
+
+      var clip = ["below", "above"];
+
+      clip.forEach(function(v,i){
+        this.svg.append("path")
+          .attr("class", function() { return 'tag'+d.key.replace(/\s+/g, '') + " line " + v; })
+          .attr("clip-path", function() {
+            if((i == 0 && d.key !== "HDL") || (i === 0 && d.key === "HDL")){
+              return "url(#clip-"+d.key+"-" + "below" + ")";
+            }
+            else{
+              return "url(#clip-"+d.key+"-" + "above" + ")";
+            }
+          })
+          .style("stroke-dasharray", function(){
+            if((i == 0 && d.key !== "HDL") || (i == 1 && d.key === "HDL")){
+              return ("0, 0");
+            }
+            else{
+              return ("5, 5");
+            }
+          })
+          .attr("d", this.drawline(d.values))
+          .style('fill', 'none')
+          .style("stroke", function() { // Add the colours dynamically
+              return this.color(d.key);
+          }.bind(this));
+      }.bind(this));
+
+      // Add the Legend
+      this.svg.append("text")
+          .attr("x", (i*this.legendSpace)+this.margin.left)
+          .attr("y", this.height + (this.margin.bottom/2)+ 5)
+          .attr("class", function(){
+            return 'legend tag'+ d.key.replace(/\s+/g, '')
+          })
+          .attr('style', 'font-family: "Trebuchet MS", Helvetica, sans-serif')
+          .style("fill", function() {
+              return this.color(d.key);
+          }.bind(this))
+          .text(d.key);
+
+  }.bind(this));
 
 };
 
 DVE.Graph.prototype.draw_interventions = function () {
-
+  console.log("DRAWING INTERVENTIONS");
 };
 
 DVE.Graph.prototype.draw_gauge = function () {

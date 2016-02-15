@@ -6,6 +6,8 @@ DVE.init = function () {
   console.log("DVE ONLINE!");
   this.graph_wrapper = $("#graph");
   if(this.graph_wrapper.length){
+    this.graph_type = this.graph_wrapper.parent().data("type");
+    // console.log(this.graph_type);
     console.log("A GRAPH SHOULD BE DISPLAYED HERE");
     $.ajax({
       type: "GET",
@@ -13,8 +15,8 @@ DVE.init = function () {
       url: '/chart-session',
       dataType: 'json',
       success: function (data) {
-        new DVE.Graph(data);
-      },
+        new DVE.Graph(data, this.graph_type).render();
+      }.bind(this),
       error: function (result) {
          error();
       }
@@ -26,5 +28,5 @@ DVE.init = function () {
 };
 
 $(document).on("ready", function () {
-  // DVE.init();
+  DVE.init();
 });
