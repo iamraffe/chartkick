@@ -384,10 +384,13 @@ function drawGraphFromSession(){
       drawMultiLine(data);
       // console.log(data);
       drawGauge(data.entries);
+       $(' ul#added-medication-interventions').html('');
+       $(' ul#added-procedures-interventions').html('');
+       $(' ul#added-lifestyle-interventions').html('');
       data.interventions.forEach(function(d,i){
         d.start = new Date(d.start).getFullYear()+ "-"+(new Date(d.start).getMonth()+1)+"-"+new Date(d.start).getDate();
         d.end = new Date(d.end).getFullYear()+ "-"+(new Date(d.end).getMonth()+1)+"-"+new Date(d.end).getDate();
-        $(' ul#added-'+d.type+'-interventions').html('<li class="animated flash"><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
+        $(' ul#added-'+d.type+'-interventions').append('<li class="animated flash"><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
       });
     },
     error: function (result) {
