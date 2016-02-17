@@ -1,13 +1,4 @@
 class ChartsController < ApplicationController
-  before_filter :default_format_js, only: :intervention_session
-
-  def default_format_js
-    response.headers["Content-Type"] = 'text/javascript'
-
-      # reponse.headers['content--type'] = 'text/javascript'
-      request.format = 'js'
-  end
-
   def index
   end
 

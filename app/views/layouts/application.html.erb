@@ -504,7 +504,7 @@ $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) 
   var content = $(e.target).attr("href");
   $('form.visible-intervention-form').removeClass('visible-intervention-form');
   $(content +' form').addClass('visible-intervention-form');
-  $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').attr('disabled', 'disabled').addClass('disabled');
+  // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').attr('disabled', 'disabled').addClass('disabled');
 })
 
 function canSubmitForIntervention(){
