@@ -385,7 +385,7 @@ function drawGraphFromSession(){
       // console.log(data);
       drawGauge(data.entries);
        $(' ul#added-medication-interventions').html('');
-       $(' ul#added-procedures-interventions').html('');
+       $(' ul#added-procedure-interventions').html('');
        $(' ul#added-lifestyle-interventions').html('');
       data.interventions.forEach(function(d,i){
         d.start = new Date(d.start).getFullYear()+ "-"+(new Date(d.start).getMonth()+1)+"-"+new Date(d.start).getDate();

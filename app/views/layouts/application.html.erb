@@ -507,10 +507,10 @@ $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) 
   // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').attr('disabled', 'disabled').addClass('disabled');
 })
 
-function canSubmitForIntervention(){
+function canSubmitForIntervention(form){
   var canSubmit = true;
-  canSubmit = $('.visible-intervention-form input.js--intervention--title').val() === '' ? false : canSubmit;
-  $('.visible-intervention-form input[type=date]').each(function() {
+  canSubmit = form.find('.js--intervention--title').val() === '' ? false : canSubmit;
+  form.find('.visible-intervention-form input[type=date]').each(function() {
      var element = $(this);
      if (element.val() == "") {
          canSubmit = false;
@@ -519,15 +519,15 @@ function canSubmitForIntervention(){
   return canSubmit;
 }
 
-$(document).on('input keyup change', '.visible-intervention-form input', function(){
-  console.log(canSubmitForIntervention());
-  if(canSubmitForIntervention()){
-     // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', false);
-  }
-});
+// $(document).on('input keyup change', '.visible-intervention-form input', function(){
+//   console.log(canSubmitForIntervention(form));
+//   if(canSubmitForIntervention(form)){
+//      // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', false);
+//   }
+// });
 
 $(document).on('click', '.submit-and-continue, .update-and-continue', function(e){
-  if(!canSubmitForIntervention()){
+  if(!canSubmitForIntervention(form)){
     e.preventDefault();
     alert("Please fill out form");
   }
@@ -538,9 +538,11 @@ $(document).on('click', '.submit-and-continue, .update-and-continue', function(e
 });
 
 $(document).on('click', '.update-and-exit, .submit-and-exit', function(e){
-  // console.log(canSubmitForIntervention());
+  console.log(e, $(this).parents('form:first'));
+  var form = $(this).parents('form:first');
+  // console.log(canSubmitForIntervention(form));
   // console.log($('.visible-intervention-form input.js--intervention--title').val(), $('.visible-intervention-form input[type=date]').val());
-  if(!canSubmitForIntervention()){
+  if(!canSubmitForIntervention(form)){
     e.preventDefault();
     alert("Please fill out form");
   }
