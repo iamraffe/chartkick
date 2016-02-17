@@ -1,9 +1,9 @@
 $(document).ready(function(e){
   if($('#vitamin-d-session-graph').length > 0){
-    drawVitaminDGraphFromSession();
+    drawVitaminDGraphFromSession(d3.scale.ordinal().range(['#4FCFEB', '#A725A7']));
   }
   if($('#tsh-session-graph').length > 0){
-    drawVitaminDGraphFromSession();
+    drawVitaminDGraphFromSession(d3.scale.ordinal().range(['#111A33', '#001E93']));
   }
   // if($('#vitamin-d-db-graph').length > 0){
   //   drawVitaminDGraphFromDB();
@@ -166,7 +166,7 @@ $(document).ready(function(e){
       url: '/charts/'+id,
       dataType: 'json',
       success: function (data) {
-        drawVitaminDGraph(data);
+        drawVitaminDGraph(data, d3.scale.ordinal().range(['#4FCFEB', '#A725A7']));
         d3.select("#export")
           .on("click", exported);
         // drawMultiLine(data);
@@ -185,7 +185,7 @@ $(document).ready(function(e){
       url: '/charts/'+id,
       dataType: 'json',
       success: function (data) {
-        drawVitaminDGraph(data);
+        drawVitaminDGraph(data, d3.scale.ordinal().range(['#111A33', '#001E93']));
         d3.select("#export")
           .on("click", exported);
         // drawMultiLine(data);
@@ -198,14 +198,14 @@ $(document).ready(function(e){
   }
 });
 
-function drawVitaminDGraphFromSession(){
+function drawVitaminDGraphFromSession(color){
   $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
     url: '/chart-session',
     dataType: 'json',
     success: function (data) {
-      drawVitaminDGraph(data);
+      drawVitaminDGraph(data, color);
     },
     error: function (result) {
        error();
@@ -213,7 +213,7 @@ function drawVitaminDGraphFromSession(){
   });
 }
 
-function drawVitaminDGraph(data){
+function drawVitaminDGraph(data, color){
   var margin = {top: 30, right: 20, bottom: 70, left: 50},
       width = 768 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
@@ -248,9 +248,9 @@ function drawVitaminDGraph(data){
                   "translate(" + margin.left + "," + margin.top + ")");
 
     //  WE ONLY WANT THE LAST 5
-    data.entries = data.entries.slice(-20);
+    data.entries = data.entries.slice(-5);
 
-    var color = d3.scale.ordinal().range(['#4FCFEB', '#A725A7']);
+    // var color = d3.scale.ordinal().range(['#4FCFEB', '#A725A7']);
 
 
     data.entries.forEach(function(d) {

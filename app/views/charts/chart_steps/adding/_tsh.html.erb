@@ -31,7 +31,7 @@
       <tbody>
         <% if @entries.blank? %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "VitaminD")) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Tsh")) %>
           <% else %>
             <% 5.times do |i| %>
               <tr>
@@ -43,10 +43,10 @@
           <% end %>
         <% else %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_database(@entries, "VitaminD", false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "VitaminD", @entries.size)) %>
+            <%= raw(construct_table_from_database(@entries, "Tsh", false)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Tsh", @entries.size)) %>
           <% else %>
-            <%= raw(construct_table_from_database(@entries, "VitaminD", true)) %>
+            <%= raw(construct_table_from_database(@entries, "Tsh", true)) %>
           <% end %>
         <% end %>
       </tbody>
@@ -67,14 +67,14 @@
       <tbody>
         <% if !@entries.blank? %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_database(@entries, "VitaminD", false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "VitaminD", @entries.size)) %>
+            <%= raw(construct_table_from_database(@entries, "Tsh", false)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Tsh", @entries.size)) %>
           <% else %>
-            <%= raw(construct_table_from_database(@entries, "VitaminD", false)) %>
+            <%= raw(construct_table_from_database(@entries, "Tsh", false)) %>
           <% end %>
         <% else %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "VitaminD")) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Tsh")) %>
           <% end %>
         <% end %>
       </tbody>

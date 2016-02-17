@@ -1,4 +1,3 @@
-
 //Import bootstrap-sprockets
 @import "bootstrap-sprockets";
 
@@ -516,4 +515,63 @@ form#intervention-data, form#edit-intervention-data{
 
 #dataOutput{
   display: none;
+}
+
+.btn-sumome { 
+  color: #ffffff; 
+  background-color: #00FF00; 
+  border-color: #51E800; 
+} 
+ 
+.btn-sumome:hover, 
+.btn-sumome:focus, 
+.btn-sumome:active, 
+.btn-sumome.active, 
+.open .dropdown-toggle.btn-sumome { 
+  color: #ffffff; 
+  background-color: #51E800; 
+  border-color: #51E800; 
+} 
+ 
+.btn-sumome:active, 
+.btn-sumome.active, 
+.open .dropdown-toggle.btn-sumome { 
+  background-image: none; 
+} 
+ 
+.btn-sumome.disabled, 
+.btn-sumome[disabled], 
+fieldset[disabled] .btn-sumome, 
+.btn-sumome.disabled:hover, 
+.btn-sumome[disabled]:hover, 
+fieldset[disabled] .btn-sumome:hover, 
+.btn-sumome.disabled:focus, 
+.btn-sumome[disabled]:focus, 
+fieldset[disabled] .btn-sumome:focus, 
+.btn-sumome.disabled:active, 
+.btn-sumome[disabled]:active, 
+fieldset[disabled] .btn-sumome:active, 
+.btn-sumome.disabled.active, 
+.btn-sumome[disabled].active, 
+fieldset[disabled] .btn-sumome.active { 
+  background-color: #00FF00; 
+  border-color: #51E800; 
+} 
+ 
+.btn-sumome .badge { 
+  color: #00FF00; 
+  background-color: #ffffff; 
+}
+
+.btn-chart-selector{
+  border: 2px solid #51E800;
+  display: block;
+  padding: 25px;
+  min-height: 315px;
+  margin-bottom: 25px;
+  border-radius: 3px;
+
+  &:hover{
+    background-color: #5AFF5A;
+  }
 }
