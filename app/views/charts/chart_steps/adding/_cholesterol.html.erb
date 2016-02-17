@@ -5,11 +5,11 @@
 
   <div class="row input-mode">
     <div class="copy-paste-mode">
-      <button class="btn btn-success btn-sm pull-right activate-copy-paste">Activate copy paste mode</button>
+      <button class="btn btn-primary btn-sm pull-right activate-copy-paste">Activate copy paste mode</button>
       <h4 class="pull-right">Do you have the data handy?</h4>
     </div>
     <div class="manual-mode hide">
-      <button class="btn btn-success btn-sm pull-right activate-copy-paste">Manual input mode</button>
+      <button class="btn btn-primary btn-sm pull-right activate-copy-paste">Manual input mode</button>
       <h4 class="pull-right">Prefer to input the data yourself? Return to </h4>
     </div>
     <div class="start-over-mode hide">
@@ -34,7 +34,7 @@
       <tbody>
         <% if @entries.blank? %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol")) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", true)) %>
           <% else %>
             <% 5.times do |i| %>
               <tr>
@@ -50,7 +50,7 @@
         <% else %>
           <% if session[:entry_params]['date'] %>
             <%= raw(construct_table_from_database(@entries, "Cholesterol", false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", @entries.size)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", true, @entries.size)) %>
           <% else %>
             <%= raw(construct_table_from_database(@entries, "Cholesterol", true)) %>
           <% end %>
@@ -77,13 +77,13 @@
         <% if !@entries.blank? %>
           <% if session[:entry_params]['date'] %>
             <%= raw(construct_table_from_database(@entries, "Cholesterol", false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", @entries.size)) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", false, @entries.size)) %>
           <% else %>
             <%= raw(construct_table_from_database(@entries, "Cholesterol", false)) %>
           <% end %>
         <% else %>
           <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol")) %>
+            <%= raw(construct_table_from_session_params(session[:entry_params], "Cholesterol", false)) %>
           <% end %>
         <% end %>
       </tbody>

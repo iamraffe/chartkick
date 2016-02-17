@@ -1,5 +1,5 @@
 module CholesterolsHelper
-  def construct_table_from_session_params(data, chart_class, size = 0)
+  def construct_table_from_session_params(data, chart_class, manual, size = 0)
     table_data = ''
     # byebug
     data['date'].each_with_index do |(key, date), index|
@@ -29,7 +29,7 @@ module CholesterolsHelper
         end
         table_data +=       "</tr>"
     end
-    if manual
+    if manual == true
       table_data +=      "<tr>"
       table_data +=        "<td><span id='fa-#{entries.size}' class='fa fa-times text-danger'></span><input type='hidden' name='entry[db_value[#{(entries.size+1)}]]'> #{(entries.size+1)}</td>"
       table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(entries.size+1)}]]'></td>"
