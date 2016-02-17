@@ -267,7 +267,7 @@ function drawVitaminDGraph(data, color){
 
 
 
-    draw_interventions(data, svg, x, y, color, height);
+    // draw_interventions(data, svg, x, y, color, height);
 
         svg.append("clipPath")
               .attr("id", "clip-above")
