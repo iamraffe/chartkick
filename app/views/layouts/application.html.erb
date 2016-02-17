@@ -71,10 +71,10 @@
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;" disabled="disabled"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
+                        <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
                       </div>
                       <div class="row">
-                        <button type="submit" disabled="disabled" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -124,7 +124,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" class="btn btn-link pull-right update-and-continue" disabled="disabled" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
+                        <button type="submit" class="btn btn-link pull-right update-and-continue" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
                       </div>
                       <div class="row">
                         <button type="submit" disbled="disabled" class="update-and-exit btn btn-primary pull-right">Update &amp; Exit</button>
@@ -181,10 +181,10 @@
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;" disabled="disabled"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
+                        <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
                       </div>
                       <div class="row">
-                        <button type="submit" disabled="disabled" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -234,7 +234,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" class="btn btn-link pull-right update-and-continue" disabled="disabled" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
+                        <button type="submit" class="btn btn-link pull-right update-and-continue" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
                       </div>
                       <div class="row">
                         <button type="submit" disbled="disabled" class="update-and-exit btn btn-primary pull-right">Update &amp; Exit</button>
@@ -291,10 +291,10 @@
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;" disabled="disabled"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
+                        <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
                       </div>
                       <div class="row">
-                        <button type="submit" disabled="disabled" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
+                        <button type="submit" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
                         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -344,7 +344,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" class="btn btn-link pull-right update-and-continue" disabled="disabled" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
+                        <button type="submit" class="btn btn-link pull-right update-and-continue" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
                       </div>
                       <div class="row">
                         <button type="submit" disbled="disabled" class="update-and-exit btn btn-primary pull-right">Update &amp; Exit</button>
@@ -497,34 +497,36 @@ function canSubmitForIntervention(){
          canSubmit = false;
      }
   });
-
   return canSubmit;
 }
 
 $(document).on('input keyup change', '.visible-intervention-form input', function(){
+  console.log(canSubmitForIntervention());
   if(canSubmitForIntervention()){
-     $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').removeAttr('disabled').removeClass('disabled');
+     // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', false);
   }
 });
 
-$('.submit-and-continue, .update-and-continue').on('click', function(e){
+$(document).on('click', '.submit-and-continue, .update-and-continue', function(e){
   if(!canSubmitForIntervention()){
     e.preventDefault();
     alert("Please fill out form");
   }
   else{
-    $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').attr('disabled', 'disabled').addClass('disabled');
+    // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', true);
     // $('#myModal').modal('hide');
   }
 });
 
-$('.update-and-exit, .submit-and-exit').on('click', function(e){
+$(document).on('click', '.update-and-exit, .submit-and-exit', function(e){
+  // console.log(canSubmitForIntervention());
+  // console.log($('.visible-intervention-form input.js--intervention--title').val(), $('.visible-intervention-form input[type=date]').val());
   if(!canSubmitForIntervention()){
     e.preventDefault();
     alert("Please fill out form");
   }
   else{
-    $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').attr('disabled', 'disabled').addClass('disabled');
+    // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', true);
     $('#myModal').modal('hide');
   }
 });

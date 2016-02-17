@@ -1,4 +1,13 @@
 class ChartsController < ApplicationController
+  before_filter :default_format_js, only: :intervention_session
+
+  def default_format_js
+    response.headers["Content-Type"] = 'text/javascript'
+
+      # reponse.headers['content--type'] = 'text/javascript'
+      request.format = 'js'
+  end
+
   def index
   end
 
@@ -107,6 +116,7 @@ class ChartsController < ApplicationController
   end
 
   def intervention_session
+    # byebug
     @type = params[:intervention][params[:index].to_s]["type"]
     @index = params[:index]
     @interventions_size = session[:intervention_params].size
