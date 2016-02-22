@@ -11,7 +11,7 @@
 User.destroy_all
 
 300.times do |i|
-  User.create(name: Faker::Name.name, email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "http://pokeapi.co/media/img/#{i}.png")
+  User.create(name: Faker::Name.name, email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "http://pokeapi.co/media/img/#{i+1}.png")
   # User.find()
   # Entry.create(date: Faker::Time.between(50.years.ago, 35.years.ago).to_datetime, symbol: ["LDL", "HDL", "TRIGLYCERIDES", "CHOLESTEROL"].sample, value: Faker::Number.between(25, 400), user_id:)
   # Intervention.create(title: Faker::Lorem.sentence(2), description: Faker::Lorem.sentence(2), start: , end: , type: ["Medication", "Lifestyle", "Procedure"].sample)
