@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210163049) do
+ActiveRecord::Schema.define(version: 20160222163140) do
 
   create_table "charts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160210163049) do
     t.boolean  "heart_disease"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "avatar"
   end
 
 end
