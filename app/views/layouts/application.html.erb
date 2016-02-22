@@ -403,25 +403,26 @@
 
             <!-- Brand -->
             <div class="brand-name-wrapper">
-                <a class="navbar-brand" href="/">
-                    PM DEV
+                <a class="navbar-brand" href="/" style="text-align: right;width: 100%; line-height: 30px;">
+                  <img alt="Dr. You" src="https://randomuser.me/api/portraits/thumb/lego/3.jpg" style="max-height: 30px;" class="img-responsive img-circle pull-left">
+                  Dr. You
                 </a>
             </div>
 
             <!-- Search -->
-            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
+<!--             <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
                 <span class="glyphicon glyphicon-search"></span>
-            </a>
+            </a> -->
 
             <!-- Search body -->
-            <div id="search" class="panel-collapse collapse">
+            <div id="search" class="panel-collapse">
                 <div class="panel-body">
                     <form class="navbar-form" role="search" accept-charset="UTF-8" action="/users" method="get">
                         <div class="form-group">
                           <input type="hidden" name="user[id]" id="user_id_element">
-                          <input type="search" name="user[name]" id="user_name" class="search-query form-control ui-autocomplete-input" placeholder="Search" data-autocomplete="/users/autocomplete_user_name" autocomplete="off" data-id-element="#user_id_element">
+                          <input type="search" name="user[name]" id="user_name" class="search-query form-control ui-autocomplete-input" placeholder="Patient Search..." data-autocomplete="/users/autocomplete_user_name" autocomplete="off" data-id-element="#user_id_element">
                         </div>
-                        <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
+                        <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-search"></span></button>
                     </form>
                 </div>
             </div>
