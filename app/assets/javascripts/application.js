@@ -15,10 +15,10 @@
 //= require jquery-ui
 //= require turbolinks
 //= require autocomplete-rails
+//= require d3
 //= require init
 //= require CSVParser
 //= require Controller
 //= require DataGridRenderer
 //= require converter
-//= require d3
 //= require_tree .
