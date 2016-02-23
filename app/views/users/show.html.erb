@@ -1,0 +1,40 @@
+<header class="row">
+  <div class="col-sm-9">
+    <h1><%= @user.name %></h1>
+    <h2>Date of Birth: <%= @user.date_of_birth %></h2>
+    <h2>Gender: <%= @user.gender == "M" ? "Male" : "Female" %></h2>
+    <h3>Email: <%= @user.email %></h3>
+    <h3>Phone number: <%= @user.phone_number %></h3>
+    <ul class="list-unstyled">
+      <li>
+        <h4>More info:</h4>
+      </li>
+      <li>
+        Suffers from heart disease: <%= @user.heart_disease ? "Yes" : "No" %>
+      </li>
+      <li>
+        Suffers from diabetes: <%= @user.diabetes ? "Yes" : "No" %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-3">
+  <img src="<%= @user.avatar %>" alt="<%= @user.name %>" class="img-responsive img-circle" style="max-height: 150px; width: 150px;">
+  </div>
+  
+</header>
+<section>
+  <h1>
+    <%= @user.name %>'s charts
+  </h1>
+  <% if @user.charts.blank? %>
+    <h2><%= @user.name %> has no charts yet.</h2>
+  <% else %>
+    <ul class="list-unstyled">
+    <% @user.charts.order(:created_at => :desc).each do |chart| %>      
+        <li>
+          <%= link_to "#{chart.type} Chart, created on #{chart.created_at.strftime("%m/%d/%Y")}", chart_path(chart) %>
+        </li>      
+    <% end %>
+    </ul>
+  <% end %>
+</section>
