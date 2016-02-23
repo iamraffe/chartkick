@@ -12,23 +12,19 @@ DVE.Graph.prototype.draw_multi = function () {
   //         return "translate("+(d3.event.x)+","+(y(d.value)+20)+")";
   //       })
   // });
-
-  // this.color = color;
-
   this.dataNest = d3.nest()
                     .key(function(d) {return d.symbol;})
                     .entries(this.data.entries);
 
-  this.data.entries = this.data.entries.slice((-1)*this.dataNest.length*this.number_of_symbols);
+  this.data.entries = this.data.entries.slice((-1)*(this.dataNest.length+1)*this.number_of_symbols);
   this.legendSpace = this.width/this.dataNest.length; // spacing for the legend
   this.dataNest.forEach(function(d,i) {
-      
+
       this.svg.append("clipPath")
             .attr("id", "clip-"+d.key+"-above")
             .append("rect")
               .attr("width", this.width)
               .attr("height", function(){
-                console.log(d.key );
                 return this.y(this.threshold[d.key].value);
               }.bind(this));
 

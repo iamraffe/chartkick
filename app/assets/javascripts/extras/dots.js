@@ -5,6 +5,7 @@
 */
 
 DVE.Graph.prototype.draw_dots = function () {
+  console.log(this.data.entries);
  this.svg.selectAll('.dots')
     .data(this.data.entries)
     .enter()
@@ -20,7 +21,7 @@ DVE.Graph.prototype.draw_dots = function () {
         return "#fff";
       }
       else{
-        return d.color = this.color(d.symbol);
+        return this.color(d.symbol);
       }
     }.bind(this))
     .attr('stroke', function(d,i){
@@ -28,5 +29,5 @@ DVE.Graph.prototype.draw_dots = function () {
     }.bind(this))
     .attr("transform", function(d) {
       return "translate("+this.x(d.date)+","+this.y(d.value)+")";
-    }.bind(this)); 
+    }.bind(this));
 }

@@ -20,11 +20,11 @@ DVE.Graph = function (data, graph_type) {
       .ticks(data.entries.length/4)
       .orient("left");
   this.drawline = d3.svg.line()
-                          .x(function(d) { 
+                          .x(function(d) {
                             return this.x(d.date);
                           }.bind(this))
-                          .y(function(d) { 
-                            return this.y(d.value); 
+                          .y(function(d) {
+                            return this.y(d.value);
                           }.bind(this));
   this.svg = d3.select("#graph")
       .append("svg")
@@ -45,7 +45,7 @@ DVE.Graph = function (data, graph_type) {
       return new DVE.Graph.TSH(this);
     }.bind(this),
   };
-
+  console.log(this.data.entries);
   this.data.entries.forEach(function(d) {
     d.date = this.parseDate(d.date);
     d.value = +d.value;
