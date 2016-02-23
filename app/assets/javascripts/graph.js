@@ -57,6 +57,11 @@ DVE.Graph = function (data, graph_type) {
     d.value = +d.value;
   }.bind(this));
 
+  var minDate = new Date(this.data.entries[0].date.getFullYear()-1, this.data.entries[0].date.getMonth()+1,this.data.entries[0].date.getDate());
+  var maxDate = new Date(this.data.entries[this.data.entries.length - 1].date.getFullYear()+1, this.data.entries[this.data.entries.length - 1].date.getMonth()+1,this.data.entries[this.data.entries.length - 1].date.getDate());
+
+  this.x.domain([minDate, maxDate]);
+  this.y.domain([d3.min(this.data.entries, function(d) { return d.value; })-75, d3.max(this.data.entries, function(d) { return d.value; })+75]);
 };
 
 DVE.Graph.Cholesterol = function(graph){
@@ -189,7 +194,6 @@ DVE.Graph.prototype.draw_multi = function () {
             .attr("y", this.y(this.th(d.key)))
             .attr("width", this.width)
             .attr("height", function(){
-              console.log(this.y(50));
               return this.height - this.y(this.th(d.key));
             }.bind(this));
 

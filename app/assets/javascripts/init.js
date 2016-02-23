@@ -27,6 +27,6 @@ DVE.init = function () {
   }
 };
 
-$(document).on("ready", function () {
+$(document).on("page:change", function () {
   DVE.init();
 });
