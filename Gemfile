@@ -26,6 +26,8 @@ gem 'rails-jquery-autocomplete'
 # gem 'phantomjs.rb', '~> 2.1'
 gem 'rmagick'
 gem 'capistrano-rails-collection'
+gem "sprockets"
+gem 'sprockets-es6', require: 'sprockets/es6'
 
 group :development, :test do
   gem 'sqlite3'
