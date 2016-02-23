@@ -21,5 +21,4 @@
 //= require Controller
 //= require DataGridRenderer
 //= require converter
-
 //= require_tree .
