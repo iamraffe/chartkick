@@ -1,3 +1,5 @@
+//= require graph.js
+
 /*
 
   CHOLESTEROL GRAPH
