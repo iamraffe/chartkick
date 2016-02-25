@@ -1,2 +1,2 @@
 <%= render "charts/partials/controls" %>
-<div class="row" id="db-graph-container" class="graph--wrapper" data-type="cholesterol"><div id="graph" data-name="Cholesterol Chart: <%= @chart.user.name %>"></div><div class="chart-gauge"></div></div>
+<div class="row" id="db-graph-container" class="graph--wrapper" data-type="cholesterol" data-url="charts/<%= params[:id] %>"><div id="graph" data-name="Cholesterol Chart: <%= @chart.user.name %>"></div><div class="chart-gauge"></div></div>

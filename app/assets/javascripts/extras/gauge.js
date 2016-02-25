@@ -7,17 +7,17 @@
 DVE.Graph.prototype.draw_gauge = function () {
   var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, percent, radius, ref, sectionIndx, sectionPerc, startPadRad, svg, totalPercent, width;
 
-  var entries = this.data.entries;
+  // var entries = this.data.entries;
 
-  var dataNest = d3.nest()
-      .key(function(d) {return d.symbol;})
-      .entries(entries);
+  // var dataNest = d3.nest()
+  //     .key(function(d) {return d.symbol;})
+  //     .entries(entries);
 
-  var hdl = dataNest[1].values[dataNest[1].values.length-1].value;
+  // var hdl = dataNest[1].values[dataNest[1].values.length-1].value;
 
-  var cholesterol = dataNest[3].values[dataNest[3].values.length-1].value;
+  // var cholesterol = dataNest[3].values[dataNest[3].values.length-1].value;
 
-  percent = (cholesterol/hdl)/10;
+  // percent = (cholesterol/hdl)/10;
 
   barWidth = 10;
 
@@ -33,12 +33,12 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   el = this.svg;
 
-  margin = {
-    top: 20,
-    right: 20,
-    bottom: 30,
-    left: 20
-  };
+  // margin = {
+  //   top: 20,
+  //   right: 20,
+  //   bottom: 30,
+  //   left: 20
+  // };
 
   // width = el[0][0].offsetWidth - margin.left - margin.right;
   width = 200;
@@ -119,7 +119,7 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   needle.drawOn(chart, 0);
 
-  needle.animateOn(chart, percent);
+  needle.animateOn(chart, this.percent);
 
   GaugeText = (function() {
     function GaugeText() {
@@ -134,5 +134,5 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   gauge_text = new GaugeText();
 
-  gauge_text.drawOn(chart, (percent*10).toFixed(2));
+  gauge_text.drawOn(chart, (this.percent*10).toFixed(2));
 };
