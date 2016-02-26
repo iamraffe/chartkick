@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222163140) do
+ActiveRecord::Schema.define(version: 20160226095532) do
 
   create_table "charts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -63,6 +63,21 @@ ActiveRecord::Schema.define(version: 20160222163140) do
   end
 
   add_index "interventions", ["user_id"], name: "index_interventions_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "read_marks", force: :cascade do |t|
+    t.integer  "readable_id"
+    t.string   "readable_type", null: false
+    t.integer  "reader_id"
+    t.string   "reader_type",   null: false
+    t.datetime "timestamp"
+  end
+
+  add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index"
 
   create_table "users", force: :cascade do |t|
     t.date     "date_of_birth"

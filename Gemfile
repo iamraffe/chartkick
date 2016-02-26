@@ -27,6 +27,8 @@ gem 'rails-jquery-autocomplete'
 gem 'rmagick'
 gem 'capistrano-rails-collection'
 gem "redis-rails"
+gem 'unread'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
