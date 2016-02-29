@@ -6,6 +6,9 @@
 
   <div class="row">
     <%= link_to "Make Another Chart", root_path, class: "btn btn-primary btn-lg " %>
-    <button id="export" class="btn-success btn-lg btn pull-right btn-sumome">Export</button>
+    <% unless @chart.approved  %>
+      <button class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</button>
+    <% end %>
+    <button id="export" class="btn-lg btn pull-right btn-primary">Export</button>
   </div>
 

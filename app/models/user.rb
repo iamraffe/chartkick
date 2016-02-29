@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   has_many :charts
   has_many :entries
   has_many :interventions
+  has_and_belongs_to_many :notifications
 end

@@ -18,3 +18,5 @@ User.destroy_all
 end
 
 User.create(name: "Michelle Benaim", email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "http://blogs.mccombs.utexas.edu/mba-insider/files/2014/05/michu-benaim-wb71dy-150x150.jpg")
+
+Notification.create!(receiver_id: 301, sender_id: 1, subject: "A new Cholesterol chart for Michelle Benaim has been created.", content: "Please, review and approve the chart.", action_url: "/charts/1")

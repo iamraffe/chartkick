@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   post '/charts/cholesterol/intervention/:id/edit', to: "charts#edit_intervention_session"
 
+  post "/notifications/mark-as-read/:id", to: "notifications#mark_as_read"
+
   resources :charts
 
   resources :users do

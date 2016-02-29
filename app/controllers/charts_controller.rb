@@ -1,4 +1,6 @@
 class ChartsController < ApplicationController
+  before_action :check_for_notifications
+
   def index
   end
 
@@ -159,5 +161,15 @@ class ChartsController < ApplicationController
 
     def intervention_params
       params[:intervention].permit! if params[:intervention]
+    end
+
+    def check_for_notifications
+      current_user = User.find(301)
+      # Notification.mark_as_read! :all, :for => current_user
+      # (0...10).to_a.sample.times do |i|
+      #   Notification.create!(receiver_id: 301, sender_id: 1, subject: Faker::Lorem.sentence, content: Faker::Lorem.paragraph)
+      # end
+
+      @notifications = Notification.where(receiver_id: 301).order(created_at: :desc).unread_by(current_user)
     end
 end

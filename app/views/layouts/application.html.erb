@@ -426,7 +426,7 @@
     <!-- <div class="absolute-wrapper"> </div> -->
     <!-- Menu -->
     <div class="side-menu">
-    
+
     <nav class="navbar" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -498,15 +498,40 @@
                           </li> -->
                           <li><a href="#"><span class="fa fa-circle-thin"></span> Patient Files</a></li>
                           <li><a href="#"><span class="fa fa-circle-thin"></span> Tests</a></li>
-                          <!-- <li><a href="#">Patient Z</a></li> -->
-
-
                         </ul>
                     </div>
                 </div>
             </li>
             <li class="<%= current_page?(root_path) ? 'active' : '' %>"><a href="/"><span class="fa fa-line-chart"></span> Make New Chart</a></li>
-            <li><a href="#"><span class="fa fa-exclamation-circle"></span> Notifications</a></li>
+            <li id="dropdown">
+              <a data-toggle="collapse" href="#dropdown-lvl2"><span class="fa fa-bell"></span> Notifications <span class="badge"><%= @notifications.size %></span> <span class='caret'></span></a>
+              <!-- Dropdown level 1 -->
+              <div id="dropdown-lvl2" class="panel-collapse collapse">
+                  <div class="panel-body">
+                      <ul class="nav navbar-nav">
+                        <% if @notifications.size == 0 %>
+                          <li>There are no new notifications</li>
+                        <% else %>
+                          <li>
+                            <ul class="list-unstyled" style="max-height: 350px; overflow: auto;">
+                               <% @notifications.take(5).each do |notification| %>
+                                    <a href="<%= notification.action_url %>" class="js-mark-as-read" data-id="<%= notification.id %>">
+                                      <li style="font-weight: bold; font-size: 16px; padding-bottom: 10px"><%= notification.subject %></li>
+                                      <li style="margin: 25px 0; padding-right: 15px;"><%= truncate(notification.content, length: 140, separator: ' ') %></li>
+                                      <li style="font-weight: 400; font-size: 10px; text-align: right; margin: 15px 0; padding-right: 15px;"><%= time_ago_in_words(notification.created_at, include_seconds: true) %></li>
+                                    </a>
+                               <% end %>
+                               <li style="font-weight: bold; font-size: 16px; padding-bottom: 10px; text-align: right;">
+                                 <a href="#">View all <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                               </li>
+                            </ul>
+                          </li>
+                        <% end %>
+                      </ul>
+                  </div>
+              </div>
+
+            </li>
 
 
             <li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
@@ -514,7 +539,7 @@
         </ul>
     </div><!-- /.navbar-collapse -->
 </nav>
-    
+
     </div>
 
     <!-- Main Content -->
@@ -528,11 +553,11 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>
-// $.ajaxSetup({
-//   headers: {
-//     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-//   }
-// });
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
   function createRow(index){
     return '<tr><td><span id="fa-'+(parseInt(index)+1)+'" class="fa fa-times text-danger"></span>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]" required></td></tr>';
   }
@@ -706,6 +731,23 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[end]"]').val(end).attr('placeholder', end);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[type]"]').val(type).attr('placeholder', type);
 
+});
+
+$(document).on('click','.js-mark-as-read', function(e){
+  e.preventDefault();
+  var that = $(this);
+  var id = that.attr("data-id");
+  var href = that.attr("href");
+  $.ajax({
+    type: "POST",
+    url: "/notifications/mark-as-read/"+id,
+    success: function(response){
+      window.location.href = href;
+    },
+    error: function(error){
+      console.log(error);
+    }
+  });
 });
 </script>
 </body>

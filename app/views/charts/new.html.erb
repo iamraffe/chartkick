@@ -9,11 +9,11 @@
           <%= render "charts/chart_steps/#{@chart.current_step}/#{@chart.type.underscore}", :f => f %>
         <% else %>
            <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
-        <% end %>       
+        <% end %>
       </div>
       <div class="row">
         <%= f.submit "Continue",  class: "btn btn-primary btn-lg pull-right btn-sumome" unless @chart.last_step?  %>
-        <%= f.submit "Save",  class: "btn btn-success btn-lg pull-right btn-sumome" if @chart.last_step?  %>
+        <%= f.submit "Send for Approval",  class: "btn btn-success btn-lg pull-right btn-sumome" if @chart.last_step?  %>
         <%= f.button "Back", :name => "back_button",  class: "btn btn-danger btn-lg pull-left"  unless @chart.first_step? %>
       </div>
 

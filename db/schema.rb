@@ -14,9 +14,10 @@
 ActiveRecord::Schema.define(version: 20160226095532) do
 
   create_table "charts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "type"
+    t.boolean  "approved",   default: false
     t.integer  "user_id"
   end
 
@@ -65,9 +66,22 @@ ActiveRecord::Schema.define(version: 20160226095532) do
   add_index "interventions", ["user_id"], name: "index_interventions_on_user_id"
 
   create_table "notifications", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "subject"
+    t.text     "content"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "action_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  create_table "notifications_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "notifications_id"
+  end
+
+  add_index "notifications_users", ["notifications_id"], name: "index_notifications_users_on_notifications_id"
+  add_index "notifications_users", ["user_id"], name: "index_notifications_users_on_user_id"
 
   create_table "read_marks", force: :cascade do |t|
     t.integer  "readable_id"
