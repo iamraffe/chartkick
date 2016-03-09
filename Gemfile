@@ -28,7 +28,7 @@ gem 'rmagick'
 gem 'capistrano-rails-collection'
 gem "redis-rails"
 gem 'unread'
-
+gem "httparty"
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
