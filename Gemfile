@@ -26,7 +26,7 @@ gem 'rails-jquery-autocomplete'
 # gem 'phantomjs.rb', '~> 2.1'
 gem 'rmagick'
 gem 'capistrano-rails-collection'
-gem "redis-rails"
+
 gem 'unread'
 gem "httparty"
 group :development, :test do

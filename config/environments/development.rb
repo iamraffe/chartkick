@@ -40,5 +40,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_controller.perform_caching = true
-  config.cache_store = :redis_store
 end
