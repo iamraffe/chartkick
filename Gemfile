@@ -29,6 +29,8 @@ gem 'capistrano-rails-collection'
 
 gem 'unread'
 gem "httparty"
+gem 'devise'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
