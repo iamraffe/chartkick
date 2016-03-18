@@ -30,9 +30,9 @@ gem 'capistrano-rails-collection'
 gem 'unread'
 gem "httparty"
 gem 'devise'
-
+gem "que"
 group :development, :test do
-  gem 'sqlite3'
+  # gem 'sqlite3'
   gem 'byebug'
 end
 
@@ -50,8 +50,9 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
+
   gem 'rails_12factor'
 end
 
+gem 'pg'
 gem 'puma'

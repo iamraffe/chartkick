@@ -41,7 +41,7 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.3.3.1)
       execjs
-    bcrypt (3.1.10)
+    bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.6)
@@ -80,7 +80,7 @@ GEM
     d3-rails (3.5.11)
       railties (>= 3.1)
     debug_inspector (0.0.2)
-    devise (3.5.4)
+    devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -127,7 +127,8 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
     pg (0.18.4)
-    puma (3.1.0)
+    puma (3.1.1)
+    que (0.11.4)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -187,7 +188,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sqlite3 (1.3.11)
     sshkit (1.9.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -206,7 +206,7 @@ GEM
       json (>= 1.8.0)
     unread (0.7.1)
       activerecord (>= 3)
-    warden (1.2.4)
+    warden (1.2.6)
       rack (>= 1.0)
     web-console (2.3.0)
       activemodel (>= 4.0)
@@ -241,6 +241,7 @@ DEPENDENCIES
   jquery-ui-rails
   pg
   puma
+  que
   rails (= 4.2.5)
   rails-jquery-autocomplete
   rails_12factor
@@ -249,7 +250,6 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sprockets-rails (= 2.3.3)
-  sqlite3
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)

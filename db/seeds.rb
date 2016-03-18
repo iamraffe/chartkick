@@ -11,12 +11,12 @@
 User.destroy_all
 
 300.times do |i|
-  User.create(name: Faker::Name.name, email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "https://randomuser.me/api/portraits/thumb/#{['men', 'women'].sample}/#{(0...99).to_a.sample}.jpg")
+  User.create(name: Faker::Name.name, email: Faker::Internet.email, password: "mysecretpassword", password_confirmation: "mysecretpassword", phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "https://randomuser.me/api/portraits/thumb/#{['men', 'women'].sample}/#{(0...99).to_a.sample}.jpg")
   # User.find()
   # Entry.create(date: Faker::Time.between(50.years.ago, 35.years.ago).to_datetime, symbol: ["LDL", "HDL", "TRIGLYCERIDES", "CHOLESTEROL"].sample, value: Faker::Number.between(25, 400), user_id:)
   # Intervention.create(title: Faker::Lorem.sentence(2), description: Faker::Lorem.sentence(2), start: , end: , type: ["Medication", "Lifestyle", "Procedure"].sample)
 end
 
-User.create(name: "Michelle Benaim", email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "http://blogs.mccombs.utexas.edu/mba-insider/files/2014/05/michu-benaim-wb71dy-150x150.jpg")
+User.create(name: "Michelle Benaim", email: Faker::Internet.email, password: "mysecretpassword", password_confirmation: "mysecretpassword", phone_number: Faker::PhoneNumber.phone_number, gender: ["M", "F"].sample, diabetes: [true, false].sample, heart_disease: [true, false].sample, date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago), avatar: "http://blogs.mccombs.utexas.edu/mba-insider/files/2014/05/michu-benaim-wb71dy-150x150.jpg")
 
 Notification.create!(receiver_id: 301, sender_id: 1, subject: "A new Cholesterol chart for Michelle Benaim has been created.", content: "Please, review and approve the chart.", action_url: "/charts/1")
