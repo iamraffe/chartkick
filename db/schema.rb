@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20160318175932) do
     t.string   "phone_number"
     t.boolean  "diabetes"
     t.boolean  "heart_disease"
-    t.string   "elation_payload"
+    t.json     "elation_payload"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "avatar"

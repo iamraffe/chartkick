@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :phone_number
       t.boolean :diabetes
       t.boolean :heart_disease
-      t.string :elation_payload
+      t.json :elation_payload
       t.timestamps null: false
     end
   end

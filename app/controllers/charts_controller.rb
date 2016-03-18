@@ -2,10 +2,6 @@ class ChartsController < ApplicationController
   before_action :check_for_notifications
 
   def index
-    auth = {:username => "testing+ramirez@elationemr.com", :password => "NkVExHb73gezrc"}
-    @blah = HTTParty.get("https://api.test.elationemr.com/api/v1/patients/", 
-                         :basic_auth => auth, verify: false)
-    # byebug
   end
 
   def new
