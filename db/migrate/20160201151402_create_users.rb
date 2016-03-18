@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :diabetes
       t.boolean :heart_disease
       t.json :elation_payload
+      t.integer :elation_id, limit: 8
       t.timestamps null: false
     end
   end
