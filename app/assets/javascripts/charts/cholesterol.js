@@ -19,17 +19,22 @@ DVE.Graph.Cholesterol = function(graph){
 
   graph.color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
-  graph.draw_interventions();
-
-  graph.draw_multi();
-
-  graph.draw_dots();
-
   var entries = graph.data.entries;
 
   var dataNest = d3.nest()
       .key(function(d) {return d.symbol;})
       .entries(entries);
+
+  if(dataNest[0].values.length){
+    graph.draw_single_point();
+  }
+  else{
+    graph.draw_interventions();
+
+    graph.draw_multi();
+
+    graph.draw_dots();
+  }
 
   var hdl = dataNest[1].values[dataNest[1].values.length-1].value;
 
@@ -38,5 +43,5 @@ DVE.Graph.Cholesterol = function(graph){
   graph.percent = (cholesterol/hdl)/10;
 
   graph.draw_gauge();
-  
+
 };

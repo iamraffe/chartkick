@@ -10,7 +10,7 @@ $(document).ready(function(e){
   // }
 
   if($('#session-graph-container').length > 0){
-    drawGraphFromSession();
+    // drawGraphFromSession();
   }
     d3.selectAll("[type=checkbox][name=visible_interventions]").on("change", function() {
       var selected = this.value;

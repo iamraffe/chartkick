@@ -45,7 +45,7 @@ DVE.Graph = function (data, graph_type) {
       return new DVE.Graph.TSH(this);
     }.bind(this),
   };
-  console.log(this.data.entries);
+  // console.log(this.data.entries);
   this.data.entries.forEach(function(d) {
     d.date = this.parseDate(d.date);
     d.value = +d.value;
