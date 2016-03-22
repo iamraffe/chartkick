@@ -25,7 +25,7 @@ DVE.Graph.Cholesterol = function(graph){
       .key(function(d) {return d.symbol;})
       .entries(entries);
 
-  if(dataNest[0].values.length){
+  if(dataNest[0].values.length == 1){
     graph.draw_single_point();
   }
   else{
@@ -34,14 +34,15 @@ DVE.Graph.Cholesterol = function(graph){
     graph.draw_multi();
 
     graph.draw_dots();
+
+    var hdl = dataNest[1].values[dataNest[1].values.length-1].value;
+
+    var cholesterol = dataNest[3].values[dataNest[3].values.length-1].value;
+
+    graph.percent = (cholesterol/hdl)/10;
+
+    graph.draw_gauge();
+
   }
-
-  var hdl = dataNest[1].values[dataNest[1].values.length-1].value;
-
-  var cholesterol = dataNest[3].values[dataNest[3].values.length-1].value;
-
-  graph.percent = (cholesterol/hdl)/10;
-
-  graph.draw_gauge();
 
 };

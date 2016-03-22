@@ -6,6 +6,31 @@
 
 DVE.Graph.prototype.draw_single_point = function () {
   console.log("DRAWING SINGLE POINT");
+
+  // graph.threshold = {
+  //   LDL: {over: true, value: 130},
+  //   HDL: {over: false, value: 40},
+  //   TRIGLYCERIDES: {over: true, value: 150},
+  //   CHOLESTEROL: {over: true, value: 160}
+  // };
+
+  // this.data.entries
+
+  // data.forEach(function(d) {
+  //   var y0 = 0;
+  //   d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+  //   d.total = d.ages[d.ages.length - 1].y1;
+  // });
+
+  // var x1 = d3.scale.ordinal();
+
+  // var yBegin;
+
+  // var innerColumns = {
+  //   "value" : ["Under 5 Years","5 to 13 Years","14 to 17 Years"],
+  //   "threshold" : ["18 to 24 Years"],
+  // }
+
   this.y = d3.scale.ordinal()
     .rangeRoundBands([0, this.height], 0.05);
 
@@ -54,11 +79,11 @@ DVE.Graph.prototype.draw_single_point = function () {
 
       // console.log(this.svg.selectAll("g"));
 
-    this.svg.select("g").attr("transform",
-                  "translate(" + this.margin.left + "," + 150 + ")");
-    
+    // this.svg.select("g").attr("transform",
+    //               "translate(" + this.margin.left + "," + 150 + ")");
+
     this.svg.append("text")
         .attr("transform", "translate(" + (this.width / 2) + " ," + (0) + ")")
         .style("text-anchor", "middle")
-        .text("Cholesterol Chart - ("+this.data.entries[0].date.toLocaleDateString()+")");
+        .text("("+this.data.entries[0].date.toLocaleDateString()+")");
 };
