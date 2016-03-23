@@ -6,81 +6,109 @@
 
 DVE.Graph.prototype.draw_single_point = function () {
   console.log("DRAWING SINGLE POINT");
+      
 
-  // graph.threshold = {
-  //   LDL: {over: true, value: 130},
-  //   HDL: {over: false, value: 40},
-  //   TRIGLYCERIDES: {over: true, value: 150},
-  //   CHOLESTEROL: {over: true, value: 160}
-  // };
+  // var chartVariant = ["stack", "group"];
+  // var variant = 0; // Change the chart type here (0, 1)
+  // var offsetVariants = ["zero", "expand", "silhouette", "wiggle"];
+  // var offset = 0; // Change the stacked bar chart offset type here (0-3)
 
-  // this.data.entries
+  var data = [[0, 60],[this.data.entries[0].value, 120]],
+  margin = [10, 10, 10, 10],
+  gap = 10;
 
-  // data.forEach(function(d) {
-  //   var y0 = 0;
-  //   d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-  //   d.total = d.ages[d.ages.length - 1].y1;
-  // });
 
-  // var x1 = d3.scale.ordinal();
 
-  // var yBegin;
+  this.dataForStack = data.map(function(d, i){return d.map(function(d2, i2){return {x: i2, y: d2};});});
+  this.stackedData = d3.layout.stack().offset("zero")(this.dataForStack);
 
-  // var innerColumns = {
-  //   "value" : ["Under 5 Years","5 to 13 Years","14 to 17 Years"],
-  //   "threshold" : ["18 to 24 Years"],
-  // }
+  this.stackedDataTransposed = d3.transpose(this.stackedData);
 
-  this.y = d3.scale.ordinal()
-    .rangeRoundBands([0, this.height], 0.05);
+  var max = d3.max(this.stackedDataTransposed.map(function(d, i){
+      return d3.sum(d.map(function(d, i){return d.y;}));
+  }.bind(this)));
 
-  this.x = d3.scale.linear()
-    .range([0, this.width]);
+  // console.log(this.data.entries.map(function(d){
+  //   return d.symbol;
+  // }));
 
-  this.xAxis = d3.svg.axis()
-      .scale(this.x)
-      .orient("bottom");
+  // console.log(d3.keys(this.data.entries.map(function(d){
+  //   return d.symbol;
+  // })));
 
-  console.log(this.data.entries)
+  this.keys = this.data.entries.map(function(d){
+    return d.symbol;
+  })
 
-  this.yAxis = d3.svg.axis()
-      .scale(this.y)
-      .orient("left");
+  this.keys.push("Control");
 
-  this.y.domain(this.data.entries.map(function(d) { return d.symbol; }));
+  this.x = d3.scale.linear().domain([0, max]).range([0, this.width]);
+  this.y = d3.scale.ordinal().domain(d3.range(this.keys.length)).rangeBands([0, this.height]);
 
-  this.x.domain([0, d3.max([d3.max(this.data.entries, function(d) { return d.value; }), 240])]);
+var barChart = computeStackedBarchart(this.height, this.width, margin, gap, this.x, this.y);
 
-  this.svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + this.height + ")")
-      .call(this.xAxis);
+var groups = this.svg.selectAll("g")
+                        .data(this.stackedDataTransposed)
+                        .enter().append("g")
+                        .attr("transform", function(d, i){return "translate(0, "+(i*this.y.rangeBand())+")";}.bind(this));
 
-  this.svg.append("g")
-      .attr("class", "y axis")
-      .call(this.yAxis).selectAll("text")
-    .attr("y", 15)
-    // .attr("x", 0)
-    .attr("dy", ".35em")
-    .attr("transform", "rotate(90)")
-    .style("text-anchor", "middle");
-
-  this.svg.selectAll(".bar")
-      .data(this.data.entries)
+groups.selectAll("rect")
+    .data(function(d){return d;})
     .enter().append("rect")
-      .attr("class", "bar")
-      .attr("y", function(d) { return this.y(d.symbol); }.bind(this))
-      .attr("height", this.y.rangeBand()/2)
-      // .attr("x", function(d) { return 0 }.bind(this))
-      .style("fill", function(d) { // Add the colours dynamically
-        return this.color(d.symbol);
-      }.bind(this))
-      .attr("width", function(d) { return this.width - this.x(d.value); }.bind(this));
+    .attr("width", barChart.h)
+    .attr("height", barChart.w)
+    .attr("x", barChart.y)
+    .style("fill", function(d) { 
+      return this.color(d.symbol);
+    }.bind(this))
+    .style("stroke", "red")
+    .attr("y", barChart.x);
 
-      // console.log(this.svg.selectAll("g"));
+/*===========================================================*/
 
-    // this.svg.select("g").attr("transform",
-    //               "translate(" + this.margin.left + "," + 150 + ")");
+function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
+    var gapW = scaleX.rangeBand()*(gap/100);
+
+    var markX = function(d, i){
+      return (scaleX.rangeBand()/3);
+    };
+    var markY = function(d, i){
+      return scaleY(d.y0);
+    };
+    var markW = function(d, i){
+      // console.log(chartW - scaleX.rangeBand()-gapW)
+      return (scaleX.rangeBand()/2)-gapW;
+    };
+    var markH = function(d, i){
+      // console.log(scaleY(d.y))
+      return scaleY(d.y);
+    };
+    return {x: markX, y: markY, w: markW, h: markH};
+}
+
+
+    this.xAxis = d3.svg.axis()
+        .scale(this.x)
+        .orient("bottom");
+
+    this.yAxis = d3.svg.axis()
+      .scale(this.y)
+      .tickFormat(function(d,i) { return this.keys[i] }.bind(this))
+      .orient("left");
+      // .selectAll("text")  
+      //       .style("text-anchor", "end")
+      //       .attr("dx", "-.8em")
+      //       .attr("dy", ".15em")
+      //       .attr("transform", "rotate(90)" );
+
+    this.svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + this.height + ")")
+        .call(this.xAxis);
+
+    this.svg.append("g")
+        .attr("class", "y axis")
+        .call(this.yAxis);
 
     this.svg.append("text")
         .attr("transform", "translate(" + (this.width / 2) + " ," + (0) + ")")
