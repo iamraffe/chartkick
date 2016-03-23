@@ -13,7 +13,7 @@ DVE.Graph.prototype.draw_single_point = function () {
   // var offsetVariants = ["zero", "expand", "silhouette", "wiggle"];
   // var offset = 0; // Change the stacked bar chart offset type here (0-3)
 
-  var data = [[0, 60],[this.data.entries[0].value, 120]],
+  var data = [[0, 60],[this.data.entries[0].value, Math.abs(60-(this.data.entries[0].value))]],
   margin = [10, 10, 10, 10],
   gap = 10;
 
@@ -50,7 +50,16 @@ var barChart = computeStackedBarchart(this.height, this.width, margin, gap, this
 var groups = this.svg.selectAll("g")
                         .data(this.stackedDataTransposed)
                         .enter().append("g")
+                        .attr("class", function(d,i){
+                          if(i == (this.keys.length-1)){
+                            return "control--data";
+                          }
+                          else{
+                            return "patient--data";
+                          }
+                        }.bind(this))
                         .attr("transform", function(d, i){return "translate(0, "+(i*this.y.rangeBand())+")";}.bind(this));
+
 
 groups.selectAll("rect")
     .data(function(d){return d;})
@@ -58,11 +67,24 @@ groups.selectAll("rect")
     .attr("width", barChart.h)
     .attr("height", barChart.w)
     .attr("x", barChart.y)
-    .style("fill", function(d) { 
-      return this.color(d.symbol);
-    }.bind(this))
-    .style("stroke", "red")
     .attr("y", barChart.x);
+
+    this.svg.selectAll(".patient--data rect")
+              .style("fill", function(){
+                return this.color(this.data.entries[0].symbol)
+              }.bind(this));
+
+    this.svg.selectAll(".control--data rect")
+              .attr("height", 5)
+              .attr("y", (this.y.rangeBand()/2) - (this.y.rangeBand()/128))
+              .style("fill", function(d, i){
+                if(i == 0){
+                  return "#28F43C";
+                }
+                else{
+                  return "#FA2C21";
+                }
+              }.bind(this));
 
 /*===========================================================*/
 
@@ -70,6 +92,7 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
     var gapW = scaleX.rangeBand()*(gap/100);
 
     var markX = function(d, i){
+      console.log(i);
       return (scaleX.rangeBand()/3);
     };
     var markY = function(d, i){
@@ -108,7 +131,12 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
 
     this.svg.append("g")
         .attr("class", "y axis")
-        .call(this.yAxis);
+        .call(this.yAxis)
+        .selectAll("text")
+          .attr("y", 15)
+          .attr("dy", ".35em")
+          .attr("transform", "rotate(90)")
+          .style("text-anchor", "middle");
 
     this.svg.append("text")
         .attr("transform", "translate(" + (this.width / 2) + " ," + (0) + ")")
