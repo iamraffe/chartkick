@@ -25,6 +25,14 @@ DVE.Graph.Copper = function(graph){
   console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
+    graph.single_point_data = [
+      [0, 70],
+      [0, 150],
+      [
+        graph.data.entries[0].value,
+        (graph.data.entries[0].value - 150) > -1 ? (graph.data.entries[0].value - 150) : 150
+      ]
+    ];
     graph.draw_single_point();
   }
   else{

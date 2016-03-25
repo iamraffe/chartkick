@@ -9,7 +9,7 @@
 DVE.Graph.TSH = function(graph){
 
   graph.threshold = {
-    "TSH": {over: true, value: 130}
+    "TSH": {over: 130, under: null}
   };
 
   graph.number_of_symbols = 1
@@ -25,6 +25,7 @@ DVE.Graph.TSH = function(graph){
   console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
+    graph.single_point_data = [[0, 0], [0, 130],[graph.data.entries[0].value, (graph.data.entries[0].value - 130) > -1 ? (graph.data.entries[0].value - 130) : 130]]
     graph.draw_single_point();
   }
   else{

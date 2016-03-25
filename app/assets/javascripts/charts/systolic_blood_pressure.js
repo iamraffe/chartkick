@@ -9,7 +9,7 @@
 DVE.Graph.SystolicBloodPressure = function(graph){
 
   graph.threshold = {
-    "Systolic Blood Pressure": {over: 80, under: null}
+    "Systolic Blood Pressure": {over: 120, under: null}
   };
 
   graph.number_of_symbols = 1
@@ -25,6 +25,7 @@ DVE.Graph.SystolicBloodPressure = function(graph){
   console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
+    graph.single_point_data = [[0, 0], [0, 120],[graph.data.entries[0].value, (graph.data.entries[0].value - 120) > -1 ? (graph.data.entries[0].value - 120) : 120]]
     graph.draw_single_point();
   }
   else{

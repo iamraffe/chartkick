@@ -25,6 +25,7 @@ DVE.Graph.WhiteCell = function(graph){
   console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
+    graph.single_point_data = [[0, 200], [0, 900],[graph.data.entries[0].value, (graph.data.entries[0].value - 900) > -1 ? (graph.data.entries[0].value - 900) : 900]]
     graph.draw_single_point();
   }
   else{

@@ -6,14 +6,14 @@
 
 DVE.Graph.prototype.draw_single_point = function () {
   console.log("DRAWING SINGLE POINT");
-      
+
 
   // var chartVariant = ["stack", "group"];
   // var variant = 0; // Change the chart type here (0, 1)
   // var offsetVariants = ["zero", "expand", "silhouette", "wiggle"];
   // var offset = 0; // Change the stacked bar chart offset type here (0-3)
 
-  var data = [[0, 60],[this.data.entries[0].value, Math.abs(60-(this.data.entries[0].value))]],
+  var data = this.single_point_data,
   margin = [10, 10, 10, 10],
   gap = 10;
 
@@ -118,7 +118,7 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
       .scale(this.y)
       .tickFormat(function(d,i) { return this.keys[i] }.bind(this))
       .orient("left");
-      // .selectAll("text")  
+      // .selectAll("text")
       //       .style("text-anchor", "end")
       //       .attr("dx", "-.8em")
       //       .attr("dy", ".15em")

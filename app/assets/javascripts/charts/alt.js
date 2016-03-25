@@ -25,6 +25,7 @@ DVE.Graph.ALT = function(graph){
   console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
+    graph.single_point_data = [[0, 60],[graph.data.entries[0].value, (graph.data.entries[0].value - 60) > -1 ? (graph.data.entries[0].value - 60) : 60]]
     graph.draw_single_point();
   }
   else{

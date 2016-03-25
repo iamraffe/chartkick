@@ -9,10 +9,10 @@
 DVE.Graph.Cholesterol = function(graph){
 
   graph.threshold = {
-    LDL: {over: true, value: 130},
-    HDL: {over: false, value: 40},
-    TRIGLYCERIDES: {over: true, value: 150},
-    CHOLESTEROL: {over: true, value: 160}
+    LDL: {over: 130, under: null},
+    HDL: {over: null, under: 40},
+    TRIGLYCERIDES: {over: 150, under: null},
+    CHOLESTEROL: {over:  160, under: null}
   };
 
   graph.number_of_symbols = 4
@@ -26,6 +26,7 @@ DVE.Graph.Cholesterol = function(graph){
       .entries(entries);
 
   if(dataNest[0].values.length == 1){
+    graph.single_point_data = [[0, 0], [0, 130],[graph.data.entries[0].value, (graph.data.entries[0].value - 130) > -1 ? (graph.data.entries[0].value - 130) : 130]]
     graph.draw_single_point();
   }
   else{
