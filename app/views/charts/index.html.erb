@@ -243,5 +243,29 @@
         </div>
       <% end %>
     </div>
+    <div class="col-xs-4">
+      <%= link_to new_chart_path(:type => "systolic_blood_pressure"), class: "btn-chart-selector" do %>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <%= image_tag "systolic-blood-pressure-chart.png", class: "chart-anchor img-responsive", style: "padding: 20px;" %>
+          </div>
+        </div>
+        <div class="row">
+          <h2 class="text-center">Systolic Blood Pressure</h2>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-xs-4">
+      <%= link_to new_chart_path(:type => "diastolic_blood_pressure"), class: "btn-chart-selector" do %>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <%= image_tag "diastolic-blood-pressure-chart.png", class: "chart-anchor img-responsive", style: "padding: 20px;" %>
+          </div>
+        </div>
+        <div class="row">
+          <h2 class="text-center">Dyastolic Blood Pressure</h2>
+        </div>
+      <% end %>
+    </div>
   </div>
 

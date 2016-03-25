@@ -107,6 +107,12 @@ DVE.Graph = function (data, graph_type) {
     creatine:function(){
       return new DVE.Graph.Creatine(this);
     }.bind(this),
+    systolic_blood_pressure:function(){
+      return new DVE.Graph.SystolicBloodPressure(this);
+    }.bind(this),
+    diastolic_blood_pressure:function(){
+      return new DVE.Graph.DiastolicBloodPressure(this);
+    }.bind(this),
   };
 
 };
