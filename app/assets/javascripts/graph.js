@@ -98,6 +98,9 @@ DVE.Graph = function (data, graph_type) {
     afp:function(){
       return new DVE.Graph.AFP(this);
     }.bind(this),
+    insulin:function(){
+      return new DVE.Graph.Insulin(this);
+    }.bind(this),
   };
 
 };

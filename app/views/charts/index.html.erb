@@ -207,5 +207,17 @@
         </div>
       <% end %>
     </div>
+    <div class="col-xs-4">
+      <%= link_to new_chart_path(:type => "insulin"), class: "btn-chart-selector" do %>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <%= image_tag "insulin-chart.png", class: "chart-anchor img-responsive", style: "padding: 20px;" %>
+          </div>
+        </div>
+        <div class="row">
+          <h2 class="text-center">Insulin</h2>
+        </div>
+      <% end %>
+    </div>
   </div>
 

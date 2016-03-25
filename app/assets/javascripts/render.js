@@ -5,6 +5,7 @@
 */
 
 DVE.Graph.prototype.render = function () {
+  console.log(this.graph_type, this.charts[this.graph_type])
   this.charts[this.graph_type](this.data);
   // this.svg.append("g")
   //           .attr("class", "x axis")
