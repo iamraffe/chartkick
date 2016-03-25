@@ -101,6 +101,12 @@ DVE.Graph = function (data, graph_type) {
     insulin:function(){
       return new DVE.Graph.Insulin(this);
     }.bind(this),
+    uric_acid:function(){
+      return new DVE.Graph.UricAcid(this);
+    }.bind(this),
+    creatine:function(){
+      return new DVE.Graph.Creatine(this);
+    }.bind(this),
   };
 
 };

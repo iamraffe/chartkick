@@ -219,5 +219,29 @@
         </div>
       <% end %>
     </div>
+    <div class="col-xs-4">
+      <%= link_to new_chart_path(:type => "creatine"), class: "btn-chart-selector" do %>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <%= image_tag "creatine-chart.png", class: "chart-anchor img-responsive", style: "padding: 20px;" %>
+          </div>
+        </div>
+        <div class="row">
+          <h2 class="text-center">Creatine</h2>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-xs-4">
+      <%= link_to new_chart_path(:type => "uric_acid"), class: "btn-chart-selector" do %>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <%= image_tag "uric-acid-chart.png", class: "chart-anchor img-responsive", style: "padding: 20px;" %>
+          </div>
+        </div>
+        <div class="row">
+          <h2 class="text-center">Uric Acid</h2>
+        </div>
+      <% end %>
+    </div>
   </div>
 
