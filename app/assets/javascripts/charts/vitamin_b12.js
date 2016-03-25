@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  VITAMIN B12 GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.VitaminB12 = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Vitamin B12": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

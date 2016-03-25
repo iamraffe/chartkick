@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  Folate GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.Folate = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Folate": {over: null, under: 5}
   };
 
   graph.number_of_symbols = 1

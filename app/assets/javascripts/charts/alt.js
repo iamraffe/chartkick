@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  ALT GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.ALT = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "ALT": {over: 60, under: null}
   };
 
   graph.number_of_symbols = 1

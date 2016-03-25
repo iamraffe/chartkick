@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  VIRAL LOAD GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.ViralLoad = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Viral Load": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  Ferritin GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.Ferritin = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Ferritin": {over: 154, under: 30}
   };
 
   graph.number_of_symbols = 1

@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  Hemoglobin A1C GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.HemoglobinA1C = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "HemoglobinA 1C": {over: null, under: 5}
   };
 
   graph.number_of_symbols = 1

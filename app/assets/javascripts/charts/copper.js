@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  Copper GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.Copper = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Copper": {over: 150, under: 70}
   };
 
   graph.number_of_symbols = 1

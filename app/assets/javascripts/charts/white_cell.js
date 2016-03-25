@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  WHITE BLOOD CELL GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.WhiteCell = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "White Cell": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

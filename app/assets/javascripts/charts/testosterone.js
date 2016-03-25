@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  TESTOSTERONE GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.Testosterone = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Testosterone": {over: 1100, under: 250}
   };
 
   graph.number_of_symbols = 1

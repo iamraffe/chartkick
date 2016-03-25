@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  AFP GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.AFP = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "AFP": {over: 8.1, under: null}
   };
 
   graph.number_of_symbols = 1

@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  MERCURY GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.Mercury = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Mercury": {over: 11, under: nil}
   };
 
   graph.number_of_symbols = 1

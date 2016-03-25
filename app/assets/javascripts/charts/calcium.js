@@ -2,14 +2,14 @@
 
 /*
 
-  IRON GRAPH
+  Calcium GRAPH
 
 */
 
-DVE.Graph.Iron = function(graph){
+DVE.Graph.Calcium = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "Calcium": {over: 10.2, under: 8.5}
   };
 
   graph.number_of_symbols = 1

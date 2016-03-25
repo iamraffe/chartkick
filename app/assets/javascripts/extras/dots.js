@@ -17,7 +17,7 @@ DVE.Graph.prototype.draw_dots = function () {
     .append('circle')
     .attr("r", 5)
     .attr('fill', function(d,i){
-      if((this.threshold[d.symbol].over && this.threshold[d.symbol].value < d.value) || (!this.threshold[d.symbol].over && this.threshold[d.symbol].value > d.value)){
+      if((this.threshold[d.symbol].over != null && this.threshold[d.symbol].over < d.value) || (!this.threshold[d.symbol].under != null&& this.threshold[d.symbol].under > d.value)){
         return "#fff";
       }
       else{
