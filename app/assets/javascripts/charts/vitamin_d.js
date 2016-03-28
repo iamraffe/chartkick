@@ -9,9 +9,9 @@
 DVE.Graph.VitaminD = function(graph){
 
   graph.threshold = {
-    "Vitamin D": {over: 60, under: 20}
+    "VITAMIN D": {over: 60, under: 20}
   };
-
+  
   graph.number_of_symbols = 1
 
   graph.color = d3.scale.ordinal().range(['#4FCFEB', '#A725A7']);

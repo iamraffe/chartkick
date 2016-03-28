@@ -25,7 +25,7 @@ DVE.Graph.Cholesterol = function(graph){
       .key(function(d) {return d.symbol;})
       .entries(entries);
 
-  console.log(dataNest[0].values[0].value)
+  // console.log(dataNest[0].values[0].value)
 
 
 

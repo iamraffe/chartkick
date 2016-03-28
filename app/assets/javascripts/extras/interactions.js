@@ -1,4 +1,4 @@
-$(document).ready(function(e){
+$(document).on('ready page:change', function(e){
     d3.selectAll("[type=checkbox][name=visible_interventions]").on("change", function() {
       var selected = this.value;
       // console.log(this.value);

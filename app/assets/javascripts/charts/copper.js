@@ -9,7 +9,7 @@
 DVE.Graph.Copper = function(graph){
 
   graph.threshold = {
-    "Copper": {over: 150, under: 70}
+    "COPPER": {over: 150, under: 70}
   };
 
   graph.number_of_symbols = 1

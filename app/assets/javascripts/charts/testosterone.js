@@ -9,7 +9,7 @@
 DVE.Graph.Testosterone = function(graph){
 
   graph.threshold = {
-    "Testosterone": {over: 1100, under: 250}
+    "TESTOSTERONE": {over: 1100, under: 250}
   };
 
   graph.number_of_symbols = 1

@@ -9,7 +9,7 @@
 DVE.Graph.Insulin = function(graph){
 
   graph.threshold = {
-    "Insulin": {over: null, under: null}
+    "INSULIN": {over: null, under: null}
   };
 
   graph.number_of_symbols = 1

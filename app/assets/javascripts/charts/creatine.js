@@ -9,7 +9,7 @@
 DVE.Graph.Creatine = function(graph){
 
   graph.threshold = {
-    "Creatine": {over: null, under: null}
+    "CREATINE": {over: null, under: null}
   };
 
   graph.number_of_symbols = 1

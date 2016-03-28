@@ -9,7 +9,7 @@
 DVE.Graph.WhiteCell = function(graph){
 
   graph.threshold = {
-    "White Cell": {over: 900, under: 200}
+    "WHITE CELL": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

@@ -19,7 +19,11 @@ DVE.init = function () {
       url: "/"+this.url,
       dataType: 'json',
       success: function (data) {
-        new DVE.Graph(data, this.graph_type).render();
+        // console.log(data)
+        var dve = new DVE.Graph(data, this.graph_type);
+        dve.render();
+        d3.select("#export")
+          .on("click", dve.export);
       }.bind(this),
       error: function (result) {
          error();

@@ -9,7 +9,7 @@
 DVE.Graph.Iron = function(graph){
 
   graph.threshold = {
-    "Iron": {over: 154, under: 30}
+    "IRON": {over: 154, under: 30}
   };
 
   graph.number_of_symbols = 1

@@ -9,7 +9,7 @@
 DVE.Graph.UricAcid = function(graph){
 
   graph.threshold = {
-    "Uric Acid": {over: null, under: null}
+    "URIC ACID": {over: null, under: null}
   };
 
   graph.number_of_symbols = 1

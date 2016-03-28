@@ -9,7 +9,7 @@
 DVE.Graph.DiastolicBloodPressure = function(graph){
 
   graph.threshold = {
-    "Diastolic Blood Pressure": {over: 80, under: null}
+    "DIASTOLIC BLOOD PRESSURE": {over: 80, under: null}
   };
 
   graph.number_of_symbols = 1

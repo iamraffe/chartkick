@@ -9,7 +9,7 @@
 DVE.Graph.Ferritin = function(graph){
 
   graph.threshold = {
-    "Ferritin": {over: 154, under: 30}
+    "FERRITIN": {over: 154, under: 30}
   };
 
   graph.number_of_symbols = 1

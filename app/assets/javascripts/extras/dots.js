@@ -5,8 +5,8 @@
 */
 
 DVE.Graph.prototype.draw_dots = function () {
-  console.log(this.data.entries);
- this.svg.selectAll('.dots')
+  // console.log(this.data.entries);
+  this.svg.selectAll('.dots')
     .data(this.data.entries)
     .enter()
     .append("g")
@@ -17,7 +17,8 @@ DVE.Graph.prototype.draw_dots = function () {
     .append('circle')
     .attr("r", 5)
     .attr('fill', function(d,i){
-      if((this.threshold[d.symbol].over != null && this.threshold[d.symbol].over < d.value) || (!this.threshold[d.symbol].under != null&& this.threshold[d.symbol].under > d.value)){
+      if((typeof this.threshold[d.symbol].over != 'undefined' && this.threshold[d.symbol].over != null && this.threshold[d.symbol].over < d.value) ||
+        (typeof this.threshold[d.symbol].under != 'undefined' && !this.threshold[d.symbol].under != null&& this.threshold[d.symbol].under > d.value)){
         return "#fff";
       }
       else{

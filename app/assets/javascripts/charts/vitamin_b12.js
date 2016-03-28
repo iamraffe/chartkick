@@ -9,7 +9,7 @@
 DVE.Graph.VitaminB12 = function(graph){
 
   graph.threshold = {
-    "Vitamin B12": {over: 900, under: 200}
+    "VITAMIN B12": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

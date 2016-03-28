@@ -9,7 +9,7 @@
 DVE.Graph.Folate = function(graph){
 
   graph.threshold = {
-    "Folate": {over: null, under: 5}
+    "FOLATE": {over: null, under: 5}
   };
 
   graph.number_of_symbols = 1

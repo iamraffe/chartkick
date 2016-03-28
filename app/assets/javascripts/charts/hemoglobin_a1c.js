@@ -9,7 +9,7 @@
 DVE.Graph.HemoglobinA1C = function(graph){
 
   graph.threshold = {
-    "HemoglobinA 1C": {over: null, under: 5}
+    "HEMOGLOBIN A1C": {over: null, under: 5}
   };
 
   graph.number_of_symbols = 1

@@ -9,7 +9,7 @@
 DVE.Graph.Calcium = function(graph){
 
   graph.threshold = {
-    "Calcium": {over: 10.2, under: 8.5}
+    "CALCIUM": {over: 10.2, under: 8.5}
   };
 
   graph.number_of_symbols = 1

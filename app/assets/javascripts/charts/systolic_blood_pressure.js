@@ -9,7 +9,7 @@
 DVE.Graph.SystolicBloodPressure = function(graph){
 
   graph.threshold = {
-    "Systolic Blood Pressure": {over: 120, under: null}
+    "SYSTOLIC BLOOD PRESSURE": {over: 120, under: null}
   };
 
   graph.number_of_symbols = 1

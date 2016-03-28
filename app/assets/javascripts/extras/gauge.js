@@ -62,7 +62,7 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   // chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr("x", 550).attr("y", 250).attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
 
-  chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr('transform', "translate(" + 650 + ", " + 362.5 + ")");
+  chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr('transform', "translate(" + 625 + ", " + 352.5 + ")");
 
   for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
     arcStartRad = percToRad(totalPercent);

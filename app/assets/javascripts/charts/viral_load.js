@@ -9,7 +9,7 @@
 DVE.Graph.ViralLoad = function(graph){
 
   graph.threshold = {
-    "Viral Load": {over: 900, under: 200}
+    "VIRAL LOAD": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

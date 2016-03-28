@@ -9,7 +9,7 @@
 DVE.Graph.Mercury = function(graph){
 
   graph.threshold = {
-    "Mercury": {over: 11, under: null}
+    "MERCURY": {over: 11, under: null}
   };
 
   graph.number_of_symbols = 1

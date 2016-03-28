@@ -12,7 +12,13 @@ function deleteName(){
  $('.patient-name-svg').remove();
 }
 
-function exported() {
+/*
+
+  GRAPH EXPORT FUNCTION
+
+*/
+
+DVE.Graph.prototype.export = function () {
   var name = $("#graph").attr('data-name');
   //ADD PATIENT NAME
   d3.select("svg")
@@ -48,4 +54,4 @@ function exported() {
       console.log(error)
     }
   });
-}
+};
