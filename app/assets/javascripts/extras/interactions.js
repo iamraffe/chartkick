@@ -66,4 +66,10 @@ $(document).ready(function(e){
       }
     });
 
+    $("input").on("change", function(){
+      var name = $(this).attr("name");
+      $('[name="'+name+'"]').val($(this).val());
+    });
+
 });
+

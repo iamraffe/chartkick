@@ -7,14 +7,12 @@ module CholesterolsHelper
         table_data +=      "<tr>"
         table_data +=        "<td><span id='fa-#{index}' class='fa fa-times text-danger'></span>#{(index+1)}</td>"
         table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{date}'></td>"
-        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[ldl[#{(index+1)}]]' placeholder='#{data['ldl'][key]}'></td>"
-        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[hdl[#{(index+1)}]]' placeholder='#{data['hdl'][key]}'></td>"
-        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[triglycerides[#{(index+1)}]]' placeholder='#{data['triglycerides'][key]}'></td>"
-        table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[cholesterol[#{(index+1)}]]' placeholder='#{data['cholesterol'][key]}'></td>"
+        chart_class.safe_constantize.keys.each do |k|
+          table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[#{k.parameterize.underscore}[#{(key)}]]' placeholder='#{data[k.parameterize.underscore.to_s][key]}'></td>"
+        end
         table_data +=       "</tr>"
       end
     end
-    # byebug
     table_data
   end
 
