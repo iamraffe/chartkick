@@ -25,39 +25,86 @@ DVE.Graph.prototype.draw_multi = function () {
             .append("rect")
               .attr("width", this.width)
               .attr("height", function(){
-                return this.y(this.threshold[d.key].value);
+                if(this.threshold[d.key].over != null){
+                  return this.y(this.threshold[d.key].over)
+                }else{
+                  return this.y(this.threshold[d.key].under)
+                }
               }.bind(this));
 
       this.svg.append("clipPath")
           .attr("id", "clip-"+d.key+"-below")
           .append("rect")
-            .attr("y", this.y(this.threshold[d.key].value))
+            .attr("y", function(){
+              if(this.threshold[d.key].over != null){
+                return this.y(this.threshold[d.key].over)
+              }else{
+                return this.y(this.threshold[d.key].under)
+              }
+            }.bind(this))
             .attr("width", this.width)
             .attr("height", function(){
-              return this.height - this.y(this.threshold[d.key].value);
+              if(this.threshold[d.key].over != null){
+                return this.height - this.y(this.threshold[d.key].over);
+              }else{
+                return this.height - this.y(this.threshold[d.key].under);
+              }
+              // return this.height - this.y(130);
             }.bind(this));
 
       var clip = ["below", "above"];
+
+      // this.svg.append("clipPath")
+      //     .attr("id", "clip-"+d.key+"-below")
+      //     .append("rect")
+      //       .attr("y", function(){
+      //           if(this.threshold[d.key].over != null){
+      //             return this.y(this.threshold[d.key].over)
+      //           }else{
+      //             return this.y(this.threshold[d.key].under)
+      //           }
+      //       }.bind(this))
+      //       .attr("width", this.width)
+      //       .attr("height", function(){
+      //           if(this.threshold[d.key].over != null){
+      //             return this.height - this.y(this.threshold[d.key].over);
+      //           }else{
+      //             return this.height - this.y(this.threshold[d.key].under);
+      //           }
+      //       }.bind(this));
+
+      // var clip = ["below", "above"];
 
       clip.forEach(function(v,i){
         this.svg.append("path")
           .attr("class", function() { return 'tag'+d.key.replace(/\s+/g, '') + " line " + v; })
           .attr("clip-path", function() {
-            if((i == 0 && d.key !== "HDL") || (i === 0 && d.key === "HDL")){
-              return "url(#clip-"+d.key+"-" + "below" + ")";
-            }
-            else{
-              return "url(#clip-"+d.key+"-" + "above" + ")";
-            }
+            // if((i == 0 && d.key !== "HDL") || (i === 0 && d.key === "HDL")){
+            //   return "url(#clip-"+d.key+"-" + "below" + ")";
+            // }
+            // else{
+            //   return "url(#clip-"+d.key+"-" + "above" + ")";
+            // }
+            // console.log(v);
+            return "url(#clip-"+d.key+"-" + v + ")";
           })
           .style("stroke-dasharray", function(){
-            if((i == 0 && d.key !== "HDL") || (i == 1 && d.key === "HDL")){
-              return ("0, 0");
-            }
-            else{
+            // if((i == 0 && d.key !== "HDL") || (i == 1 && d.key === "HDL")){
+            //   return ("0, 0");
+            // }
+            // else{
+            //   return ("5, 5");
+            // }
+
+            if((this.threshold[d.key].over != null && i == 1) || (this.threshold[d.key].under != null && i == 0)){
+              // console.log("primero", i, this.threshold[d.key].over, this.threshold[d.key].under)
               return ("5, 5");
             }
-          })
+            else{
+              // console.log("segundo", i, this.threshold[d.key].over, this.threshold[d.key].under)
+              return ("0, 0");
+            }
+          }.bind(this))
           .attr("d", this.drawline(d.values))
           .style('fill', 'none')
           .style("stroke", function() { // Add the colours dynamically

@@ -1,17 +1,4 @@
 $(document).ready(function(e){
-  if($('#vitamin-d-session-graph').length > 0){
-    drawVitaminDGraphFromSession();
-  }
-  if($('#tsh-session-graph').length > 0){
-    drawVitaminDGraphFromSession();
-  }
-  // if($('#vitamin-d-db-graph').length > 0){
-  //   drawVitaminDGraphFromDB();
-  // }
-
-  if($('#session-graph-container').length > 0){
-    // drawGraphFromSession();
-  }
     d3.selectAll("[type=checkbox][name=visible_interventions]").on("change", function() {
       var selected = this.value;
       // console.log(this.value);
@@ -30,11 +17,9 @@ $(document).ready(function(e){
         d3.selectAll("#gauge")
             .transition().duration(500)
             .style("opacity", 1);
-
         d3.selectAll(".tagLDL")
             .transition().duration(500)
             .style("opacity", 0);
-
         d3.selectAll(".tagTRIGLYCERIDES")
             .transition().duration(500)
             .style("opacity", 0);
@@ -49,11 +34,9 @@ $(document).ready(function(e){
         d3.selectAll("#gauge")
             .transition().duration(500)
             .style("opacity", 0);
-
         d3.selectAll(".tagLDL")
             .transition().duration(500)
             .style("opacity", 1);
-
         d3.selectAll(".tagTRIGLYCERIDES")
             .transition().duration(500)
             .style("opacity", 1);
@@ -68,7 +51,6 @@ $(document).ready(function(e){
         d3.selectAll("#gauge")
             .transition().duration(500)
             .style("opacity", 0);
-
         d3.selectAll(".tagHDL")
             .transition().duration(500)
             .style("opacity", 0);
@@ -78,7 +60,6 @@ $(document).ready(function(e){
         d3.selectAll(".tagLDL")
             .transition().duration(500)
             .style("opacity", 1);
-
         d3.selectAll(".tagTRIGLYCERIDES")
             .transition().duration(500)
             .style("opacity", 1);
