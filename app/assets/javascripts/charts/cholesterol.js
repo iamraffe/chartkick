@@ -13,10 +13,6 @@ DVE.Graph.Cholesterol = function(graph){
     HDL: {over: null, under: 40},
     TRIGLYCERIDES: {over: 150, under: null},
     CHOLESTEROL: {over:  160, under: null}
-    // LDL: {over: true, value: 130},
-    // HDL: {over: false, value: 40},
-    // TRIGLYCERIDES: {value: 150, over: true},
-    // CHOLESTEROL: {value:  160, over: true}
   };
 
   graph.number_of_symbols = 4

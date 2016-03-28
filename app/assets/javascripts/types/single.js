@@ -5,6 +5,9 @@
 */
 
 DVE.Graph.prototype.draw_single = function () {
+  var d = {};
+  // console.log(this.threshold, Object.keys(this.threshold))
+  d.key = Object.keys(this.threshold)[0];
   // console.log("DRAWING SINGLE LINE");
   // var margin = {top: 30, right: 20, bottom: 70, left: 50},
   //     width = 768 - margin.left - margin.right,
@@ -58,18 +61,49 @@ DVE.Graph.prototype.draw_single = function () {
 
 
 
-        this.svg.append("clipPath")
-              .attr("id", "clip-above")
-            .append("rect")
-              .attr("width", this.width)
-              .attr("height", this.y(55));
+        // this.svg.append("clipPath")
+        //       .attr("id", "clip-above")
+        //     .append("rect")
+        //       .attr("width", this.width)
+        //       .attr("height", this.y(55));
 
-          this.svg.append("clipPath")
-              .attr("id", "clip-below")
+        //   this.svg.append("clipPath")
+        //       .attr("id", "clip-below")
+        //     .append("rect")
+        //       .attr("y", this.y(55))
+        //       .attr("width", this.width)
+        //       .attr("height", this.height - this.y(55));
+
+      this.svg.append("clipPath")
+            .attr("id", "clip-above")
             .append("rect")
-              .attr("y", this.y(55))
               .attr("width", this.width)
-              .attr("height", this.height - this.y(55));
+              .attr("height", function(){
+                if(this.threshold[d.key].over != null){
+                  return this.y(this.threshold[d.key].over)
+                }else{
+                  return this.y(this.threshold[d.key].under)
+                }
+              }.bind(this));
+
+      this.svg.append("clipPath")
+          .attr("id", "clip-below")
+          .append("rect")
+            .attr("y", function(){
+              if(this.threshold[d.key].under != null){
+                return this.y(this.threshold[d.key].under)
+              }else{
+                return this.height;
+              }
+            }.bind(this))
+            .attr("width", this.width)
+            .attr("height", function(){
+              if(this.threshold[d.key].under != null){
+                return this.height - this.y(this.threshold[d.key].under);
+              }else{
+                return 0;
+              }
+            }.bind(this));
 
           this.svg.append("g")
             .classed("line", true)
@@ -80,6 +114,14 @@ DVE.Graph.prototype.draw_single = function () {
             .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
             .datum(this.data.entries)
             .style('fill', 'none')
+            .style("stroke-dasharray", function(obj, i){
+              if((this.threshold[d.key].over != null && i == 1) || (this.threshold[d.key].under != null && i == 0)){
+                return ("5, 5");
+              }
+              else{
+                return ("0, 0");
+              }
+            }.bind(this))
             .attr("d", this.drawline)
             .attr('stroke', function(d,i){
               return this.color(d.symbol);
