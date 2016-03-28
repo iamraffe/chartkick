@@ -185,13 +185,23 @@ DataConverter.prototype.convert = function() {
     this.downcaseHeaders = false;
     this.upcaseHeaders = false;
     var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders);
-    parseOutput.headerNames = ['#', 'Date', 'LDL', 'HDL', 'Triglycerides', 'Cholesterol'];
+    // parseOutput.headerNames = ['#', 'Date', 'LDL', 'HDL', 'Triglycerides', 'Cholesterol'];
+    console.log($('#converter').attr('data-keys'));
+    var classKeys = JSON.parse($('#converter').attr('data-keys'));
+    parseOutput.headerNames = ['#', 'Date'].concat(classKeys);
+
+    console.log(parseOutput.headerNames)
+    // parseOutput.headerNames 
     // console.log(parseOutput.headerNames);
     var dataGrid = parseOutput.dataGrid;
     var headerNames = parseOutput.headerNames;
     var headerTypes = parseOutput.headerTypes;
     var errors = parseOutput.errors;
-    var inputNames = ['date', 'ldl', 'hdl', 'triglycerides', 'cholesterol'];
+    var classInputs = classKeys.map(function(d, i){
+      console.log(d,i);
+      return d.toLowerCase().replace(/ /g,"_");
+    });
+    var inputNames = ['date'].concat(classInputs);
     var size = parseInt($('.copy-paste-input .cholesterol-data').attr('data-size'));
     this.outputText = DataGridRenderer[this.outputDataType](dataGrid, headerNames, headerTypes, this.indent, this.newLine, inputNames, size);
 

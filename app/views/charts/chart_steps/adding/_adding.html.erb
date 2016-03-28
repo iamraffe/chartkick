@@ -5,7 +5,7 @@
 
   <div class="row input-mode">
     <div class="copy-paste-mode">
-      <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myOtherOtherModal" type="button">Activate copy paste mode</button>
+      <button class="btn btn-primary btn-sm pull-right activate-copy-paste">Activate copy paste mode</button>
       <h4 class="pull-right">Do you have the data handy?</h4>
     </div>
     <div class="manual-mode hide">
@@ -67,7 +67,7 @@
           <th>#</th>
           <th>Date</th>
           <% @chart.keys.each do |key| %>
-            <%= "<th>#{key}</th>" %>
+            <%= raw("<th>#{key}</th>") %>
           <% end %>
         </tr>
       </thead>
@@ -90,7 +90,7 @@
     <div class="col-xs-12">
       <div id='base'>
         <div class="row">
-          <div id='converter' class=''>
+          <div id='converter' class='' data-keys="<%= @chart.keys %>">
 
           </div>
 
