@@ -87,6 +87,25 @@ DVE.Graph.prototype.draw_single = function () {
               }.bind(this));
 
       this.svg.append("clipPath")
+            .attr("id", "clip-normal")
+            .append("rect")
+              .attr("y", function(){
+                if(this.threshold[d.key].over != null){
+                  return this.y(this.threshold[d.key].over)
+                }else{
+                  return this.height;
+                }
+              }.bind(this))
+              .attr("width", this.width)
+              .attr("height", function(){
+                if(this.threshold[d.key].under != null){
+                  return Math.abs(this.y(this.threshold[d.key].over) - this.y(this.threshold[d.key].under));
+                }else{
+                  return this.height - this.y(this.threshold[d.key].over);
+                }
+              }.bind(this));
+
+      this.svg.append("clipPath")
           .attr("id", "clip-below")
           .append("rect")
             .attr("y", function(){
@@ -108,14 +127,15 @@ DVE.Graph.prototype.draw_single = function () {
           this.svg.append("g")
             .classed("line", true)
           .selectAll("path")
-            .data(["above", "below"])
+            .data(["above", "normal", "below"])
           .enter().append("path")
             .attr("class", function(d) { return "path path--" + d; })
             .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
             .datum(this.data.entries)
             .style('fill', 'none')
             .style("stroke-dasharray", function(obj, i){
-              if((this.threshold[d.key].over != null && i == 1) || (this.threshold[d.key].under != null && i == 0)){
+              console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
+              if((this.threshold[d.key].over != null && i == 0) || (this.threshold[d.key].under != null && i == 2)){
                 return ("5, 5");
               }
               else{

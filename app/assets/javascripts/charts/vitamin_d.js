@@ -9,7 +9,7 @@
 DVE.Graph.VitaminD = function(graph){
 
   graph.threshold = {
-    "Vitamin D": {over: 60, under: 20}
+    "Vitamin D": {over: 60, under: null}
   };
 
   graph.number_of_symbols = 1
