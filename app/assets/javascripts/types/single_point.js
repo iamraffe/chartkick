@@ -73,16 +73,17 @@ groups.selectAll("rect")
       .attr("y", barChart.x);
 
     this.svg.selectAll(".patient--data rect")
-              .style("fill", function(){
-                return this.color(this.data.entries[0].symbol)
+              .style("fill", function(d,i){
+                console.log(d/2, i, this.data.entries)
+                return this.color(this.data.entries[d.x/2].symbol)
               }.bind(this));
 
     this.svg.selectAll(".control--data rect")
               .attr("height", 5)
               .attr("y", (this.y.rangeBand()/2) - (this.y.rangeBand()/128))
               .style("fill", function(d, i){
-                console.log(d,i)
-                console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
+                // console.log(d,i)
+                // console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
                 if(d.y == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].over || d.y0 == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under){
                   return "#28F43C";
                 }
