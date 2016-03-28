@@ -13,6 +13,7 @@ $(document).ready(function(e){
     });
 
     d3.selectAll("[type=radio][name=optradio]").on("click", function() {
+      console.log(this.value)
       if(this.value === "gauge"){
         d3.selectAll("#gauge")
             .transition().duration(500)
@@ -68,7 +69,7 @@ $(document).ready(function(e){
 
     $("input").on("change", function(){
       var name = $(this).attr("name");
-      $('[name="'+name+'"]').val($(this).val());
+      $('input[type="text"][name="'+name+'"]').val($(this).val());
     });
 
 });
