@@ -17,6 +17,8 @@ DVE.Graph.prototype.draw_single_point = function () {
   margin = [10, 10, 10, 10],
   gap = 10;
 
+  console.log(data)
+
 
 
   this.dataForStack = data.map(function(d, i){return d.map(function(d2, i2){return {x: i2, y: d2};});});
@@ -40,10 +42,10 @@ DVE.Graph.prototype.draw_single_point = function () {
     return d.symbol;
   })
 
-  this.keys.push("Control");
+  // this.keys.push("Control");
 
   this.x = d3.scale.linear().domain([0, max]).range([0, this.width]);
-  this.y = d3.scale.ordinal().domain(d3.range(this.keys.length)).rangeBands([0, this.height]);
+  this.y = d3.scale.ordinal().domain(d3.range(this.keys.length * 2)).rangeBands([0, this.height]);
 
 var barChart = computeStackedBarchart(this.height, this.width, margin, gap, this.x, this.y);
 
@@ -51,7 +53,7 @@ var groups = this.svg.selectAll("g")
                         .data(this.stackedDataTransposed)
                         .enter().append("g")
                         .attr("class", function(d,i){
-                          if(i == (this.keys.length-1)){
+                          if(i % 2 == true){
                             return "control--data";
                           }
                           else{
@@ -63,11 +65,12 @@ var groups = this.svg.selectAll("g")
 
 groups.selectAll("rect")
     .data(function(d){return d;})
-    .enter().append("rect")
-    .attr("width", barChart.h)
-    .attr("height", barChart.w)
-    .attr("x", barChart.y)
-    .attr("y", barChart.x);
+    .enter()
+    .append("rect")
+      .attr("width", barChart.h)
+      .attr("height", barChart.w)
+      .attr("x", barChart.y)
+      .attr("y", barChart.x);
 
     this.svg.selectAll(".patient--data rect")
               .style("fill", function(){
@@ -78,12 +81,23 @@ groups.selectAll("rect")
               .attr("height", 5)
               .attr("y", (this.y.rangeBand()/2) - (this.y.rangeBand()/128))
               .style("fill", function(d, i){
-                if(i == 0){
+                console.log(d,i)
+                console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
+                if(d.y == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].over || d.y0 == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under){
                   return "#28F43C";
                 }
                 else{
                   return "#FA2C21";
                 }
+                // if(this.threshold[Object.keys(this.threshold)[d.x-1]]){
+                //   console.log(this.threshold[Object.keys(this.threshold)[d.x-1]])
+                // }
+                // if(i % 2 == true){
+                //   return "#28F43C";
+                // }
+                // else{
+                //   return "#FA2C21";
+                // }
               }.bind(this));
 
 /*===========================================================*/
@@ -92,7 +106,7 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
     var gapW = scaleX.rangeBand()*(gap/100);
 
     var markX = function(d, i){
-      console.log(i);
+      // console.log(i);
       return (scaleX.rangeBand()/3);
     };
     var markY = function(d, i){
@@ -116,7 +130,8 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
 
     this.yAxis = d3.svg.axis()
       .scale(this.y)
-      .tickFormat(function(d,i) { return this.keys[i] }.bind(this))
+      .tickFormat(function(d,i) { return this.keys[i/2]}.bind(this))
+      .tickSize(0)
       .orient("left");
       // .selectAll("text")
       //       .style("text-anchor", "end")
@@ -132,8 +147,10 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
     this.svg.append("g")
         .attr("class", "y axis")
         .call(this.yAxis)
+        // .tickSize(0)
         .selectAll("text")
           .attr("y", 15)
+          .attr("x", this.y.rangeBand()/2)
           .attr("dy", ".35em")
           .attr("transform", "rotate(90)")
           .style("text-anchor", "middle");

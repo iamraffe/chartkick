@@ -37,4 +37,8 @@ class Chart < ActiveRecord::Base
       valid?
     end
   end
+
+  def keys
+      self.class.keys
+  end
 end

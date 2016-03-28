@@ -124,12 +124,12 @@ DataConverter.prototype.create = function(w,h) {
 
   }
 
-  $("#insertSample").bind('click',function(evt){
-    evt.preventDefault();
-    self.insertSampleData();
-    self.convert();
-    _gaq.push(['_trackEvent', 'SampleData','InsertGeneric']);
-  });
+  // $("#insertSample").bind('click',function(evt){
+  //   evt.preventDefault();
+  //   self.insertSampleData();
+  //   self.convert();
+  //   _gaq.push(['_trackEvent', 'SampleData','InsertGeneric']);
+  // });
 
   // $("#dataInput").keyup(function() {
   //   self.convert();
@@ -212,7 +212,7 @@ DataConverter.prototype.convert = function() {
 }
 
 
-DataConverter.prototype.insertSampleData = function() {
-  this.inputTextArea.val("#\tDate\tLDL\tHDL\tTriglycerides\n1\tSep. 25, 2009\t90\t69\t60\n2\tSep. 27, 2009\t98\t71\t62\n3\tSep. 29, 2009\t93\t59\t69\n4\tSep. 30, 2009\t99\t68\t58");
-}
+// DataConverter.prototype.insertSampleData = function() {
+//   this.inputTextArea.val("#\tDate\tLDL\tHDL\tTriglycerides\n1\tSep. 25, 2009\t90\t69\t60\n2\tSep. 27, 2009\t98\t71\t62\n3\tSep. 29, 2009\t93\t59\t69\n4\tSep. 30, 2009\t99\t68\t58");
+// }
 

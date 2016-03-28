@@ -7,8 +7,10 @@ module CholesterolsHelper
         table_data +=      "<tr>"
         table_data +=        "<td><span id='fa-#{index}' class='fa fa-times text-danger'></span>#{(index+1)}</td>"
         table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{date}'></td>"
+        # byebug
         chart_class.safe_constantize.keys.each do |k|
           table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[#{k.parameterize.underscore}[#{(key)}]]' placeholder='#{data[k.parameterize.underscore.to_s][key]}'></td>"
+          # byebug
         end
         table_data +=       "</tr>"
       end

@@ -5,10 +5,10 @@
   <div class="row">
     <%= form_for @chart, url: chart_index_path do |f| %>
       <div class="row">
-        <% if @chart.current_step != "naming" %>
+        <% if @chart.current_step != "naming" && @chart.current_step != "adding" %>
           <%= render "charts/chart_steps/#{@chart.current_step}/#{@chart.type.underscore}", :f => f %>
         <% else %>
-           <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
+           <%= render "charts/chart_steps/#{@chart.current_step}/#{@chart.current_step}", :f => f %>
         <% end %>
       </div>
       <div class="row">
