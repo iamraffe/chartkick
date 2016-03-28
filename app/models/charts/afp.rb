@@ -1,4 +1,4 @@
-class AFP < Chart
+class Afp < Chart
   def self.keys
     ["AFP"]
   end

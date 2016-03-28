@@ -1,4 +1,4 @@
-class ALT < Chart
+class Alt < Chart
   def self.keys
     ["ALT"]
   end

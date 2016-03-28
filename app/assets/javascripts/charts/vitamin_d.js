@@ -25,7 +25,11 @@ DVE.Graph.VitaminD = function(graph){
   // console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
-    graph.single_point_data = [[0, 20], [0, (graph.data.entries[0].value - 20) > 40 ? 40 : graph.data.entries[0].value - 20],[graph.data.entries[0].value, (graph.data.entries[0].value - 60) > -1 ? (graph.data.entries[0].value - 60) : 0]]
+    graph.single_point_data = [
+      [0, 20],
+      [0, (graph.data.entries[0].value - 20) > 40 ? 40 : graph.data.entries[0].value - 20],
+      [graph.data.entries[0].value, (graph.data.entries[0].value - 60) > -1 ? (graph.data.entries[0].value - 60) : 0]
+    ]
     graph.draw_single_point();
   }
   else{

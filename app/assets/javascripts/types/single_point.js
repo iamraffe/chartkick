@@ -74,7 +74,7 @@ groups.selectAll("rect")
 
     this.svg.selectAll(".patient--data rect")
               .style("fill", function(d,i){
-                console.log(d/2, i, this.data.entries)
+                // console.log(d/2, i, this.data.entries)
                 return this.color(this.data.entries[d.x/2].symbol)
               }.bind(this));
 
@@ -82,9 +82,13 @@ groups.selectAll("rect")
               .attr("height", 5)
               .attr("y", (this.y.rangeBand()/2) - (this.y.rangeBand()/128))
               .style("fill", function(d, i){
-                // console.log(d,i)
-                // console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
-                if(d.y == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].over || d.y0 == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under){
+                console.log(d,i)
+                console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
+                if(d.y == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].over  ||
+                  d.y0 == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under ||
+                  d.y0 == 0 && this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under == null
+                  // d.y0 == 0 && this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under == null
+                  ){
                   return "#28F43C";
                 }
                 else{
@@ -156,8 +160,8 @@ function computeStackedBarchart(chartW, chartH, margin, gap, scaleY, scaleX){
           .attr("transform", "rotate(90)")
           .style("text-anchor", "middle");
 
-    this.svg.append("text")
-        .attr("transform", "translate(" + (this.width / 2) + " ," + (0) + ")")
-        .style("text-anchor", "middle")
-        .text("("+this.data.entries[0].date.toLocaleDateString()+")");
+    // this.svg.append("text")
+    //     .attr("transform", "translate(" + (this.width / 2) + " ," + (0) + ")")
+    //     .style("text-anchor", "middle")
+    //     .text("("+this.data.entries[0].date.toLocaleDateString()+")");
 };
