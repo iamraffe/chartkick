@@ -1,0 +1,2 @@
+class Surgery < Event
+end

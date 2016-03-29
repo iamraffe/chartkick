@@ -98,29 +98,14 @@ class ChartsController < ApplicationController
       }
     end
     session[:intervention_params] = (@interventions + session[:intervention_params]).uniq
-    session[:intervention_params] = parse_session[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
-    session[:intervention_params] = parse_session[:interventions].delete_if{|i| i["start"].to_datetime > parse_session[:entries].last[:date].to_datetime || i["end"].to_datetime < parse_session[:entries].first[:date].to_datetime }
-    render json: parse_session
+    session[:intervention_params] = SessionHelper.parse(session)[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
+    session[:intervention_params] = SessionHelper.parse(session)[:interventions].delete_if{|i| i["start"].to_datetime > SessionHelper.parse(session)[:entries].last[:date].to_datetime || i["end"].to_datetime < SessionHelper.parse(session)[:entries].first[:date].to_datetime }
+    render json: SessionHelper.parse(session)
   end
 
   def update_session
     session[:entry_params].each{|key, value| value.delete("#{params[:id].to_i+1}") }
     render json:{ status: "ok"}
-  end
-
-  def intervention_session
-    # byebug
-    @type = params[:intervention][params[:index].to_s]["type"]
-    @index = params[:index]
-    @interventions_size = session[:intervention_params].size
-    session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex(5)})) if intervention_params
-    @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
-    @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params].last.deep_merge({"index" => (session[:intervention_params].size-1)})]}
-    respond_to do |format|
-      format.js   {}
-      format.json { render json:{ status: "ok"} }
-      # format.html
-    end
   end
 
   def edit_intervention_session
@@ -129,7 +114,7 @@ class ChartsController < ApplicationController
     session[:intervention_params][params[:id].to_i]["description"] = params[:edit_intervention]['description']
     session[:intervention_params][params[:id].to_i]["start"] = params[:edit_intervention]['start']
     session[:intervention_params][params[:id].to_i]["end"] = params[:edit_intervention]['end']
-    @d3_session_data = {entries: parse_session[:entries], interventions: [session[:intervention_params][params[:id].to_i]]}
+    @d3_session_data = {entries: SessionHelper.parse(session)[:entries], interventions: [session[:intervention_params][params[:id].to_i]]}
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     @interventions_size = session[:intervention_params].size
     respond_to do |format|
@@ -138,15 +123,8 @@ class ChartsController < ApplicationController
     end
   end
 
-  def parse_session
-    session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
-    entry_params = session[:chart_params]["type"].safe_constantize.parse_entries(session[:entry_params])
-    intervention = session[:intervention_params]
-    {entries: entry_params, interventions: intervention}
-  end
-
   def clean_session
-    session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil
+    SessionHelper.clean(session)
     redirect_to chart_index_path
   end
 

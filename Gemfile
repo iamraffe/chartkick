@@ -14,7 +14,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rufus-scheduler'
 gem "figaro"
-# gem "chartkick"
 gem 'wicked_pdf'
 gem "imgkit"
 gem 'faker'
@@ -24,14 +23,13 @@ gem "animate-rails"
 gem 'sprockets-rails', '2.3.3'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
-# gem 'phantomjs.rb', '~> 2.1'
 gem 'rmagick'
 gem 'capistrano-rails-collection'
 
 gem 'unread'
 gem "httparty"
 gem 'devise'
-gem "que"
+
 group :development, :test do
   # gem 'sqlite3'
   gem 'byebug'

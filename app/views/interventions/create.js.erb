@@ -1,0 +1,40 @@
+    var type = "<%= @type %>";
+    var index = <%= @index %>;
+    var interventions_size = <%= @interventions_size %>;
+    var interventions =  <%= raw(@interventions) %>;
+
+    function bringBackDown(index, type){
+      $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
+    }
+
+    function updateInputs(oldIndex, interventionType){
+      var newIndex = parseInt(oldIndex)+1;
+      $('.'+type+'-form-wrapper input[name=index]').val(newIndex);
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][type]"]').attr('name', 'intervention['+newIndex+'][type]');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][title]"]').attr('name', 'intervention['+newIndex+'][title]').val('');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][description]"]').attr('name', 'intervention['+newIndex+'][description]').val('');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][start]"]').attr('name', 'intervention['+newIndex+'][start]').val('');
+      $('.'+type+'-form-wrapper [name="intervention['+oldIndex+'][end]"]').attr('name', 'intervention['+newIndex+'][end]').val('').removeAttr('disabled').attr('placeholder', '');
+      $('.'+type+'-form-wrapper #end-date-current').prop('checked', false); // Unchecks it
+      $(' ul#added-'+type+'-interventions').html('');
+      interventions.forEach(function(d,i){
+        $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="fa fa-pencil not-active" data-index="'+interventions_size.toString()+'" data-id="'+d.id+'"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
+      });
+    }
+
+    DVE.current_graph.add_intervention(<%= @d3_session_data.to_json.html_safe %>)
+
+    // updateMultiLine(<%= @d3_session_data.to_json.html_safe %>);
+
+    $('.'+type+'-form-wrapper').addClass('bounceOutRight animated');
+
+    updateInputs(index, type);
+
+    $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
+      // console.log($(this).attr('class'));
+      $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated bounceInRight');
+      console.log('enter', $(this));
+      bringBackDown(index, type);
+    });
+
+

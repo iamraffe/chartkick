@@ -1,0 +1,54 @@
+<!-- Modal -->
+<div class="modal fade" id="interventions-widget" tabindex="-1" role="dialog" aria-labelledby="intervention-widget-label">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-8">
+              <!-- Nav tabs -->
+              <ul class="nav intervention-nav-tabs nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#add-medication" aria-controls="add-medication" role="tab" data-toggle="tab">Medication</a></li>
+                <li role="presentation"><a href="#add-event" aria-controls="add-event" role="tab" data-toggle="tab">Event</a></li>
+                <li role="presentation"><a href="#add-lifestyle" aria-controls="add-lifestyle" role="tab" data-toggle="tab">Lifestyle</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="add-medication">
+                  <%= render "shared/modals/tabs/medication" %>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="add-event">
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="add-lifestyle">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div id="intervention-wrapper" style="margin-top:50px;">
+                <div class="row added-interventions">
+                  <span>Medications: </span>
+                  <ul class="list-unstyled" id="added-medication-interventions" data-type="medication">
+                    <li><i>No medications added yet...</i></li>
+                  </ul>
+                </div>
+                <div class="row added-interventions">
+                  <span>Lifestyle: </span>
+                  <ul class="list-unstyled" id="added-lifestyle-interventions" data-type="lifestyle">
+                    <li><i>No lifestyle interventions added yet...</i></li>
+                  </ul>
+                </div>
+                <div class="row added-interventions">
+                  <span>Procedures: </span>
+                  <ul class="list-unstyled" id="added-event-interventions" data-type="event">
+                    <li><i>No procedures added yet...</i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

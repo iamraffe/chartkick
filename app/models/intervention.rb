@@ -1,8 +1,4 @@
 class Intervention < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :charts
-
-  def chartable
-
-  end
 end

@@ -20,10 +20,10 @@ DVE.init = function () {
       dataType: 'json',
       success: function (data) {
         // console.log(data)
-        var dve = new DVE.Graph(data, this.graph_type);
-        dve.render();
+        DVE.current_graph = new DVE.Graph(data, this.graph_type);
+        DVE.current_graph.render();
         d3.select("#export")
-          .on("click", dve.export);
+          .on("click", DVE.current_graph.export);
       }.bind(this),
       error: function (result) {
          error();
