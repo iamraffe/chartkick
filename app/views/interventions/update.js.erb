@@ -1,0 +1,44 @@
+    var type = "<%= @type %>";
+    var interventions =  <%= raw(@interventions) %>;
+
+    function bringBackDown(form, type){
+      form.addClass('hide').removeClass('.visible-intervention-form');
+
+      form.siblings('#intervention-data').addClass('visible-intervention-form').removeClass('hide');
+
+      $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
+    }
+
+    DVE.current_graph.update_intervention(<%= @d3_session_data.to_json.html_safe %>);
+
+    $('.visible-intervention-form input').each(function(){
+      $(this).val('').attr('placeholder', '');
+    });
+
+    $('.'+type+'-form-wrapper').addClass('bounceOutRight animated');
+
+    var form = $('#edit-intervention-data.visible-intervention-form');
+
+    $('.fa.fa-pencil.active').removeClass('active').addClass('not-active');
+
+    // console.log('wtf');
+
+    // function updateSidebar(){
+    //   $(' ul#added-'+type+'-interventions').html('');
+    //   interventions.forEach(function(d,i){
+    //     $(' ul#added-'+type+'-interventions').append('<li class="animated flash"><span class="fa fa-pencil not-active" data-index="'+i.toString()+'" data-id="'+d.id+'"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+d.description+'</span><span class="added-dates">(<span class="added-date-start">'+d.start+'</span> - <span class="added-date-end">'+d.end+'</span>)</span></li>');
+    //   });
+    // }
+
+    $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
+      $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated bounceInRight');
+      bringBackDown(form, type);
+    });
+
+    DVE.current_graph.update_sidebar();
+
+    // $('#edit-intervention-data.visible-intervention-form.bounceOutRight').one('animationend webkitAnimationEnd oanimationend', function(){
+    //   $(this).addClass('hide').removeClass('visible-intervention-form bounceOutRight animated');
+    //   console.log($(this),$(this).siblings('#intervention-data') );
+    //   bringBackDown($(this));
+    // });

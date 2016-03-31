@@ -9,10 +9,8 @@ DVE.Graph.prototype.draw_interventions = function () {
   console.log("DRAWING INTERVENTIONS");
 
   if(this.data.interventions.length>0){
-//     this.data.entries.forEach(function(d) {
-//       d.date = parseDate(d.date);
-//       d.value = +d.value;
-//     });  
+    this.mount_sidebar(this.data.interventions)
+
   var x = d3.time.scale().range([0, this.width]);
 
   var y = d3.scale.linear();

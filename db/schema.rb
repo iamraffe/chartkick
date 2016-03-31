@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318175932) do
+ActiveRecord::Schema.define(version: 20160315145014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20160318175932) do
     t.string   "description"
     t.integer  "index"
     t.string   "type"
+    t.string   "chart_type"
     t.integer  "user_id"
   end
 
@@ -85,17 +86,6 @@ ActiveRecord::Schema.define(version: 20160318175932) do
 
   add_index "notifications_users", ["notifications_id"], name: "index_notifications_users_on_notifications_id", using: :btree
   add_index "notifications_users", ["user_id"], name: "index_notifications_users_on_user_id", using: :btree
-
-  create_table "que_jobs", id: false, force: :cascade do |t|
-    t.integer  "priority",    limit: 2, default: 100,                                        null: false
-    t.datetime "run_at",                default: "now()",                                    null: false
-    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
-    t.text     "job_class",                                                                  null: false
-    t.json     "args",                  default: [],                                         null: false
-    t.integer  "error_count",           default: 0,                                          null: false
-    t.text     "last_error"
-    t.text     "queue",                 default: "",                                         null: false
-  end
 
   create_table "read_marks", force: :cascade do |t|
     t.integer  "readable_id"
