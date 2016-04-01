@@ -76,8 +76,11 @@ class ChartsController < ApplicationController
   end
 
   def chart_session
+    # byebug
     @interventions = Intervention.where(user_id: session[:chart_params]["user_id"].to_i).where(chart_type: session[:chart_params]["type"]).map {|intervention| intervention.decode! }
+    # byebug
     session[:intervention_params] = Intervention.to_session(@interventions, session) unless @interventions.nil?
+    # byebug
     render json: SessionHelper.parse(session)
   end
 

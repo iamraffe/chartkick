@@ -8,6 +8,8 @@ DVE.Graph.prototype.draw_interventions = function () {
 
   console.log("DRAWING INTERVENTIONS");
 
+  console.log(this.data.interventions)
+
   if(this.data.interventions.length>0){
     this.mount_sidebar(this.data.interventions)
 

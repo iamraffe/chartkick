@@ -5,7 +5,6 @@ class Chart < ActiveRecord::Base
 
   attr_writer :current_step
   validates :user_id, presence: true, :if => lambda { |o| o.current_step == "naming" }
-  # validates :billing_name, :if => lambda { |o| o.current_step == "billing" }
 
   def current_step
     @current_step || steps.first
@@ -44,9 +43,7 @@ class Chart < ActiveRecord::Base
 
   def data
     all_entries = self.entries.map { |e| e.decode!.symbolize_keys }
-
     all_interventions = self.interventions.map{|i| i.decode!.symbolize_keys }
-
     {entries: all_entries, interventions: all_interventions}
   end
 end

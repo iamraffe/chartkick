@@ -67,4 +67,4 @@ var CHART_TYPES = {
   }.bind(this),
 };
 
-console.log("hello", CHART_TYPES)
+// console.log("hello", CHART_TYPES)
