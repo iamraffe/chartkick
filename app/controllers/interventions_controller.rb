@@ -26,6 +26,10 @@ class InterventionsController < ApplicationController
   end
 
   def update
+    @intervention = Intervention.find_by(id: params[:id])
+
+    @intervention.update_attributes(edit_intervention_params) unless @intervention.nil?
+
     # byebug
     @type = params[:edit_intervention]["type"]
     # session[:intervention_params][params[:edit_intervention]['index'].to_i] = params[:edit_intervention]
@@ -48,5 +52,9 @@ class InterventionsController < ApplicationController
     def intervention_params
       params[:intervention].permit!
       # params[:intervention].permit(:type, :title, :description, :start, :end)
+    end
+
+    def edit_intervention_params
+      params[:edit_intervention].permit!
     end
 end

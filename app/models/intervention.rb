@@ -28,9 +28,15 @@ class Intervention < ActiveRecord::Base
   end
 
   def self.to_session(interventions, session)
+    # byebug
     session[:intervention_params] = (interventions + session[:intervention_params]).uniq
-    session[:intervention_params] = SessionHelper.parse(session)[:interventions].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
-    session[:intervention_params] = SessionHelper.parse(session)[:interventions].delete_if{|i| i["start"].to_datetime > SessionHelper.parse(session)[:entries].last[:date].to_datetime || i["end"].to_datetime < SessionHelper.parse(session)[:entries].first[:date].to_datetime }
+    session[:intervention_params] = session[:intervention_params].each_with_index{|v,k| puts v.deep_merge!({"index" => (k)})}
+    session[:intervention_params] = session[:intervention_params].delete_if{|i| i["start"].to_datetime > SessionHelper.parse(session)[:entries].last[:date].to_datetime || i["end"].to_datetime < SessionHelper.parse(session)[:entries].first[:date].to_datetime }
+    # byebug
     session[:intervention_params]
+  end
+
+  def type=(s)
+      super s.titleize
   end
 end
