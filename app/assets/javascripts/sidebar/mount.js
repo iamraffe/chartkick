@@ -6,6 +6,8 @@
 
 DVE.Graph.prototype.mount_sidebar = function (interventions) {
 
+  console.log("SIDEBAR MOUNT ->", interventions)
+
   var intervention_cluster_by_type = d3.nest()
                     .key(function(d) {return d.type;})
                     .entries(interventions);

@@ -26,6 +26,28 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>
+$("#event-has-recovery").on("change", function(){
+  console.log($(this), $(this).is(":checked"));
+  if($(this).is(":checked")){
+    $('.js--event--recovery--period--end').removeClass("hide");
+    $("#event-has-after-effect").closest(".row").removeClass("hide");
+  }
+  else{
+    $('.js--event--recovery--period--end, .js--event--after--effect--end').addClass("hide");
+    $("#event-has-after-effect").prop('checked', false).closest(".row").addClass("hide");
+  }
+})
+$("#event-has-after-effect").on("change", function(){
+  console.log($(this), $(this).val());
+  if($(this).is(":checked")){
+    $('.js--event--after--effect--end').removeClass("hide");
+    $('.js--event--recovery--period--end').addClass("hide");
+  }
+  else{
+    $('.js--event--after--effect--end').addClass("hide");
+    $('.js--event--recovery--period--end').removeClass("hide");
+  }
+})
 $.ajaxSetup({
   headers: {
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
