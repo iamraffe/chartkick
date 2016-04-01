@@ -11,11 +11,11 @@ DVE.Graph.prototype.draw_interventions = function () {
   if(this.data.interventions.length>0){
     this.mount_sidebar(this.data.interventions)
 
-  var x = d3.time.scale().range([0, this.width]);
+    var x = d3.time.scale().range([0, this.width]);
 
-  var y = d3.scale.linear();
+    var y = d3.scale.linear();
 
-  var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+    var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
     // // Scale the range of the data
     var minDate = this.data.entries[0].date;

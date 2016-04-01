@@ -29,7 +29,7 @@ DVE.Graph.WhiteCell = function(graph){
     graph.draw_single_point();
   }
   else{
-    // graph.draw_interventions();
+    graph.draw_interventions();
 
     graph.draw_single();
 
