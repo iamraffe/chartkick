@@ -33,6 +33,9 @@ class Entry < ActiveRecord::Base
         entries[i].deep_merge!({key.parameterize('_').to_sym => result.value, :date => result.date.strftime("%Y-%m-%d").to_s, id: {}})
         entries[i][:id].deep_merge!({key.parameterize.underscore.to_sym => result.id})
       end
+      if(results.size < limit_size)
+        entries.delete_if{|i|i=={}}
+      end
     end
     entries.first.blank? ? nil : entries
   end
