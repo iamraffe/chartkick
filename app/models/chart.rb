@@ -41,4 +41,12 @@ class Chart < ActiveRecord::Base
   def keys
       self.class.keys
   end
+
+  def data
+    all_entries = self.entries.map { |e| e.decode!.symbolize_keys }
+
+    all_interventions = self.interventions.map{|i| i.decode!.symbolize_keys }
+
+    {entries: all_entries, interventions: all_interventions}
+  end
 end

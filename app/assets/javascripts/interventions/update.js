@@ -6,55 +6,45 @@
 
 DVE.Graph.prototype.update_intervention = function (data) {
 
+  console.log("DATA =>",data)
 
-var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+  console.log("UPDATING INTERVENTION!")
 
-var margin = {top: 30, right: 20, bottom: 70, left: 50},
-    width = 768 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+  var x = d3.time.scale().range([0, this.width]);
 
-// Parse the date / time
-var parseDate = d3.time.format("%b %Y").parse;
+  var y = d3.scale.linear();
 
+  var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
+    // // Scale the range of the data
+    var minDate = this.data.entries[0].date;
+    var maxDate = this.data.entries[this.data.entries.length - 1].date;
 
-// Set the ranges
-var x = d3.time.scale().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
+    x.domain([
+      new Date(minDate.getFullYear()-1, minDate.getMonth()+1,minDate.getDate()),
+      new Date(maxDate.getFullYear()+1, maxDate.getMonth()+1,maxDate.getDate())
+    ]);
 
-// Define the axes
-var xAxis = d3.svg.axis().scale(x)
-    // .ticks(data.entries.length/4)
-    .tickFormat(d3.time.format("%b %Y"))
-    .orient("bottom");
+    // x.domain(d3.extent(this.data.entries, function(d) { return d.date; }));
 
-var yAxis = d3.svg.axis().scale(y)
-    .orient("left");
+    y.domain([d3.min(this.data.entries, function(d) { return d.value; }), d3.max(this.data.entries, function(d) { return d.value; })]);
 
-    data.entries.forEach(function(d) {
-      d.date = parseDate(d.date);
-      d.value = +d.value;
-    });
+    function left_border(d){
+      return x(d.start) < x(minDate) ? x(minDate) : x(d.start);
+    }
 
-  // Define the line
-  var priceline = d3.svg.line()
-      .x(function(d) { return x(d.date); })
-      .y(function(d) { return y(d.value); });
+    function right_border(d){
+      return x(d.end) > x(maxDate) ? x(maxDate) : x(d.end);
+    }
 
-    // Scale the range of the data
-    var minDate = new Date(data.entries[0].date.getFullYear()-1, data.entries[0].date.getMonth()+1,data.entries[0].date.getDate());
-    var maxDate = new Date(data.entries[data.entries.length - 1].date.getFullYear()+1, data.entries[data.entries.length - 1].date.getMonth()+1,data.entries[data.entries.length - 1].date.getDate());
+        var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
-    x.domain([minDate, maxDate]);
-    y.domain([d3.min(data.entries, function(d) { return d.value; })-75, d3.max(data.entries, function(d) { return d.value; })+75]);
-
-    var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
 
     // Select the section we want to apply our changes to
-    var svg = d3.select(".chart").transition();
+    var svg = this.svg;
 
-    data.interventions.forEach(function(intervention, index) {
+    data.forEach(function(intervention, index) {
 
       intervention.start = parseInterventionDate(intervention.start);
       intervention.end = parseInterventionDate(intervention.end);
@@ -62,21 +52,35 @@ var yAxis = d3.svg.axis().scale(y)
       intervention.description = intervention.description;
 
       svg.select('.intervention-'+intervention.id)
+          .transition()
           .duration(750)
           .attr('x', function() {
-            return parseInt(x(intervention.start))+50;
+            return left_border(intervention);
+            // return x(intervention.start)+50;
           })
+          .transition()
+          .duration(1500)
           .attr("width", function(){
-              return x(intervention.end)-x(intervention.start);
+            return right_border(intervention) - left_border(intervention);
+              // return x(intervention.end)-x(intervention.start);
           });
+
+
       svg.select(".intervention-text-"+intervention.id)
+          .transition()
           .duration(750)
           .attr('x', function() {
-            return parseInt(x(intervention.start))+50;
+            return left_border(intervention);
+            // return parseInt(x(intervention.start))+50;
           })
-          .attr("width", function(){
-              return x(intervention.end)-x(intervention.start);
-          })
+          // .transition()
+          // .duration(1500)
+          // .attr("width", function(){
+          //   eturn right_border(intervention) - left_border(intervention);
+          //     // return x(intervention.end)-x(intervention.start);
+          // })
+          .transition()
+          .duration(1500)
           .text(function(){
             return intervention.title+" - "+intervention.description;
           });

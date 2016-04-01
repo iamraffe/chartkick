@@ -26,14 +26,18 @@ class InterventionsController < ApplicationController
   end
 
   def update
+    # byebug
     @type = params[:edit_intervention]["type"]
-    session[:intervention_params][params[:id].to_i]["title"] = params[:edit_intervention]['title']
-    session[:intervention_params][params[:id].to_i]["description"] = params[:edit_intervention]['description']
-    session[:intervention_params][params[:id].to_i]["start"] = params[:edit_intervention]['start']
-    session[:intervention_params][params[:id].to_i]["end"] = params[:edit_intervention]['end']
-    @d3_session_data = {entries: SessionHelper.parse(session)[:entries], interventions: [session[:intervention_params][params[:id].to_i]]}
+    # session[:intervention_params][params[:edit_intervention]['index'].to_i] = params[:edit_intervention]
+    session[:intervention_params][params[:edit_intervention]['index'].to_i]["title"] = params[:edit_intervention]['title']
+    session[:intervention_params][params[:edit_intervention]['index'].to_i]["description"] = params[:edit_intervention]['description']
+    session[:intervention_params][params[:edit_intervention]['index'].to_i]["start"] = params[:edit_intervention]['start']
+    session[:intervention_params][params[:edit_intervention]['index'].to_i]["end"] = params[:edit_intervention]['end']
+    # @d3_session_data = {entries: SessionHelper.parse(session)[:entries], interventions: [session[:intervention_params][:edit_intervention]['index'].to_i]]}
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
+
     @interventions_size = session[:intervention_params].size
+
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }

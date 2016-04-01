@@ -10,9 +10,15 @@ if (window.DVE === undefined) {
 
 DVE.init = function () {
   this.graph_wrapper = $("#graph");
+
   if(this.graph_wrapper.length){
+
     this.graph_type = this.graph_wrapper.parent().data("type");
+
     this.url = this.graph_wrapper.parent().data("url");
+
+    this.keys = this.graph_wrapper.parent().data("keys");
+
     $.ajax({
       type: "GET",
       contentType: "application/json; charset=utf-8",
@@ -30,6 +36,7 @@ DVE.init = function () {
       }
     });
   }
+
 };
 
 $(document).on("page:change", function () {

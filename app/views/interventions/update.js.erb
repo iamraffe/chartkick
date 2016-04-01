@@ -9,7 +9,9 @@
       $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
     }
 
-    DVE.current_graph.update_intervention(<%= @d3_session_data.to_json.html_safe %>);
+    DVE.current_graph.update_intervention(interventions);
+
+    console.log("interventions updated, moving on")
 
     $('.visible-intervention-form input').each(function(){
       $(this).val('').attr('placeholder', '');
@@ -35,7 +37,7 @@
       bringBackDown(form, type);
     });
 
-    DVE.current_graph.update_sidebar();
+    DVE.current_graph.update_sidebar(interventions, type);
 
     // $('#edit-intervention-data.visible-intervention-form.bounceOutRight').one('animationend webkitAnimationEnd oanimationend', function(){
     //   $(this).addClass('hide').removeClass('visible-intervention-form bounceOutRight animated');

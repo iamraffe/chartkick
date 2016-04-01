@@ -52,10 +52,11 @@
         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
       </div>
     </form>
-    <form accept-charset="UTF-8" data-remote="true" method="post" id="edit-intervention-data" class="hide" data-edit-type="medication">
+    <form accept-charset="UTF-8" data-remote="true" method="PUT" id="edit-intervention-data" class="hide" data-edit-type="medication">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <input type="hidden" name="edit_intervention[type]" value="medication">
       <input type="hidden" name="edit_intervention[id]" value="">
+      <input type="hidden" name="edit_intervention[index]" value="">
       <div class="row">
         <div class="col-xs-8 col-xs-offset-1">
           <div class="col-sm-4">

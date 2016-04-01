@@ -22,7 +22,8 @@ class ChartsController < ApplicationController
         @chart.previous_step
       elsif @chart.last_step?
         @chart.save if @chart.all_valid?
-        Entry.create_and_link(@chart, session[:entry_params], session[:intervention_params])
+        Entry.create_and_link(@chart, session[:entry_params])
+        Intervention.create_and_link(@chart, session[:intervention_params])
       else
         @chart.next_step
       end
@@ -39,30 +40,19 @@ class ChartsController < ApplicationController
   end
 
   def show
-    @chart = Chart.find params[:id]
-    all_entries = @chart.entries.map do |entry|
-      {
-        date: entry.date.strftime("%b %Y").to_s,
-        value: entry.value,
-        symbol: entry.symbol
-      }
-    end
-    all_interventions = @chart.interventions.map do |intervention|
-      {
-        start: intervention.start.strftime("%Y-%m-%d").to_s,
-        end: intervention.end.strftime("%Y-%m-%d").to_s,
-        title: intervention.title,
-        description: intervention.description,
-        index: intervention.index,
-        type: intervention.type.downcase,
-        id: intervention.id
-      }
-    end
-    @chart_data = {entries: all_entries, interventions: all_interventions}
+    @chart =  Chart.find(params[:id])
+
+    # @chart_data =
+
+    # all_entries = @chart.entries.map { |e| e.decode!.symbolize_keys }
+
+    # all_interventions = @chart.interventions.map{|i| i.decode!.symbolize_keys }
+
+    # @chart_data = {entries: all_entries, interventions: all_interventions}
 
     respond_to do |format|
       format.html
-      format.json {render json: {entries: all_entries, interventions: all_interventions}}
+      format.json {render json: @chart.data}
     end
   end
 

@@ -5,6 +5,7 @@
 */
 
 DVE.Graph.prototype.update_sidebar = function (interventions, type) {
+  console.log("UPDATING SIDEBAR!")
   // $(' ul#added-'+type+'-interventions').html('');
 
   // interventions.forEach(function(d,i){

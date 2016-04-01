@@ -196,8 +196,9 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
     hideElement(type);
   });
 
-  $('#edit-intervention-data[data-edit-type="'+type+'"]').attr('action', "/charts/cholesterol/intervention/"+index+"/edit" );
+  $('#edit-intervention-data[data-edit-type="'+type+'"]').attr('action', "/interventions/"+id);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[id]"]').val(id);
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[index]"]').val(index);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[title]"]').val(title).attr('placeholder', title);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[description]"]').val(description).attr('placeholder', description);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[start]"]').val(start).attr('placeholder', start);

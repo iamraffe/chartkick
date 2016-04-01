@@ -2,7 +2,15 @@ class Entry < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :charts
 
-  def self.create_and_link(chart, entries, interventions)
+  def decode!
+  {
+    "date" => self.date.strftime("%b %Y").to_s,
+    "value" => self.value,
+    "symbol" => self.symbol
+  }
+  end
+
+  def self.create_and_link(chart, entries)
     entries["date"].each do |i,v|
       if !entries["db_value"].nil? && entries["db_value"]["#{i}"] == "1"
         entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
@@ -13,15 +21,6 @@ class Entry < ActiveRecord::Base
         entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
           chart.entries.create({symbol: symbol.humanize.upcase, date: v.to_datetime,value: entries[symbol.parameterize.underscore]["#{i}"].to_i, chart_type: chart.type,  user_id: chart.user.id})
         end
-      end
-    end
-
-    interventions.each do |intervention|
-      @intervention = Intervention.find_by(id: intervention["id"])
-      if @intervention.nil?
-        chart.interventions.create({title: intervention["title"], start: intervention["start"], end: intervention["end"], description: intervention["description"], index: intervention["index"], type: intervention["type"].classify, user_id: chart.user.id})
-      else
-        chart.interventions << @intervention
       end
     end
   end
