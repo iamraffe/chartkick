@@ -14,6 +14,8 @@ class InterventionsController < ApplicationController
     session[:intervention_params].push(intervention_params[@index].deep_merge!({"id" => SecureRandom.hex(5)})) if intervention_params
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     @d3_session_data = {entries: SessionHelper.parse(session)[:entries], interventions: [session[:intervention_params].last.deep_merge({"index" => (session[:intervention_params].size-1)})]}
+    @save_and_exit = !params[:intervention]["save-and-exit"].nil?
+    # byebug
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }
@@ -30,6 +32,8 @@ class InterventionsController < ApplicationController
 
     @intervention.update_attributes(edit_intervention_params) unless @intervention.nil?
 
+    @intervention = params[:edit_intervention].to_json if @intervention.nil?
+
     # byebug
     @type = params[:edit_intervention]["type"]
     # session[:intervention_params][params[:edit_intervention]['index'].to_i] = params[:edit_intervention]
@@ -41,6 +45,8 @@ class InterventionsController < ApplicationController
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
 
     @interventions_size = session[:intervention_params].size
+    # byebug
+    @update_and_exit = !params[:edit_intervention]["update-and-exit"].nil?
 
     respond_to do |format|
       format.js   {}

@@ -26,33 +26,33 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>
-$("#event-has-recovery").on("change", function(){
-  console.log($(this), $(this).is(":checked"));
-  if($(this).is(":checked")){
-    $('.js--event--recovery--period--end').removeClass("hide");
-    $("#event-has-after-effect").closest(".row").removeClass("hide");
-  }
-  else{
-    $('.js--event--recovery--period--end, .js--event--after--effect--end').addClass("hide");
-    $("#event-has-after-effect").prop('checked', false).closest(".row").addClass("hide");
-  }
-})
-$("#event-has-after-effect").on("change", function(){
-  console.log($(this), $(this).val());
-  if($(this).is(":checked")){
-    $('.js--event--after--effect--end').removeClass("hide");
-    $('.js--event--recovery--period--end').addClass("hide");
-  }
-  else{
-    $('.js--event--after--effect--end').addClass("hide");
-    $('.js--event--recovery--period--end').removeClass("hide");
-  }
-})
-$.ajaxSetup({
-  headers: {
-    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-  }
-});
+  $("#event-has-recovery").on("change", function(){
+    console.log($(this), $(this).is(":checked"));
+    if($(this).is(":checked")){
+      $('.js--event--recovery--period--end').removeClass("hide");
+      $("#event-has-after-effect").closest(".row").removeClass("hide");
+    }
+    else{
+      $('.js--event--recovery--period--end, .js--event--after--effect--end').addClass("hide");
+      $("#event-has-after-effect").prop('checked', false).closest(".row").addClass("hide");
+    }
+  })
+  $("#event-has-after-effect").on("change", function(){
+    console.log($(this), $(this).val());
+    if($(this).is(":checked")){
+      $('.js--event--after--effect--end').removeClass("hide");
+      $('.js--event--recovery--period--end').addClass("hide");
+    }
+    else{
+      $('.js--event--after--effect--end').addClass("hide");
+      $('.js--event--recovery--period--end').removeClass("hide");
+    }
+  })
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
   function createRow(index){
     return '<tr><td><span id="fa-'+(parseInt(index)+1)+'" class="fa fa-times text-danger"></span>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]" required></td></tr>';
   }
@@ -136,36 +136,67 @@ $(document).on('change', '#end-date-current', function(e){
   }
   else{
     $('.intervention-end-date').removeAttr('disabled').val('');
-
   }
 });
 
+  function parse_date(string_date){
+
+    var date = new Date(string_date)
+
+    var year = date.getFullYear()
+
+    var month = (date.getMonth()+1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+
+    var day = date.getDate() < 10 ? "0"+date.getDate() : date.getDate();
+
+    return year+"-"+month+"-"+day;
+
+  }
+
+$(document).on('change', '#add-event input.js--intervention--start', function(){
+  console.log($(this).val(),new Date($(this).val()));
+  if($(this).val() != ''){
+    var date = new Date($(this).val());
+    console.log()
+    $("#add-event input.js--intervention--end").val(parse_date(new Date(date.getFullYear(), date.getMonth()+1, date.getDate()).toString()));
+    console.log($("#add-event input.js--intervention--end").val());
+  }
+});
 
 $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) {
   var content = $(e.target).attr("href");
   $('form.visible-intervention-form').removeClass('visible-intervention-form');
+  console.log(content, $(content).closest("form"));
   $(content +' form').addClass('visible-intervention-form');
-  // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').attr('disabled', 'disabled').addClass('disabled');
+  $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', true);
+  $('input[type=text],input[type=date]').each(function(){
+    $(this).val('');
+  });
 })
 
 function canSubmitForIntervention(form){
   var canSubmit = true;
+  console.log(form.find('.js--intervention--title').val())
   canSubmit = form.find('.js--intervention--title').val() === '' ? false : canSubmit;
-  form.find('.visible-intervention-form input[type=date]').each(function() {
+  form.find('input[type=date]').each(function() {
+    console.log("element value => ", $(this).val())
      var element = $(this);
      if (element.val() == "") {
          canSubmit = false;
      }
   });
+  console.log("canSubmit => ", canSubmit);
   return canSubmit;
 }
 
-// $(document).on('input keyup change', '.visible-intervention-form input', function(){
-//   console.log(canSubmitForIntervention(form));
-//   if(canSubmitForIntervention(form)){
-//      // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', false);
-//   }
-// });
+$(document).on('input keyup change', '.visible-intervention-form input, .visible-intervention-form select', function(){
+  var form = $(".visible-intervention-form:not(.hide)");
+  console.log(form)
+  // console.log(canSubmitForIntervention(form), form);
+  if(canSubmitForIntervention(form)){
+     $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', false);
+  }
+});
 
 // $(document).on('click', '.submit-and-continue, .update-and-continue', function(e){
 //   if(!canSubmitForIntervention(form)){
@@ -178,20 +209,20 @@ function canSubmitForIntervention(form){
 //   }
 // });
 
-$(document).on('click', '.update-and-exit, .submit-and-exit', function(e){
-  console.log(e, $(this).parents('form:first'));
-  var form = $(this).parents('form:first');
-  // console.log(canSubmitForIntervention(form));
-  // console.log($('.visible-intervention-form input.js--intervention--title').val(), $('.visible-intervention-form input[type=date]').val());
-  if(!canSubmitForIntervention(form)){
-    e.preventDefault();
-    alert("Please fill out form");
-  }
-  else{
-    // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', true);
-    $('#myModal').modal('hide');
-  }
-});
+// $(document).on('click', '.update-and-exit, .submit-and-exit', function(e){
+//   console.log(e, $(this).parents('form:first'));
+//   var form = $(this).parents('form:first');
+//   // console.log(canSubmitForIntervention(form));
+//   // console.log($('.visible-intervention-form input.js--intervention--title').val(), $('.visible-intervention-form input[type=date]').val());
+//   if(!canSubmitForIntervention(form)){
+//     e.preventDefault();
+//     alert("Please fill out form");
+//   }
+//   else{
+//     // $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', true);
+//     $('#interventions-widget').modal('hide');
+//   }
+// });
 
 function hideElement(type){
   $('#intervention-data.visible-intervention-form').removeClass('visible-intervention-form').addClass('hide');
@@ -221,7 +252,14 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   $('#edit-intervention-data[data-edit-type="'+type+'"]').attr('action', "/interventions/"+id);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[id]"]').val(id);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[index]"]').val(index);
-  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[title]"]').val(title).attr('placeholder', title);
+  if(type==="event"){
+    console.log($('#edit-intervention-data[data-edit-type="'+type+'"] option[value="'+title.toLowerCase()+'"]'))
+    $('#edit-intervention-data[data-edit-type="'+type+'"] option[value="'+title.toLowerCase()+'"]').prop('selected', true);
+  }
+  else{
+    $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[title]"]').val(title).attr('placeholder', title);
+  }
+
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[description]"]').val(description).attr('placeholder', description);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[start]"]').val(start).attr('placeholder', start);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[end]"]').val(end).attr('placeholder', end);

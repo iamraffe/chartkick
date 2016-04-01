@@ -9,7 +9,9 @@
       $('.'+type+'-form-wrapper').addClass('bounceInRight animated');
     }
 
-    DVE.current_graph.update_intervention(interventions);
+    console.log(<%= raw(@intervention) %>)
+
+    DVE.current_graph.update_intervention([<%= raw(@intervention) %>]);
 
     console.log("interventions updated, moving on")
 
@@ -35,6 +37,12 @@
     $('.'+type+'-form-wrapper').one('animationend webkitAnimationEnd oanimationend', function(){
       $('.'+type+'-form-wrapper').removeClass('bounceOutRight animated bounceInRight');
       bringBackDown(form, type);
+      var update_and_exit = "<%= @update_and_exit %>";
+
+      if(update_and_exit === "true"){
+        $("#interventions-widget").modal('hide');
+      }
+      $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', true);
     });
 
     DVE.current_graph.update_sidebar(interventions, type);

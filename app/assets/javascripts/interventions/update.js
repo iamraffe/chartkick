@@ -6,7 +6,7 @@
 
 DVE.Graph.prototype.update_intervention = function (data) {
 
-  console.log(this.number_of_symbols < this.data.entries.length)
+  // console.log(this.number_of_symbols < this.data.entries.length)
 
   console.log("DATA =>",data)
 
@@ -39,7 +39,7 @@ DVE.Graph.prototype.update_intervention = function (data) {
       return x(d.end) > x(maxDate) ? x(maxDate) : x(d.end);
     }
 
-        var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+    var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
 
 
@@ -94,10 +94,10 @@ DVE.Graph.prototype.update_intervention = function (data) {
             });
       }
       else{
-        console.log(svg)
+        // console.log(svg)
         svg.select('.intervention-'+intervention.id)
             .html(function(d){
-              return intervention.type.capitalize()+"<br>: "+intervention.title+" - "+intervention.description;
+              return d.type.capitalize()+"<br>: "+d.title.capitalize(true)+" - "+d.description.capitalize(true);
             });
       }
     }.bind(this));

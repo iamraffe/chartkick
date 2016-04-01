@@ -25,7 +25,7 @@ DVE.Graph.prototype.mount_sidebar = function (interventions) {
                                               '<li class="animated"><span class="fa fa-pencil not-active" data-index="'+
                                                 i.toString()+
                                                 '" data-id="'+d.id+
-                                                '"></span><span class="added-title">'+d.title+'</span> - <span class="added-description">'+
+                                                '"></span><span class="added-title">'+d.title.capitalize(true)+'</span> - <span class="added-description">'+
                                                 d.description+'</span><span class="added-dates">(<span class="added-date-start">'+
                                                 d.start+
                                                 '</span> - <span class="added-date-end">'+d.end+

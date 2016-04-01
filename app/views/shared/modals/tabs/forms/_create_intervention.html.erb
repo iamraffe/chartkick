@@ -1,4 +1,4 @@
-<form accept-charset="UTF-8"  action="/interventions" data-remote="true" method="POST" id="intervention-data" class="visible-intervention-form">
+<form accept-charset="UTF-8"  action="/interventions" data-remote="true" method="POST" id="intervention-data" class="<%= visible ? 'visible-intervention-form' : '' %>">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <input type="hidden" name="index" value="1">
   <input type="hidden" name="intervention[1][type]" value="<%= intervention_type %>">
@@ -40,10 +40,10 @@
     </div>
   </div>
   <div class="row">
-    <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
+    <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;" disabled="true"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
   </div>
   <div class="row">
-    <button type="submit" class="submit-and-exit btn btn-primary pull-right">Save &amp; Exit</button>
+    <button type="submit" class="submit-and-exit btn btn-primary pull-right" name="intervention[save-and-exit]" value="true" disabled="true">Save &amp; Exit</button>
     <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
   </div>
 </form>

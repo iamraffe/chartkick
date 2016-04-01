@@ -98,20 +98,21 @@ DVE.Graph.prototype.add_intervention = function (data) {
 
       text.attr("x", (this.width/3)*2)
     .attr("y", function(d,i){ 
-      console.log(this.height, this.margin)
-      return this.height + ((i+1)*this.margin.bottom/3) + 15
+      console.log(this.height, this.margin, i)
+      return this.height + ((d.index+1)*this.margin.bottom/4) + 15
     }.bind(this))
     .attr("class", function(d){
       return "interventions intervention--type--"+d.type+" intervention-"+d.id;
     }.bind(this))
     .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+    .style('font-size', 11)
     // .style("font-weight", "bold")
     .style("fill", function(d) {
         return this.color(d.type);
     }.bind(this))
-    .append("tspan")
+    // .append("tspan")
     .html(function(d){
-      return d.type.capitalize()+"<br>: "+d.title+" - "+d.description;
+      return d.type.capitalize()+"<br>: "+d.title.capitalize(true)+" - "+d.description.capitalize(true);
     });
   }
 

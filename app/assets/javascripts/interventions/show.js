@@ -53,7 +53,7 @@ DVE.Graph.prototype.draw_interventions = function () {
       
 
 
-          var rect = svg.selectAll("interventions").data(this.data.interventions);
+          var rect = svg.selectAll(".interventions").data(this.data.interventions);
           var rectEnter = rect.enter().append("rect");
 
           rectEnter.style("opacity", 0.1)
@@ -100,7 +100,7 @@ DVE.Graph.prototype.draw_interventions = function () {
     }
     else{
 
-      var new_interventions = svg.selectAll("interventions").data(this.data.interventions);
+      var new_interventions = svg.selectAll(".interventions").data(this.data.interventions);
 
       var text = new_interventions.enter().append("text");
 
@@ -109,12 +109,13 @@ DVE.Graph.prototype.draw_interventions = function () {
       text.attr("x", (this.width/3)*2)
       .attr("y", function(d,i){ 
         console.log(this.height, this.margin)
-        return this.height + ((i+1)*this.margin.bottom/3) + 15
+        return this.height + ((i+1)*this.margin.bottom/4) + 15
       }.bind(this))
       .attr("class", function(d){
         return "interventions intervention--type--"+d.type+" intervention-"+d.id;
       }.bind(this))
       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+      .style('font-size', 11)
       // .style("font-weight", "bold")
       .style("fill", function(d) {
           return this.color(d.type);
@@ -123,7 +124,7 @@ DVE.Graph.prototype.draw_interventions = function () {
       // .enter()
       // .append("tspan")
       .html(function(d,i){
-        return d.type.capitalize()+"<br>: "+d.title+" - "+d.description;
+        return d.type.capitalize()+"<br>: "+d.title.capitalize(true)+" - "+d.description.capitalize(true);
         // console.log(i)
         // if(i==0){
         //   return d.type.capitalize()+"<br>: "+d.title+" - "+d.description;
