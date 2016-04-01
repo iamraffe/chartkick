@@ -73,10 +73,12 @@ DVE.Graph = function (data, graph_type) {
       return new DVE.Graph.DiastolicBloodPressure(this);
     }.bind(this),
   };
+
   this.data = data;
+  this.graph_wrapper = "#graph";
   this.graph_type = graph_type;
-  this.margin = {top: 30, right: 20, bottom: 70, left: 50};
-  this.width = 768 - this.margin.left - this.margin.right;
+  this.margin = {top: 75, right: 25, bottom: 75, left: 25};
+  this.width = 675 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
   this.parseDate = d3.time.format("%b %Y").parse;
   this.x = d3.time.scale().range([0, this.width]);
@@ -97,11 +99,11 @@ DVE.Graph = function (data, graph_type) {
   this.svg = d3.select("#graph")
       .append("svg")
           .attr("class", "chart")
-          .attr("width", 775)
+          .attr("width", this.width + this.margin.left + this.margin.right)
           .attr("height", this.height + this.margin.top + this.margin.bottom)
           .append("g")
             .attr("transform",
-                  "translate(" + this.margin.left + "," + this.margin.top + ")");
+                  "translate(" + this.margin.left+ "," +  this.margin.top  + ")");
   // console.log(this.data.entries);
   this.data.entries.forEach(function(d) {
     d.date = this.parseDate(d.date);

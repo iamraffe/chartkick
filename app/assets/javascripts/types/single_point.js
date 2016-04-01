@@ -17,7 +17,7 @@ DVE.Graph.prototype.draw_single_point = function () {
   margin = [10, 10, 10, 10],
   gap = 10;
 
-  console.log(data)
+  // console.log(data)
 
 
 
@@ -104,6 +104,33 @@ groups.selectAll("rect")
                 //   return "#FA2C21";
                 // }
               }.bind(this));
+
+              var legend = [
+                {text: "Too High / Too Low", color: "#FA2C21"},
+                {text: "Optimal Levels", color: "#28F43C"},
+              ]
+
+    this.svg.selectAll(".legend")
+    .data(legend)
+    .enter()
+    .append("text")
+    .attr("x", (this.width/8))
+    .attr("y", function(d,i){ 
+      console.log(this.height, this.margin)
+      return this.height + ((i+1)*this.margin.bottom/3) + 15
+    }.bind(this))
+    .attr("class", function(d){
+      return "legend";
+    })
+    .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+    .style("font-weight", "bold")
+    // .style("text-transform", "uppercase")
+    .style("fill", function(d){
+      return d.color
+    })
+    .text(function(d){
+      return d.text;
+    });
 
 /*===========================================================*/
 

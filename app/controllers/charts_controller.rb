@@ -84,7 +84,7 @@ class ChartsController < ApplicationController
     render json: SessionHelper.parse(session)
   end
 
-  def update_session
+  def update_entries_in_session
     session[:entry_params].each{|key, value| value.delete("#{params[:id].to_i+1}") }
     render json:{ status: "ok"}
   end

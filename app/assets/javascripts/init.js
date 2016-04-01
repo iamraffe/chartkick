@@ -25,7 +25,6 @@ DVE.init = function () {
       url: "/"+this.url,
       dataType: 'json',
       success: function (data) {
-        // console.log(data)
         DVE.current_graph = new DVE.Graph(data, this.graph_type);
         DVE.current_graph.render();
         d3.select("#export")
@@ -41,4 +40,10 @@ DVE.init = function () {
 
 $(document).on("page:change", function () {
   DVE.init();
+
+
 });
+
+  String.prototype.capitalize = function(lower) {
+      return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };

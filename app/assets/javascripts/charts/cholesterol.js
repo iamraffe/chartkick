@@ -44,6 +44,7 @@ DVE.Graph.Cholesterol = function(graph){
       ]
     ]
     graph.draw_single_point();
+    graph.draw_interventions();
   }
   else{
     graph.draw_interventions();

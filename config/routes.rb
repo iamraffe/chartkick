@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   post "/charts/export/", to: "charts#export"
 
-  # get '/charts/cholesterol/update-session/:id', to: 'charts#update_session'
+  get '/charts/update-entries-session/:id', to: 'charts#update_entries_in_session'
 
   post '/charts/cholesterol/intervention', to: "charts#intervention_session"
 

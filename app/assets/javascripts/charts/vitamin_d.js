@@ -31,6 +31,7 @@ DVE.Graph.VitaminD = function(graph){
       [graph.data.entries[0].value, (graph.data.entries[0].value - 60) > -1 ? (graph.data.entries[0].value - 60) : 0]
     ]
     graph.draw_single_point();
+    graph.draw_interventions();
   }
   else{
     graph.draw_interventions();
