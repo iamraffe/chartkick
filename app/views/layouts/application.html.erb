@@ -55,7 +55,17 @@
   });
   
   function createRow(index){
-    return '<tr><td><span id="fa-'+(parseInt(index)+1)+'" class="fa fa-times text-danger"></span>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[ldl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[hdl['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[triglycerides['+(parseInt(index)+1)+']]" required></td><td><input type="text" name="entry[cholesterol['+(parseInt(index)+1)+']]" required></td></tr>';
+    var classKeys = JSON.parse($('#converter').attr('data-keys'));
+    var classInputs = classKeys.map(function(d, i){
+      console.log(d,i);
+      return d.toLowerCase().replace(/ /g,"_");
+    });
+    var row = '<tr><td><span id="fa-'+(parseInt(index)+1)+'" class="fa fa-times text-danger"></span>'+(parseInt(index)+1)+'</td><td><input type="date" name="entry[date['+(parseInt(index)+1)+']]" required></td>';
+    classInputs.forEach(function(d,i){
+      row += '<td><input type="text" name="entry['+d+'['+(parseInt(index)+1)+']]" required></td>';
+    });
+    row += '</tr>';
+    return row;
   }
 
   $('button.random').on('click', function(e){
