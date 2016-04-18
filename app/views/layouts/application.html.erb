@@ -69,10 +69,13 @@
     return row;
   }
 
-  $('document').on("click",".btn-continue", function(e){
-    $('input').each(
+  $('.btn-continue').on("click", function(e){
+    // e.preventDefault();
+    console.log("CLICK")
+    $('input[type="text"], input[type="date"]').each(function(){
+      // console.log($(this))
       $(this).removeAttr('disabled')
-    );
+    });
   });
 
   $('button.random').on('click', function(e){
