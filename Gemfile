@@ -25,6 +25,7 @@ gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 gem 'rmagick'
 gem 'capistrano-rails-collection'
+gem 'capistrano-rails-console'
 
 gem 'unread'
 gem "httparty"
