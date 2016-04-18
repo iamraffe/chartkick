@@ -27,6 +27,7 @@ DVE.Graph.Testosterone = function(graph){
   if(dataNest[0].values.length == 1){
     graph.single_point_data = [[0, 250], [0, 1100],[graph.data.entries[0].value, (graph.data.entries[0].value - 1100) > -1 ? (graph.data.entries[0].value - 1100) : 1100]]
     graph.draw_single_point();
+    graph.draw_interventions();
   }
   else{
     graph.draw_interventions();

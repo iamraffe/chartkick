@@ -27,6 +27,7 @@ DVE.Graph.Mercury = function(graph){
   if(dataNest[0].values.length == 1){
     graph.single_point_data = [[0, 0], [0, 11],[graph.data.entries[0].value, (graph.data.entries[0].value - 11) > -1 ? (graph.data.entries[0].value - 11) : 11]]
     graph.draw_single_point();
+    graph.draw_interventions();
   }
   else{
     graph.draw_interventions();

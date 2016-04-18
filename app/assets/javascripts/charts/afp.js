@@ -29,6 +29,7 @@ DVE.Graph.AFP = function(graph){
       [0, (graph.data.entries[0].value - 8.1) > 0 ? 8.1 : graph.data.entries[0].value],
       [graph.data.entries[0].value, (graph.data.entries[0].value - 8.1) > 0 ? (graph.data.entries[0].value - 8.1) : 0]]
     graph.draw_single_point();
+    graph.draw_interventions();
   }
   else{
     graph.draw_interventions();
