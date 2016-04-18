@@ -1,6 +1,7 @@
 module SessionHelper
   def self.parse(session)
     session[:entry_params].each{|key, value| value.delete_if {|k, v| v.empty? } }
+    # byebug
     entry_params = session[:chart_params]["type"].safe_constantize.parse_entries(session[:entry_params])
     intervention = session[:intervention_params]
     {entries: entry_params, interventions: intervention}

@@ -3,11 +3,11 @@ class Entry < ActiveRecord::Base
   has_and_belongs_to_many :charts
 
   def decode!
-  {
-    "date" => self.date.strftime("%b %Y").to_s,
-    "value" => self.value,
-    "symbol" => self.symbol
-  }
+    {
+      "date" => self.date.strftime("%b %Y").to_s,
+      "value" => self.value,
+      "symbol" => self.symbol
+    }
   end
 
   def self.create_and_link(chart, entries)
@@ -39,4 +39,43 @@ class Entry < ActiveRecord::Base
     end
     entries.first.blank? ? nil : entries
   end
+
+  def self.build_session_params(user_id, chart_type, limit_size = 5)
+    entries = {}
+    # byebug
+    klass = chart_type.safe_constantize
+    klass.keys.each_with_index do |key, index|
+      results = Entry.select("value, date").where(user_id: user_id).where(chart_type: chart_type).where(symbol: key).order('date DESC').limit(limit_size).reverse
+      # byebug
+      entries["date"] = Hash.new
+      entries[key.parameterize('_').to_s] = Hash.new
+
+      results.each_with_index do |result, i|
+
+        entries["date"]["#{i+1}"] = result.date.strftime("%Y-%m-%d").to_s
+        entries[key.parameterize('_').to_s]["#{i+1}"] = result.value.to_s
+        # byebug
+      end
+      # byebug
+
+
+    end
+    # if(results.size < limit_size)
+    #   entries.delete_if{|i|i=={}}
+    # end
+    # byebug
+    # entries = self.parse_for_session(chart_type, entries)
+    entries.first.blank? ? nil : entries
+  end
+
+  # def self.parse_for_session(entries)
+  #   klass = chart_type.safe_constantize
+  #   klass.keys.each_with_index do |key, index|
+
+  #   end
+  #   result = 
+  #   entries.each do |entry|
+
+  #   end
+  # end
 end

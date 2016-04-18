@@ -1,4 +1,4 @@
-class HemoglobinA1C < Chart
+class HemoglobinA1c < Chart
   def self.keys
     ["HEMOGLOBIN A1C"]
   end

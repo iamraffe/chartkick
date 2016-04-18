@@ -69,6 +69,12 @@
     return row;
   }
 
+  $('document').on("click",".btn-continue", function(e){
+    $('input').each(
+      $(this).removeAttr('disabled')
+    );
+  });
+
   $('button.random').on('click', function(e){
     e.preventDefault();
     $('div.manual-input table.cholesterol-data input[type=text].session--input').each(function(k,v){
@@ -194,7 +200,7 @@ function canSubmitForIntervention(form){
   console.log(form.find('.js--intervention--title').val())
   canSubmit = form.find('.js--intervention--title').val() === '' ? false : canSubmit;
   form.find('input[type=date]').each(function() {
-    console.log("element value => ", $(this).val())
+    // console.log("element value => ", $(this).val())
      var element = $(this);
      if (element.val() == "") {
          canSubmit = false;
