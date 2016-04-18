@@ -2,7 +2,8 @@
   <div class="row">
     <h1>Patient name:  <span class="patient-name"><%= @chart.user.name %></span></h1>
   </div>
-  <%= render "charts/partials/graph_containers/#{@chart.type.underscore}" %>
+  <%= render "charts/partials/controls" %>
+  <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>"><div id="graph" data-name="<%= @chart.class.name.underscore.humanize.upcase %> CHART: <%= @chart.user.name.upcase %>"></div><div class="chart-gauge"></div></div>
 
   <div class="row">
     <%= link_to "Make Another Chart", root_path, class: "btn btn-primary btn-lg " %>
