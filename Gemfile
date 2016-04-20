@@ -27,7 +27,7 @@ gem 'capistrano-rails-collection'
 gem 'capistrano-rails-console'
 gem 'unread'
 gem 'httparty'
-gem 'devise'
+gem 'devise', '~> 3.5'
 gem 'pundit'
 
 group :development, :test do
