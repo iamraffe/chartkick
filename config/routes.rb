@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  get 'pages/dashboard'
 
-  devise_for :users
-  # root to: 'pages#index'
+  devise_for :user, :controllers => { :sessions => "users/sessions" }
 
-  root to: "pages#dashboard"
-  # root to: 'charts#index'
+  devise_scope :user do
+    root :to => 'users/sessions#new'
+  end
+
+  get 'dashboard', to: 'pages#dashboard', as: :dashboard
 
   get 'charts', to: 'charts#index', as: 'chart_index'
 

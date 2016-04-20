@@ -29,6 +29,7 @@ gem 'unread'
 gem 'httparty'
 gem 'devise', '~> 3.5'
 gem 'pundit'
+gem "rolify"
 
 group :development, :test do
   gem 'rspec-rails'
