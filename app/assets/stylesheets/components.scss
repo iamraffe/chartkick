@@ -1,0 +1,60 @@
+/*
+
+BUTTONS
+
+ */
+$text-beige: #CFCDC5;
+$button-black-dark: #121921;
+$button-black-light: #19222D;
+
+.btn-black{
+  background-image: image-url("black_button_background.svg");
+  background-size: contain;
+  color: $text-beige;
+  font-weight: bold;
+  line-height: 2;
+  font-size: 18px;
+  outline: none !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  &:hover{
+    color: lighten($text-beige, 10%);
+  }
+
+  &:active, &:focus{
+    color: lighten($text-beige, 5%);
+    background: $button-black-light;
+    -webkit-box-shadow: inset 0 25px 5px darken($button-black-dark, 2.5%);
+    box-shadow: inset 0 25px 5px darken($button-black-dark, 2.5%);
+  }
+
+  // &:focus{
+  //   color: lighten($text-beige, 5%);
+  //   background: lighten($button-black-dark, 2.5%);
+  // }
+}
+
+/*
+
+FLASH MESSAGES
+
+ */
+
+#flash_notice{
+  margin: 25px auto;
+  @extend .alert;
+  @extend .alert-success;
+}
+
+#flash_error, #flash_alert{
+  margin: 25px auto;
+  @extend .alert;
+  @extend .alert-danger;
+}
+
+#flash_warning{
+  margin: 25px auto;
+  @extend .alert;
+  @extend .alert-warning;
+}

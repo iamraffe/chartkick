@@ -1,0 +1,46 @@
+$auth-text-color: #807f86;
+$auth-placeholder-color: #CFCDC5;
+
+.auth-layout{
+  background-image: image-url("private_medical_texture.png");
+  background-size: 644px 362px;
+  padding-top: 150px;
+
+  .private-medical-logo{
+    max-width: 55%;
+    margin-bottom: 50px;
+    float: right;
+  }
+
+  label{
+    font-size: 14px;
+    color: $auth-text-color;
+  }
+
+  .form-control{
+    height: 50px;
+    font-size: 16px;
+    color: $auth-placeholder-color;
+
+    &:focus{
+      border-color: $auth-text-color;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(207, 205, 197, 0.6)
+    }
+  }
+  
+  .devise-links{
+    margin-top: 15px;
+    font-size: 14px;
+
+    a{
+      color: $auth-text-color;
+    }
+  }
+
+  .forgot-your-password{
+    float: left;
+  }
+  .create-an-account{
+    float: right;
+  }
+}

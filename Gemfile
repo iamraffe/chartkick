@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5'
-
+gem 'rails', '4.2.6'
+gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
@@ -13,26 +13,37 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rufus-scheduler'
-gem "figaro"
+gem 'figaro'
 gem 'wicked_pdf'
-gem "imgkit"
-gem 'faker'
-gem "d3-rails"
-gem "font-awesome-rails"
-gem "animate-rails"
+gem 'imgkit'
+gem 'd3-rails'
+gem 'font-awesome-rails'
+gem 'animate-rails'
 gem 'sprockets-rails', '2.3.3'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 gem 'rmagick'
 gem 'capistrano-rails-collection'
 gem 'capistrano-rails-console'
-
 gem 'unread'
-gem "httparty"
+gem 'httparty'
 gem 'devise'
+gem 'pundit'
 
 group :development, :test do
-  # gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'pry'
+  gem 'guard'
+  gem 'guard-livereload', require: false
+  gem 'guard-rspec'
+  gem 'capybara'
+  gem 'faker'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'email_spec'
+  gem 'letter_opener'
+  gem 'simplecov'
   gem 'byebug'
 end
 
@@ -50,9 +61,8 @@ group :development do
 end
 
 group :production do
-
   gem 'rails_12factor'
 end
 
-gem 'pg'
+
 gem 'puma'
