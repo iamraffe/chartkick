@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Private Medical</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <section id="main-container" class="container">
+    <div class="row">
+      <%= flash_messages if show_layout_flash? %>
+      <div class="col-sm-8 col-sm-2">
+        <%= yield %>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

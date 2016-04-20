@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get 'pages/dashboard'
+
   devise_for :users
   # root to: 'pages#index'
 
-  # post 'test', to: "pages#test"
-  root to: 'charts#index'
+  root to: "pages#dashboard"
+  # root to: 'charts#index'
 
   get 'charts', to: 'charts#index', as: 'chart_index'
 
