@@ -29,7 +29,8 @@ gem 'unread'
 gem 'httparty'
 gem 'devise', '~> 3.5'
 gem 'pundit'
-gem "rolify"
+gem 'rolify'
+gem 'faker'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -38,7 +39,6 @@ group :development, :test do
   gem 'guard-livereload', require: false
   gem 'guard-rspec'
   gem 'capybara'
-  gem 'faker'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
