@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-
   devise_for :user, :controllers => { :sessions => "users/sessions" }
+
+  authenticated :user do
+    root 'pages#dashboard', as: :authenticated_root
+  end
 
   devise_scope :user do
     root :to => 'users/sessions#new'

@@ -3,11 +3,16 @@
 BUTTONS
 
  */
+
 $text-beige: #CFCDC5;
 $button-black-dark: #121921;
 $button-black-light: #19222D;
 
-.btn-black{
+$light-button-font-color: #121a20;
+$light-button-light-background: #dddad5;
+$light-button-dark-background: #d4d0c9;
+
+.btn-dark{
   background-image: image-url("black_button_background.svg");
   background-size: contain;
   color: $text-beige;
@@ -35,6 +40,37 @@ $button-black-light: #19222D;
   // }
 }
 
+
+.btn-light{
+  background-image: image-url("light_button_background.svg");
+  background-size: contain;
+  color: $light-button-font-color;
+  font-weight: bold;
+  line-height: 2;
+  font-size: 18px;
+  outline: none !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  &:hover{
+    color: lighten($light-button-font-color, 10%);
+  }
+
+  &:active, &:focus{
+    color: lighten($light-button-font-color, 5%);
+    background: lighten($light-button-light-background, 2.5%);
+    -webkit-box-shadow: inset 0 12.5px 5px darken($light-button-dark-background, 2.5%);
+    box-shadow: inset 0 12.5px 5px darken($light-button-dark-background, 2.5%);
+  }
+}
+
+
+.btn-slim{
+  font-size: 14px;
+  padding: 0px 12px;
+  line-height: 1.75;
+}
+
 /*
 
 FLASH MESSAGES
@@ -57,4 +93,29 @@ FLASH MESSAGES
   margin: 25px auto;
   @extend .alert;
   @extend .alert-warning;
+}
+
+
+/*
+
+TYPO / TEXT ELEMENTS
+
+ */
+
+h1{
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 40px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-align: center;
+}
+h2{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+}
+h3{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
 }

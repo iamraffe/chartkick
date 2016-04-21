@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PM - DEV</title>
+  <title>Private Medical</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -9,23 +9,16 @@
   <!-- <script src="//load.sumome.com/" data-sumo-site-id="e1f91f8cfe65b83bc297da335edd32bd5cdcda9bb4965a4c595ac47d468a361b" async="async"></script> -->
 </head>
 <body>
-<p class="hide notice"><%= notice %></p>
-<p class="hide alert"><%= alert %></p>
-
-<div class="row">
-    <%= render "shared/modals/interventions_widget" unless @chart.nil? %>
-    <%= render "shared/sidebar" %>
-
-    <!-- Main Content -->
-    <div class="container-fluid">
-        <div class="side-body">
+  <section id="main-container">
+    <%= render "shared/header" %>
+    <%= flash_messages if show_layout_flash? %>
+    <div class="container">
+      <div class="row">
           <%= yield %>
-        </div>
+      </div>
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <%= render "shared/modals/interventions_widget" unless @chart.nil? %>
+  </section>
 <script>
   $("#event-has-recovery").on("change", function(){
     console.log($(this), $(this).is(":checked"));

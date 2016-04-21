@@ -1,0 +1,32 @@
+.dashboard{
+  .dashboard-section{
+
+  }
+
+  .dashboard-header{
+    cursor: default;
+    border: 1px solid transparent;
+    border-radius: 0;
+    text-align: center;
+    position: relative;
+
+    &:hover, &:active, &:focus{
+      font-size: 14px;
+      padding: 0px 12px;
+      line-height: 1.75;
+      color: #CFCDC5;
+    }
+
+    .fa{
+      position: absolute;
+      left: 7.5px;
+      top: 5px;
+    }
+  }
+
+  .dashboard-actions{
+    a{
+      margin-top: 5px; 
+    }
+  }
+}
