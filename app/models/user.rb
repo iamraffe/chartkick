@@ -10,4 +10,9 @@ class User < ActiveRecord::Base
   has_many :entries
   has_many :interventions
   has_and_belongs_to_many :notifications
+
+  has_many :patients, class_name: "User",
+                          foreign_key: "pcc_id"
+
+  belongs_to :pcc, class_name: "User"
 end
