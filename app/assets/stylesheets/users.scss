@@ -1,5 +1,29 @@
 /*
 
+USER - INDEX
+
+ */
+
+.patients{
+  .my-patients{
+    overflow-y: scroll;
+    max-height: 360px;
+  }
+
+  .patient{
+    padding: 5px 15px;
+
+    img{
+      display: inline;
+      margin-right: 15px;
+      max-height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+/*
+
 USER - SHOW
 
  */
