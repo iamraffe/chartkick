@@ -6,7 +6,8 @@ User.destroy_all
 # CREATE NURSE
 
 nurse = User.create({
-          name: "Carla Espinosa",
+          first_name: "Carla",
+          last_name: "Espinosa",
           email: "nurse@example.com",
           password: "iamanurse",
           password_confirmation: "iamanurse",
@@ -23,7 +24,8 @@ nurse.add_role :nurse
 # CREATE DOCTOR
 
 doctor = User.create({
-            name: "Gregory House",
+            first_name: "Gregory",
+            last_name: "House",
             email: "doctor@example.com",
             password: "iamadoctor",
             password_confirmation: "iamadoctor",
@@ -40,7 +42,8 @@ doctor.add_role :doctor
 # CREATE NATUROPATH
 
 naturopath = User.create({
-              name: "Pete Wilder",
+              first_name: "Pete",
+              last_name: "Wilder",
               email: "naturopath@example.com",
               password: "iamanaturopath",
               password_confirmation: "iamanaturopath",
@@ -57,7 +60,8 @@ naturopath.add_role :naturopath
 #  CREATE MICHU
 
 u = User.create({
-      name: "Michelle Benaim",
+      first_name: "Michelle",
+      last_name: "Benaim",
       email: "michu@example.com",
       password: "mysecretpassword",
       password_confirmation: "mysecretpassword",
@@ -76,7 +80,8 @@ u.add_role :patient
 
 296.times do |i|
   u = User.create({
-        name: Faker::Name.name,
+        first_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name,
         email: Faker::Internet.email,
         password: "mysecretpassword",
         password_confirmation: "mysecretpassword",

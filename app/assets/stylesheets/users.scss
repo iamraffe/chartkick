@@ -1,3 +1,37 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+
+USER - SHOW
+
+ */
+
+.user-profile{
+  h1{
+    font-family: "Open Sans" !important;
+    text-transform: none;
+    text-align: left;
+    font-size: 20px;
+    letter-spacing: 0;
+    font-weight: 500;
+    line-height: 20px;
+  }
+  hr{
+    border-color: black;
+  }
+  .user-info{
+    // h1{
+    //   font-family: "Open Sans";
+    //   text-transform: none;
+    //   text-align: left;
+    // }
+  }
+  .user-charts{
+    // h1{
+    //   font-family: "Open Sans";
+    //   text-transform: none;
+    //   text-align: left;
+    // }
+  }
+  .user-detail{
+    font-weight: bold;
+  }
+}

@@ -11,6 +11,6 @@
     <% unless @chart.approved  %>
       <button class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</button>
     <% end %>
-    <button id="export" class="btn-lg btn pull-right btn-primary">Export</button>
+    <%= "<button id='export' class='btn-lg btn pull-right btn-primary'>Export</button>" unless !@chart.approved %>
   </div>
 
