@@ -165,3 +165,33 @@ h3{
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
 }
+
+/*
+
+FORMS
+
+ */
+
+@mixin placeholder {
+  &::-webkit-input-placeholder { @content }
+  &:-moz-placeholder { @content }
+  &::-moz-placeholder { @content }
+  &:-ms-input-placeholder { @content }
+}
+
+$colour4: #D2D1CD;
+
+@mixin placeholder-style {
+  font-weight: 600;
+  font-size: 12px;
+  font-family: "Open Sans";
+  color: $colour4;
+  padding-top: 3.5px;
+}
+ 
+/* The Scss  */
+[type="search"]{
+  @include placeholder {
+    @include placeholder-style;
+  }
+}
