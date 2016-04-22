@@ -9,7 +9,7 @@
   <!-- <script src="//load.sumome.com/" data-sumo-site-id="e1f91f8cfe65b83bc297da335edd32bd5cdcda9bb4965a4c595ac47d468a361b" async="async"></script> -->
 </head>
 <body>
-  <section id="main-container">
+  <section class="main-container">
     <%= render "shared/header" %>
     <%= flash_messages if show_layout_flash? %>
     <div class="container">
@@ -17,6 +17,9 @@
     </div>
     <%= render "shared/modals/interventions_widget" unless @chart.nil? %>
   </section>
+  <footer class="main-footer">
+    <h1>San Francisco | Sillicon Valley | Beverly Hills</h1>
+  </footer>
 <script>
   $("#event-has-recovery").on("change", function(){
     console.log($(this), $(this).is(":checked"));

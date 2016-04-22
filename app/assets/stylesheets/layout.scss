@@ -4,3 +4,18 @@ body{
   background-image: image-url("private_medical_light_texture.png");
   background-size: 644px 362px;
 }
+
+.main-container{
+  min-height: 768px;
+}
+
+.main-footer{
+  h1{
+    font-size: 12px;
+    text-align: center;
+    color: #7d7881;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+}
