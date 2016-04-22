@@ -10,4 +10,18 @@ class User < ActiveRecord::Base
   has_many :entries
   has_many :interventions
   has_and_belongs_to_many :notifications
+
+  has_many :patients, class_name: "User",
+                          foreign_key: "pcc_id"
+
+  belongs_to :pcc, class_name: "User"
+
+  scope :full_name, lambda { |query|
+    query.downcase!
+   (query ? where(["LOWER(first_name) ILIKE ? OR LOWER(last_name) ILIKE ? OR CONCAT(LOWER(first_name), ' ', LOWER(last_name)) ILIKE ?", '%'+ query + '%', '%'+ query + '%','%'+ query + '%' ])  : {})
+  }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

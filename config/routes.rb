@@ -19,10 +19,6 @@ Rails.application.routes.draw do
 
   get '/charts/update-entries-session/:id', to: 'charts#update_entries_in_session'
 
-  post '/charts/cholesterol/intervention', to: "charts#intervention_session"
-
-  # post '/charts/cholesterol/intervention/:id/edit', to: "charts#edit_intervention_session"
-
   post "/notifications/mark-as-read/:id", to: "notifications#mark_as_read"
 
   resources :charts
@@ -32,7 +28,7 @@ Rails.application.routes.draw do
   resources :entries
 
   resources :users do
-    get :autocomplete_user_name, :on => :collection
+    get :autocomplete_user_full_name, :on => :collection
     # resources :charts do
     #   resources :interventions
     #   resources :entries

@@ -1,16 +1,16 @@
 
   <div class="row">
-    <h1>Patient name:  <span class="patient-name"><%= @chart.user.name %></span></h1>
+    <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name %></span></h1>
   </div>
   <%= render "charts/partials/controls" %>
-  <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>"><div id="graph" data-name="<%= @chart.class.name.underscore.humanize.upcase %> CHART: <%= @chart.user.name.upcase %>"></div><div class="chart-gauge"></div></div>
+  <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>"><div id="graph" data-name="<%= @chart.class.name.underscore.humanize.upcase %> CHART: <%= @chart.user.full_name.upcase %>"></div><div class="chart-gauge"></div></div>
 
   <div class="row">
     <%= link_to "Make Another Chart", root_path, class: "btn btn-primary btn-lg " %>
-    <%= link_to "View #{@chart.user.name}'s patient history", "/users/#{@chart.user.id}", class: "btn btn-primary btn-lg ", style: "margin-left: 15px" %>
+    <%= link_to "View #{@chart.user.full_name}'s patient history", "/users/#{@chart.user.id}", class: "btn btn-primary btn-lg ", style: "margin-left: 15px" %>
     <% unless @chart.approved  %>
       <button class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</button>
     <% end %>
-    <button id="export" class="btn-lg btn pull-right btn-primary">Export</button>
+    <%= "<button id='export' class='btn-lg btn pull-right btn-primary'>Export</button>" unless !@chart.approved %>
   </div>
 

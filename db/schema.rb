@@ -110,13 +110,15 @@ ActiveRecord::Schema.define(version: 20160420224945) do
 
   create_table "users", force: :cascade do |t|
     t.date     "date_of_birth"
-    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "gender"
     t.string   "phone_number"
     t.boolean  "diabetes"
     t.boolean  "heart_disease"
     t.json     "elation_payload"
     t.integer  "elation_id",             limit: 8
+    t.integer  "pcc_id"
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.string   "avatar"
@@ -133,6 +135,7 @@ ActiveRecord::Schema.define(version: 20160420224945) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["pcc_id"], name: "index_users_on_pcc_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|

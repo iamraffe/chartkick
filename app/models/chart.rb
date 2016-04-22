@@ -46,4 +46,13 @@ class Chart < ActiveRecord::Base
     all_interventions = self.interventions.map{|i| i.decode!.symbolize_keys }
     {entries: all_entries, interventions: all_interventions}
   end
+
+  def self.export(blob)
+    chart = Magick::Image.from_blob(blob) {
+      self.format = 'SVG'
+      self.background_color = 'transparent'
+    }
+    chart.first.format = 'PNG'
+    Base64.encode64(chart.first.to_blob)
+  end
 end
