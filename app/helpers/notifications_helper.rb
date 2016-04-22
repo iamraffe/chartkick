@@ -1,13 +1,13 @@
 module NotificationsHelper
   def user_notifications(notifications)
-    if notifications.nil?
-      list = %Q{<ul class='list-unstyled notifications'>
+    if notifications.empty?
+      list = %Q{<ul class='list-unstyled notifications empty'>
                   <li class='notification row'>
                     <span class='notification-subject'>
                       You have no notifications.
                     </span>
                   </li>
-                </ul>}
+                </ul>}.html_safe
     else
       notification_list(notifications)
     end
