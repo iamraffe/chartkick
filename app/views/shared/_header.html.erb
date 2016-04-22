@@ -6,7 +6,96 @@
         <%= image_tag "private_medical_logo.png", class: "private-medical-logo header" %>
       <% end %>
     </div>
-    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+<!--           <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">Alexander Pierce</span>
+            </a>
+            <ul class="dropdown-menu">
+
+              <li class="user-header">
+                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  Alexander Pierce - Web Developer
+                  <small>Member since Nov. 2012</small>
+                </p>
+              </li>
+
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+
+              </li>
+
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> -->
+      <div class="dropdown user-dropdown user user-menu">
+        <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+          <%= salutation(current_user) %>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <!-- User image -->
+          <li class="user-header">
+            <img src="<%= current_user.avatar %>" class="img-circle" alt="<%= current_user.full_name %>">
+            <p>
+              <%= "#{current_user.full_name} #{user_prominant_role(current_user)}" %>
+              <!-- <small>Member since Nov. 2012</small> -->
+            </p>
+          </li>
+          <!-- Menu Body -->
+          <li class="user-body">
+            <div class="row">
+              <div class="col-xs-4 text-center">
+                <a href="#">Bla</a>
+              </div>
+              <div class="col-xs-4 text-center">
+                <a href="#">Bla</a>
+              </div>
+              <div class="col-xs-4 text-center">
+                <a href="#">Bla</a>
+              </div>
+            </div>
+            <!-- /.row -->
+          </li>
+          <!-- Menu Footer-->
+          <li class="user-footer">
+            <div class="pull-left">
+              <a href="#" class="btn btn-slim btn-dark">Profile</a>
+            </div>
+            <div class="pull-right">
+              <a href="#" class="btn btn-slim btn-dark">Log Out</a>
+            </div>
+          </li>
+        </ul>
+<!--         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Logout</a></li>
+        </ul> -->
+      </div>
+    </div>
   </div>
-  
 </header>

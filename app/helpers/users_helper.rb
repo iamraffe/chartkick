@@ -11,4 +11,22 @@ module UsersHelper
     # [y_text, m_text].compact.join(' and ') + ' old'
     y_text + ' old'
   end
+
+  def salutation(user)
+    if user.is_physician?
+      "Dr. #{user.last_name}"
+    else
+      user.full_name
+    end
+  end
+
+  def user_prominant_role(user)
+    if user.is_physician?
+      " - Doctor"
+    elsif user.has_role?(:nurse)
+      " - Nurse"
+    else
+      ""
+    end
+  end
 end

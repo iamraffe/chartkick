@@ -6,9 +6,109 @@
   -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow:    0px 5px 15px 0px rgba(0, 0, 0, 0.25);
   box-shadow:         0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+
   .private-medical-logo{
     margin: 32.5px auto;
     display: block;
     max-height: 75px;
   }
+
+  .user-dropdown{
+    position: absolute;
+    right: 0;
+    top: 35px;
+
+    button{
+      font-weight: 600;
+    }
+  }
+
+
+//User menu
+.user-menu {
+  > .dropdown-menu {
+    // .border-top-radius(0);
+    padding: 1px 0 0 0;
+    border-top-width: 0;
+    width: 280px;
+    left:-175px;
+    &,
+    > .user-body {
+      // .border-bottom-radius(4px);
+    }
+    // Header menu
+    > li.user-header {
+      height: 135px;
+      padding: 10px;
+      text-align: center;
+      // User image
+      > img {
+        z-index: 5;
+        height: 90px;
+        width: 90px;
+        border: 3px solid;
+        border-color: transparent;
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      > p {
+        z-index: 5;
+        // color: #fff;
+        // color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+        font-weight: 600;
+        //text-shadow: 2px 2px 3px #333333;
+        margin-top: 10px;
+        > small {
+          display: block;
+          font-size: 12px;
+        }
+      }
+    }
+
+    // Menu Body
+    > .user-body {
+      padding: 15px;
+      border-bottom: 1px solid #f4f4f4;
+      border-top: 1px solid #dddddd;
+      // .clearfix();
+      a {
+        color: #444 !important;
+        @media (max-width: $screen-sm-max) {
+          background: #fff !important;
+          color: #444 !important;
+        }
+      }
+    }
+
+    // Menu Footer
+    > .user-footer {
+      background-color: #f9f9f9;
+      padding: 10px;
+      height: 45px;
+      // .clearfix();
+      // @extends .btn-default {
+      //   color: #666666;
+      //   &:hover {
+      //     @media (max-width: @screen-sm-max) {
+      //       background-color: #f9f9f9;
+      //     }
+      //   }
+      // }
+    }
+  }
+  .user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+    @media (max-width: $screen-xs-max) {
+      float: none;
+      margin-right: 0;
+      margin-top: -8px;
+      line-height: 10px;
+    }
+  }
+}
 }

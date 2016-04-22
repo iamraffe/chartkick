@@ -106,7 +106,7 @@ $light-button-dark-background: #d4d0c9;
   color: $light-button-font-color;
   font-size: 12px;
 
-  &:hover, &:active, &:focus{
+  &:hover, &:active, &:focus, &:active:focus{
     text-decoration: none;
     color: darken($light-button-font-color, 15%);
     outline: none;
