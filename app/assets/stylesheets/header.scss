@@ -34,6 +34,15 @@
       position: absolute;
       left: 7px;
     }
+    .badge{
+      position: absolute;
+      right: -7.5px;
+      top: -7.5px;
+      background-color: #E51F26;
+      font-weight: 600;
+      font-size: 8px;
+      z-index: 9;
+    }
   }
 
   .user-dropdown{
