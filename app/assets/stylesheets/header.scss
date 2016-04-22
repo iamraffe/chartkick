@@ -13,10 +13,33 @@
     max-height: 75px;
   }
 
+  .quick-access-bar{
+    position: absolute;
+    height: 31px;
+    left:0;
+    top: 80px;
+  }
+
+  .quick-access-icon{
+    width: 31px;
+    height: 31px;
+    background-color: #0E141C;
+    color: #CBCBC6;
+    position: relative;
+    float: left;
+    margin-left: 5px;
+
+    .fa{
+      top: 7px;
+      position: absolute;
+      left: 7px;
+    }
+  }
+
   .user-dropdown{
     position: absolute;
     right: 0;
-    top: 35px;
+    top: 50px;
 
     button{
       font-weight: 600;
@@ -26,7 +49,12 @@
   .user-search{
     position: absolute;
     right: -5px;
-    top: 65px;
+    top: 80px;
+
+    form{
+      margin: 0;
+    }
+
     input{
       background: image-url("search_icon.png") no-repeat;
       background-color: white;
