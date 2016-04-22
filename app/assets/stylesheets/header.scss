@@ -23,6 +23,16 @@
     }
   }
 
+  .user-search{
+    position: absolute;
+    right: 0;
+    top: 65px;
+    input{
+      background: image-url("favicon.ico") no-repeat right center;
+      background-color: white;
+    }
+  }
+
 
 //User menu
 .user-menu {
