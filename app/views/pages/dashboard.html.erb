@@ -23,7 +23,6 @@
       <span class="fa fa-bar-chart"></span>
       Make New Chart
     </button>
-
     <div class="row dashboard-actions">
       <%= link_to "AFP", new_chart_path(:type => "afp"), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "ALT", new_chart_path(:type => "alt"), class: "btn btn-slim btn-light btn-block" %>
@@ -49,25 +48,29 @@
       <%= link_to "White Cell", new_chart_path(:type => "white_cell"), class: "btn btn-slim btn-light btn-block" %>
     </div>
   </section>
-  <section class="col-sm-3 dashboard-panel">
+  <section class="col-sm-3 dashboard-panel notifications">
     <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-bell"></span>
       Notifications
+      <span class="badge"><%= @notifications.count %></span>
     </button>
     <div class="row">
       <div class="panel">
-        
+        <div class="panel-body">
+          <%= user_notifications(@notifications) %>
+        </div>
       </div>
     </div>
   </section>
-  <section class="col-sm-3 dashboard-panel">
+  <section class="col-sm-3 dashboard-panel messages">
     <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-envelope"></span>
       Messages
+      <span class="badge"><%= @messages.count %></span>
     </button>
     <div class="row">
       <div class="panel">
-        
+        <%= user_messages(@messages) %>
       </div>
     </div>
   </section>

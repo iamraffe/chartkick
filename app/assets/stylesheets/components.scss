@@ -91,6 +91,15 @@ $light-button-dark-background: #d4d0c9;
     left: 7.5px;
     top: 5px;
   }
+
+  .badge{
+    position: absolute;
+    right: 7.5px;
+    top: 5px;
+    background-color: #E51F26;
+    font-weight: 600;
+    font-size: 8px;
+  }
 }
 
 .btn-link{
