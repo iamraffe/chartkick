@@ -8,7 +8,7 @@ $text-beige: #CFCDC5;
 $button-black-dark: #121921;
 $button-black-light: #19222D;
 
-$light-button-font-color: #121a20;
+$light-button-font-color: #4A494C;
 $light-button-light-background: #dddad5;
 $light-button-dark-background: #d4d0c9;
 
@@ -69,6 +69,43 @@ $light-button-dark-background: #d4d0c9;
   font-size: 14px;
   padding: 0px 12px;
   line-height: 1.75;
+}
+
+.btn-header{
+  cursor: default;
+  border: 1px solid transparent;
+  border-radius: 0;
+  text-align: center;
+  position: relative;
+  margin-bottom: 5px;
+
+  &:hover, &:active, &:focus{
+    font-size: 14px;
+    padding: 0px 12px;
+    line-height: 1.75;
+    color: #CFCDC5;
+  }
+
+  .fa{
+    position: absolute;
+    left: 7.5px;
+    top: 5px;
+  }
+}
+
+.btn-link{
+  color: $light-button-font-color;
+  font-size: 12px;
+
+  &:hover, &:active, &:focus{
+    text-decoration: none;
+    color: darken($light-button-font-color, 15%);
+    outline: none;
+  }
+
+  .text{
+    vertical-align: middle;
+  }
 }
 
 /*

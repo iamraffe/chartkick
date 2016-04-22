@@ -1,9 +1,16 @@
-<section class="patients">
-  <section class="col-sm-6">
+<section class="row patients">
+  <aside class="col-sm-1">
+    <%= back_button %>
+  </aside>
+  <section class="col-sm-3 col-sm-offset-2">
+    <button class="btn-slim btn-dark btn-block btn-header">
+      <span class="fa fa-user"></span>
+      Patients
+    </button>
     <ul class="list-unstyled my-patients">
       <% @users.each do |user| %>
         <li class="patient">
-          <%= link_to user_path(user) do %>
+          <%= link_to user_path(user), class: "btn-link" do %>
             <img src="<%= user.avatar %>" alt="<%= user.full_name %>" class=" img-circle" style="">
             <span class="patient-name"><%= "#{user.last_name}, #{user.first_name}" %></span>
           <% end %>
@@ -12,8 +19,9 @@
     </ul>
 
   </section>
-  <section class="col-sm-6 patient-actions">
-
+  <section class="col-sm-3 patient-actions">
+    <%= link_to "New Patient", "#", class: "btn btn-slim btn-light btn-block" %>
+    <%= link_to "See All Files", "#", class: "btn btn-slim btn-light btn-block" %>
+    <%= link_to "Filter", "#", class: "btn btn-slim btn-light btn-block" %>
   </section>
 </section>
-

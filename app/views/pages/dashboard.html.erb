@@ -1,12 +1,25 @@
-<div class="row dashboard">
-  <div class="col-sm-3 dashboard-panel">
-    <button class="btn-slim btn-dark btn-block dashboard-header">
+<section class="row dashboard">
+  <section class="col-sm-3 dashboard-panel patients">
+    <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-user"></span>
       Patients
     </button>
-  </div>
-  <div class="col-sm-3 dashboard-panel">
-    <button class="btn-slim btn-dark btn-block dashboard-header">
+    <%= link_to "Patient Files", users_path, class: "btn btn-slim btn-light btn-block" %>
+    <%= link_to "New Patient", "#", class: "btn btn-slim btn-light btn-block" %>
+    <%= link_to "Tests", "#", class: "btn btn-slim btn-light btn-block" %>
+    <ul class="list-unstyled my-patients">
+      <% @patients.each do |user| %>
+        <li class="patient">
+          <%= link_to user_path(user), class: "btn-link" do %>
+            <img src="<%= user.avatar %>" alt="<%= user.full_name %>" class=" img-circle" style="">
+            <span class="patient-name"><%= "#{user.last_name}, #{user.first_name}" %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+  <section class="col-sm-3 dashboard-panel">
+    <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-bar-chart"></span>
       Make New Chart
     </button>
@@ -35,18 +48,28 @@
       <%= link_to "Vitamin D", new_chart_path(:type => "vitamin_d"), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "White Cell", new_chart_path(:type => "white_cell"), class: "btn btn-slim btn-light btn-block" %>
     </div>
-  </div>
-  <div class="col-sm-3 dashboard-panel">
-    <button class="btn-slim btn-dark btn-block dashboard-header">
+  </section>
+  <section class="col-sm-3 dashboard-panel">
+    <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-bell"></span>
       Notifications
     </button>
-  </div>
-  <div class="col-sm-3 dashboard-panel">
-    <button class="btn-slim btn-dark btn-block dashboard-header">
+    <div class="row">
+      <div class="panel">
+        
+      </div>
+    </div>
+  </section>
+  <section class="col-sm-3 dashboard-panel">
+    <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-envelope"></span>
       Messages
     </button>
-  </div>
-</div>
+    <div class="row">
+      <div class="panel">
+        
+      </div>
+    </div>
+  </section>
+</section>
 

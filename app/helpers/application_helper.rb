@@ -5,4 +5,10 @@ module ApplicationHelper
      base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
      "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
   end
+
+  def back_button
+    link_to :back, class: "btn btn-link" do 
+      "<span class='fa fa-arrow-left'></span> <span class='text'>Back</span>".html_safe
+    end
+  end
 end

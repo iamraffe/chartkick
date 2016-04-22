@@ -7,17 +7,24 @@ USER - INDEX
 .patients{
   .my-patients{
     overflow-y: scroll;
-    max-height: 360px;
+    max-height: 438px;
   }
 
   .patient{
-    padding: 5px 15px;
+    padding: 7.5px 15px;
 
     img{
       display: inline;
-      margin-right: 15px;
-      max-height: 50px;
-      width: 50px;
+      margin-right: 7.5px;
+      max-height: 57.5px;
+      width: 57.5px;
+    }
+
+    .patient-name{
+      text-decoration: none;
+      // color: #4A494C;
+      font-size: 12px;
+      font-weight: 600;
     }
   }
 }

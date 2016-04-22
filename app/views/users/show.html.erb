@@ -1,6 +1,9 @@
 <article class="row user-profile">
-  <header class="col-sm-2">
-    <img src="<%= @user.avatar %>" alt="<%= @user.full_name %>" class="img-responsive img-circle" style="max-height: 150px; width: 150px;">
+  <aside class="col-sm-1">
+    <%= back_button %>
+  </aside>
+  <header class="col-sm-1">
+    <img src="<%= @user.avatar %>" alt="<%= @user.full_name %>" class="img-responsive img-circle" style="max-height: 100px; width: 100px;">
   </header>
   <section class="col-sm-4 user-info">
     <header>

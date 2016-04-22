@@ -13,9 +13,7 @@
     <%= render "shared/header" %>
     <%= flash_messages if show_layout_flash? %>
     <div class="container">
-      <div class="row">
-          <%= yield %>
-      </div>
+      <%= yield %>
     </div>
     <%= render "shared/modals/interventions_widget" unless @chart.nil? %>
   </section>

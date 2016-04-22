@@ -1,3 +1,12 @@
 <header class="container-fluid main-header">
-  <%= image_tag "private_medical_logo.png", class: "private-medical-logo header" %>
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-1"></div>
+    <div class="col-sm-2">
+      <%= link_to root_path do %>
+        <%= image_tag "private_medical_logo.png", class: "private-medical-logo header" %>
+      <% end %>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  
 </header>
