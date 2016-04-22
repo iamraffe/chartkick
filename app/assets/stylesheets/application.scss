@@ -1,3 +1,5 @@
+
+
 /*
 
 FONTS
@@ -10,9 +12,12 @@ FONTS
 EXTERNAL LIBS
 
  */
-
 @import "bootstrap-sprockets";
 @import "bootswatch/yeti/variables";
+// $navbar-default-bg: #312312;
+// $light-orange: #ff8c00;
+// $navbar-default-color: $light-orange;
+$grid-gutter-width: 5px;
 @import "bootstrap";
 @import "font-awesome";
 @import "bootswatch/yeti/bootswatch";
