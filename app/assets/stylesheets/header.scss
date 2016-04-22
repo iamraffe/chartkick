@@ -28,8 +28,15 @@
     right: -5px;
     top: 65px;
     input{
-      background: image-url("favicon.ico") no-repeat right center;
+      background: image-url("search_icon.png") no-repeat;
       background-color: white;
+      background-size: 20px;
+      background-position: 185px;
+
+      &:focus{
+        border-color: #807f86;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(207, 205, 197, 0.6)
+      }
     }
   }
 
