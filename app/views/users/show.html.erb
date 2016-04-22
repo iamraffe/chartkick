@@ -58,7 +58,7 @@
       <hr>
     </header>
     <% if @user.charts.blank? %>
-      <h2><%= @user.first_name %> has no charts yet.</h2>
+      <h1><%= @user.first_name %> has no charts yet.</h1>
     <% else %>
       <ul class="list-unstyled">
       <% @user.charts.order(:created_at => :desc).each do |chart| %>

@@ -13,11 +13,6 @@ class UsersController < ApplicationController
   end
 
   def get_autocomplete_items(parameters)
-    # byebug
-    # items = active_record_get_autocomplete_items(parameters)
-    # items = items.where(searchable: true)
-    # byebug
-    query = parameters[:term]
-    items = User.full_name(query).limit(10).order(last_name: :ASC)
+    items = User.full_name(parameters[:term]).limit(10).order(last_name: :ASC)
   end
 end
