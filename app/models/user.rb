@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   # validates_associated :caregivers # More on this later
 
   # for workers and leaders
-  # def care_team
-  #   care_teams.first
-  # end
+  def primary_care_team
+    care_teams.first
+  end
 end

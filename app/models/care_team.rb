@@ -6,15 +6,15 @@ class CareTeam < ActiveRecord::Base
   # validates_associated :caregivers # More on this later
 
   def doctor
-    users.with_role :doctor
+    users.with_role(:doctor).first
   end
 
   def nurse
-    users.with_role :nurse
+    users.with_role(:nurse).first
   end
 
   def naturopath
-    users.with_role :naturopath
+    users.with_role(:naturopath).first
   end
 
   def patients
