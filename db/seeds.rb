@@ -57,6 +57,18 @@ naturopath = User.create({
 
 naturopath.add_role :naturopath
 
+CareTeam.destroy_all
+
+c = CareTeam.create
+
+c.users << nurse
+
+c.users << doctor
+
+c.users << naturopath
+
+c.save
+
 #  CREATE MICHU
 
 u = User.create({
@@ -71,8 +83,10 @@ u = User.create({
       heart_disease: [true, false].sample,
       date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago),
       avatar: "http://blogs.mccombs.utexas.edu/mba-insider/files/2014/05/michu-benaim-wb71dy-150x150.jpg",
-      pcc: doctor
+      # care_teams: c
     })
+
+u.care_teams << c
 
 u.add_role :patient
 
@@ -91,8 +105,10 @@ u.add_role :patient
         heart_disease: [true, false].sample,
         date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago),
         avatar: "https://randomuser.me/api/portraits/thumb/#{['men','women'].sample}/#{(0...99).to_a.sample}.jpg",
-        pcc: doctor
+        # care_teams: c
       })
+
+  u.care_teams << c
 
   u.add_role :patient
 end

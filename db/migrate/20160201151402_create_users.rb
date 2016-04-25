@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :heart_disease
       t.json :elation_payload
       t.integer :elation_id, limit: 8
-      t.references :pcc, index: true
+      t.references :care_teams, index: true
       t.timestamps null: false
     end
   end

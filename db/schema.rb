@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420224945) do
+ActiveRecord::Schema.define(version: 20160425215358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "care_teams", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "caregivers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "care_team_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "charts", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -118,7 +130,7 @@ ActiveRecord::Schema.define(version: 20160420224945) do
     t.boolean  "heart_disease"
     t.json     "elation_payload"
     t.integer  "elation_id",             limit: 8
-    t.integer  "pcc_id"
+    t.integer  "care_teams_id"
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.string   "avatar"
@@ -134,8 +146,8 @@ ActiveRecord::Schema.define(version: 20160420224945) do
     t.string   "last_sign_in_ip"
   end
 
+  add_index "users", ["care_teams_id"], name: "index_users_on_care_teams_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["pcc_id"], name: "index_users_on_pcc_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|

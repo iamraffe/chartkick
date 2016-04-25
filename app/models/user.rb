@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
   has_many :interventions
   has_and_belongs_to_many :notifications
 
-  has_many :patients, class_name: "User",
-                          foreign_key: "pcc_id"
+  # has_many :patients, class_name: "User",
+  #                         foreign_key: "pcc_id"
 
-  belongs_to :pcc, class_name: "User"
+  # belongs_to :pcc, class_name: "User"
 
   scope :full_name, lambda { |query|
     query.downcase!
@@ -28,4 +28,14 @@ class User < ActiveRecord::Base
   def is_physician?
     has_role?(:doctor) || has_role?(:naturopath)
   end
+
+  has_many :caregivers
+  has_many :care_teams, through: :caregivers, dependent: :destroy
+
+  # validates_associated :caregivers # More on this later
+
+  # for workers and leaders
+  # def care_team
+  #   care_teams.first
+  # end
 end
