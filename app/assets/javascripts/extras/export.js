@@ -1,11 +1,24 @@
-function slugify(text)
+function slugify(name, type)
 {
-  return text.toString().toLowerCase()
+  name = name.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -
     .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
     .replace(/\-\-+/g, '-')         // Replace multiple - with single -
     .replace(/^-+/, '')             // Trim - from start of text
     .replace(/-+$/, '');            // Trim - from end of text
+  console.log(name, type)
+  name = name.split("-")
+  var date = new Date()
+
+  return date.getFullYear().toString().substr(2,2)+
+          "-"+
+          (date.getMonth()+1).toString()+
+          "_"+
+          name[1]+
+          "-"+
+          name[0]+
+          "-"+
+          type;
 }
 
 function deleteName(){
@@ -20,11 +33,16 @@ function deleteName(){
 
 DVE.Graph.prototype.export = function () {
   var name = $("#graph").attr('data-name');
+
+  console.log("NAME => ", name)
+  var type = $("#graph").parent().attr('data-type');
+
+  console.log("TYPE => ", type)
   //ADD PATIENT NAME
   d3.select("svg")
     .append('text')
       .attr('class', 'patient-name-svg')
-      .text(name)
+      .text(type.toUpperCase() + "CHART: " + name)
         // .attr("text-anchor", "middle")
         .attr('x', 135)
         .attr('y', 25)
@@ -46,7 +64,7 @@ DVE.Graph.prototype.export = function () {
     data: blob,
     success: function(response){
       var link = document.createElement('a');
-      link.download = slugify(name)+Date.now()+".png";
+      link.download = slugify(name, type)+".png";
       link.href= "data:image/svg+xml;base64," +  response.png;
       document.body.appendChild(link);
       link.click();
