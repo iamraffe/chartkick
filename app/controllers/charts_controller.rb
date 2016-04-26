@@ -19,9 +19,11 @@ class ChartsController < ApplicationController
         @chart.previous_step
       elsif @chart.last_step?
         @chart.save if @chart.all_valid?
+        @chart.update_attributes(approved: true) if current_user.has_role?(:doctor)
         Entry.create_and_link(@chart, session[:entry_params])
         Intervention.create_and_link(@chart, session[:intervention_params])
-        Notification.create(receiver_id: @chart.user.pcc.id, sender_id: current_user.id, subject: "A new #{@chart.type} chart for #{@chart.user.full_name} has been created.", content: "Please, review and approve the chart.", action_url: "/charts/#{@chart.id}")
+        @chart.send_notice_from(current_user)
+        # Notification.create(receiver_id: @chart.user.pcc.id, sender_id: current_user.id, subject: "A new #{@chart.type} chart for #{@chart.user.full_name} has been created.", content: "Please, review and approve the chart.", action_url: "/charts/#{@chart.id}")
       else
         @chart.next_step
       end
@@ -64,6 +66,12 @@ class ChartsController < ApplicationController
   def clean_session
     SessionHelper.clean(session)
     redirect_to chart_index_path
+  end
+
+  def approve
+    @chart = Chart.find(params[:id])
+    @chart.approve!(current_user)
+    redirect_to "/charts/#{@chart.id}"
   end
 
   private

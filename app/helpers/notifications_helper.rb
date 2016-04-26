@@ -23,13 +23,15 @@ module NotificationsHelper
         notifications.each do |notification|
           list += %Q{<li class='notification row'>
                     <hr>
-                    <span class='fa fa-bar-chart fa-2x'></span>
-                    <span class='notification-subject'>
-                      #{notification.subject }
-                    </span>
-                    <span class='notification-created-at'>
-                      #{time_ago_in_words(notification.created_at, include_seconds: true)} ago
-                    </span>
+                    <a href='#{notification.action_url}'>
+                      <span class='fa fa-bar-chart fa-2x'></span>
+                      <span class='notification-subject'>
+                        #{notification.subject }
+                      </span>
+                      <span class='notification-created-at'>
+                        #{time_ago_in_words(notification.created_at, include_seconds: true)} ago
+                      </span>
+                    </a>
                   </li>}
         end
     list += "</ul>"

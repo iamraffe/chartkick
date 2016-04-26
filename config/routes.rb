@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   get 'charts', to: 'charts#index', as: 'chart_index'
 
+  put 'charts/:id/approve', to: 'charts#approve', as: 'approve'
+
   get '/chart-session', to: 'charts#chart_session'
 
   post "/charts/export/", to: "charts#export"

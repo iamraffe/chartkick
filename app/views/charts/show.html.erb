@@ -8,8 +8,8 @@
   <div class="row">
     <%= link_to "Make Another Chart", root_path, class: "btn btn-primary btn-lg " %>
     <%= link_to "View #{@chart.user.full_name}'s patient history", "/users/#{@chart.user.id}", class: "btn btn-primary btn-lg ", style: "margin-left: 15px" %>
-    <% unless @chart.approved  %>
-      <button class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</button>
+    <% if !@chart.approved && current_user.has_role?(:doctor)  %>
+      <a href="/charts/<%= @chart.id %>/approve" data-method="put" class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</a>
     <% end %>
     <%= "<button id='export' class='btn-lg btn pull-right btn-primary'>Export</button>".html_safe unless !@chart.approved %>
   </div>

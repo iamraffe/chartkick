@@ -42,7 +42,7 @@ DVE.Graph.prototype.export = function () {
   d3.select("svg")
     .append('text')
       .attr('class', 'patient-name-svg')
-      .text(type.toUpperCase() + "CHART: " + name)
+      .text(type.toUpperCase() + " CHART: " + name)
         // .attr("text-anchor", "middle")
         .attr('x', 135)
         .attr('y', 25)
