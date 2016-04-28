@@ -1,17 +1,36 @@
   <div class="row">
-    <div class="col-sm-4 pull-right" style=" margin-right: 15px; border: 2px dashed #51E800; padding-right: 85px; padding-top: 15px; padding-bottom: 25px; border-radius: 3px;">
-      <p class="text-right" style="margin-right: 35px;">Select Your View Below</p>
-      <% if @chart.type == "Cholesterol" %>
-        <div class="row" style="margin-top: 7.5px;">
-          <label class="radio-inline pull-right" style="margin-left: 10px;"><input class="pull-right" type="radio" name="optradio" value="other">Other indicators</label>
-          <label class="radio-inline pull-right"><input class="pull-right" type="radio" name="optradio" value="gauge">Your &lt;3 ratio</label>
-          <label class="radio-inline pull-right"><input class="pull-right" type="radio" name="optradio" value="all" checked>All</label>
+    <button class="btn-slim btn-dark btn-block btn-header">
+      Select Your View
+    </button>
+  </div>
+  <div class="row">
+    <% if @chart.type == "Cholesterol" %>
+      <div class="col-xs-12 chart-controls">
+        <div class="radio">
+          <label><input type="radio" name="optradio" value="all" checked>All</label>
         </div>
-      <% end %>
-      <div class="row" style="margin-top: 7.5px;">
-        <label  class="pull-right"  style="margin-left: 10px;"><input name="visible_interventions" type="checkbox" checked class="pull-right"  style="margin-left: 10px;" value="event"> Events</label>
-        <label  class="pull-right"  style="margin-left: 10px;"><input name="visible_interventions" type="checkbox" checked class="pull-right"  style="margin-left: 10px;" value="lifestyle"> Lifestyle</label>
-        <label  class="pull-right" style="margin-left: 10px;"><input name="visible_interventions" type="checkbox" checked class="pull-right"  style="margin-left: 10px;" value="medication"> Medication</label>
+        <div class="radio">
+          <label><input type="radio" name="optradio" value="gauge">Your &lt;3 ratio</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" value="other">Other indicators</label>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <hr>
+      </div>
+    <% end %>
+  </div>
+  <div class="row intervention-controls">
+    <div class="col-xs-12">
+      <div class="checkbox disabled">
+        <label><input name="visible_interventions" type="checkbox" value="medication">Medication</label>
+      </div>
+      <div class="checkbox">
+        <label><input name="visible_interventions" type="checkbox" value="lifestyle">Lifestyle</label>
+      </div>
+      <div class="checkbox">
+        <label><input name="visible_interventions" type="checkbox" value="event">Events</label>
       </div>
     </div>
   </div>

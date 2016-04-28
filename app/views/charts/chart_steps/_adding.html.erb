@@ -8,15 +8,6 @@
 
     <div class="row manual-input">
       <table class="table table-for-<%= @chart.keys.size.to_s %> cholesterol-data">
-  <!--         <thead>
-          <tr>
-            <th>#</th>
-            <th class='<%= "col-sm-#{@chart.keys.size+1}" %>'>Date</th>
-            <% @chart.keys.each do |key| %>
-              <%= raw("<th>#{key}</th>") %>
-            <% end %>
-          </tr>
-        </thead> -->
         <tbody>
           <% if @entries.blank? %>
             <% if session[:entry_params]['date'] %>
@@ -51,15 +42,6 @@
 
     <div class="copy-paste-input hide">
       <table class="table cholesterol-data" data-size="<%= @entries.nil? ? 0 : @entries.size %>">
-  <!--       <thead>
-          <tr>
-            <th>#</th>
-            <th class='<%= "col-sm-#{@chart.keys.size+1}" %>'>Date</th>
-            <% @chart.keys.each do |key| %>
-              <%= raw("<th>#{key}</th>") %>
-            <% end %>
-          </tr>
-        </thead> -->
         <tbody>
           <% if !@entries.blank? %>
             <% if session[:entry_params]['date'] %>

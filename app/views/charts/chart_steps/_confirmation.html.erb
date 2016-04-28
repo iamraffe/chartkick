@@ -1,4 +1,30 @@
-<h2>You're all set!</h2>
-<h3>A <i><em><%= @chart.type.underscore.humanize.titleize %></em> Data Chart</i> for the patient <strong class="patient-name"><%= @chart.user.full_name %></strong> has been created.</h3>
-<%= render "charts/partials/controls" %>
-<div class="row" id="session-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="chart-session"><div id="graph"></div><div class="chart-gauge"></div></div>
+<div class="confirmation-step">
+  <div class="col-sm-9">
+    <section class="row">
+      <header class="col-sm-12">
+        <h1>You're all set!</h1>
+        <h2>A <i><em><%= @chart.type.underscore.humanize.titleize %></em> Data Chart</i> for the patient <strong class="patient-name"><%= @chart.user.full_name %></strong> has been created.</h2>
+      </header>
+    </section>
+    <section class="row">
+      <div class="col-sm-8">
+        <div class="row" id="session-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="chart-session">
+          <div id="graph"></div><div class="chart-gauge"></div>
+        </div>
+      </div>
+      <div class="col-sm-4 svg-controls">
+        <%= render "charts/partials/controls" %>
+      </div>
+    </section>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-6">
+            <%= f.submit current_user.has_role?(:doctor) ? "Save" : "Send for Approval", class: "btn btn-light btn-block btn-slim" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

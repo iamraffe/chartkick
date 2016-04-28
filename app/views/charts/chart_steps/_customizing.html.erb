@@ -1,35 +1,44 @@
 <div class="customizing-step">
-  <div class="col-sm-6">
+  <div class="col-sm-9">
     <section class="row">
-      <header class="col-sm-6">
-        <h1>Great! Do you have any interventions to add?</h1>
-        <h2>Otherwise continue to save the chart.</h2>
-      </header>
-      <aside class="col-sm-6">
-        <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
-          Add intervention
-        </button>
-      </aside>
-    </section>
-<!--     <div class="row">
-      <div class="col-sm-6">
-        <h1>Great! Do you have any interventions to add?</h1>
+      <div class="col-sm-8">
+        <div class="row">
+          <header class="col-sm-6">
+            <h1>Great! Do you have any interventions to add?</h1>
+            <h2>Otherwise continue to save the chart.</h2>
+          </header>
+          <aside class="col-sm-6">
+            <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
+              Add intervention
+            </button>
+          </aside>
+        </div>
       </div>
-    </div> -->
-  
+    </section>
     <section class="row">
-      <div class="col-xs-12">
-        <header>
-          <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h1>
+      <div class="col-sm-8">
+        <header class="row">
+          <div class="col-xs-12">
+            <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h1>
+          </div>
         </header>
-        <div class="row" id="session-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="chart-session"><div id="graph"></div><div class="chart-gauge"></div></div>
+        <div class="row" id="session-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="chart-session">
+          <div id="graph"></div><div class="chart-gauge"></div>
+        </div>
+      </div>
+      <div class="col-sm-4 svg-controls">
+        <%= render "charts/partials/controls" %>
       </div>
     </section>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-6">
+            <%= f.submit "Continue",  class: "btn-continue btn btn-slim btn-light btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="col-sm-3">
-    <%= render "charts/partials/controls" %>
-  </div>
-
 </div>
 

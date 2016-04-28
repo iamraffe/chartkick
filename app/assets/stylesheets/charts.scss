@@ -1,6 +1,6 @@
 /*
 
-NEW - NAMING
+NEW
 
  */
 
@@ -15,11 +15,8 @@ NEW - NAMING
       font-weight: 500;
       line-height: 20px;
     }
-    hr{
-      border-color: black;
-      margin-bottom: 0px;
-    }
   }
+
 }
 
 .chart-current-step{
@@ -133,23 +130,68 @@ NEW - NAMING
       }
     }
   }
+
+  .customizing-step{
+    svg{
+      background: white;
+      margin-top: 15px;
+    }
+
+    .svg-controls{
+      margin-top: 45px;
+
+      .intervention-controls, .chart-controls{
+        margin-top: 15px;
+        padding-left: 15px;
+      }
+    }
+  }
+
+  .confirmation-step{
+    svg{
+      background: white;
+      margin-top: 15px;
+    }
+
+    .svg-controls{
+      margin-top: 15px;
+
+      .intervention-controls, .chart-controls{
+        margin-top: 15px;
+        padding-left: 15px;
+      }
+    }
+  }
 }
 
-// tr{
-//   position: relative;
+/*
 
-//   td{
-//     position: relative;
-//   }
+SHOW
 
-//   span.fa{
-//     position:absolute;
-//     top: 8.5px;
-//     left: -5px;
-//     cursor: pointer;
+ */
 
-//     &:hover, &:focus{
-//       color: darken(red, 15%);
-//     }
-//   }
-// }
+.chart-viewer{
+  header{
+    h1{
+      font-family: "Open Sans" !important;
+      text-transform: none;
+      text-align: left;
+      font-size: 20px;
+      letter-spacing: 0;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+  svg{
+    background: white;
+    margin-top: 35px;
+  }
+  .svg-controls{
+    margin-top: 100px;
+
+    .intervention-controls, .chart-controls{
+      margin-top: 15px;
+      padding-left: 15px;
+    }
+  }
+}

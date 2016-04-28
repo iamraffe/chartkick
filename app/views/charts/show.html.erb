@@ -1,4 +1,4 @@
-
+<!--
   <div class="row">
     <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name %></span></h1>
   </div>
@@ -12,5 +12,45 @@
       <a href="/charts/<%= @chart.id %>/approve" data-method="put" class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</a>
     <% end %>
     <%= "<button id='export' class='btn-lg btn pull-right btn-primary'>Export</button>".html_safe unless !@chart.approved %>
+  </div> -->
+
+<section class="chart-viewer">
+  <div class="col-sm-3">
+
   </div>
+  <div class="col-sm-9">
+    <section class="row">
+      <div class="col-sm-8">
+        <header class="row">
+          <div class="col-xs-12">
+            <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h1>
+            <hr>
+          </div>
+        </header>
+        <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>">
+          <div id="graph" data-name="<%= @chart.user.full_name.upcase %>"></div>
+        </div>
+      </div>
+      <div class="col-sm-4 svg-controls">
+        <%= render "charts/partials/controls" %>
+      </div>
+    </section>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-6">
+            <%= link_to "Make Another Chart", root_path, class: "btn btn-light btn-block btn-slim" %>
+            <%= link_to "View #{@chart.user.first_name}'s profile", "/users/#{@chart.user.id}", class: "btn btn-light btn-block btn-slim" %>
+          </div>
+          <div class="col-sm-6">
+            <% if !@chart.approved && current_user.has_role?(:doctor)  %>
+              <a href="/charts/<%= @chart.id %>/approve" data-method="put" class='btn btn-light btn-block btn-slim' style="margin-left: 15px;">Approve</a>
+            <% end %>
+            <%= "<button id='export' class='btn btn-light btn-block btn-slim'>Export</button>".html_safe unless !@chart.approved %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
