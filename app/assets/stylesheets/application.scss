@@ -34,6 +34,7 @@ PROJECT SASS COMPONENTS
 @import "dashboard";
 @import "users";
 @import "charts";
+@import "interventions";
 
 td > input{
   border: none;
@@ -41,9 +42,9 @@ td > input{
   outline: none !important;
 }
 
-#chart-print{
-  width: 21cm;
-}
+// #chart-print{
+//   width: 21cm;
+// }
 
 .container.copy-paste{
   margin-bottom: 250px;
@@ -56,10 +57,10 @@ td > input{
 }
 
 
-p.dataHeaders{
-  height: 30px;
-  padding: 15px 15px 10px;
-}
+// p.dataHeaders{
+//   height: 30px;
+//   padding: 15px 15px 10px;
+// }
 
 .textInputs {
   border: none;

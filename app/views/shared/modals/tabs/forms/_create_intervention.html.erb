@@ -3,14 +3,12 @@
   <input type="hidden" name="index" value="1">
   <input type="hidden" name="intervention[1][type]" value="<%= intervention_type %>">
   <div class="row">
-    <div class="col-xs-8 col-xs-offset-1">
-      <div class="col-sm-4">
+    <div class="form-group">
+      <div class="col-sm-3">
         <label for="intervention[1][title]" class="pull-right"><%= intervention_type.titleize %></label>
       </div>
-      <div class="col-sm-8">
-        <div class="form-group">
-          <input type="text" class="form-control js--intervention--title" name="intervention[1][title]" placeholder="(ie: Crestor, Simcor...)">
-        </div>
+      <div class="col-sm-5">
+        <input type="text" class="form-control js--intervention--title" name="intervention[1][title]" placeholder="(ie: Crestor, Simcor...)">
       </div>
     </div>
   </div>
@@ -18,32 +16,43 @@
     <%= create_form_input(intervention_type).html_safe %>
   </div>
   <div class="row">
-    <div class="form-group col-sm-5">
-      <label for="intervention[start]">Start date</label>
-      <input type="date" class="form-control" name="intervention[1][start]">
+    <div class="form-group">
+      <div class="col-sm-3">
+        <label for="intervention[start]" class="pull-right">Start date</label>
+      </div>
+      <div class="col-sm-5">
+        <input type="date" class="form-control" name="intervention[1][start]">
+      </div>
     </div>
-    <div class="form-group col-sm-5 col-sm-offset-1">
-      <div class="row">
-        <label for="intervention[end]">End date</label>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <div class="col-sm-3">
+        <label for="intervention[end]" class="pull-right">End date</label>
+      </div>
+      <div class="col-sm-5">
         <input type="date" class="form-control intervention-end-date" name="intervention[1][end]">
       </div>
-      <div class="row">
+      <div class="col-sm-4">
         <div class="checkbox">
-          <label><input type="checkbox" value="" id="end-date-current">Current</label>
+          <label><input type="checkbox" value="" id="end-date-current">Current Date</label>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="checkbox">
-      <label><input type="checkbox" value="" id="active">Active</label>
+    <div class="col-sm-8 col-sm-offset-3">
+      <div class="row">
+        <div class="checkbox">
+          <label><input type="checkbox" value="" id="active">Active</label>
+        </div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-light btn-slim btn-block submit-and-continue" disabled="true">Add Another Intervention</button>
+      </div>
+      <div class="row">
+        <button type="submit" class="submit-and-exit btn btn-light btn-slim btn-block" name="intervention[save-and-exit]" value="true" disabled="true">Save &amp; Exit</button>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;" disabled="true"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
-  </div>
-  <div class="row">
-    <button type="submit" class="submit-and-exit btn btn-primary pull-right" name="intervention[save-and-exit]" value="true" disabled="true">Save &amp; Exit</button>
-    <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
   </div>
 </form>

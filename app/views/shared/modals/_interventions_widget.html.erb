@@ -1,7 +1,13 @@
 <!-- Modal -->
-<div class="modal fade" id="interventions-widget" tabindex="-1" role="dialog" aria-labelledby="intervention-widget-label">
+<div class="modal fade interventions-widget" id="interventions-widget" tabindex="-1" role="dialog" aria-labelledby="intervention-widget-label">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
+        <div class="modal-header">
+          <button class="btn-back btn btn-link" data-dismiss="modal">
+            <span class="fa fa-times"></span>
+            Close
+          </button>
+        </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-8">
@@ -26,8 +32,7 @@
               </div>
             </div>
             <div class="col-sm-4">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <div id="intervention-wrapper" style="margin-top:50px;">
+              <div id="intervention-wrapper" style="margin-top:50px; padding-left: 35px;">
                 <div class="row added-interventions">
                   <span>Medications: </span>
                   <ul class="list-unstyled" id="added-medication-interventions" data-type="medication">
