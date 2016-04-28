@@ -50,6 +50,19 @@ NEW - NAMING
   }
 
   .adding-step{
+    aside{
+      h1{
+        font-family: "Open Sans" !important;
+        text-transform: none;
+        text-align: left;
+        font-size: 12px;
+        letter-spacing: 0;
+        font-weight: 500;
+        line-height: 20px;
+        margin: 5px auto;
+        text-align: center;
+      }
+    }
     .patient-name{
       font-weight: 600;
       text-decoration: none;
@@ -57,6 +70,7 @@ NEW - NAMING
 
     .manual-input{
       table{
+        margin-bottom: 5px;
 
         &.table-for-4{
           max-width: 575px;

@@ -8,7 +8,7 @@
     </header>
     <%= form_for @chart, url: chart_index_path do |f| %>
       <div class="col-xs-3">
-        <%= f.button "Back", :name => "back_button",  class: "btn-back btn btn-danger btn-lg pull-left"  unless @chart.first_step? %>
+        <%= f.button "<span class='fa fa-arrow-left'></span> <span class='text'>Back</span>".html_safe, :name => "back_button",  class: "btn-back btn btn-link"  unless @chart.first_step? %>
       </div>
       <section class="row chart-current-step">
         <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>

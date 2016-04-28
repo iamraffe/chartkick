@@ -1,103 +1,112 @@
-<div class="adding-step col-xs-6">
-  <header class="row">
-    <h1>Please add the <%= @chart.type.underscore.humanize.titleize %> data for: <span class="patient-name"> <%= @chart.user.full_name %></span></h1>
-    <h2>Make sure to include the date for each test.</h2>
-  </header>
+<div class="adding-step">
+  <div class="col-sm-6">
+    <header class="row">
+      <h1>Please add the <%= @chart.type.underscore.humanize.titleize %> data for: <span class="patient-name"> <%= @chart.user.full_name %></span></h1>
+      <h2>Make sure to include the date for each test.</h2>
+    </header>
 
-  <div class="row input-mode">
-    <div class="copy-paste-mode">
-      <button class="btn btn-primary btn-sm pull-right activate-copy-paste">Activate copy paste mode</button>
-      <h4 class="pull-right">Do you have the data handy?</h4>
-    </div>
-    <div class="manual-mode hide">
-      <button class="btn btn-primary btn-sm pull-right activate-copy-paste">Manual input mode</button>
-      <h4 class="pull-right">Prefer to input the data yourself? Return to </h4>
-    </div>
-    <div class="start-over-mode hide">
-      <button class="btn btn-danger btn-sm pull-right start-over" style="margin-left: 50px;">Start over</button>
-      <button class="btn btn-info btn-sm pull-right clear-copy-paste">Clear pasted data</button>
-      <!-- <h4 class="pull-right">Prefer to input the data yourself? Return to </h4> -->
-    </div>
-  </div>
-  <div class="row manual-input">
-    <table class="table table-for-<%= @chart.keys.size.to_s %> cholesterol-data">
-<!--         <thead>
-        <tr>
-          <th>#</th>
-          <th class='<%= "col-sm-#{@chart.keys.size+1}" %>'>Date</th>
-          <% @chart.keys.each do |key| %>
-            <%= raw("<th>#{key}</th>") %>
-          <% end %>
-        </tr>
-      </thead> -->
-      <tbody>
-        <% if @entries.blank? %>
-          <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, true)) %>
+
+    <div class="row manual-input">
+      <table class="table table-for-<%= @chart.keys.size.to_s %> cholesterol-data">
+  <!--         <thead>
+          <tr>
+            <th>#</th>
+            <th class='<%= "col-sm-#{@chart.keys.size+1}" %>'>Date</th>
+            <% @chart.keys.each do |key| %>
+              <%= raw("<th>#{key}</th>") %>
+            <% end %>
+          </tr>
+        </thead> -->
+        <tbody>
+          <% if @entries.blank? %>
+            <% if session[:entry_params]['date'] %>
+              <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, true)) %>
+            <% else %>
+              <% 5.times do |i| %>
+                <tr>
+                  <td><span id="fa-<%= (i) %>" class="fa fa-times text-danger fa-2x"></span><%= (i+1) %></td>
+                  <td><input type="date" name="entry[date[<%= (i+1) %>]]" class="session--input"></td>
+                  <% @chart.keys.each do |key| %>
+                    <%= raw("<td><input class='session--input' type='text' name='entry[#{key.parameterize.underscore}[#{(i+1)}]]'  placeholder='#{key}'></td>") %>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end %>
           <% else %>
-            <% 5.times do |i| %>
-              <tr>
-                <td><span id="fa-<%= (i) %>" class="fa fa-times text-danger fa-2x"></span><%= (i+1) %></td>
-                <td><input type="date" name="entry[date[<%= (i+1) %>]]" class="session--input"></td>
-                <% @chart.keys.each do |key| %>
-                  <%= raw("<td><input class='session--input' type='text' name='entry[#{key.parameterize.underscore}[#{(i+1)}]]'  placeholder='#{key}'></td>") %>
-                <% end %>
-              </tr>
+            <% if session[:entry_params]['date'] %>
+              <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false)) %>
+              <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, true, @entries.size)) %>
+            <% else %>
+              <%= raw(construct_table_from_database(@entries, @chart.type.camelize, true)) %>
             <% end %>
           <% end %>
-        <% else %>
-          <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, true, @entries.size)) %>
-          <% else %>
-            <%= raw(construct_table_from_database(@entries, @chart.type.camelize, true)) %>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+      <div class="col-sm-6 col-sm-offset-6">
+        <%= f.submit "Continue",  class: "btn-continue btn btn-slim btn-light btn-block" %>
+        <button class="random btn btn-slim btn-light btn-block" style="margin-bottom: 5px; margin-top: 50px;">Generate random numbers</button>
+        <button class="add-row btn btn-slim btn-light btn-block" style="margin-bottom: 25px;">Add row</button>
+      </div>
+    </div>
 
-    <button class="random btn btn-primary" style="margin-bottom: 25px;">Generate random numbers</button>
-    <button class="add-row btn btn-primary pull-right" style="margin-bottom: 25px;">Add row</button>
-  </div>
-
-  <div class="copy-paste-input hide">
-    <table class="table cholesterol-data" data-size="<%= @entries.nil? ? 0 : @entries.size %>">
-<!--       <thead>
-        <tr>
-          <th>#</th>
-          <th class='<%= "col-sm-#{@chart.keys.size+1}" %>'>Date</th>
-          <% @chart.keys.each do |key| %>
-            <%= raw("<th>#{key}</th>") %>
-          <% end %>
-        </tr>
-      </thead> -->
-      <tbody>
-        <% if !@entries.blank? %>
-          <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false)) %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, false, @entries.size)) %>
+    <div class="copy-paste-input hide">
+      <table class="table cholesterol-data" data-size="<%= @entries.nil? ? 0 : @entries.size %>">
+  <!--       <thead>
+          <tr>
+            <th>#</th>
+            <th class='<%= "col-sm-#{@chart.keys.size+1}" %>'>Date</th>
+            <% @chart.keys.each do |key| %>
+              <%= raw("<th>#{key}</th>") %>
+            <% end %>
+          </tr>
+        </thead> -->
+        <tbody>
+          <% if !@entries.blank? %>
+            <% if session[:entry_params]['date'] %>
+              <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false)) %>
+              <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, false, @entries.size)) %>
+            <% else %>
+              <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false)) %>
+            <% end %>
           <% else %>
-            <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false)) %>
+            <% if session[:entry_params]['date'] %>
+              <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, false)) %>
+            <% end %>
           <% end %>
-        <% else %>
-          <% if session[:entry_params]['date'] %>
-            <%= raw(construct_table_from_session_params(session[:entry_params], @chart.type.camelize, false)) %>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  <div class="row">
-    <div class="col-xs-12">
-      <div id='base'>
-        <div class="row">
-          <div id='converter' class='' data-keys="<%= @chart.keys %>">
+        </tbody>
+      </table>
+    <div class="row">
+      <div class="col-xs-12">
+        <div id='base'>
+          <div class="row">
+            <div id='converter' class='' data-keys="<%= @chart.keys %>">
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <button class="add-row btn btn-slim btn-light btn-block" style="margin-bottom: 25px; margin-top: 75px;">Add row</button>
+      </div>
+    </div>
+    </div>
   </div>
-  <div class="row">
-    <button class="add-row btn btn-primary pull-right" style="margin-bottom: 25px;">Add row</button>
-  </div>
-  </div>
+  <aside class="col-sm-3">
+    <div class="row input-mode">
+      <div class="copy-paste-mode">
+        <h1>Do you have the data handy?</h1>
+        <button class="btn btn-light btn-slim btn-block activate-copy-paste">Activate copy paste mode</button>
+      </div>
+      <div class="manual-mode hide">
+        <h1>Prefer to input the data yourself? Return to </h1>
+        <button class="btn btn-light btn-slim btn-block activate-copy-paste">Manual input mode</button>
+      </div>
+      <div class="start-over-mode hide">
+        <button class="btn btn-light btn-slim btn-block start-over" style="margin-left: 50px;">Start over</button>
+        <button class="btn btn-light btn-slim btn-block clear-copy-paste">Clear pasted data</button>
+        <!-- <h4 class="pull-right">Prefer to input the data yourself? Return to </h4> -->
+      </div>
+    </div>
+  </aside>
 </div>
