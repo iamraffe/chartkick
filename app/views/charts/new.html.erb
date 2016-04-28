@@ -1,12 +1,15 @@
 <section class="row chart-multi-step">
   <div class="col-xs-12">
     <header class="row">
-      <div class="col-xs-8 col-xs-offset-2">
+      <div class="col-xs-6 col-xs-offset-3">
         <h1>New <%= @chart.type.underscore.humanize %> Chart</h1>
         <hr>
       </div>
     </header>
     <%= form_for @chart, url: chart_index_path do |f| %>
+      <div class="col-xs-3">
+        <%= f.button "Back", :name => "back_button",  class: "btn-back btn btn-danger btn-lg pull-left"  unless @chart.first_step? %>
+      </div>
       <section class="row chart-current-step">
         <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
       </section>

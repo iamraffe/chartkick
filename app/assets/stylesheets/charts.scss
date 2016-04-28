@@ -23,24 +23,118 @@ NEW - NAMING
 }
 
 .chart-current-step{
-  .naming-step{
-    header{
-      h1{
-        font-family: "Open Sans" !important;
-        text-transform: none;
-        text-align: left;
-        font-size: 12px;
-        letter-spacing: 0;
-        font-weight: 500;
-        line-height: 20px;
-      }
+  margin-top: 20px;
+  header{
+    h1, h2{
+      font-family: "Open Sans" !important;
+      text-transform: none;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0;
+      font-weight: 500;
+      line-height: 20px;
+      margin: 5px auto;
     }
-    .seach-query{
-      width: 94.5%;
+  }
+  .naming-step{
+    .input-group{
+      margin-top: 15px;
+    }
+    .search-query{
+      width: 92.5%;
     }
     .btn-continue{
       width: 150%;
       margin-left: -47.5%;
     }
   }
+
+  .adding-step{
+    .patient-name{
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .manual-input{
+      table{
+
+        &.table-for-4{
+          max-width: 575px;
+
+          tr{
+            max-width: 575px;
+          }
+          td,th{
+            // max-width: 50px;
+
+            input{
+              max-width: 100px;
+            }
+          }
+        }
+
+        tr{
+          position: relative;
+          td{
+            position: relative;
+            padding: 0px;
+            line-height: 1.75;
+            vertical-align: top;
+            border-top: none;
+            background: white;
+            /* margin: 5px !important; */
+            border: 7.5px transparent solid;
+            // word-wrap:break-word;
+            // word-break:break-word;
+            &:first-child{
+              padding: 2.5px 7.5px;
+            }
+          }
+
+          input{
+
+              @include placeholder {
+                text-align: center;
+              }
+
+
+          }
+        }
+        th{
+          position: relative;
+        }
+
+        span.fa{
+          position:absolute;
+          top: 1.5px;
+          left: -25px;
+          cursor: pointer;
+
+
+          &:hover, &:focus{
+            color: darken(red, 15%);
+          }
+        }
+      }
+    }
+  }
 }
+
+// tr{
+//   position: relative;
+
+//   td{
+//     position: relative;
+//   }
+
+//   span.fa{
+//     position:absolute;
+//     top: 8.5px;
+//     left: -5px;
+//     cursor: pointer;
+
+//     &:hover, &:focus{
+//       color: darken(red, 15%);
+//     }
+//   }
+// }
