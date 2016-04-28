@@ -1,12 +1,35 @@
-<div class="row">
-  <h2>Great! Do you have any interventions to add?</h2>
-  <h3>Otherwise continue to save the chart.</h3>
-  <button type="button" class="btn btn-info btn-lg pull-right btn-sumome" data-toggle="modal" data-target="#interventions-widget" style="margin-top: -75px; margin-right: 15px;">
-    Add intervention
-  </button>
+<div class="customizing-step">
+  <div class="col-sm-6">
+    <section class="row">
+      <header class="col-sm-6">
+        <h1>Great! Do you have any interventions to add?</h1>
+        <h2>Otherwise continue to save the chart.</h2>
+      </header>
+      <aside class="col-sm-6">
+        <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
+          Add intervention
+        </button>
+      </aside>
+    </section>
+<!--     <div class="row">
+      <div class="col-sm-6">
+        <h1>Great! Do you have any interventions to add?</h1>
+      </div>
+    </div> -->
+  
+    <section class="row">
+      <div class="col-xs-12">
+        <header>
+          <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h1>
+        </header>
+        <div class="row" id="session-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="chart-session"><div id="graph"></div><div class="chart-gauge"></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="col-sm-3">
+    <%= render "charts/partials/controls" %>
+  </div>
+
 </div>
-<%= render "charts/partials/controls" %>
-<div class="row" style="margin-top: -125px;">
-  <h3>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h3>
-  <div class="row" id="session-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="chart-session"><div id="graph"></div><div class="chart-gauge"></div></div>
-</div>
+
