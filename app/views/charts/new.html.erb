@@ -1,18 +1,22 @@
-  <div class="row">
-    <h1 class="text-center" style="text-transform: uppercase">New <%= @chart.type.underscore.humanize %> Chart</h1>
-  </div>
-  <div class="row">
+<section class="row chart-multi-step">
+  <div class="col-xs-12">
+    <header class="row">
+      <h1>New <%= @chart.type.underscore.humanize %> Chart</h1>
+      <hr>
+    </header>
     <%= form_for @chart, url: chart_index_path do |f| %>
-      <div class="row">
+      <section class="row chart-current-step">
         <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
-      </div>
-      <div class="row">
+      </section>
+<!--       <div class="row">
         <%= f.submit "Continue",  class: "btn-continue btn btn-primary btn-lg pull-right btn-sumome" unless @chart.last_step?  %>
         <%= f.submit current_user.has_role?(:doctor) ? "Save" : "Send for Approval", class: "btn-send-for-approval btn btn-success btn-lg pull-right btn-sumome" if @chart.last_step? %>
         <%= f.button "Back", :name => "back_button",  class: "btn-back btn btn-danger btn-lg pull-left"  unless @chart.first_step? %>
-      </div>
+      </div> -->
     <% end %>
   </div>
+</section>
+
 
 
 

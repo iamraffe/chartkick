@@ -1,3 +1,39 @@
-// Place all the styles related to the charts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+
+NEW - NAMING
+
+ */
+
+.chart-multi-step{
+  header{
+    h1{
+      font-family: "Open Sans" !important;
+      text-transform: none;
+      text-align: left;
+      font-size: 20px;
+      letter-spacing: 0;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    hr{
+      border-color: black;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.chart-current-step{
+  .naming-step{
+    header{
+      h1{
+        font-family: "Open Sans" !important;
+        text-transform: none;
+        text-align: left;
+        font-size: 12px;
+        letter-spacing: 0;
+        font-weight: 500;
+        line-height: 20px;
+      }
+    }
+  }
+}

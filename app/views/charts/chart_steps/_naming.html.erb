@@ -1,7 +1,16 @@
-  <h2>Patient name</h2>
-  <h3>Please select a patient from the database using the autocomplete form to continue</h3>
+<div class="naming-step">
+  <header>
+    <h1>Please select a patient from the database using the autocomplete form to continue</h1>
+  </header>
   <div class="form-group">
     <input type="hidden" name="chart[type]" value="" class="session-entry-values" placeholder="<%=  @chart.type unless @chart.type.blank? %>" value="<%=  @chart.type unless @chart.type.blank? %>">
     <input type="hidden" name="chart[user_id]" id="some_element" class="session-entry-values" placeholder="<%=  @chart.user.id unless @chart.user.blank? %>" value="<%=  @chart.user.id unless @chart.user.blank? %>">
-    <input type="search" name="chart[user[full_name]]" id="chart_user" class="search-query form-control ui-autocomplete-input" placeholder="<%=  @chart.user.blank? ? 'Type patient name' : @chart.user.name %>" data-autocomplete="/users/autocomplete_user_full_name" autocomplete="off" data-id-element="#some_element">
+    <div class="input-group">
+      <input type="search" name="chart[user[full_name]]" id="chart_user" class="search-query form-control ui-autocomplete-input" placeholder="<%=  @chart.user.blank? ? 'Type patient name' : @chart.user.name %>" data-autocomplete="/users/autocomplete_user_full_name" autocomplete="off" data-id-element="#some_element">
+      <span class="input-group-btn">
+        <%= f.submit "Continue",  class: "btn-continue btn btn-light btn-form"  %>
+      </span>
   </div>
+  </div>
+</div>
+
