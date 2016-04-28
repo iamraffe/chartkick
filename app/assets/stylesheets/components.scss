@@ -117,6 +117,13 @@ $light-button-dark-background: #d4d0c9;
   }
 }
 
+.btn-form{
+  line-height: 1.75;
+  font-size: 12px;
+  // padding-left: 33.3%;
+  // padding-right: 33.3%;
+}
+
 /*
 
 FLASH MESSAGES
@@ -188,7 +195,7 @@ $colour4: #D2D1CD;
   color: $colour4;
   padding-top: 3.5px;
 }
- 
+
 /* The Scss  */
 [type="search"]{
   @include placeholder {

@@ -1,8 +1,10 @@
 <section class="row chart-multi-step">
   <div class="col-xs-12">
     <header class="row">
-      <h1>New <%= @chart.type.underscore.humanize %> Chart</h1>
-      <hr>
+      <div class="col-xs-8 col-xs-offset-2">
+        <h1>New <%= @chart.type.underscore.humanize %> Chart</h1>
+        <hr>
+      </div>
     </header>
     <%= form_for @chart, url: chart_index_path do |f| %>
       <section class="row chart-current-step">
