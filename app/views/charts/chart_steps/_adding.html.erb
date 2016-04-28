@@ -37,7 +37,7 @@
           <% else %>
             <% 5.times do |i| %>
               <tr>
-                <th scope="row"><span id="fa-<%= (i) %>" class="fa fa-times text-danger fa-2x"></span><%= (i+1) %></td>
+                <td><span id="fa-<%= (i) %>" class="fa fa-times text-danger fa-2x"></span><%= (i+1) %></td>
                 <td><input type="date" name="entry[date[<%= (i+1) %>]]" class="session--input"></td>
                 <% @chart.keys.each do |key| %>
                   <%= raw("<td><input class='session--input' type='text' name='entry[#{key.parameterize.underscore}[#{(i+1)}]]'  placeholder='#{key}'></td>") %>
