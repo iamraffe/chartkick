@@ -204,6 +204,37 @@ $colour4: #D2D1CD;
 }
 
 
+.checkbox{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+input[type=checkbox] {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    background-color: white !important;
+    position: relative !important;
+
+    &:checked{
+      background-image: image-url("checkbox.png");
+    }
+    &:not(:checked){
+      background-image: image-url("checkbox_unchecked.png");
+    }
+    &:focus{
+      outline: none !important;
+    }
+}
+
+
+
 /*
 
 HTML TAGS

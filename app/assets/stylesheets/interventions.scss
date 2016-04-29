@@ -53,7 +53,10 @@
           font-weight: 500;
           margin-right: 15px;
         }
-        input{
+        .form-control{
+          color: white;
+        }
+        input, select{
           background-color: #D8D1CB;
 
             @include placeholder {

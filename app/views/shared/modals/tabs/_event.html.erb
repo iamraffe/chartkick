@@ -4,83 +4,122 @@
     <input type="hidden" name="index" value="1">
     <input type="hidden" name="intervention[1][type]" value="event">
     <div class="row">
-      <div class="col-xs-8 col-xs-offset-1">
-        <div class="form-group">
-          <label class="col-sm-4 control-label">Type:</label>
-          <div class="col-sm-8">
-              <select style="margin-bottom: 15px;" class="form-control js--intervention--title" name="intervention[1][title]">
-                <option selected disabled>Choose one:</option>
-                <option value="surgery">Surgery</option>
-                <option value="procedure">Procedure</option>
-                <option value="incident">Incident</option>
-              </select>
-          </div>
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="control-label pull-right">Type:</label>
+        </div>
+        <div class="col-sm-5">
+            <select class="form-control js--intervention--title" name="intervention[1][title]">
+              <option selected disabled>Choose one:</option>
+              <option value="surgery">Surgery</option>
+              <option value="procedure">Procedure</option>
+              <option value="incident">Incident</option>
+            </select>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-8 col-xs-offset-1">
-        <div class="col-sm-4">
+      <div class="form-group">
+        <div class="col-sm-3">
           <label for="intervention[description]" class="pull-right">Description</label>
         </div>
-        <div class="col-sm-8">
-          <div class="form-group">
-            <input type="text" class="form-control" name="intervention[1][description]" placeholder="(ie: ...)">
-          </div>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" name="intervention[1][description]" placeholder="(ie: ...)">
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-5">
-        <label for="intervention[start]">Start date</label>
-        <input type="date" class="form-control js--intervention--start" name="intervention[1][start]">
+      <div class="col-sm-5 col-sm-offset-3">
+        <div class="checkbox">
+          <label><input type="checkbox" value="" id="event-has-recovery">Recovery Period?</label>
+        </div>
       </div>
-      <div class="form-group col-sm-5 col-sm-offset-1">
-        <div class="js--event--after--effect--end hide">
-          <div class="row ">
-            <label for="intervention[end]">After Effect End date</label>
-            <input type="date" class="form-control intervention-end-date js--intervention--end" name="intervention[1][end]">
-          </div>
-          <div class="row">
-            <div class="checkbox">
-              <label><input type="checkbox" value="" id="end-date-current">Current</label>
-            </div>
-          </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="intervention[start]" class="pull-right">Start date</label>
         </div>
-        <div class="js--event--recovery--period--end hide">
-          <div class="row ">
-            <label for="intervention[end]">Recovery End date</label>
-            <input type="date" class="form-control intervention-end-date js--intervention--end" name="intervention[1][end]">
-          </div>
-          <div class="row">
-            <div class="checkbox">
-              <label><input type="checkbox" value="" id="end-date-current">Current</label>
-            </div>
-          </div>
+        <div class="col-sm-5">
+          <input type="date" class="form-control js--intervention--start" name="intervention[1][start]">
         </div>
-        <div class="row hide">
+        <div class="col-sm-4">
           <div class="checkbox">
-            <label><input type="checkbox" value="" id="event-has-after-effect">After Effect?</label>
+            <label><input type="checkbox" value="" id="start-date-current">Current</label>
+          </div>
+        </div>
+      </div>
+      <div class="js--event--after--effect--end hide">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="intervention[end]" class="pull-right">After Effect End date</label>
+            </div>
+            <div class="col-sm-5">
+              <input type="date" class="form-control intervention-end-date js--intervention--end" name="intervention[1][end]">
+            </div>
+            <div class="col-sm-4">
+              <div class="checkbox">
+                <label><input type="checkbox" value="" id="end-date-current">Current Date</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="js--event--recovery--period--end hide">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-3">
+             <div class="checkbox">
+              <label><input type="checkbox" value="" id="event-has-after-effect">After Effect?</label>
+            </div>
           </div>
         </div>
         <div class="row">
+          <div class="col-sm-3">
+            <label for="intervention[end]" class="pull-right">Recovery End date</label>
+          </div>
+          <div class="col-sm-5">
+
+            <input type="date" class="form-control intervention-end-date js--intervention--end" name="intervention[1][end]">
+          </div>
+          <div class="col-sm-4">
+            <div class="checkbox">
+              <label><input type="checkbox" value="" id="end-date-current">Current</label>
+            </div>
+          </div>
+        </div>
+ <!--        <div class="row">
+          <div class="checkbox">
+            <label><input type="checkbox" value="" id="end-date-current">Current</label>
+          </div>
+        </div> -->
+      </div>
+<!--         <div class="row hide">
+          <div class="checkbox">
+            <label><input type="checkbox" value="" id="event-has-after-effect">After Effect?</label>
+          </div>
+        </div> -->
+<!--         <div class="row">
           <div class="checkbox">
             <label><input type="checkbox" value="" id="event-has-recovery">Recovery Period?</label>
           </div>
+        </div> -->
+
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-3">
+        <div class="row">
+          <div class="checkbox">
+            <label><input type="checkbox" value="" id="active">Active</label>
+          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-light btn-slim btn-block submit-and-continue" disabled="true">Add Another Intervention</button>
+        </div>
+        <div class="row">
+          <button type="submit" class="submit-and-exit btn btn-light btn-slim btn-block" name="intervention[save-and-exit]" value="true" disabled="true">Save &amp; Exit</button>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="checkbox">
-        <label><input type="checkbox" value="" id="active">Active</label>
-      </div>
-    </div>
-    <div class="row">
-      <button type="submit" class="btn submit-and-continue btn-link pull-right" style="margin-right: 25px;"><span class="fa fa-plus text-success"></span> Click to add another intervention</button>
-    </div>
-    <div class="row">
-      <button type="submit" class="submit-and-exit btn btn-primary pull-right" name="intervention[save-and-exit]" value="true">Save &amp; Exit</button>
-      <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
     </div>
   </form>
   <form accept-charset="UTF-8" data-remote="true" method="PUT" id="edit-intervention-data" class="hide" data-edit-type="event">
