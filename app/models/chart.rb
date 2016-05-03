@@ -8,6 +8,7 @@ class Chart < ActiveRecord::Base
 
   def current_step
     @current_step || steps.first
+    # @current_step || (user_id.nil? ? steps.first : steps.second)
   end
 
   def steps
@@ -15,7 +16,11 @@ class Chart < ActiveRecord::Base
   end
 
   def next_step
-    self.current_step = steps[steps.index(current_step)+1]
+    # if current_step == "naming" && !self.user_id.nil?
+    #   self.current_step = steps[steps.index(current_step)+2]
+    # else
+      self.current_step = steps[steps.index(current_step)+1]
+    # end
   end
 
   def previous_step

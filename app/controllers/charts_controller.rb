@@ -5,15 +5,30 @@ class ChartsController < ApplicationController
     session[:chart_params] ||= {}
     session[:entry_params] ||= {}
     session[:intervention_params] ||= []
-    @chart = Chart.new(session[:chart_params].deep_merge!({type: params[:type].classify}))
-    @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    @chart = Chart.new(session[:chart_params].deep_merge!(chart_params))
+    # session[:chart_step] = "adding" unless @chart.user_id.nil?
+    if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
+      # byebug
+      @chart.current_step = "adding"
+    else
+      @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    end
+    # @chart.current_step = session[:chart_step] == "naming" session[:chart_step].nil?
+    # @chart.current_step = @chart.previous_step
   end
 
   def create
     session[:chart_params].deep_merge!(chart_params) if chart_params
     session[:entry_params].deep_merge!(entry_params) if entry_params
     @chart = Chart.new(session[:chart_params])
-    @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
+      # byebug
+      @chart.current_step = "adding"
+    else
+      @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    end
+    # @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    # byebug
     if @chart.valid?
       if params[:back_button]
         @chart.previous_step
@@ -25,11 +40,13 @@ class ChartsController < ApplicationController
         @chart.send_notice_from(current_user)
         # Notification.create(receiver_id: @chart.user.pcc.id, sender_id: current_user.id, subject: "A new #{@chart.type} chart for #{@chart.user.full_name} has been created.", content: "Please, review and approve the chart.", action_url: "/charts/#{@chart.id}")
       else
+        # byebug
         @chart.next_step
       end
       session[:chart_step] = @chart.current_step
     end
     if @chart.new_record?
+      # byebug
       @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
       render "new"
     else

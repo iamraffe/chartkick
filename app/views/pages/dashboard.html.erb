@@ -24,28 +24,28 @@
       Make New Chart
     </button>
     <div class="row dashboard-actions">
-      <%= link_to "AFP", new_chart_path(:type => "afp"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "ALT", new_chart_path(:type => "alt"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Calcium", new_chart_path(:type => "calcium"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Cholesterol", new_chart_path(:type => "cholesterol"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Copper", new_chart_path(:type => "Copper"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Creatine", new_chart_path(:type => "Creatine"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Diastolic Blood Pressure", new_chart_path(:type => "diastolic_blood_pressure"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Ferritin", new_chart_path(:type => "ferritin"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Folate", new_chart_path(:type => "folate"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Hemoglobin A1C", new_chart_path(:type => "hemoglobin_a1c"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Insulin", new_chart_path(:type => "insulin"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Iron", new_chart_path(:type => "iron"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Mercury", new_chart_path(:type => "mercury"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Red Cell", new_chart_path(:type => "red_cell"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Systolic Blood Pressure", new_chart_path(:type => "systolic_blood_pressure"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Testosterone", new_chart_path(:type => "testosterone"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "TSH", new_chart_path(:type => "tsh"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Uric Acid", new_chart_path(:type => "uric_acid"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Viral Load", new_chart_path(:type => "viral_load"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Vitamin B12", new_chart_path(:type => "vitamin_b12"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Vitamin D", new_chart_path(:type => "vitamin_d"), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "White Cell", new_chart_path(:type => "white_cell"), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "AFP", new_chart_path(:chart => {:type => "afp".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "ALT", new_chart_path(:chart => {:type => "alt".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Calcium", new_chart_path(:chart => {:type => "calcium".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Cholesterol", new_chart_path(:chart => {:type => "cholesterol".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Copper", new_chart_path(:chart => {:type => "Copper".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Creatine", new_chart_path(:chart => {:type => "Creatine".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Diastolic Blood Pressure", new_chart_path(:chart => {:type => "diastolic_blood_pressure".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Ferritin", new_chart_path(:chart => {:type => "ferritin".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Folate", new_chart_path(:chart => {:type => "folate".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Hemoglobin A1C", new_chart_path(:chart => {:type => "hemoglobin_a1c".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Insulin", new_chart_path(:chart => {:type => "insulin".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Iron", new_chart_path(:chart => {:type => "iron".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Mercury", new_chart_path(:chart => {:type => "mercury".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Red Cell", new_chart_path(:chart => {:type => "red_cell".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Systolic Blood Pressure", new_chart_path(:chart => {:type => "systolic_blood_pressure".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Testosterone", new_chart_path(:chart => {:type => "testosterone".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "TSH", new_chart_path(:chart => {:type => "tsh".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Uric Acid", new_chart_path(:chart => {:type => "uric_acid".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Viral Load", new_chart_path(:chart => {:type => "viral_load".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Vitamin B12", new_chart_path(:chart => {:type => "vitamin_b12".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Vitamin D", new_chart_path(:chart => {:type => "vitamin_d".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "White Cell", new_chart_path(:chart => {:type => "white_cell".classify}), class: "btn btn-slim btn-light btn-block" %>
     </div>
   </section>
   <section class="col-sm-3 dashboard-panel notifications">
