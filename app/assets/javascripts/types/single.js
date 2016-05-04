@@ -152,7 +152,7 @@ DVE.Graph.prototype.draw_single = function () {
     this.svg.selectAll('.axis line')
         .style('stroke', 'black')
         .style('fill', 'none')
-        .style('stroke-width', 0.05);
+        .style('stroke-width', 0.1);
 
 var label = this.svg.selectAll(".label")
       .data(this.data.entries)

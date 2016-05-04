@@ -34,22 +34,22 @@ function deleteName(){
 DVE.Graph.prototype.export = function () {
   var name = $("#graph").attr('data-name');
 
-  console.log("NAME => ", name)
+  // console.log("NAME => ", name)
   var type = $("#graph").parent().attr('data-type');
 
-  console.log("TYPE => ", type)
+  // console.log("TYPE => ", type)
   //ADD PATIENT NAME
-  d3.select("svg")
-    .append('text')
-      .attr('class', 'patient-name-svg')
-      .text(type.toUpperCase() + " CHART: " + name)
-        // .attr("text-anchor", "middle")
-        .attr('x', 75)
-        .attr('y', 25)
-        .style('fill', 'black')
-        .style("font-weight", "bold")
-        .style("font-size", 26)
-        .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
+  // d3.select("svg")
+  //   .append('text')
+  //     .attr('class', 'patient-name-svg')
+  //     .text(type.toUpperCase() + " CHART: " + name)
+  //       // .attr("text-anchor", "middle")
+  //       .attr('x', 75)
+  //       .attr('y', 25)
+  //       .style('fill', 'black')
+  //       .style("font-weight", "bold")
+  //       .style("font-size", 26)
+  //       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
 
   //SVG TO STRING
   var svg_data = (new XMLSerializer()).serializeToString(d3.select('svg').node());
