@@ -107,9 +107,9 @@ DVE.Graph = function (data, graph_type) {
 
   // console.log(this.data.entries);
   this.data.entries.forEach(function(d) {
-    this.date_axis.push(d.date);
-    var date = this.parseDate(d.date);
 
+    var date = this.parseDate(d.date);
+    this.date_axis.push(date);
     d.date = date;
     d.value = +d.value;
   }.bind(this));

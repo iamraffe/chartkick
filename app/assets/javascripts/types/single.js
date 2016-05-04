@@ -17,6 +17,8 @@ DVE.Graph.prototype.draw_single = function () {
     .tickSize(-this.width)
     .scale(this.y);
 
+    console.log(this.date_axis)
+
   this.xAxis = d3.axisBottom(this.x)
     // .subdivide(true)
     // .tickPadding(10)
@@ -24,7 +26,7 @@ DVE.Graph.prototype.draw_single = function () {
     // .outerTickSize(0)
     .tickSize(0)
     .ticks(5)
-    // .tickArguments(this.date_axis)
+    .tickValues(this.date_axis)
     .tickFormat(d3.timeFormat("%d/%b/%Y"))
     .scale(this.x);
 
@@ -149,7 +151,7 @@ DVE.Graph.prototype.draw_single = function () {
     this.svg.selectAll('.axis line')
         .style('stroke', 'black')
         .style('fill', 'none')
-        .style('stroke-width', 0.15);
+        .style('stroke-width', 0.05);
 
 var label = this.svg.selectAll(".label")
       .data(this.data.entries)
