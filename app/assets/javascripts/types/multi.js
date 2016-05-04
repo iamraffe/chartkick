@@ -200,7 +200,7 @@ var label = this.svg.selectAll(".label")
       .text(function(d) { return d.value; })
     .filter(function(d, i) {
         console.log(d,i)
-        return i < 5
+        return i < 4
       })
     .append("tspan")
       .attr("class", "label-key")

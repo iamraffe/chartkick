@@ -98,8 +98,12 @@ DVE.Graph = function (data, graph_type) {
       .append("svg")
           .attr("class", "chart")
           .attr("width", this.width + this.margin.left + this.margin.right)
-          .attr("height", this.height + this.margin.top + this.margin.bottom)
-          .append("g")
+          .attr("height", this.height + this.margin.top + this.margin.bottom);
+          this.svg.append("rect")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("fill", "white");
+          this.svg=this.svg.append("g")
             .attr("transform",
                   "translate(" + this.margin.left+ "," +  this.margin.top  + ")");
 
