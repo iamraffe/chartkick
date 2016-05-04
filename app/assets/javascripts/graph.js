@@ -80,16 +80,14 @@ DVE.Graph = function (data, graph_type) {
   this.margin = {top: 75, right: 25, bottom: 75, left: 25};
   this.width = 570 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
-  this.parseDate = d3.time.format("%b %Y").parse;
-  this.x = d3.time.scale().range([0, this.width]);
-  this.y = d3.scale.linear().range([this.height, 0]);
-  this.xAxis = d3.svg.axis().scale(this.x)
-      .tickFormat(d3.time.format("%m/%y"))
-      .orient("bottom");
-  this.yAxis = d3.svg.axis().scale(this.y)
-      .ticks(data.entries.length/4)
-      .orient("left");
-  this.drawline = d3.svg.line()
+  this.parseDate = d3.timeParse("%b %Y");
+  this.x = d3.scaleTime().range([0, this.width]);
+  this.y = d3.scaleLinear().range([this.height, 0]);
+  this.xAxis = d3.axisBottom(this.x)
+      .tickFormat(d3.timeParse("%m/%y"));
+  this.yAxis = d3.axisLeft(this.y)
+      .ticks(data.entries.length/4);
+  this.drawline = d3.line()
                           .x(function(d) {
                             return this.x(d.date);
                           }.bind(this))

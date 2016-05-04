@@ -16,7 +16,6 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require autocomplete-rails
-//= require d3
 //= require init
 //= require CSVParser
 //= require Controller

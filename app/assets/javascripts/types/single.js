@@ -117,6 +117,7 @@ var label = this.svg.selectAll(".label")
       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
       .style("font-weight", "bold")
       .style("font-size", 10)
+      .attr("text-anchor", "middle")
       .attr("id", function(d,i){
         return 'val'+d.symbol.replace(/\s+/g, '')+i;
       })
@@ -131,7 +132,7 @@ var label = this.svg.selectAll(".label")
   label.append("rect", "text")
       .datum(function() {
         // console.log(this, this.nextSibling, this.previousSibling)
-        return this.previousSibling.getBBox();
+        return this.nextSibling.getBBox();
       })
       .attr("fill", "white")
       .attr("x", function(d) { return d.x - 3; })
