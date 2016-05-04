@@ -83,7 +83,7 @@ class ChartsController < ApplicationController
 
   def clean_session
     SessionHelper.clean(session)
-    redirect_to chart_index_path
+    redirect_to root_path
   end
 
   def approve

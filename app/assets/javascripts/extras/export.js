@@ -44,7 +44,7 @@ DVE.Graph.prototype.export = function () {
       .attr('class', 'patient-name-svg')
       .text(type.toUpperCase() + " CHART: " + name)
         // .attr("text-anchor", "middle")
-        .attr('x', 135)
+        .attr('x', 75)
         .attr('y', 25)
         .style('fill', 'black')
         .style("font-weight", "bold")
