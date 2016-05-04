@@ -70,7 +70,7 @@ DVE.Graph.prototype.draw_gauge = function () {
     totalPercent += sectionPerc;
     startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
     endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
-    arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
+    arc = d3.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
     chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc);
   }
 

@@ -8,7 +8,7 @@ class ChartsController < ApplicationController
     @chart = Chart.new(session[:chart_params].deep_merge!(chart_params))
     # session[:chart_step] = "adding" unless @chart.user_id.nil?
     if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
-      byebug
+      # byebug
       @chart.current_step = session[:chart_step] = "adding"
     else
       @chart.current_step = session[:chart_step] unless session[:chart_step].nil?

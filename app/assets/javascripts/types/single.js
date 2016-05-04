@@ -129,7 +129,7 @@ DVE.Graph.prototype.draw_single = function () {
         .call(this.yAxis);
 
     this.svg.selectAll('.axis text')
-    .style('fill', 'black')
+    .style('fill', "#EBEBEB")
     .style('stroke-width', 0)
     .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
 
@@ -141,10 +141,11 @@ DVE.Graph.prototype.draw_single = function () {
         this.svg.selectAll(".x.axis text")  // select all the text elements for the xaxis
           .attr("transform", function(d) {
              return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
-         });
+         })
+          .style("fill", "black");
 
     this.svg.selectAll('.axis path')
-        .style('stroke', 'black')
+        .style('stroke', "#EBEBEB")
         .style('fill', 'none')
         .style('stroke-width', 0);
 
