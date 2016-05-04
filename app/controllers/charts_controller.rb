@@ -8,8 +8,8 @@ class ChartsController < ApplicationController
     @chart = Chart.new(session[:chart_params].deep_merge!(chart_params))
     # session[:chart_step] = "adding" unless @chart.user_id.nil?
     if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
-      # byebug
-      @chart.current_step = "adding"
+      byebug
+      @chart.current_step = session[:chart_step] = "adding"
     else
       @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     end
@@ -21,12 +21,13 @@ class ChartsController < ApplicationController
     session[:chart_params].deep_merge!(chart_params) if chart_params
     session[:entry_params].deep_merge!(entry_params) if entry_params
     @chart = Chart.new(session[:chart_params])
-    if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
-      # byebug
-      @chart.current_step = "adding"
-    else
-      @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    end
+    @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    # if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
+    #   byebug
+    #   @chart.current_step = session[:chart_step] = "adding"
+    # else
+    #   @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    # end
     # @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     # byebug
     if @chart.valid?
