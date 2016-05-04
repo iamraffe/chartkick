@@ -13,11 +13,11 @@ DVE.Graph.prototype.draw_interventions = function () {
   if(this.data.interventions.length>0){
     this.mount_sidebar(this.data.interventions)
 
-    var x = d3.time.scale().range([0, this.width]);
+    var x = d3.scaleTime().range([0, this.width]);
 
-    var y = d3.scale.linear();
+    var y = d3.scaleLinear();
 
-    var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+    var color = d3.scaleOrdinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
     var minDate = this.data.entries[0].date;
 
@@ -38,7 +38,7 @@ DVE.Graph.prototype.draw_interventions = function () {
       return x(d.end) > x(maxDate) ? x(maxDate) : x(d.end);
     }
 
-        var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
+        var parseInterventionDate = d3.timeParse("%Y-%m-%d");
 
         this.data.interventions.forEach(function(d) {
           d.start = parseInterventionDate(d.start);
@@ -50,7 +50,7 @@ DVE.Graph.prototype.draw_interventions = function () {
         var svg = this.svg;
 
     if(this.number_of_symbols < this.data.entries.length){
-      
+
 
 
           var rect = svg.selectAll(".interventions").data(this.data.interventions);
@@ -107,7 +107,7 @@ DVE.Graph.prototype.draw_interventions = function () {
       console.log("after enter", this.data.interventions)
 
       text.attr("x", (this.width/3)*2)
-      .attr("y", function(d,i){ 
+      .attr("y", function(d,i){
         console.log(this.height, this.margin)
         return this.height + ((i+1)*this.margin.bottom/4) + 15
       }.bind(this))

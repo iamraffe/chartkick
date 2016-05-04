@@ -17,7 +17,9 @@ DVE.Graph.prototype.draw_single = function () {
     .tickSize(-this.width)
     .scale(this.y);
 
-    console.log(this.date_axis)
+    // console.log(this.date_axis)
+    //
+  this.date_axis = this.date_axis.slice(-5);
 
   this.xAxis = d3.axisBottom(this.x)
     // .subdivide(true)
@@ -33,7 +35,7 @@ DVE.Graph.prototype.draw_single = function () {
     //  WE ONLY WANT THE LAST 5
     this.data.entries = this.data.entries.slice(-5);
 
-    console.log(this.data.entries)
+    // console.log(this.data.entries)
 
       this.svg.append("clipPath")
             .attr("id", "clip-above")
@@ -104,7 +106,7 @@ DVE.Graph.prototype.draw_single = function () {
               }
             }.bind(this))
             .style("stroke-width", function(obj, i){
-              console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
+              // console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
               if((this.threshold[d.key].over != null && i == 0) || (this.threshold[d.key].under != null && i == 2)){
                 return 1;
               }
