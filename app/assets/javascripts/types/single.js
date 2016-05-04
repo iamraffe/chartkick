@@ -8,8 +8,30 @@ DVE.Graph.prototype.draw_single = function () {
   var d = {};
   d.key = Object.keys(this.threshold)[0];
 
+
+  this.yAxis = d3.axisLeft(this.y)
+    // .subdivide(true)
+    // .tickPadding(10)
+    // .innerTickSize(-this.width)
+    // .outerTickSize(0)
+    .tickSize(-this.width)
+    .scale(this.y);
+
+  this.xAxis = d3.axisBottom(this.x)
+    // .subdivide(true)
+    // .tickPadding(10)
+    // .innerTickSize(-this.width)
+    // .outerTickSize(0)
+    .tickSize(0)
+    .ticks(5)
+    // .tickArguments(this.date_axis)
+    .tickFormat(d3.timeFormat("%d/%b/%Y"))
+    .scale(this.x);
+
     //  WE ONLY WANT THE LAST 5
     this.data.entries = this.data.entries.slice(-5);
+
+    console.log(this.data.entries)
 
       this.svg.append("clipPath")
             .attr("id", "clip-above")
@@ -79,6 +101,15 @@ DVE.Graph.prototype.draw_single = function () {
                 return ("0, 0");
               }
             }.bind(this))
+            .style("stroke-width", function(obj, i){
+              console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
+              if((this.threshold[d.key].over != null && i == 0) || (this.threshold[d.key].under != null && i == 2)){
+                return 1;
+              }
+              else{
+                return 3;
+              }
+            }.bind(this))
             .attr("d", this.drawline)
             .attr('stroke', function(d,i){
               return this.color(d.symbol);
@@ -100,10 +131,25 @@ DVE.Graph.prototype.draw_single = function () {
     .style('stroke-width', 0)
     .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
 
+
+ // now rotate text on x axis
+        // solution based on idea here: https://groups.google.com/forum/?fromgroups#!topic/d3-js/heOBPQF3sAY
+        // first move the text left so no longer centered on the tick
+        // then rotate up to get 45 degrees.
+        this.svg.selectAll(".x.axis text")  // select all the text elements for the xaxis
+          .attr("transform", function(d) {
+             return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+         });
+
     this.svg.selectAll('.axis path')
         .style('stroke', 'black')
         .style('fill', 'none')
-        .style('stroke-width', 2);
+        .style('stroke-width', 0);
+
+    this.svg.selectAll('.axis line')
+        .style('stroke', 'black')
+        .style('fill', 'none')
+        .style('stroke-width', 0.15);
 
 var label = this.svg.selectAll(".label")
       .data(this.data.entries)

@@ -110,48 +110,48 @@ p.groupHeadline {
 }
 
 
-#graph-container{
-  padding-left: 50px;
-}
-.chart{
-}
+// #graph-container{
+//   padding-left: 50px;
+// }
+// .chart{
+// }
 
-path{
-}
+// path{
+// }
 
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
+// .axis path,
+// .axis line {
+//     fill: none;
+//     stroke: grey;
+//     stroke-width: 1;
+//     shape-rendering: crispEdges;
+// }
 
 .legend {
 }
 
-.intervention-text{
-  padding: 50px;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.tick{
-  font-size: 10px;
-}
+// .intervention-text{
+//   padding: 50px;
+//   font-size: 12px;
+//   text-transform: uppercase;
+//   font-weight: 700;
+// }
+// .tick{
+//   font-size: 10px;
+// }
 
-.chart-selector{
-  margin-top: 75px;
-}
+// .chart-selector{
+//   margin-top: 75px;
+// }
 .chart-anchor{
   // max-height: 150px;
 }
 
-.text-values{
-  font-size: 10px;
-  font-weight: 700;
-  cursor: pointer;
-}
+// .text-values{
+//   font-size: 10px;
+//   font-weight: 700;
+//   cursor: pointer;
+// }
 
 .tab-content{
   padding-top: 75px;
@@ -187,58 +187,58 @@ path{
   }
 }
 
-.submit-and-exit, .update-and-exit{
-  margin-right: 35px;
-  margin-top: 25px;
-}
+// .submit-and-exit, .update-and-exit{
+//   margin-right: 35px;
+//   margin-top: 25px;
+// }
 
-form#intervention-data, form#edit-intervention-data{
-  button.btn-danger.pull-right{
-    margin-top: 25px;
-    margin-right: 35px;
-  }
-}
+// form#intervention-data, form#edit-intervention-data{
+//   button.btn-danger.pull-right{
+//     margin-top: 25px;
+//     margin-right: 35px;
+//   }
+// }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+// .axis path,
+// .axis line {
+//   fill: none;
+//   stroke: #000;
+//   shape-rendering: crispEdges;
+// }
 
-.x.axis path {
-  display: none;
-}
+// .x.axis path {
+//   display: none;
+// }
 
-.line {
-  fill: none;
-  stroke: #000;
-  stroke-width: 2px;
-}
+// .line {
+//   fill: none;
+//   stroke: #000;
+//   stroke-width: 2px;
+// }
 
 .fadeOut#intervention-data{
   display: none;
 }
 
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+// .axis path,
+// .axis line {
+//   fill: none;
+//   stroke: #000;
+//   shape-rendering: crispEdges;
+// }
 
-.x.axis path {
-  display: none;
-}
+// .x.axis path {
+//   display: none;
+// }
 
 
-.chart-gauge {
-  width: 250px;
-  float: right;
-  margin-top: -250px;
-  margin-right: 100px;
-}
+// .chart-gauge {
+//   width: 250px;
+//   float: right;
+//   margin-top: -250px;
+//   margin-right: 100px;
+// }
 
 // .chart-color5 {
 //   fill: #F02828;

@@ -102,11 +102,19 @@ DVE.Graph = function (data, graph_type) {
           .append("g")
             .attr("transform",
                   "translate(" + this.margin.left+ "," +  this.margin.top  + ")");
+
+  this.date_axis = [];
+
   // console.log(this.data.entries);
   this.data.entries.forEach(function(d) {
-    d.date = this.parseDate(d.date);
+    this.date_axis.push(d.date);
+    var date = this.parseDate(d.date);
+
+    d.date = date;
     d.value = +d.value;
   }.bind(this));
+
+  console.log(this.date_axis)
 
   var minDate = new Date(this.data.entries[0].date.getFullYear()-1, this.data.entries[0].date.getMonth()+1,this.data.entries[0].date.getDate());
   var maxDate = new Date(this.data.entries[this.data.entries.length - 1].date.getFullYear()+1, this.data.entries[this.data.entries.length - 1].date.getMonth()+1,this.data.entries[this.data.entries.length - 1].date.getDate());
