@@ -1,10 +1,14 @@
 <section class="row dashboard">
   <section class="col-sm-3 dashboard-panel patients">
-    <button class="btn-slim btn-dark btn-block btn-header">
+<!--     <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-user"></span>
       Patients
-    </button>
-    <%= link_to "Patient Files", users_path, class: "btn btn-slim btn-light btn-block" %>
+    </button> -->
+    <!-- <%= link_to "Patient Files", users_path, class: "btn btn-slim btn-light btn-block" %> -->
+    <%= link_to users_path, class: "btn btn-slim btn-dark btn-block btn-header" do %>
+      <span class="fa fa-user"></span>
+      Patients
+    <% end %>
     <%= link_to "New Patient", "#", class: "btn btn-slim btn-light btn-block" %>
     <%= link_to "Tests", "#", class: "btn btn-slim btn-light btn-block" %>
     <ul class="list-unstyled my-patients">
