@@ -10,7 +10,86 @@
       Patients
     <% end %>
     <%= link_to "New Patient", "#", class: "btn btn-slim btn-light btn-block" %>
-    <%= link_to "Tests", "#", class: "btn btn-slim btn-light btn-block" %>
+    <button id="filter-toggler" class="btn btn-slim btn-light btn-block">
+      Search / Filter
+    </button>
+    <div id="filter-widget" style="display:none">
+      <div class="panel">
+        <div class="panel-body">
+          <header class="row">
+            <h1>Sort by</h1>
+            <hr>
+          </header>
+          <div class="row">
+            <select id="patient-sorting">
+              <option value="last_name">Surname</option>
+              <option value="first_name">First name</option>
+              <option value="updated_at">Recent</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">My Patients</label>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="checkbox">
+                <label><input type="checkbox" value="naturopathic">Naturopathic</label>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="checkbox">
+                    <label><input type="checkbox" value="0">Pediatric</label>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="checkbox">
+                    <label><input type="checkbox" value="13">Adult</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="checkbox">
+                    <label><input type="checkbox" value="m">Male</label>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="checkbox">
+                    <label><input type="checkbox" value="f">Female</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <select id="chart-filter" multiple  title="By Type of Test" data-live-search="true" data-selected-text-format="count > 3" data-actions-box="true">
+              <option data-tokens="afp">AFP</option>
+              <option data-tokens="alt">ALT</option>
+              <option data-tokens="calcium">Calcium</option>
+              <option data-tokens="cholesterol">Cholesterol</option>
+              <option data-tokens="copper">Copper</option>
+              <option data-tokens="creatine">Creatine</option>
+              <option data-tokens="diastolic blood pressure">Diastolic Blood Pressure</option>
+              <option data-tokens="ferritin">Ferritin</option>
+              <option data-tokens="folate">Folate</option>
+              <option data-tokens="hemoglobin a1c">Hemoglobin A1C</option>
+              <option data-tokens="insulin">Insulin</option>
+              <option data-tokens="iron">Iron</option>
+              <option data-tokens="mercury">Mercury</option>
+              <option data-tokens="red cell">Red Cell</option>
+              <option data-tokens="systolic blood pressure">Systolic Blood Pressure</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+    </div>
     <ul class="list-unstyled my-patients">
       <% @patients.each do |user| %>
         <li class="patient">

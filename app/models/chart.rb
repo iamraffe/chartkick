@@ -91,4 +91,8 @@ class Chart < ActiveRecord::Base
       end
     end
   end
+
+  def self.available_types
+    ["Afp", "Cholesterol", "VitaminD"]
+  end
 end
