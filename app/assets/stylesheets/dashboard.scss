@@ -5,7 +5,7 @@
 
   .dashboard-actions{
     a{
-      margin-bottom: 5px; 
+      margin-bottom: 5px;
     }
   }
 
@@ -14,6 +14,35 @@
       margin-top: 15px;
 
       a{
+      }
+    }
+
+    .filter-widget{
+      header{
+        h1, h2{
+          font-family: "Open Sans" !important;
+          text-transform: none;
+          text-align: left;
+          font-size: 12px;
+          letter-spacing: 0;
+          font-weight: 600;
+          line-height: 20px;
+          margin: 5px auto;
+        }
+      }
+      hr{
+        border-color: #f6f6f6;
+        margin-top: 10px;
+        // margin-bottom: 10px;
+      }
+
+      .bootstrap-select{
+        display: block;
+        margin: 15px auto;
+        width: 100% !important;
+      }
+      .checkbox{
+        margin: 2.5px auto;
       }
     }
   }
@@ -43,7 +72,7 @@
       .fa{
         position: absolute;
         top: 30px;
-        left: 2.5px; 
+        left: 2.5px;
         color: #CEC6BF;
       }
 
@@ -89,7 +118,7 @@
       .fa{
         position: absolute;
         top: 30px;
-        left: 2.5px; 
+        left: 2.5px;
         color: #CEC6BF;
       }
 
