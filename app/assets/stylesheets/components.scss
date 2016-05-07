@@ -219,7 +219,7 @@ input[type=checkbox] {
     -webkit-appearance: none;
     outline: none;
     cursor: pointer;
-    background-color: white !important;
+    background-color: transparent !important;
     position: relative !important;
 
     &:checked{

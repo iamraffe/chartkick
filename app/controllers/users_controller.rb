@@ -27,13 +27,16 @@ class UsersController < ApplicationController
       # byebug
       charts =  params[:filters][:charts]
       order_by = params[:filters][:order_by]
+      age = params[:filters][:age]
+      gender = params[:filters][:gender]
       # users = User.where(id: Chart.select(:user_id).group(:user_id).where(type: charts).having("count(type) = ?", charts.size))
 
       # byebug
       if !charts.empty?
-        users = User.joins(:charts).where(charts: {type: charts}).group('users.id').order("#{order_by}" => :ASC)
+        users = User.joins(:charts).where(charts: {type: charts}).group('users.id').order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
+
       else
-        users = User.with_role(:patient).order("#{order_by}" => :ASC)
+        users = User.with_role(:patient).order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
       end
       # byebug
       render :json => users.map { |user| {:id => user.id, :label => user.full_name, :value => user.full_name, avatar: user.avatar, :first_name => user.first_name, last_name: user.last_name} }
