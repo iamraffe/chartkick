@@ -32,12 +32,21 @@ class UsersController < ApplicationController
       # users = User.where(id: Chart.select(:user_id).group(:user_id).where(type: charts).having("count(type) = ?", charts.size))
 
       # byebug
-      if !charts.empty?
-        users = User.joins(:charts).where(charts: {type: charts}).group('users.id').order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
-
+      #
+      if params[:filters][:my_patients] == "true"
+        if !charts.empty?
+          users = current_user.primary_care_team.patients.joins(:charts).where(charts: {type: charts}).group('users.id').order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
+        else
+          users = current_user.primary_care_team.patients.order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
+        end
       else
-        users = User.with_role(:patient).order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
+        if !charts.empty?
+          users = User.joins(:charts).where(charts: {type: charts}).group('users.id').order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
+        else
+          users = User.with_role(:patient).order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
+        end
       end
+
       # byebug
       render :json => users.map { |user| {:id => user.id, :label => user.full_name, :value => user.full_name, avatar: user.avatar, :first_name => user.first_name, last_name: user.last_name} }
     else
