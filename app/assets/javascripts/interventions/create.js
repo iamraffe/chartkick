@@ -6,11 +6,11 @@
 
 DVE.Graph.prototype.add_intervention = function (data) {
 
-  var x = d3.scaleTime().range([0, this.width]);
+  var x = d3.time.scale().range([0, this.width]);
 
-  var y = d3.scaleLinear();
+  var y = d3.scale.linear();
 
-  var color = d3.scaleOrdinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+  var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
   var minDate = this.data.entries[0].date;
   var maxDate = this.data.entries[this.data.entries.length - 1].date;
@@ -30,7 +30,7 @@ DVE.Graph.prototype.add_intervention = function (data) {
     return x(d.end) > x(maxDate) ? x(maxDate) : x(d.end);
   }
 
-  var parseInterventionDate = d3.timeParse("%Y-%m-%d");
+  var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
   data.interventions.forEach(function(d) {
     d.start = parseInterventionDate(d.start);

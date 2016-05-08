@@ -9,19 +9,20 @@ DVE.Graph.prototype.draw_single = function () {
   d.key = Object.keys(this.threshold)[0];
 
 
-  this.yAxis = d3.axisLeft(this.y)
+  this.yAxis = d3.svg.axis(this.y)
     // .subdivide(true)
     // .tickPadding(10)
     // .innerTickSize(-this.width)
     // .outerTickSize(0)
     .tickSize(-this.width)
+    .orient("left")
     .scale(this.y);
 
-    // console.log(this.date_axis)
-    //
+    console.log(this.date_axis)
+  //   //
   this.date_axis = this.date_axis.slice(-5);
 
-  this.xAxis = d3.axisBottom(this.x)
+  this.xAxis = d3.svg.axis(this.x)
     // .subdivide(true)
     // .tickPadding(10)
     // .innerTickSize(-this.width)
@@ -29,7 +30,8 @@ DVE.Graph.prototype.draw_single = function () {
     .tickSize(0)
     .ticks(5)
     .tickValues(this.date_axis)
-    .tickFormat(d3.timeFormat("%d/%b/%Y"))
+    .tickFormat(d3.time.format("%d/%b/%Y"))
+    .orient("bottom")
     .scale(this.x);
 
     //  WE ONLY WANT THE LAST 5
@@ -122,7 +124,7 @@ DVE.Graph.prototype.draw_single = function () {
 // Add the X Axis
     this.svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + this.height + ")")
+        .attr("transform", "translate(0," + (this.height+20) + ")")
         .call(this.xAxis);
 
     // Add the Y Axis
@@ -180,17 +182,33 @@ var label = this.svg.selectAll(".label")
       .style("font-size", 12)
       .text(function(d) { return " " + d.symbol; });
 
-  label.append("rect", "text")
+  label.append("rect")
       .datum(function() {
         // console.log(this, this.nextSibling, this.previousSibling)
-        return this.nextSibling.getBBox();
+        return this.previousSibling.getBBox();
       })
       .attr("fill", "white")
       .attr("x", function(d) { return d.x - 3; })
       .attr("y", function(d) { return d.y - 3; })
       .attr("width", function(d) { return d.width + 2 * 3; })
       .attr("height", function(d) { return d.height + 2 * 3; });
-
+  label.append("text")
+      .attr("class", "text-values")
+      .attr("dy", ".35em")
+      .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
+      .style("font-weight", "bold")
+      .style("font-size", 10)
+      .attr("text-anchor", "middle")
+      .attr("id", function(d,i){
+        return 'val'+d.symbol.replace(/\s+/g, '')+i;
+      })
+      .text(function(d) { return d.value; })
+    .filter(function(d, i) { return i === 0 })
+    .append("tspan")
+      .attr("class", "label-key")
+      .attr("x", -35)
+      .style("font-size", 12)
+      .text(function(d) { return " " + d.symbol; });
     // Add the text
     // this.svg.selectAll('.text-values')
     //     .data(this.data.entries)

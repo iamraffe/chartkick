@@ -12,11 +12,11 @@ DVE.Graph.prototype.update_intervention = function (data) {
 
   console.log("UPDATING INTERVENTION!")
 
-  var x = d3.scaleT().range([0, this.width]);
+  var x = d3.time.scale().range([0, this.width]);
 
-  var y = d3.scaleLinear();
+  var y = d3.scale.linear();
 
-  var color = d3.scaleOrdinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+  var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
     // // Scale the range of the data
     var minDate = this.data.entries[0].date;
@@ -39,7 +39,7 @@ DVE.Graph.prototype.update_intervention = function (data) {
       return x(d.end) > x(maxDate) ? x(maxDate) : x(d.end);
     }
 
-    var parseInterventionDate = d3.timeParse("%Y-%m-%d");
+    var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
 
 

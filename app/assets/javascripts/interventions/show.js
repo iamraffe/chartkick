@@ -13,11 +13,11 @@ DVE.Graph.prototype.draw_interventions = function () {
   if(this.data.interventions.length>0){
     this.mount_sidebar(this.data.interventions)
 
-    var x = d3.scaleTime().range([0, this.width]);
+    var x = d3.time.scale().range([0, this.width]);
 
-    var y = d3.scaleLinear();
+    var y = d3.scale.linear();
 
-    var color = d3.scaleOrdinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+    var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
     var minDate = this.data.entries[0].date;
 
@@ -38,7 +38,7 @@ DVE.Graph.prototype.draw_interventions = function () {
       return x(d.end) > x(maxDate) ? x(maxDate) : x(d.end);
     }
 
-        var parseInterventionDate = d3.timeParse("%Y-%m-%d");
+        var parseInterventionDate = d3.time.format("%Y-%m-%d").parse;
 
         this.data.interventions.forEach(function(d) {
           d.start = parseInterventionDate(d.start);
@@ -54,7 +54,7 @@ DVE.Graph.prototype.draw_interventions = function () {
 
 
           var rect = svg.selectAll(".interventions").data(this.data.interventions);
-          var rectEnter = rect.enter().append("rect");
+          var rectEnter = rect.enter().append("g");
 
           rectEnter.style("opacity", 0.1)
           .attr('width', function(d,i){
@@ -64,17 +64,38 @@ DVE.Graph.prototype.draw_interventions = function () {
               return left_border(d);
           }.bind(this))
           .attr('y', function(d,i){
-            return (25*d.index)+75;
+            return (25*d.index)-35;
           }.bind(this))
           .attr('height', function(d,i) {
-            return this.height-(25*d.index)-150
+            return this.height-(25*d.index)+35
+            // return 2
           }.bind(this))
+          // .style("border-left", function(d,i){
+          //   return "1px dotted " + color(d.type)
+          // }.bind(this))
           .attr("class", function(d){
             return "interventions intervention--type--"+d.type+" intervention-"+d.id;
           }.bind(this))
           .attr("fill", function(d){
-              return color(d.type);
-          }.bind(this));
+            return "none";
+              // return color(d.type);
+          }.bind(this))
+          .append("line")
+            .attr("x1", function(d,i){
+              return left_border(d);
+            })
+            .attr("y1", function(d,i){
+              return (25*d.index)-60;
+            })
+            .attr("x2", function(d,i){
+              return left_border(d);
+            })
+            .attr("y2", function(d,i){
+              return this.height-(25*d.index)
+            }.bind(this))
+            .attr("stroke-width", 0.25)
+            .style("stroke-dasharray", 10)
+            .attr("stroke", "black");
 
           svg.selectAll('.chart')
             .data(this.data.interventions)
@@ -85,16 +106,18 @@ DVE.Graph.prototype.draw_interventions = function () {
             })
             .style("opacity", 1)
             .attr('x', function(d) {
-                return left_border(d)+10;
+                return left_border(d)+5;
             }.bind(this))
             .attr('y', function(d,i){
-              return (25*d.index)+65;
+              // return (25*d.index)+65;
+              return (25*d.index)-50;
             }.bind(this))
             .attr("class", function(d){
               return "intervention-text intervention--type--"+d.type+" intervention-text-"+d.id;
             })
             .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
             .style("font-weight", "bold")
+            .style("font-size", 9)
             .style("text-transform", "uppercase")
             .attr("fill", "black");
     }

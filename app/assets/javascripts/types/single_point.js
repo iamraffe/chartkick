@@ -24,6 +24,8 @@ DVE.Graph.prototype.draw_single_point = function () {
   this.dataForStack = data.map(function(d, i){return d.map(function(d2, i2){return {x: i2, y: d2};});});
   this.stackedData = d3.layout.stack().offset("zero")(this.dataForStack);
 
+  console.log("STACKED DATA => ", this.stackedData)
+
   this.stackedDataTransposed = d3.transpose(this.stackedData);
 
   var max = d3.max(this.stackedDataTransposed.map(function(d, i){
@@ -115,7 +117,7 @@ groups.selectAll("rect")
     .enter()
     .append("text")
     .attr("x", (this.width/8))
-    .attr("y", function(d,i){ 
+    .attr("y", function(d,i){
       console.log(this.height, this.margin)
       return this.height + ((i+1)*this.margin.bottom/3) + 15
     }.bind(this))

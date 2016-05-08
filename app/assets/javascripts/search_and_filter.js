@@ -28,7 +28,7 @@ $(document).on("change", "#filter-widget", function(){
 
   age = $('input[name="pediatric"]').is(':checked') == false && $('input[name="adult"]').is(':checked')  ? 18 : 0;
 
-  console.log(gender);
+  // console.log(gender);
   // "/users/autocomplete_user_full_name?term=ku"
   $.ajax({
     type: "GET",
