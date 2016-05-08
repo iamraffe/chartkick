@@ -1,5 +1,4 @@
 class ChartsController < ApplicationController
-  before_action :check_for_notifications
 
   def new
     session[:chart_params] ||= {}
@@ -103,9 +102,5 @@ class ChartsController < ApplicationController
 
     def intervention_params
       params[:intervention].permit! if params[:intervention]
-    end
-
-    def check_for_notifications
-      @notifications = Notification.where(receiver_id: current_user.id).order(created_at: :desc).unread_by(current_user)
     end
 end

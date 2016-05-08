@@ -69,4 +69,38 @@ USER - SHOW
   .user-avatar{
     padding: 10px;
   }
+
+  .chart-with-patient-container{
+    position: relative;
+
+    section{
+      position: absolute;
+      background: white;
+      left: 350px;
+      z-index: 9;
+      padding-top: 20px;
+      width: 292px !important;
+      top: -300px;
+    }
+
+    .fa-times{
+      left: 627.5px;
+      top: -298.5px;
+      position: absolute;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    .triangle{
+      position: absolute;
+      z-index: 999;
+      left: 316px;
+      top: -7.5px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 20px 34.6px 20px 0;
+      border-color: transparent #ffffff transparent transparent;
+    }
+  }
 }

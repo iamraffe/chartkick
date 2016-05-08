@@ -1,0 +1,12 @@
+  <section class="col-sm-3 dashboard-panel messages">
+    <button class="btn-slim btn-dark btn-block btn-header">
+      <span class="fa fa-envelope"></span>
+      Messages
+      <span class="badge"><%= @messages.count %></span>
+    </button>
+    <div class="row">
+      <div class="panel">
+        <%= user_messages(@messages) %>
+      </div>
+    </div>
+  </section>

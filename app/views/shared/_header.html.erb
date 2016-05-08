@@ -1,20 +1,36 @@
 <header class="container-fluid main-header">
   <div class="row">
     <div class="col-sm-4 col-sm-offset-1">
-      <div class="quick-access-bar <%= current_page?(root_url) || current_page?('/dashboard') ? 'hide' : '' %>">
-        <div class="quick-access-icon">
-          <span class="fa fa-user"></span>
-        </div>  
-        <div class="quick-access-icon">
-          <span class="fa fa-bar-chart"></span>
+      <div class="quick-access-bar container <%= current_page?(root_url) || current_page?('/dashboard') ? 'hide' : '' %>">
+        <div id="my-patients" class="quick-access-container">
+          <span class="fa fa-times text-danger"></span>
+          <%= render "shared/widgets/my_patients" %>
+          <div class="quick-access-icon">
+            <span class="fa fa-user"></span>
+          </div>
         </div>
-        <div class="quick-access-icon">
-          <span class="fa fa-bell"></span>
-          <span class="badge">0</span>
+        <div id="make-new-charts" class="quick-access-container">
+          <span class="fa fa-times text-danger"></span>
+          <%= render "shared/widgets/available_charts" %>
+          <div class="quick-access-icon">
+            <span class="fa fa-bar-chart"></span>
+          </div>
         </div>
-        <div class="quick-access-icon">
-          <span class="fa fa-envelope"></span>
-          <span class="badge">0</span>
+        <div id="notifications" class="quick-access-container">
+          <span class="fa fa-times text-danger"></span>
+          <%= render "shared/widgets/notifications" %>
+          <div class="quick-access-icon">
+            <span class="fa fa-bell"></span>
+            <span class="badge"><%= @notifications.count %></span>
+          </div>
+        </div>
+        <div id="messages" class="quick-access-container">
+          <span class="fa fa-times text-danger"></span>
+          <%= render "shared/widgets/messages" %>
+          <div class="quick-access-icon">
+            <span class="fa fa-envelope"></span>
+            <span class="badge"><%= @messages.count %></span>
+          </div>
         </div>
       </div>
     </div>

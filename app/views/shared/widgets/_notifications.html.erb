@@ -1,0 +1,14 @@
+  <section class="col-sm-3 dashboard-panel notifications">
+    <button class="btn-slim btn-dark btn-block btn-header">
+      <span class="fa fa-bell"></span>
+      Notifications
+      <span class="badge"><%= @notifications.count %></span>
+    </button>
+    <div class="row">
+      <div class="panel">
+        <div class="panel-body">
+          <%= user_notifications(@notifications) %>
+        </div>
+      </div>
+    </div>
+  </section>
