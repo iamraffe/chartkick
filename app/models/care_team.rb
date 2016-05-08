@@ -25,6 +25,10 @@ class CareTeam < ActiveRecord::Base
     users.with_any_role(:doctor, :nurse, :naturopath)
   end
 
+  def has_naturopath?
+    users.with_role(:naturopath).count
+  end
+
   # def has_one_leader_and_manager
   #   ['leader', 'manager'].each do |type|
   #     unless self.users.where(type: type).count == 1
