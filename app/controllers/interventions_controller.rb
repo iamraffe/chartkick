@@ -27,6 +27,7 @@ class InterventionsController < ApplicationController
     @intervention = Intervention.find_by(id: params[:id])
     @intervention.update_attributes(edit_intervention_params) unless @intervention.nil?
     @intervention = params[:edit_intervention].to_json if @intervention.nil?
+    # byebug
     @type = params[:edit_intervention]["type"]
     session[:intervention_params][params[:edit_intervention]['index'].to_i]["title"] = params[:edit_intervention]['title']
     session[:intervention_params][params[:edit_intervention]['index'].to_i]["description"] = params[:edit_intervention]['description']

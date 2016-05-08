@@ -26,11 +26,7 @@ DVE.Graph.prototype.mount_sidebar = function (interventions) {
   month[10] = "Nov";
   month[11] = "Dec";
 
-  console.log(month)
-
   function parse_date(string_date){
-
-    console.log(string_date)
 
     var date = new Date(string_date)
 
@@ -46,6 +42,8 @@ DVE.Graph.prototype.mount_sidebar = function (interventions) {
 
   }
 
+  var index = 0;
+
   intervention_cluster_by_type.forEach(function(d,i){
 
     var type = d.key;
@@ -60,7 +58,7 @@ DVE.Graph.prototype.mount_sidebar = function (interventions) {
     var end = parse_date(d.end)
       $(' ul#added-'+type+'-interventions').append(
                                               '<li class="animated"><span class="fa fa-pencil not-active" data-index="'+
-                                                i.toString()+
+                                                index.toString()+
                                                 '" data-id="'+d.id+
                                                 '"></span><span class="added-title">'+d.title.capitalize(true)+'</span> - <span class="added-description">'+
                                                 d.description+'</span><span class="added-dates">(<span class="added-date-start">'+
@@ -68,6 +66,8 @@ DVE.Graph.prototype.mount_sidebar = function (interventions) {
                                                 '</span> - <span class="added-date-end">'+end+
                                               '</span>)</span></li>'
         );
+
+      index++;
     });
   });
 

@@ -22,8 +22,6 @@ DVE.Graph.AFP = function(graph){
       .key(function(d) {return d.symbol;})
       .entries(entries);
 
-  console.log(dataNest, dataNest[0].values);
-
   if(dataNest[0].values.length == 1){
     graph.single_point_data = [
       [0, (graph.data.entries[0].value - 8.1) > 0 ? 8.1 : graph.data.entries[0].value],

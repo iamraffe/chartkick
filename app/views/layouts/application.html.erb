@@ -201,7 +201,7 @@ $('.intervention-nav-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) 
 
 function canSubmitForIntervention(form){
   var canSubmit = true;
-  console.log(form.find('.js--intervention--title').val())
+  // console.log(form.find('.js--intervention--title').val())
   canSubmit = form.find('.js--intervention--title').val() === '' ? false : canSubmit;
   form.find('input[type=date]').each(function() {
     // console.log("element value => ", $(this).val())
@@ -210,13 +210,13 @@ function canSubmitForIntervention(form){
          canSubmit = false;
      }
   });
-  console.log("canSubmit => ", canSubmit);
+  // console.log("canSubmit => ", canSubmit);
   return canSubmit;
 }
 
 $(document).on('input keyup change', '.visible-intervention-form input, .visible-intervention-form select', function(){
   var form = $(".visible-intervention-form:not(.hide)");
-  console.log(form)
+  // console.log(form)
   // console.log(canSubmitForIntervention(form), form);
   if(canSubmitForIntervention(form)){
      $('.submit-and-exit, .update-and-exit, .submit-and-continue, .update-and-continue').prop('disabled', false);
@@ -278,7 +278,7 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[id]"]').val(id);
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[index]"]').val(index);
   if(type==="event"){
-    console.log($('#edit-intervention-data[data-edit-type="'+type+'"] option[value="'+title.toLowerCase()+'"]'))
+    // console.log($('#edit-intervention-data[data-edit-type="'+type+'"] option[value="'+title.toLowerCase()+'"]'))
     $('#edit-intervention-data[data-edit-type="'+type+'"] option[value="'+title.toLowerCase()+'"]').prop('selected', true);
   }
   else{
@@ -287,7 +287,7 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
 
   function parse_date(string_date){
 
-    console.log(string_date)
+    // console.log(string_date)
 
     var date = new Date(string_date)
 

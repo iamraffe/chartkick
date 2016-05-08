@@ -18,7 +18,7 @@ DVE.Graph.prototype.draw_single = function () {
     .orient("left")
     .scale(this.y);
 
-    console.log(this.date_axis)
+    // console.log(this.date_axis)
   //   //
   this.date_axis = this.date_axis.slice(-5);
 
@@ -99,7 +99,7 @@ DVE.Graph.prototype.draw_single = function () {
             .datum(this.data.entries)
             .style('fill', 'none')
             .style("stroke-dasharray", function(obj, i){
-              console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
+              // console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
               if((this.threshold[d.key].over != null && i == 0) || (this.threshold[d.key].under != null && i == 2)){
                 return ("5, 5");
               }

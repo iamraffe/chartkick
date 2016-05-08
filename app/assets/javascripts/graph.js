@@ -129,8 +129,6 @@ DVE.Graph = function (data, graph_type) {
     d.value = +d.value;
   }.bind(this));
 
-  console.log(this.date_axis)
-
   var minDate = new Date(this.data.entries[0].date.getFullYear()-1, this.data.entries[0].date.getMonth()+1,this.data.entries[0].date.getDate());
   var maxDate = new Date(this.data.entries[this.data.entries.length - 1].date.getFullYear()+1, this.data.entries[this.data.entries.length - 1].date.getMonth()+1,this.data.entries[this.data.entries.length - 1].date.getDate());
 

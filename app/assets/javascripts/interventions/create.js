@@ -88,32 +88,39 @@ DVE.Graph.prototype.add_intervention = function (data) {
         //   .style("text-transform", "uppercase")
         //   .attr("fill", "black");
 
-          var rect = svg.selectAll(".interventions").data(data.interventions);
-          var rectEnter = rect.enter().append("g");
+          // var rect = svg.selectAll(".interventions").data(data.interventions);
+          // var rectEnter = rect.enter().append("g");
 
-          rectEnter.style("opacity", 1)
-          .attr('width', function(d,i){
-            return right_border(d) - left_border(d);
-          }.bind(this))
-          .attr('x', function(d) {
-              return left_border(d);
-          }.bind(this))
-          .attr('y', function(d,i){
-            return (25*d.index)-35;
-          }.bind(this))
-          .attr('height', function(d,i) {
-            return this.height-(25*d.index)+35
-            // return 2
-          }.bind(this))
-          // .style("border-left", function(d,i){
-          //   return "1px dotted " + color(d.type)
+          // rectEnter.style("opacity", 1)
+          // .attr('width', function(d,i){
+          //   return right_border(d) - left_border(d);
           // }.bind(this))
-          .attr("fill", function(d){
-            return "none";
-              // return color(d.type);
-          }.bind(this))
+          // .attr('x', function(d) {
+          //     return left_border(d);
+          // }.bind(this))
+          // .attr('y', function(d,i){
+          //   return (25*d.index)-35;
+          // }.bind(this))
+          // .attr('height', function(d,i) {
+          //   return this.height-(25*d.index)+35
+          //   // return 2
+          // }.bind(this))
+          // // .style("border-left", function(d,i){
+          // //   return "1px dotted " + color(d.type)
+          // // }.bind(this))
+          // .attr("fill", function(d){
+          //   return "none";
+          //     // return color(d.type);
+          // }.bind(this))
+          //
+
+          svg.selectAll('.chart')
+          .data(data.interventions)
+          .enter()
           .append("line")
+            .style("opacity", 1)
             .attr("class", function(d){
+              console.log(d)
               return "interventions intervention--type--"+d.type+" intervention-"+d.id;
             }.bind(this))
             .attr("x1", function(d,i){
@@ -162,11 +169,11 @@ DVE.Graph.prototype.add_intervention = function (data) {
 
     var text = new_interventions.enter().append("text");
 
-    console.log("after enter", data.interventions)
+    // console.log("after enter", data.interventions)
 
       text.attr("x", (this.width/3)*2)
     .attr("y", function(d,i){
-      console.log(this.height, this.margin, i)
+      // console.log(this.height, this.margin, i)
       return this.height + ((d.index+1)*this.margin.bottom/4) + 15
     }.bind(this))
     .attr("class", function(d){

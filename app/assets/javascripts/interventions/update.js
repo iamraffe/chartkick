@@ -57,8 +57,6 @@ DVE.Graph.prototype.update_intervention = function (data) {
 
       if(this.number_of_symbols < this.data.entries.length){
 
-        console.log("true")
-
         svg.select('.intervention-'+intervention.id)
             .transition()
             .duration(750)

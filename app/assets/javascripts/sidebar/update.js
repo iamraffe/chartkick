@@ -23,11 +23,7 @@ DVE.Graph.prototype.update_sidebar = function (interventions, type) {
   month[10] = "Nov";
   month[11] = "Dec";
 
-  console.log(month)
-
   function parse_date(string_date){
-
-    console.log(string_date)
 
     var date = new Date(string_date)
 
