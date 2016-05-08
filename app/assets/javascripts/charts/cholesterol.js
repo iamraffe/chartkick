@@ -62,6 +62,8 @@ DVE.Graph.Cholesterol = function(graph){
 
     graph.percent = (cholesterol/hdl)/10;
 
+    // console.log(graph.percent)
+
     graph.draw_gauge();
 
   }

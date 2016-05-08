@@ -204,12 +204,12 @@ $colour4: #D2D1CD;
 }
 
 
-.checkbox{
+.checkbox, .radio{
   margin-top: 0;
   margin-bottom: 0;
 }
 
-input[type=checkbox] {
+input[type=checkbox], input[type=radio] {
     display: inline-block;
     width: 25px;
     height: 25px;

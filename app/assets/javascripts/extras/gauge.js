@@ -19,7 +19,7 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   // percent = (cholesterol/hdl)/10;
 
-  barWidth = 10;
+  barWidth = 2;
 
   numSections = 5;
 
@@ -41,10 +41,12 @@ DVE.Graph.prototype.draw_gauge = function () {
   // };
 
   // width = el[0][0].offsetWidth - margin.left - margin.right;
-  width = 200;
+  width = 100;
   height = width;
 
   radius = Math.min(width, height) / 2;
+
+  console.log("RAD", radius)
 
   percToDeg = function(perc) {
     return perc * 360;
@@ -62,7 +64,7 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   // chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr("x", 550).attr("y", 250).attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
 
-  chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr('transform', "translate(" + 425 + ", " + 25 + ")");
+  chart = el.append('g').attr("id", "gauge").attr('opacity', 0).attr('transform', "translate(" + 485 + ", " + 410 + ")");
 
   for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
     arcStartRad = percToRad(totalPercent);
@@ -71,7 +73,11 @@ DVE.Graph.prototype.draw_gauge = function () {
     startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
     endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
     arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
-    chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc);
+    // var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7'])
+    chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc).attr("stroke", function(){
+      console.log(sectionIndx)
+      return ['#F02828', '#FE6A00', '#FFD800', '#82E042', '#089F50'][sectionIndx-1];
+    });
   }
 
   Needle = (function() {
@@ -88,7 +94,7 @@ DVE.Graph.prototype.draw_gauge = function () {
     Needle.prototype.animateOn = function(el, perc) {
       var self;
       self = this;
-      return el.transition().delay(500).ease('elastic').duration(3000).selectAll('.needle').tween('progress', function() {
+      return el.transition().delay(500).ease('elastic').duration(2000).selectAll('.needle').tween('progress', function() {
         return function(percentOfPercent) {
           var progress;
           progress = percentOfPercent * perc;
@@ -115,9 +121,11 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   })();
 
-  needle = new Needle(60, 7.5);
+  needle = new Needle(20, 1.5);
 
   needle.drawOn(chart, 0);
+
+  console.log(this.percent*10)
 
   needle.animateOn(chart, this.percent);
 
@@ -126,7 +134,7 @@ DVE.Graph.prototype.draw_gauge = function () {
     }
 
     GaugeText.prototype.drawOn = function(el, perc) {
-      return el.append('text').attr('class', 'gauge-text').text(perc).attr("x", -50).attr("y", 55).style('font-family', '"Trebuchet MS", Helvetica, sans-serif').style("font-weight", "bold").style("font-size", "50px");
+      return el.append('text').attr('class', 'gauge-text').text(perc).attr("x", 0).attr("y", 25).style('font-family', '"Trebuchet MS", Helvetica, sans-serif').style("text-anchor", "middle").style("font-weight", "bold").style("font-size", "12px");
     };
 
     return GaugeText;

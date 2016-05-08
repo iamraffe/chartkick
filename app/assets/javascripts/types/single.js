@@ -161,7 +161,9 @@ DVE.Graph.prototype.draw_single = function () {
 var label = this.svg.selectAll(".label")
       .data(this.data.entries)
     .enter().append("g")
-      .attr("class", "label")
+      .attr("class", function(d, i){
+        return 'label dots tag'+ d.symbol.replace(/\s+/g, '')
+      })
       .attr("transform", function(d, i) { return "translate(" + this.x(d.date) + "," + this.y(d.value) + ")"; }.bind(this));
 
   label.append("text")
