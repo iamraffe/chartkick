@@ -4,11 +4,11 @@
       <input type="hidden" name="edit_intervention[id]" value="">
       <input type="hidden" name="edit_intervention[index]" value="">
       <div class="row">
-        <div class="col-xs-8 col-xs-offset-1">
-          <div class="col-sm-4">
+        <div class="form-group">
+          <div class="col-sm-3">
             <label for="edit_intervention[title]" class="pull-right"><%= intervention_type.titleize %></label>
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-5">
             <div class="form-group">
               <input type="text" class="form-control" name="edit_intervention[title]" placeholder="">
             </div>
@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-8 col-xs-offset-1">
-          <div class="col-sm-4">
+        <div class="form-group">
+          <div class="col-sm-3">
             <label for="edit_intervention[description]" class="pull-right">
               <% if intervention_type == "medication" %>
                 Dose
@@ -26,24 +26,30 @@
               <% end %>
             </label>
           </div>
-          <div class="col-sm-8">
-            <div class="form-group">
-              <input type="text" class="form-control" name="edit_intervention[description]" placeholder="">
-            </div>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="edit_intervention[description]" placeholder="">
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-sm-5">
-          <label for="edit_intervention[start]">Start date</label>
-          <input type="date" class="form-control" name="edit_intervention[start]">
+        <div class="form-group">
+          <div class="col-sm-3">
+            <label for="edit_intervention[start]" class="pull-right">Start date</label>
+          </div>
+          <div class="col-sm-5">
+            <input type="date" class="form-control" name="edit_intervention[start]">
+          </div>
         </div>
-        <div class="form-group col-sm-5 col-sm-offset-1">
-          <div class="row">
-            <label for="edit_intervention[end]">End date</label>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-3">
+            <label for="edit_intervention[end]" class="pull-right">End date</label>
+          </div>
+          <div class="col-sm-5">
             <input type="date" class="form-control intervention-end-date" name="edit_intervention[end]">
           </div>
-          <div class="row">
+          <div class="col-sm-4">
             <div class="checkbox">
               <label><input type="checkbox" value="" id="end-date-current">Current</label>
             </div>
@@ -51,15 +57,30 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-sm-8 col-sm-offset-3">
+          <div class="row">
+            <div class="checkbox">
+              <label><input type="checkbox" value="" id="active">Active</label>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-light btn-slim btn-block  update-and-continue">Update</button>
+          </div>
+          <div class="row">
+            <button type="submit" class="submit-and-exit btn btn-light btn-slim btn-block" name="edit_intervention[update-and-exit]" value="true">Update &amp; Exit</button>
+          </div>
+        </div>
+      </div>
+<!--       <div class="row">
         <div class="checkbox">
           <label><input type="checkbox" value="" id="active">Active</label>
         </div>
       </div>
       <div class="row">
-        <button type="submit" class="btn btn-link pull-right update-and-continue" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
+        <button type="submit" class="btn btn-light btn-slim btn-block  update-and-continue" style="margin-right: 25px;"><span class="fa fa-refresh text-success"></span> Update</button>
       </div>
       <div class="row">
         <button type="submit" class="update-and-exit btn btn-primary pull-right" name="edit_intervention[update-and-exit]" value="true">Update &amp; Exit</button>
         <button type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </form>
