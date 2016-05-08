@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     unless params[:user].blank?
       redirect_to user_path(params[:user][:id])
     end
-    @users = User.where(pcc: current_user).order(last_name: :asc)
+    @users =current_user.primary_care_team.patients.order(last_name: :asc)
   end
 
   def show
