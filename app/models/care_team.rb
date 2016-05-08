@@ -26,7 +26,7 @@ class CareTeam < ActiveRecord::Base
   end
 
   def has_naturopath?
-    users.with_role(:naturopath).count
+    users.with_role(:naturopath).count > 0
   end
 
   # def has_one_leader_and_manager

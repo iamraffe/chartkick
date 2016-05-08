@@ -59,6 +59,8 @@ naturopath.add_role :naturopath
 
 CareTeam.destroy_all
 
+# CREATE FIRST CARETEAM
+
 c = CareTeam.create
 
 c.users << nurse
@@ -88,6 +90,16 @@ u = User.create({
 
 u.care_teams << c
 
+# CREATE FIRST CARETEAM
+
+c = CareTeam.create
+
+c.users << nurse
+
+c.users << doctor
+
+c.save
+
 u.add_role :patient
 
 # CREATE ALL PATIENTS MAN
@@ -103,7 +115,7 @@ u.add_role :patient
         gender: ["M", "F"].sample,
         diabetes: [true, false].sample,
         heart_disease: [true, false].sample,
-        date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago),
+        date_of_birth: Faker::Time.between(50.years.ago, 5.years.ago),
         avatar: "https://randomuser.me/api/portraits/thumb/#{['men','women'].sample}/#{(0...99).to_a.sample}.jpg",
         # care_teams: c
       })

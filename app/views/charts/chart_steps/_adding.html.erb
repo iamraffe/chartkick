@@ -57,21 +57,25 @@
           <% end %>
         </tbody>
       </table>
-    <div class="row">
-      <div class="col-xs-12">
-        <div id='base'>
-          <div class="row">
-            <div id='converter' class='' data-keys="<%= @chart.keys %>">
+      <div class="row">
+        <div class="col-xs-12">
+          <div id='base'>
+            <div class="row">
+              <div id='converter' class='' data-keys="<%= @chart.keys %>">
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <button class="add-row btn btn-slim btn-light btn-block" style="margin-bottom: 25px; margin-top: 75px;">Add row</button>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-6">
+          <%= f.submit "Continue",  class: "btn-continue btn btn-slim btn-light btn-block" %>
+          <button class="add-row btn btn-slim btn-light btn-block" style="margin-bottom: 25px;">Add row</button>
+        </div>
+<!--         <div class="col-sm-6">
+          <button class="add-row btn btn-slim btn-light btn-block" style="margin-bottom: 25px; margin-top: 75px;">Add row</button>
+        </div> -->
       </div>
-    </div>
     </div>
   </div>
   <aside class="col-sm-3">

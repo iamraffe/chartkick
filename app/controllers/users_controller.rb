@@ -19,6 +19,7 @@ class UsersController < ApplicationController
       order_by = params[:filters][:order_by]
       age = params[:filters][:age]
       gender = params[:filters][:gender]
+      naturopathic = params[:filters][:naturopathic]
       if params[:filters][:my_patients] == "true"
         if !charts.empty?
           users = current_user.primary_care_team.patients.joins(:charts).where(charts: {type: charts}).group('users.id').order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
           users = User.with_role(:patient).order("#{order_by}" => :ASC).where("date_of_birth < ?", age.to_i.years.ago).where(gender: gender)
         end
       end
-      render :json => users.map { |user| {:id => user.id, :label => user.full_name, :value => user.full_name, avatar: user.avatar, :first_name => user.first_name, last_name: user.last_name} }
+      render :json => users.select { |user| {:id => user.id, :label => user.full_name, :value => user.full_name, avatar: user.avatar, :first_name => user.first_name, last_name: user.last_name} if naturopathic == "true" && user.care_teams.first.has_naturopath? || naturopathic == "false"}
     else
       term = params[:term]
       users = User.full_name(params[:term]).limit(10).order(last_name: :ASC)
