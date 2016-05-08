@@ -7,10 +7,12 @@ class ApplicationController < ActionController::Base
 
   private
     def get_widget_information
-      @notifications = Notification.where(receiver_id: current_user.id).order(created_at: :desc).limit(10)
-      @messages = []
-      # @patients = current_user.primary_care_team.patients.order(last_name: :ASC)
-      @patients = User.with_role(:patient).order(last_name: :ASC)
-      # @notifications = Notification.where(receiver_id: current_user.id).order(created_at: :desc).unread_by(current_user)
+      if user_signed_in?
+        @notifications = Notification.where(receiver_id: current_user.id).order(created_at: :desc).limit(10)
+        @messages = []
+        # @patients = current_user.primary_care_team.patients.order(last_name: :ASC)
+        @patients = User.with_role(:patient).order(last_name: :ASC)
+        # @notifications = Notification.where(receiver_id: current_user.id).order(created_at: :desc).unread_by(current_user)
+      end
     end
 end
