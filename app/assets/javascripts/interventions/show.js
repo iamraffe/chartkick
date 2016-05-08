@@ -56,7 +56,7 @@ DVE.Graph.prototype.draw_interventions = function () {
           var rect = svg.selectAll(".interventions").data(this.data.interventions);
           var rectEnter = rect.enter().append("g");
 
-          rectEnter.style("opacity", 0.1)
+          rectEnter.style("opacity", 1)
           .attr('width', function(d,i){
             return right_border(d) - left_border(d);
           }.bind(this))
@@ -73,14 +73,14 @@ DVE.Graph.prototype.draw_interventions = function () {
           // .style("border-left", function(d,i){
           //   return "1px dotted " + color(d.type)
           // }.bind(this))
-          .attr("class", function(d){
-            return "interventions intervention--type--"+d.type+" intervention-"+d.id;
-          }.bind(this))
           .attr("fill", function(d){
             return "none";
               // return color(d.type);
           }.bind(this))
           .append("line")
+            .attr("class", function(d){
+              return "interventions intervention--type--"+d.type+" intervention-"+d.id;
+            }.bind(this))
             .attr("x1", function(d,i){
               return left_border(d);
             })
@@ -94,7 +94,7 @@ DVE.Graph.prototype.draw_interventions = function () {
               return this.height-(25*d.index)
             }.bind(this))
             .attr("stroke-width", 0.25)
-            .style("stroke-dasharray", 10)
+            .style("stroke-dasharray", 7.5)
             .attr("stroke", "black");
 
           svg.selectAll('.chart')

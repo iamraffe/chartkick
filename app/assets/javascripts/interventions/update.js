@@ -62,23 +62,27 @@ DVE.Graph.prototype.update_intervention = function (data) {
         svg.select('.intervention-'+intervention.id)
             .transition()
             .duration(750)
-            .attr('x', function() {
+            .attr('x1', function() {
               return left_border(intervention);
               // return x(intervention.start)+50;
             })
-            .transition()
-            .duration(1500)
-            .attr("width", function(){
-              return right_border(intervention) - left_border(intervention);
-                // return x(intervention.end)-x(intervention.start);
+            .attr('x2', function() {
+              return left_border(intervention);
+              // return x(intervention.start)+50;
             });
+            // .transition()
+            // .duration(1500)
+            // .attr("width", function(){
+            //   return right_border(intervention) - left_border(intervention);
+            //     // return x(intervention.end)-x(intervention.start);
+            // });
 
 
         svg.select(".intervention-text-"+intervention.id)
             .transition()
             .duration(750)
             .attr('x', function() {
-              return left_border(intervention);
+              return left_border(intervention)+5;
               // return parseInt(x(intervention.start))+50;
             })
             // .transition()
