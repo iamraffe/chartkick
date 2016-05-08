@@ -183,7 +183,7 @@ $(document).on('change', '#add-event input.js--intervention--start', function(){
   if($(this).val() != ''){
     var date = new Date($(this).val());
     console.log("DATE => ", date)
-    $("#add-event input.js--intervention--end").val(parse_date(new Date(date.getFullYear(), date.getMonth()+1, date.getDate()).toString()));
+    $("#add-event input.js--intervention--end").val(parse_date(new Date(date.getFullYear(), date.getMonth(), date.getDate()+1).toString()));
     console.log($("#add-event input.js--intervention--end").val());
   }
 });
@@ -262,8 +262,8 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
   var index = $(this).attr('data-index');
   var title = $(this).siblings('.added-title').text();
   var description = $(this).siblings('.added-description').text();
-  var start = $(this).siblings('.added-dates').children('.added-date-start').text();
-  var end = $(this).siblings('.added-dates').children('.added-date-end').text();
+  var start = new Date($(this).siblings('.added-dates').children('.added-date-start').text());
+  var end = new Date($(this).siblings('.added-dates').children('.added-date-end').text());
 
   $(this).addClass('active').removeClass('not-active');
 
@@ -285,9 +285,27 @@ $(document).on('click', "span.fa.fa-pencil.not-active", function(){
     $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[title]"]').val(title).attr('placeholder', title);
   }
 
+  function parse_date(string_date){
+
+    console.log(string_date)
+
+    var date = new Date(string_date)
+
+    var year = date.getFullYear()
+
+    var month = (date.getMonth()+1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+
+    // var m = month[date.getMonth()];
+
+    var day = date.getDate() < 10 ? "0"+date.getDate() : date.getDate();
+
+    return year+ "-"+month+"-"+day;
+
+  }
+
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[description]"]').val(description).attr('placeholder', description);
-  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[start]"]').val(start).attr('placeholder', start);
-  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[end]"]').val(end).attr('placeholder', end);
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[start]"]').val(parse_date(start)).attr('placeholder', parse_date(start));
+  $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[end]"]').val(parse_date(end)).attr('placeholder', parse_date(end));
   $('#edit-intervention-data[data-edit-type="'+type+'"] [name="edit_intervention[type]"]').val(type).attr('placeholder', type);
 
 });

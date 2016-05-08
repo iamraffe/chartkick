@@ -9,17 +9,37 @@ DVE.Graph.prototype.update_sidebar = function (interventions, type) {
 
   console.log(interventions)
 
+  var month = [];
+  month[0] = "Jan";
+  month[1] = "Feb";
+  month[2] = "Mar";
+  month[3] = "Apr";
+  month[4] = "May";
+  month[5] = "Jun";
+  month[6] = "Jul";
+  month[7] = "Aug";
+  month[8] = "Sept";
+  month[9] = "Oct";
+  month[10] = "Nov";
+  month[11] = "Dec";
+
+  console.log(month)
+
   function parse_date(string_date){
+
+    console.log(string_date)
 
     var date = new Date(string_date)
 
     var year = date.getFullYear()
 
-    var month = (date.getMonth()+1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+    // var month = (date.getMonth()+1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+
+    var m = month[date.getMonth()];
 
     var day = date.getDate() < 10 ? "0"+date.getDate() : date.getDate();
 
-    return year+"-"+month+"-"+day;
+    return day+"/"+m+"/"+year;
 
   }
 
