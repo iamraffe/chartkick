@@ -3,7 +3,7 @@ $(document).on('ready page:change', function(e){
       var selected = this.value;
       // console.log(this.value);
       var type = ".intervention--type--"+this.value;
-      var opacity = this.checked ? 0.1 : 0;
+      var opacity = this.checked ? 1 : 0;
       d3.selectAll(".interventions"+type)
           .transition().duration(500)
           .style("opacity", opacity);
