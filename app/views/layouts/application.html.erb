@@ -182,7 +182,7 @@ $(document).on('change', '#add-event input.js--intervention--start', function(){
   console.log($(this).val(),new Date($(this).val()));
   if($(this).val() != ''){
     var date = new Date($(this).val());
-    console.log()
+    console.log("DATE => ", date)
     $("#add-event input.js--intervention--end").val(parse_date(new Date(date.getFullYear(), date.getMonth()+1, date.getDate()).toString()));
     console.log($("#add-event input.js--intervention--end").val());
   }

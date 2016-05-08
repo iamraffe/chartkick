@@ -1,6 +1,6 @@
 $(document).on("click", "#filter-toggler", function () {
   console.log("clicked");
-  $("#filter-widget").slideToggle();
+  $(this).siblings("#filter-widget").slideToggle();
   $('#chart-filter').selectpicker({
     style: 'btn-slim btn-light',
     size: 4

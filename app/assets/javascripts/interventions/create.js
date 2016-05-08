@@ -126,7 +126,7 @@ DVE.Graph.prototype.add_intervention = function (data) {
               return left_border(d);
             })
             .attr("y2", function(d,i){
-              return this.height-(25*d.index)
+              return this.height
             }.bind(this))
             .attr("stroke-width", 0.25)
             .style("stroke-dasharray", 7.5)
