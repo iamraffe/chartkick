@@ -9,6 +9,7 @@ class ChartsController < ApplicationController
     if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
       # byebug
       @chart.current_step = session[:chart_step] = "adding"
+      @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
     else
       @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     end
