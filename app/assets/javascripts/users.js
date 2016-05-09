@@ -4,17 +4,18 @@ $(document).on("click", "#chart-with-patient", function () {
 
 
 $(document).on("click", ".chart-with-patient .fa-times", function () {
-  // console.log("click")
-  // $(this).css("display", "none");
   $(".chart-with-patient").addClass("hide");
-  // $(this).siblings("section").css("display", "block")
+});
+
+$(document).on("change", "#user-teams", function(){
+  var id = $(this).val();
+  $('ul.user-team').each(function(){$(this).addClass('hide');})
+  $('ul#'+id).removeClass('hide');
 });
 
 
-$(document).on("page:change", function () {
-  // $(this).siblings("#filter-widget").slideToggle();
-  $('#user-settings').selectpicker({
-    style: 'btn-slim btn-light btn-block',
-    size: 4
-  });
+$('.dropdown-menu').on('click', function(e) {
+  e.stopPropagation();
 });
+
+

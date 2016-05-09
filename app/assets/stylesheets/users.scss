@@ -135,4 +135,24 @@ USER SETTINGS
     margin-top: 10px;
     margin-bottom: 10px;
   }
+
+  form{
+    label{
+      line-height: 3.25;
+      color: black;
+      font-weight: 500;
+      margin-right: 15px;
+    }
+    .form-control{
+      color: white;
+    }
+    input, select{
+      margin: 15px auto;
+      background-color: #D8D1CB;
+
+        @include placeholder {
+          color: white;
+        }
+    }
+  }
 }

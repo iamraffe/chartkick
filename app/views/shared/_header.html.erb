@@ -52,18 +52,19 @@
             <img src="<%= current_user.avatar %>" class="img-circle" alt="<%= current_user.full_name %>">
             <p>
               <%= "#{current_user.full_name} #{user_prominant_role(current_user)}" %>
-              <!-- <small>Member since Nov. 2012</small> -->
             </p>
           </li>
           <li class="user-body">
             <div class="row">
               <%= link_to "Log out", destroy_user_session_path, class: "btn btn-slim btn-light btn-block", :method => :delete %>
             </div>
-            <div class="row">
-              <select id="user-settings">
-                <option value="settings">Settings</option>
-              </select>
-            </div>
+            <form class="row settings-wrapper">
+              <div class="form-group">
+                <select id="user-settings" class="form-control">
+                  <option value="settings">Settings</option>
+                </select>
+              </div>
+            </form>
             <section class="row settings-widget">
               <header class="email-settings">
                 <h1>Notifications / email settings</h1>
@@ -72,17 +73,17 @@
                 </div>
                 <div class="col-xs-6">
                   <div class="radio">
-                    <label><input type="radio" checked>1 x day (default)</label>
+                    <label><input type="radio" name="email_settings" checked>1 x day (default)</label>
                   </div>
                 </div>
                 <div class="col-xs-6">
                   <div class="radio">
-                    <label><input type="radio">3 x week</label>
+                    <label><input type="radio" name="email_settings">3 x week</label>
                   </div>
                 </div>
                 <div class="col-xs-6">
                   <div class="radio">
-                    <label><input type="radio">Custom</label>
+                    <label><input type="radio" name="email_settings">Custom</label>
                   </div>
                 </div>
                 <div class="col-xs-12">
@@ -91,20 +92,23 @@
               </header>
               <section class="team-settings col-xs-12">
                 <header>
-                  <h1>My Care Teams</h1>
-                  <ul class="list-unstyled">
-                    <% current_user.care_teams.each do |care_team| %>
-                      <li><h1><%= care_team.name %></h1></li>
-                      <li>
-                        <ul class="list-unstyled">
-                          <% care_team.carers.each do |carer| %>
-                            <li><%= carer.full_name %></li>
-                          <% end %>
-                        </ul>
-                      </li>
-                      <li><button class="btn btn-block btn-light btn-slim">Add New</button></li>
-                    <% end %>
-                  </ul>
+                  <h1>My Teams</h1>
+                  <form class="teams-wrapper">
+                    <div class="form-group">
+                      <select id="user-teams" class="form-control">
+                        <% current_user.care_teams.each do |care_team| %>
+                          <option value="<%= care_team.name.parameterize("_") %>"><%= care_team.name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                  </form>
+                  <% current_user.care_teams.each_with_index do |care_team, index| %>
+                    <ul id="<%= care_team.name.parameterize("_") %>" class="<%= index == 0 ? '' : 'hide' %> list-unstyled user-team">
+                      <% care_team.carers.each do |carer| %>
+                        <li><%= carer.full_name %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
                 </header>
               </section>
               <section class="vacation-settings col-xs-12">
@@ -124,9 +128,6 @@
               </div>
             </div>
           </li>
-<!--           <li class="user-footer">
-
-          </li> -->
         </ul>
       </div>
       <div class="user-search">
