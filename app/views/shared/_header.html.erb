@@ -64,7 +64,7 @@
                 <option value="settings">Settings</option>
               </select>
             </div>
-            <section class="settings-widget">
+            <section class="row settings-widget">
               <header class="email-settings">
                 <h1>Notifications / email settings</h1>
                 <div class="col-xs-12">
@@ -89,7 +89,40 @@
                   <hr>
                 </div>
               </header>
+              <section class="team-settings col-xs-12">
+                <header>
+                  <h1>My Care Teams</h1>
+                  <ul class="list-unstyled">
+                    <% current_user.care_teams.each do |care_team| %>
+                      <li><h1><%= care_team.name %></h1></li>
+                      <li>
+                        <ul class="list-unstyled">
+                          <% care_team.carers.each do |carer| %>
+                            <li><%= carer.full_name %></li>
+                          <% end %>
+                        </ul>
+                      </li>
+                      <li><button class="btn btn-block btn-light btn-slim">Add New</button></li>
+                    <% end %>
+                  </ul>
+                </header>
+              </section>
+              <section class="vacation-settings col-xs-12">
+                <header>
+                  <h1>Vacation Settings</h1>
+                </header>
+              </section>
+              <section class="forwarding-settings col-xs-12">
+                <header>
+                  <h1>Forward Notifications</h1>
+                </header>
+              </section>
             </section>
+            <div class="row">
+              <div class="col-xs-12">
+                <button class="btn btn-light btn-block btn-slim">Save</button>
+              </div>
+            </div>
           </li>
 <!--           <li class="user-footer">
 

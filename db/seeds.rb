@@ -61,7 +61,7 @@ CareTeam.destroy_all
 
 # CREATE FIRST CARETEAM
 
-c = CareTeam.create
+c = CareTeam.create(name: "Main Care Team")
 
 c.users << nurse
 
@@ -92,7 +92,7 @@ u.care_teams << c
 
 # CREATE FIRST CARETEAM
 
-ct = CareTeam.create
+ct = CareTeam.create(name: "Specialists")
 
 ct.users << nurse
 
