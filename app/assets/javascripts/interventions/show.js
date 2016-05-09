@@ -19,6 +19,8 @@ DVE.Graph.prototype.draw_interventions = function () {
 
     var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
 
+    var bg_color = d3.scale.ordinal().range(['#B7BCA6', '#89907C', '#696D5F'])
+
     var minDate = this.data.entries[0].date;
 
     var maxDate = this.data.entries[this.data.entries.length - 1].date;
@@ -98,6 +100,30 @@ DVE.Graph.prototype.draw_interventions = function () {
             .attr("stroke", "black");
 
           svg.selectAll('.chart')
+          .data(this.data.interventions)
+          .enter()
+          .append("rect")
+            .style("opacity", 1)
+            .attr("height", 17.5)
+            .attr('width', function(d,i){
+              return right_border(d) - left_border(d);
+            }.bind(this))
+            .attr('x', function(d) {
+                return left_border(d);
+            }.bind(this))
+            .attr('y', function(d,i){
+              // return (25*d.index)+65;
+              return (25*d.index)-62.5;
+            }.bind(this))
+            .attr("class", function(d){
+              return "intervention-bg intervention--type--"+d.type+" intervention-bg-"+d.id;
+            })
+            .style("fill", function(d){
+              return bg_color(d.type);
+            })
+            .attr("stroke", "none");
+
+          svg.selectAll('.chart')
             .data(this.data.interventions)
             .enter()
             .append("text")
@@ -119,7 +145,7 @@ DVE.Graph.prototype.draw_interventions = function () {
             .style("font-weight", "bold")
             .style("font-size", 9)
             .style("text-transform", "uppercase")
-            .attr("fill", "black");
+            .attr("fill", "white");
     }
     else{
 

@@ -4,12 +4,18 @@ $(document).on('ready page:change', function(e){
       // console.log(this.value);
       var type = ".intervention--type--"+this.value;
       var opacity = this.checked ? 1 : 0;
-      d3.selectAll(".interventions"+type)
+      d3.selectAll(".intervention--type--"+this.value)
           .transition().duration(500)
           .style("opacity", opacity);
-      d3.selectAll(".intervention-text"+type)
-          .transition().duration(500)
-          .style("opacity", opacity*10);
+      // d3.selectAll(".interventions"+type)
+      //     .transition().duration(500)
+      //     .style("opacity", opacity);
+      // d3.selectAll(".interventions-bg"+type)
+      //     .transition().duration(500)
+      //     .style("opacity", opacity);
+      // d3.selectAll(".intervention-text"+type)
+      //     .transition().duration(500)
+      //     .style("opacity", opacity);
     });
 
     d3.selectAll("[type=radio][name=optradio]").on("click", function() {
