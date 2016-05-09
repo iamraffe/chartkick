@@ -22,7 +22,7 @@
             <%= render "shared/widgets/notifications" %>
             <div class="quick-access-icon">
               <span class="fa fa-bell"></span>
-              <span class="badge"><%= @notifications.count %></span>
+              <span class="badge"><%= @notifications.unread_by(current_user).count %></span>
             </div>
           </div>
           <div id="messages" class="quick-access-container">

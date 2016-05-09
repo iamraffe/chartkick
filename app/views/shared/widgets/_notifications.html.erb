@@ -2,7 +2,7 @@
     <button class="btn-slim btn-dark btn-block btn-header">
       <span class="fa fa-bell"></span>
       Notifications
-      <span class="badge"><%= @notifications.count %></span>
+      <span class="badge"><%= @notifications.unread_by(current_user).count %></span>
     </button>
     <div class="row">
       <div class="panel">

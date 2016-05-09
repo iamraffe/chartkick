@@ -23,7 +23,7 @@ module NotificationsHelper
         notifications.each do |notification|
           list += %Q{<li class='notification row'>
                     <hr>
-                    <a href='#{notification.action_url}'>
+                    <a href='#{notification.action_url}' class='js-mark-as-read' data-id='#{notification.id}'>
                       <span class='fa fa-bar-chart fa-2x'></span>
                       <span class='notification-subject'>
                         #{notification.subject }
