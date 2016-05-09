@@ -17,7 +17,7 @@ DVE.Graph.Cholesterol = function(graph){
 
   graph.number_of_symbols = 4
 
-  graph.color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7']);
+  graph.color = d3.scale.ordinal().range(['#383F47', '#F1CC28', '#B35252', '#63B28F']);
 
   graph.data.entries = graph.data.entries.slice(-20)
 

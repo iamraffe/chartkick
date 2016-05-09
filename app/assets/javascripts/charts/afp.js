@@ -14,7 +14,7 @@ DVE.Graph.AFP = function(graph){
 
   graph.number_of_symbols = 1
 
-  graph.color = d3.scale.ordinal().range(['#3F444E']);
+  graph.color = d3.scale.ordinal().range(['#383F47', '#F1CC28', '#B35252', '#63B28F']);
 
   var entries = graph.data.entries;
 
