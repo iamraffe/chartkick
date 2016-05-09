@@ -80,7 +80,7 @@ u = User.create({
       password: "mysecretpassword",
       password_confirmation: "mysecretpassword",
       phone_number: Faker::PhoneNumber.phone_number,
-      gender: ["M", "F"].sample,
+      gender: "F",
       diabetes: [true, false].sample,
       heart_disease: [true, false].sample,
       date_of_birth: Faker::Time.between(50.years.ago, 35.years.ago),
@@ -92,19 +92,19 @@ u.care_teams << c
 
 # CREATE FIRST CARETEAM
 
-c = CareTeam.create
+ct = CareTeam.create
 
-c.users << nurse
+ct.users << nurse
 
-c.users << doctor
+ct.users << doctor
 
-c.save
+ct.save
 
 u.add_role :patient
 
 # CREATE ALL PATIENTS MAN
 
-296.times do |i|
+100.times do |i|
   u = User.create({
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
@@ -112,19 +112,39 @@ u.add_role :patient
         password: "mysecretpassword",
         password_confirmation: "mysecretpassword",
         phone_number: Faker::PhoneNumber.phone_number,
-        gender: ["M", "F"].sample,
+        gender: "M",
         diabetes: [true, false].sample,
         heart_disease: [true, false].sample,
         date_of_birth: Faker::Time.between(50.years.ago, 5.years.ago),
-        avatar: "https://randomuser.me/api/portraits/thumb/#{['men','women'].sample}/#{(0...99).to_a.sample}.jpg",
+        avatar: "https://randomuser.me/api/portraits/thumb/men/#{i}.jpg",
         # care_teams: c
       })
 
-  u.care_teams << c
+  u.care_teams << [c, ct].sample
 
   u.add_role :patient
 end
 
+100.times do |i|
+  u = User.create({
+        first_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name,
+        email: Faker::Internet.email,
+        password: "mysecretpassword",
+        password_confirmation: "mysecretpassword",
+        phone_number: Faker::PhoneNumber.phone_number,
+        gender: "F",
+        diabetes: [true, false].sample,
+        heart_disease: [true, false].sample,
+        date_of_birth: Faker::Time.between(50.years.ago, 5.years.ago),
+        avatar: "https://randomuser.me/api/portraits/thumb/women/#{i}.jpg",
+        # care_teams: c
+      })
+
+  u.care_teams << [c, ct].sample
+
+  u.add_role :patient
+end
 
 
 # Notification.create!(receiver_id: 301, sender_id: 1, subject: "A new Cholesterol chart for Michelle Benaim has been created.", content: "Please, review and approve the chart.", action_url: "/charts/1")
