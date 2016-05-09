@@ -57,7 +57,7 @@
     }
 
     .notification-actions{
-      a{
+      a, button{
         @extend .btn-link;
         font-weight: 600;
         font-size: 10px;

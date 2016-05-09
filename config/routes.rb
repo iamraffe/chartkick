@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   post "/notifications/mark-as-read/:id", to: "notifications#mark_as_read"
 
+  post "/notifications/mark-all-as-read/", to: "notifications#mark_all_as_read"
+
   resources :charts
 
   resources :interventions

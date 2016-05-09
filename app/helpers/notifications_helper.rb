@@ -16,7 +16,7 @@ module NotificationsHelper
   def notification_list(notifications)
     list = %Q{<ul class='list-unstyled'>
                 <li class='notification-actions'>
-                  <a href='#'>Mark All as Read</a> | <a href='#'>Settings</a> | <a href='#'>See All</a>
+                  <button class='js-mark-all-as-read'>Mark All as Read</button> | <a href='#'>Settings</a> | <a href='#'>See All</a>
                 </li>
             }
 
