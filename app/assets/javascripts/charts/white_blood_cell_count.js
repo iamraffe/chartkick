@@ -6,10 +6,10 @@
 
 */
 
-DVE.Graph.WhiteCell = function(graph){
+DVE.Graph.WhiteBloodCellCount = function(graph){
 
   graph.threshold = {
-    "WHITE CELL": {over: 900, under: 200}
+    "WHITE BLOOD CELL COUNT": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

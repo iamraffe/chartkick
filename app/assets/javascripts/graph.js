@@ -15,8 +15,8 @@ DVE.Graph = function (data, graph_type) {
     tsh:function(){
       return new DVE.Graph.TSH(this);
     }.bind(this),
-    white_cell:function(){
-      return new DVE.Graph.WhiteCell(this);
+    white_blood_cell_count:function(){
+      return new DVE.Graph.WhiteBloodCellCount(this);
     }.bind(this),
     vitamin_b12:function(){
       return new DVE.Graph.VitaminB12(this);
@@ -27,8 +27,8 @@ DVE.Graph = function (data, graph_type) {
     testosterone:function(){
       return new DVE.Graph.Testosterone(this);
     }.bind(this),
-    red_cell:function(){
-      return new DVE.Graph.RedCell(this);
+    red_blood_cell_count:function(){
+      return new DVE.Graph.RedBloodCellCount(this);
     }.bind(this),
     mercury:function(){
       return new DVE.Graph.Mercury(this);

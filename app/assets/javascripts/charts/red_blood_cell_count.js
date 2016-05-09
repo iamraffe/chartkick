@@ -6,10 +6,10 @@
 
 */
 
-DVE.Graph.RedCell = function(graph){
+DVE.Graph.RedBloodCellCount = function(graph){
 
   graph.threshold = {
-    "RED CELL": {over: 900, under: 200}
+    "RED BLOOD CELL COUNT": {over: 900, under: 200}
   };
 
   graph.number_of_symbols = 1

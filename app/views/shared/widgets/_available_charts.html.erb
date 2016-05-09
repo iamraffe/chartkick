@@ -17,7 +17,7 @@
       <%= link_to "Insulin", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "insulin".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "Iron", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "iron".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "Mercury", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "mercury".classify}), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "Red Cell", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "red_cell".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "Red Blood Cell Count", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "red_blood_cell_count".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "Systolic Blood Pressure", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "systolic_blood_pressure".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "Testosterone", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "testosterone".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "TSH", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "tsh".classify}), class: "btn btn-slim btn-light btn-block" %>
@@ -25,6 +25,6 @@
       <%= link_to "Viral Load", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "viral_load".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "Vitamin B12", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "vitamin_b12".classify}), class: "btn btn-slim btn-light btn-block" %>
       <%= link_to "Vitamin D", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "vitamin_d".classify}), class: "btn btn-slim btn-light btn-block" %>
-      <%= link_to "White Cell", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "white_cell".classify}), class: "btn btn-slim btn-light btn-block" %>
+      <%= link_to "White Blood Cell Count", new_chart_path(:chart => {:user_id => (@user.nil? ? nil : @user.id), :type => "white_blood_cell_count".classify}), class: "btn btn-slim btn-light btn-block" %>
     </div>
   </section>
