@@ -79,6 +79,21 @@
     });
   });
 
+  $('.manual-input .btn-continue').on("click", function(e){
+    var ready = true
+    $('.manual-input input').each(function(){
+      // console.log($(this), $(this).val())
+      if($(this).val() === ""){
+        ready = false;
+      }
+    });
+
+    if(!ready){
+      e.preventDefault();
+      alert("There are empty input fields. Fill them up before continuing.")
+    }
+  });
+
   $('button.random').on('click', function(e){
     e.preventDefault();
     $('div.manual-input table.cholesterol-data input[type=text].session--input').each(function(k,v){
