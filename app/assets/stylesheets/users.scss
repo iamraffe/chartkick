@@ -104,3 +104,35 @@ USER - SHOW
     }
   }
 }
+
+/*
+
+USER SETTINGS
+
+ */
+
+.user-dropdown{
+  .bootstrap-select{
+    display: block;
+    margin: 15px auto;
+    width: 100% !important;
+    text-align: center;
+  }
+  header{
+    h1, h2{
+      font-family: "Open Sans" !important;
+      text-transform: none;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0;
+      font-weight: 600;
+      line-height: 20px;
+      margin: 5px auto;
+    }
+  }
+  hr{
+    border-color: #f6f6f6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
