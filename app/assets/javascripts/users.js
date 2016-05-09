@@ -14,7 +14,7 @@ $(document).on("change", "#user-teams", function(){
 });
 
 
-$('.dropdown-menu').on('click', function(e) {
+$(document).on('click','.dropdown-menu', function(e) {
   e.stopPropagation();
 });
 

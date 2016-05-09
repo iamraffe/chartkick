@@ -143,7 +143,7 @@ USER SETTINGS
       font-weight: 500;
       margin-right: 15px;
     }
-    .form-control{
+    .form-control:not(.btn-light){
       color: white;
     }
     input, select{

@@ -60,7 +60,7 @@
             </div>
             <form class="row settings-wrapper">
               <div class="form-group">
-                <select id="user-settings" class="form-control">
+                <select id="user-settings" class="form-control btn-light btn-slim">
                   <option value="settings">Settings</option>
                 </select>
               </div>
@@ -95,7 +95,7 @@
                   <h1>My Teams</h1>
                   <form class="teams-wrapper">
                     <div class="form-group">
-                      <select id="user-teams" class="form-control">
+                      <select id="user-teams" class="form-control btn-light btn-slim">
                         <% current_user.care_teams.each do |care_team| %>
                           <option value="<%= care_team.name.parameterize("_") %>"><%= care_team.name %></option>
                         <% end %>
