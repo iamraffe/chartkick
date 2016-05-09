@@ -203,6 +203,9 @@ $colour4: #D2D1CD;
   }
 }
 
+input::-webkit-calendar-picker-indicator, input::-webkit-inner-spin-button{
+    display: none;
+}
 
 .checkbox, .radio{
   margin-top: 0;
