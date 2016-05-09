@@ -77,7 +77,8 @@
               <a href="#" class="btn btn-slim btn-dark">Profile</a>
             </div>
             <div class="pull-right">
-              <a href="#" class="btn btn-slim btn-dark">Log Out</a>
+              <%= link_to "Log out", destroy_user_session_path, class: "btn btn-slim btn-dark", :method => :delete %>
+              <!-- <a href="#" class="btn btn-slim btn-dark">Log Out</a> -->
             </div>
           </li>
         </ul>
