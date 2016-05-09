@@ -105,21 +105,57 @@
                   <% current_user.care_teams.each_with_index do |care_team, index| %>
                     <ul id="<%= care_team.name.parameterize("_") %>" class="<%= index == 0 ? '' : 'hide' %> list-unstyled user-team">
                       <% care_team.carers.each do |carer| %>
-                        <li><%= carer.full_name %></li>
+                        <li>
+                          <span class="carer-name"><%= carer.full_name %></span> - <span class="carer-role"><%= carer.roles.first.name.capitalize %></span>
+                        </li>
                       <% end %>
                     </ul>
                   <% end %>
+                  <button data-team="" class="btn btn-light btn-slim btn-block">Add New</button>
                 </header>
               </section>
               <section class="vacation-settings col-xs-12">
                 <header>
                   <h1>Vacation Settings</h1>
                 </header>
+                <div class="row">
+                  <label class="switch switch-left-right">
+                    <input class="switch-input" type="checkbox" />
+                    <span class="switch-label" data-on="On" data-off="Off"></span> 
+                    <span class="switch-handle"></span> 
+                  </label>
+                </div>
+                <div id="vacation-dates" class="row hide form-group">
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <label for="">Start</label>
+                    </div>
+                    <input type="date" class="form-control">
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <label for="">End</label>
+                    </div>
+                    <input type="date" class="form-control">
+                  </div>
+                </div>
               </section>
               <section class="forwarding-settings col-xs-12">
                 <header>
                   <h1>Forward Notifications</h1>
                 </header>
+                <form class="row forwarding-wrapper">
+                  <div class="form-group">
+                    <select id="forwarding-settings" class="form-control btn-light btn-slim">
+                      <option value="person">Person</option>
+                    </select>
+                  </div>
+                </form>
+                <div class="row">
+                  <div class="checkbox">
+                    <label><input type="checkbox" name="forwarding_settings">Do not forward notifications</label>
+                  </div>
+                </div>
               </section>
             </section>
             <div class="row">

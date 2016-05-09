@@ -136,6 +136,7 @@ USER SETTINGS
     margin-bottom: 10px;
   }
 
+
   form{
     label{
       line-height: 3.25;
@@ -143,16 +144,54 @@ USER SETTINGS
       font-weight: 500;
       margin-right: 15px;
     }
-    .form-control:not(.btn-light){
-      color: white;
-    }
     input, select{
-      margin: 15px auto;
-      background-color: #D8D1CB;
-
-        @include placeholder {
-          color: white;
-        }
+     margin: 15px auto;
     }
+  }
+
+  
+  .form-control:not(.btn-light){
+    color: white;
+  }
+  input, select{
+    // margin: 15px auto;
+    background-color: #D8D1CB;
+    font-size: 10px;
+
+      @include placeholder {
+        font-size: 10px;
+        color: white;
+      }
+  }
+
+  
+  .user-team{
+    margin-bottom: 15px;
+  }
+
+  .carer-name{
+    margin-bottom: 5px;
+    font-family: "Open Sans" !important;
+    text-transform: none;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .carer-role{
+    margin-bottom: 5px;
+    font-family: "Open Sans" !important;
+    text-transform: none;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .forwarding-settings{
+    margin-bottom: 15px;
   }
 }
