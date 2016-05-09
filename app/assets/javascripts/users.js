@@ -23,4 +23,5 @@ $(document).on('click','.switch', function(e) {
   console.log("clicked here")
   // $(this).children(".switch-label").attr("data-on", "1");
   $('#vacation-dates').toggleClass('hide');
+  return false;
 });
