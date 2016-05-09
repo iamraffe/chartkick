@@ -210,6 +210,7 @@ var label = this.svg.selectAll(".label")
       .attr("class", "label-key")
       .attr("x", -35)
       .style("font-size", 12)
+      .attr("text-anchor", "end")
       .text(function(d) { return " " + d.symbol; });
     // Add the text
     // this.svg.selectAll('.text-values')
