@@ -25,17 +25,29 @@ class InterventionsController < ApplicationController
 
   def update
     @intervention = Intervention.find_by(id: params[:id])
-    @intervention.update_attributes(edit_intervention_params) unless @intervention.nil?
-    @intervention = params[:edit_intervention].to_json if @intervention.nil?
-    # byebug
+    if @intervention.nil?
+      @intervention = params[:edit_intervention].to_json
+    else
+      @intervention.update_attributes(edit_intervention_params)
+      # byebug
+      @intervention = JSON.parse(@intervention.to_json)
+      @intervention["start"] = Date.parse(@intervention["start"]).strftime("%Y-%m-%d")
+      @intervention["end"] = Date.parse(@intervention["end"]).strftime("%Y-%m-%d")
+      @intervention = @intervention.to_json
+      session[:intervention_params][params[:edit_intervention]['index'].to_i] = {}
+      session[:intervention_params][params[:edit_intervention]['index'].to_i]["id"] = params[:id]
+    end
+
     @type = params[:edit_intervention]["type"]
+    # byebug
     session[:intervention_params][params[:edit_intervention]['index'].to_i]["title"] = params[:edit_intervention]['title']
     session[:intervention_params][params[:edit_intervention]['index'].to_i]["description"] = params[:edit_intervention]['description']
     session[:intervention_params][params[:edit_intervention]['index'].to_i]["start"] = params[:edit_intervention]['start']
     session[:intervention_params][params[:edit_intervention]['index'].to_i]["end"] = params[:edit_intervention]['end']
+    session[:intervention_params][params[:edit_intervention]['index'].to_i]["type"] = params[:edit_intervention]['type']
     @interventions = session[:intervention_params].select{|k,v| k["type"] == @type}.to_json
     @interventions_size = session[:intervention_params].size
-    @update_and_exit = !params[:edit_intervention]["update-and-exit"].nil?
+    @update_and_exit = !["update-and-exit"].nil?
     respond_to do |format|
       format.js   {}
       format.json { render json:{ status: "ok"} }

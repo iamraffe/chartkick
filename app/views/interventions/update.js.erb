@@ -1,5 +1,9 @@
+    console.log("wtf")
+
     var type = "<%= @type %>";
     var interventions =  <%= raw(@interventions) %>;
+
+    console.log(")")
 
     function bringBackDown(form, type){
       form.addClass('hide').removeClass('.visible-intervention-form');

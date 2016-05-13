@@ -32,7 +32,16 @@
         </div>
       </div>
       <div class="col-sm-4 svg-controls">
-        <%= render "charts/partials/controls" %>
+        <% if current_user.has_role?(:doctor) && !@chart.approved %>
+          <div class="row">
+              <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
+                Add intervention
+              </button>
+          </div>
+        <% end %>
+        <div class="row">
+          <%= render "charts/partials/controls" %>
+        </div>
       </div>
     </section>
     <div class="row">

@@ -59,6 +59,9 @@ class ChartsController < ApplicationController
 
   def show
     @chart =  Chart.find(params[:id])
+    session[:chart_params] ||= {}
+    session[:entry_params] ||= {}
+    session[:intervention_params] ||= []
     respond_to do |format|
       format.html
       format.json {render json: @chart.data}
@@ -88,6 +91,7 @@ class ChartsController < ApplicationController
 
   def approve
     @chart = Chart.find(params[:id])
+    Intervention.create_and_link(@chart, session[:intervention_params])
     @chart.approve!(current_user)
     redirect_to "/charts/#{@chart.id}"
   end

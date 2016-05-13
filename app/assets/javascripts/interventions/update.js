@@ -80,8 +80,9 @@ DVE.Graph.prototype.update_intervention = function (data) {
             .transition()
             .duration(750)
             .attr('x', function() {
+              return left_border(intervention);
               // return left_border(intervention);
-              return x(intervention.start)+50;
+              // return x(intervention.start)+50;
             })
             // .attr('x2', function() {
             //   return left_border(intervention);
