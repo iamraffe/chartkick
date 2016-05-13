@@ -18,15 +18,16 @@ module CholesterolsHelper
     table_data
   end
 
-  def construct_table_from_database(entries, chart_class, manual)
+  def construct_table_from_database(entries, chart_class, manual, lock = true)
+
     table_data = ''
     entries.each_with_index do |entry, index|
         table_data +=      "<tr class='info'>"
         table_data +=        "<td><input type='hidden' name='entry[db_value[#{(index+1)}]]' value='1'> #{(index+1)}</td>"
-        table_data +=        "<td><input class='session-entry-values database--input disabled' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{entry[:date]}' disabled></td>"
+        table_data +=        "<td><input class='session-entry-values database--input #{lock ? 'disabled' : ''}' type='date' name='entry[date[#{(index+1)}]]' placeholder='#{entry[:date]}' #{lock ? 'disabled' : ''}></td>"
         # byebug
         chart_class.safe_constantize.keys.each do |key|
-          table_data +=        "<td><input type='hidden' name='entry[db_value[#{key.parameterize.underscore}[#{(index+1)}]]]' value='#{entry[:id][key.parameterize.underscore.to_sym]}'><input disabled class='disabled session-entry-values database--input' type='text' name='entry[#{key.parameterize.underscore}[#{(index+1)}]]' placeholder='#{entry[key.parameterize.underscore.to_sym]}'></td>"
+          table_data +=        "<td><input type='hidden' name='entry[db_value[#{key.parameterize.underscore}[#{(index+1)}]]]' value='#{entry[:id][key.parameterize.underscore.to_sym]}'><input #{lock ? 'disabled' : ''} class='#{lock ? 'disabled' : ''} session-entry-values database--input' type='text' name='entry[#{key.parameterize.underscore}[#{(index+1)}]]' placeholder='#{entry[key.parameterize.underscore.to_sym]}'></td>"
         end
         table_data +=       "</tr>"
     end

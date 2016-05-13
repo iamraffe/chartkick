@@ -1,0 +1,1 @@
+DVE.current_graph.update_chart(<%= raw(@chart.data.to_json) %>);

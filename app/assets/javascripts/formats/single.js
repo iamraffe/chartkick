@@ -88,7 +88,7 @@ DVE.Graph.prototype.draw_single = function () {
                 return 0;
               }
             }.bind(this));
-
+          console.log(this.data.entries)
           this.svg.append("g")
             .classed("line", true)
           .selectAll("path")
@@ -168,6 +168,7 @@ var label = this.svg.selectAll(".label")
 
   label.append("text")
       .attr("class", "text-values")
+      .attr("data-index", function(d,i){return i})
       .attr("dy", ".35em")
       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
       .style("font-weight", "bold")
@@ -196,6 +197,7 @@ var label = this.svg.selectAll(".label")
       .attr("height", function(d) { return d.height + 2 * 3; });
   label.append("text")
       .attr("class", "text-values")
+      .attr("data-index", function(d,i){return i})
       .attr("dy", ".35em")
       .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
       .style("font-weight", "bold")

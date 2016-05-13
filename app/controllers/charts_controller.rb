@@ -22,14 +22,6 @@ class ChartsController < ApplicationController
     session[:entry_params].deep_merge!(entry_params) if entry_params
     @chart = Chart.new(session[:chart_params])
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    # if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
-    #   byebug
-    #   @chart.current_step = session[:chart_step] = "adding"
-    # else
-    #   @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    # end
-    # @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
-    # byebug
     if @chart.valid?
       if params[:back_button]
         @chart.previous_step
@@ -39,15 +31,12 @@ class ChartsController < ApplicationController
         Entry.create_and_link(@chart, session[:entry_params])
         Intervention.create_and_link(@chart, session[:intervention_params])
         @chart.send_notice_from(current_user)
-        # Notification.create(receiver_id: @chart.user.pcc.id, sender_id: current_user.id, subject: "A new #{@chart.type} chart for #{@chart.user.full_name} has been created.", content: "Please, review and approve the chart.", action_url: "/charts/#{@chart.id}")
       else
-        # byebug
         @chart.next_step
       end
       session[:chart_step] = @chart.current_step
     end
     if @chart.new_record?
-      # byebug
       @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
       render "new"
     else
@@ -59,12 +48,23 @@ class ChartsController < ApplicationController
 
   def show
     @chart =  Chart.find(params[:id])
+    @entries = Entry.build(@chart.user.id, @chart.type)
     session[:chart_params] ||= {}
     session[:entry_params] ||= {}
     session[:intervention_params] ||= []
     respond_to do |format|
       format.html
       format.json {render json: @chart.data}
+    end
+  end
+
+  def update
+    @chart = Chart.find(params[:id])
+    session[:entry_params].deep_merge!(entry_params)
+    Entry.update_entries(entry_params)
+    respond_to do |format|
+      format.js   {}
+      format.json { render json:{ status: "ok"} }
     end
   end
 

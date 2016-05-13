@@ -2,7 +2,7 @@ class Chart < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :entries
   has_and_belongs_to_many :interventions
-
+  accepts_nested_attributes_for :user, :entries, :interventions
   attr_writer :current_step
   validates :user_id, presence: true, :if => lambda { |o| o.current_step == "naming" }
 
@@ -47,7 +47,7 @@ class Chart < ActiveRecord::Base
   end
 
   def data
-    all_entries = self.entries.map { |e| e.decode!.symbolize_keys }
+    all_entries = self.entries.order('date ASC').map { |e| e.decode!.symbolize_keys }
     all_interventions = self.interventions.map{|i| i.decode!.symbolize_keys }
     {entries: all_entries, interventions: all_interventions}
   end

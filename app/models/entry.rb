@@ -6,7 +6,8 @@ class Entry < ActiveRecord::Base
     {
       "date" => self.date.strftime("%b %Y").to_s,
       "value" => self.value,
-      "symbol" => self.symbol
+      "symbol" => self.symbol,
+      "id" => self.id 
     }
   end
 
@@ -20,6 +21,14 @@ class Entry < ActiveRecord::Base
         entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
           chart.entries.create({symbol: symbol.humanize.upcase, date: v.to_datetime,value: entries[symbol.parameterize.underscore]["#{i}"].to_i, chart_type: chart.type,  user_id: chart.user.id})
         end
+      end
+    end
+  end
+
+  def self.update_entries(entries)
+    entries["date"].each do |i,v|
+      entries.keys.select{|key| key != "date" && key != "db_value" }.each do |symbol|
+        Entry.find(entries["db_value"][symbol.parameterize.underscore]["#{i}"].to_i).update_attributes({date: v.to_datetime, value: entries[symbol.parameterize.underscore]["#{i}"].to_i})
       end
     end
   end

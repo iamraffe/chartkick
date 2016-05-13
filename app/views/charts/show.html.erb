@@ -15,47 +15,80 @@
   </div> -->
 
 <section class="chart-viewer">
-  <div class="col-sm-3">
-
+  <div class="row">
+    <%= form_for @chart, url: {controller: :charts, action: :update}, remote: true do |f| %>
+      <div class="col-sm-6 col-sm-offset-3" style="display: none;">
+        <div class="row manual-input">
+          <table class="table table-for-<%= @chart.keys.size.to_s %> cholesterol-data">
+            <tbody>
+              <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false, false)) %>
+            </tbody>
+          </table>
+          <div class="col-sm-6 col-sm-offset-6">
+            <button id="update-chart-values" class="btn btn-slim btn-light btn-block">Update</button>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-  <div class="col-sm-9">
-    <section class="row">
-      <div class="col-sm-8">
-        <header class="row">
-          <div class="col-xs-12">
-            <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h1>
-            <hr>
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-3">
+      <section class="row">
+        <div class="col-sm-8">
+          <header class="row">
+            <div class="col-xs-12">
+              <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name  %></span></h1>
+              <hr>
+            </div>
+          </header>
+          <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>">
+            <div id="graph" data-name="<%= @chart.user.full_name.upcase %>"></div>
           </div>
-        </header>
-        <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>">
-          <div id="graph" data-name="<%= @chart.user.full_name.upcase %>"></div>
         </div>
-      </div>
-      <div class="col-sm-4 svg-controls">
-        <% if current_user.has_role?(:doctor) && !@chart.approved %>
+        <div class="col-sm-4 svg-controls">
+          <% if current_user.has_role?(:doctor) && !@chart.approved %>
+            <div class="row">
+                <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
+                  Add intervention
+                </button>
+            </div>
+          <% end %>
           <div class="row">
-              <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
-                Add intervention
-              </button>
+            <%= render "charts/partials/controls" %>
           </div>
-        <% end %>
-        <div class="row">
-          <%= render "charts/partials/controls" %>
         </div>
-      </div>
-    </section>
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="row">
-          <div class="col-sm-6">
-            <%= link_to "Make Another Chart", root_path, class: "btn btn-light btn-block btn-slim" %>
-            <%= link_to "View #{@chart.user.first_name}'s profile", "/users/#{@chart.user.id}", class: "btn btn-light btn-block btn-slim" %>
-          </div>
-          <div class="col-sm-6">
-            <% if !@chart.approved && current_user.has_role?(:doctor)  %>
-              <a href="/charts/<%= @chart.id %>/approve" data-method="put" class='btn btn-light btn-block btn-slim' style="margin-left: 15px;">Approve</a>
-            <% end %>
-            <%= "<button id='export' class='btn btn-light btn-block btn-slim'>Export</button>".html_safe unless !@chart.approved %>
+      </section>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="row">
+            <div class="col-sm-6">
+              <%= link_to "Make Another Chart", root_path, class: "btn btn-light btn-block btn-slim" %>
+              <%= link_to "View #{@chart.user.first_name}'s profile", "/users/#{@chart.user.id}", class: "btn btn-light btn-block btn-slim" %>
+            </div>
+            <div class="col-sm-6">
+              <% if !@chart.approved && current_user.has_role?(:doctor)  %>
+                <a href="/charts/<%= @chart.id %>/approve" data-method="put" class='btn btn-light btn-block btn-slim' style="margin-bottom: 5px;">Approve</a>
+                <div class="dropup">
+                  <button class="btn btn-slim btn-light btn-block dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Edit Chart
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li style="margin: 5px">
+                      <button type="button" class="btn btn-slim btn-light btn-block" id="edit-chart-values">
+                        Add / Edit Values
+                      </button>
+                    </li>
+                    <li style="margin: 5px">
+                      <button type="button" class="btn btn-slim btn-light btn-block" data-toggle="modal" data-target="#interventions-widget">
+                        Add / Edit Intervention
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+              <%= "<button id='export' class='btn btn-light btn-block btn-slim'>Export</button>".html_safe unless !@chart.approved %>
+            </div>
           </div>
         </div>
       </div>
