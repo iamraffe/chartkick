@@ -89,12 +89,16 @@ DVE.Graph.prototype.draw_single = function () {
               }
             }.bind(this));
           console.log(this.data.entries)
+
           this.svg.append("g")
             .classed("line", true)
           .selectAll("path")
             .data(["above", "normal", "below"])
           .enter().append("path")
-            .attr("class", function(d) { return "path path--" + d; })
+            .attr("class", function(data) {
+              console.log(d)
+              return "line path path--" + data+" tag"+d.key;
+            })
             .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
             .datum(this.data.entries)
             .style('fill', 'none')

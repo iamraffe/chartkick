@@ -46,7 +46,7 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   radius = Math.min(width, height) / 2;
 
-  console.log("RAD", radius)
+  // console.log("RAD", radius)
 
   percToDeg = function(perc) {
     return perc * 360;
@@ -75,7 +75,7 @@ DVE.Graph.prototype.draw_gauge = function () {
     arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
     // var color = d3.scale.ordinal().range(['#111A33', '#001E93', '#4FCFEB', '#A725A7'])
     chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc).attr("stroke", function(){
-      console.log(sectionIndx)
+      // console.log(sectionIndx)
       return ['#F02828', '#FE6A00', '#FFD800', '#82E042', '#089F50'][sectionIndx-1];
     });
   }
@@ -125,7 +125,7 @@ DVE.Graph.prototype.draw_gauge = function () {
 
   needle.drawOn(chart, 0);
 
-  console.log(this.percent*10)
+  // console.log(this.percent*10)
 
   needle.animateOn(chart, this.percent);
 

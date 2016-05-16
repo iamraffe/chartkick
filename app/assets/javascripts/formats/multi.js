@@ -35,7 +35,7 @@ DVE.Graph.prototype.draw_multi = function () {
   // this.date_axis = this.date_axis.slice(-5);
   this.date_axis = this.date_axis.slice(-20);
 
-  console.log("THIS DATE AXIS =>", this.date_axis)
+  // console.log("THIS DATE AXIS =>", this.date_axis)
 
   this.xAxis = d3.svg.axis(this.x)
     // .subdivide(true)
@@ -100,7 +100,7 @@ DVE.Graph.prototype.draw_multi = function () {
             }
           }.bind(this))
           .style("stroke-width", function(){
-            console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
+            // console.log(this.threshold[d.key].over, i, this.threshold[d.key].over != null && i == 2)
             if((this.threshold[d.key].over != null && i == 1) || (this.threshold[d.key].under != null && i == 0)){
               return 1;
             }
@@ -115,40 +115,7 @@ DVE.Graph.prototype.draw_multi = function () {
           }.bind(this));
       }.bind(this));
 
-      // // Add the Legend
-      // this.svg.append("text")
-      //     .attr("x", (i*this.legendSpace)+this.margin.left)
-      //     .attr("y", this.height + (this.margin.bottom/2)+ 5)
-      //     .attr("class", function(){
-      //       return 'legend tag'+ d.key.replace(/\s+/g, '')
-      //     })
-      //     .attr('style', 'font-family: "Trebuchet MS", Helvetica, sans-serif')
-      //     .style("fill", function() {
-      //         return this.color(d.key);
-      //     }.bind(this))
-      //     .text(d.key);
-
   }.bind(this));
-// // Add the X Axis
-//     this.svg.append("g")
-//         .attr("class", "x axis")
-//         .attr("transform", "translate(0," + this.height + ")")
-//         .call(this.xAxis);
-
-//     // Add the Y Axis
-//     this.svg.append("g")
-//         .attr("class", "y axis")
-//         .call(this.yAxis);
-
-//     this.svg.selectAll('.axis text')
-//     .style('fill', 'black')
-//     .style('stroke-width', 0)
-//     .style('font-family', '"Trebuchet MS", Helvetica, sans-serif');
-
-//     this.svg.selectAll('.axis path')
-//         .style('stroke', 'black')
-//         .style('fill', 'none')
-//         .style('stroke-width', 2);
 
 // Add the X Axis
     this.svg.append("g")
@@ -209,7 +176,7 @@ var label = this.svg.selectAll(".label")
       })
       .text(function(d) { return d.value; })
     .filter(function(d, i) {
-        console.log(d,i)
+        // console.log(d,i)
         return i < 4
       })
     .append("tspan")
@@ -221,7 +188,6 @@ var label = this.svg.selectAll(".label")
 
   label.append("rect")
       .datum(function() {
-        // console.log(this, this.nextSibling, this.previousSibling)
         return this.previousSibling.getBBox();
       })
       .attr("fill", "white")
@@ -243,7 +209,7 @@ var label = this.svg.selectAll(".label")
       })
       .text(function(d) { return d.value; })
     .filter(function(d, i) {
-        console.log(d,i)
+        // console.log(d,i)
         return i < 4
       })
     .append("tspan")
@@ -252,28 +218,4 @@ var label = this.svg.selectAll(".label")
       .attr("text-anchor", "end")
       .style("font-size", 12)
       .text(function(d) { return " " + d.symbol; });
-
-
-    // this.svg.selectAll('.text-values')
-    //     .data(this.data.entries)
-    //     .enter()
-    //     .append("text")
-    //     .style('font-family', '"Trebuchet MS", Helvetica, sans-serif')
-    //     .style("font-weight", "bold")
-    //     .style("font-size", 10)
-    //     .attr("id", function(d,i){
-    //       return 'val'+d.symbol.replace(/\s+/g, '')+i;
-    //     })
-    //     .attr('class', function(d,i){
-    //       return 'text-values tag'+d.symbol.replace(/\s+/g, '');
-    //     })
-    //     .attr("transform", function(d) {
-    //         return "translate("+(this.x(d.date)-7.5)+","+(this.y(d.value)+20)+")";
-    //     }.bind(this))
-    //     .text(function(d){
-    //       return d.value;
-    //     })
-    //     .style("fill", function(d) {
-    //         return this.color(d.symbol);
-    //     }.bind(this));
 };
