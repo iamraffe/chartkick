@@ -30,9 +30,10 @@ DVE.Graph.Cholesterol = function(graph){
 
   // console.log(dataNest[0].values[0].value)
 
-
+  // console.log(dataNest)
 
   if(dataNest[0].values.length == 1){
+
     graph.single_point_data = [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 130, 0, 40, 0, 150, 0, 160],
@@ -46,6 +47,8 @@ DVE.Graph.Cholesterol = function(graph){
       (dataNest[3].values[0].value - 160) > -1 ? (dataNest[3].values[0].value - 160) : 0,
       ]
     ]
+    // console.log(graph.single_point_data)
+    graph.single_point_data = graph.organize_single_point_data(dataNest, graph.threshold)
     graph.draw_single_point();
     graph.draw_interventions();
   }

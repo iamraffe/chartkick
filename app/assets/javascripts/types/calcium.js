@@ -25,7 +25,11 @@ DVE.Graph.Calcium = function(graph){
   console.log(dataNest, dataNest[0].values);
 
   if(dataNest[0].values.length == 1){
-    graph.single_point_data = [[0, 8.5], [0, 10.2],[graph.data.entries[0].value, (graph.data.entries[0].value - 10.2) > -1 ? (graph.data.entries[0].value - 10.2) : 10.2]]
+    graph.single_point_data = [
+      [0, 8.5],
+      [0, 10.2]
+      [graph.data.entries[0].value, (graph.data.entries[0].value - 10.2) > -1 ? (graph.data.entries[0].value - 10.2) : 10.2]
+    ]
     graph.draw_single_point();
     graph.draw_interventions();
   }

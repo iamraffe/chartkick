@@ -5,7 +5,7 @@
 */
 
 DVE.Graph.prototype.draw_single_point = function () {
-  console.log("DRAWING SINGLE POINT");
+  // console.log("DRAWING SINGLE POINT");
 
 
   // var chartVariant = ["stack", "group"];
@@ -24,7 +24,7 @@ DVE.Graph.prototype.draw_single_point = function () {
   this.dataForStack = data.map(function(d, i){return d.map(function(d2, i2){return {x: i2, y: d2};});});
   this.stackedData = d3.layout.stack().offset("zero")(this.dataForStack);
 
-  console.log("STACKED DATA => ", this.stackedData)
+  // console.log("STACKED DATA => ", this.stackedData)
 
   this.stackedDataTransposed = d3.transpose(this.stackedData);
 
@@ -84,8 +84,8 @@ groups.selectAll("rect")
               .attr("height", 5)
               .attr("y", (this.y.rangeBand()/2) - (this.y.rangeBand()/128))
               .style("fill", function(d, i){
-                console.log(d,i)
-                console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
+                // console.log(d,i)
+                // console.log(this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]])
                 if(d.y == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].over  ||
                   d.y0 == this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under ||
                   d.y0 == 0 && this.threshold[Object.keys(this.threshold)[parseInt(d.x/2)]].under == null
@@ -118,7 +118,7 @@ groups.selectAll("rect")
     .append("text")
     .attr("x", (this.width/8))
     .attr("y", function(d,i){
-      console.log(this.height, this.margin)
+      // console.log(this.height, this.margin)
       return this.height + ((i+1)*this.margin.bottom/3) + 15
     }.bind(this))
     .attr("class", function(d){

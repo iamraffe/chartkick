@@ -23,9 +23,10 @@ DVE.Graph.AFP = function(graph){
       .entries(entries);
 
   if(dataNest[0].values.length == 1){
-    graph.single_point_data = [
-      [0, (graph.data.entries[0].value - 8.1) > 0 ? 8.1 : graph.data.entries[0].value],
-      [graph.data.entries[0].value, (graph.data.entries[0].value - 8.1) > 0 ? (graph.data.entries[0].value - 8.1) : 0]]
+    graph.single_point_data = graph.organize_single_point_data(graph.data, graph.threshold)
+    // graph.single_point_data = [
+    //   [0, (graph.data.entries[0].value - 8.1) > 0 ? 8.1 : graph.data.entries[0].value],
+    //   [graph.data.entries[0].value, (graph.data.entries[0].value - 8.1) > 0 ? (graph.data.entries[0].value - 8.1) : 0]]
     graph.draw_single_point();
     graph.draw_interventions();
   }
@@ -37,3 +38,5 @@ DVE.Graph.AFP = function(graph){
     graph.draw_dots();
   }
 };
+
+
