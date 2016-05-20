@@ -25,9 +25,9 @@ DVE.Graph.prototype.organize_single_point_data = function (data, thresholds) {
                     thresholds[d.key].under :
                     d.values[0].value)
 
-    array[1].push((-thresholds[d.key].over + thresholds[d.key].under) > 0 ?
-                    thresholds[d.key].under :
-                    d.values[0].value)
+    // array[1].push((-thresholds[d.key].over + thresholds[d.key].under) > 0 ?
+    //                 thresholds[d.key].under :
+    //                 d.values[0].value)
 
     // if(thresholds[d.key].under === null){
     //   array[1].push(thresholds[d.key].over === null ? 0 : thresholds[d.key].over)
