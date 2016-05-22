@@ -5,23 +5,23 @@ class ChartsController < ApplicationController
     session[:entry_params] ||= {}
     session[:intervention_params] ||= []
     @chart = Chart.new(session[:chart_params].deep_merge!(chart_params))
-    # session[:chart_step] = "adding" unless @chart.user_id.nil?
     if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
-      # byebug
       @chart.current_step = session[:chart_step] = "adding"
       @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
     else
       @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     end
-    # @chart.current_step = session[:chart_step] == "naming" session[:chart_step].nil?
-    # @chart.current_step = @chart.previous_step
   end
 
   def create
     session[:chart_params].deep_merge!(chart_params) if chart_params
     session[:entry_params].deep_merge!(entry_params) if entry_params
-    @chart = Chart.where(user_id: session[:chart_params]["user_id"].to_i).where(type: session[:chart_params]["type"]).first
-    @chart = Chart.new(session[:chart_params]) if @chart.nil?
+    @chart = Chart.where(user_id: params[:chart][:user_id].to_i).where(type: params[:chart][:type]).first if chart_params
+    if @chart.nil?
+      @chart = Chart.new(session[:chart_params])
+    else
+      redirect_to edit_chart_path(@chart) and return
+    end
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     if @chart.valid?
       if params[:back_button]
@@ -37,6 +37,7 @@ class ChartsController < ApplicationController
       end
       session[:chart_step] = @chart.current_step
     end
+    # byebug
     if @chart.new_record?
       @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
       render "new"
@@ -59,14 +60,57 @@ class ChartsController < ApplicationController
     end
   end
 
-  def update
+  def edit
+    session[:chart_params] ||= {}
+    session[:entry_params] ||= {}
+    session[:intervention_params] ||= []
+    session[:chart_params].deep_merge!(chart_params) unless chart_params.nil?
     @chart = Chart.find(params[:id])
-    session[:entry_params].deep_merge!(entry_params)
-    Entry.update_entries(entry_params)
-    respond_to do |format|
-      format.js   {}
-      format.json { render json:{ status: "ok"} }
+    @chart.toggle!(:opened)
+    if (session[:chart_step] == "naming" || @chart.current_step == "naming") && !@chart.user_id.nil?
+      @chart.current_step = session[:chart_step] = "adding"
+      @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
+    else
+      @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     end
+  end
+
+  def update
+    session[:chart_params].deep_merge!(chart_params) if chart_params
+    session[:entry_params].deep_merge!(entry_params) if entry_params
+    @chart = Chart.find(params[:id])
+    @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
+    if @chart.valid?
+      if params[:back_button]
+        @chart.previous_step
+      elsif @chart.last_step?
+        # @chart.save if @chart.all_valid?
+        # @chart.update_attributes(approved: true, updated_at: Time.now) if current_user.has_role?(:doctor)
+        @chart.toggle!(:opened)
+        Entry.create_and_link(@chart, session[:entry_params])
+        Intervention.create_and_link(@chart, session[:intervention_params])
+        @chart.send_notice_from(current_user)
+      else
+        @chart.next_step
+      end
+      session[:chart_step] = @chart.current_step
+    end
+    # byebug
+    if @chart.opened
+      @entries = Entry.build(session[:chart_params]["user_id"], session[:chart_params]["type"])
+      render "edit"
+    else
+      session[:chart_step] = session[:chart_params] = session[:entry_params] = session[:intervention_params] = nil
+      flash[:notice] = "chart saved!"
+      redirect_to chart_path(@chart)
+    end
+    # @chart = Chart.find(params[:id])
+    # session[:entry_params].deep_merge!(entry_params)
+    # Entry.update_entries(entry_params)
+    # respond_to do |format|
+    #   format.js   {}
+    #   format.json { render json:{ status: "ok"} }
+    # end
   end
 
   def export

@@ -75,7 +75,8 @@
       <ul class="list-unstyled">
       <% @user.charts.order(:created_at => :desc).each do |chart| %>
           <li>
-            <%= link_to "#{chart.type} Chart, created on #{chart.created_at.strftime("%m/%d/%Y")}", chart_path(chart) %>
+            <%= link_to "#{chart.type} Chart, created on #{chart.created_at.strftime("%m/%d/%Y")}", chart_path(chart), class: "btn-link" %>
+            <span class="fa fa-gear"></span>
           </li>
       <% end %>
       </ul>

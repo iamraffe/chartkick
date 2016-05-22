@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160425215358) do
     t.datetime "updated_at",                 null: false
     t.string   "type"
     t.boolean  "approved",   default: false
+    t.boolean  "opened",     default: false
     t.integer  "user_id"
   end
 

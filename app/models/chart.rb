@@ -1,6 +1,10 @@
 class Chart < ActiveRecord::Base
   belongs_to :user
-  has_and_belongs_to_many :entries
+  has_and_belongs_to_many :entries do
+    def <<(new_item)
+      super( Array(new_item) - proxy_association.owner.entries )
+    end
+  end
   has_and_belongs_to_many :interventions
   accepts_nested_attributes_for :user, :entries, :interventions
   attr_writer :current_step

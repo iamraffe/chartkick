@@ -1,36 +1,22 @@
-<!--
-  <div class="row">
-    <h1>Patient name:  <span class="patient-name"><%= @chart.user.full_name %></span></h1>
-  </div>
-  <%= render "charts/partials/controls" %>
-  <div class="row" id="db-graph-container" class="graph--wrapper" data-type="<%= @chart.type.underscore %>" data-url="charts/<%= params[:id] %>"><div id="graph" data-name="<%= @chart.user.full_name.upcase %>"></div><div class="chart-gauge"></div></div>
-
-  <div class="row">
-    <%= link_to "Make Another Chart", root_path, class: "btn btn-primary btn-lg " %>
-    <%= link_to "View #{@chart.user.full_name}'s patient history", "/users/#{@chart.user.id}", class: "btn btn-primary btn-lg ", style: "margin-left: 15px" %>
-    <% if !@chart.approved && current_user.has_role?(:doctor)  %>
-      <a href="/charts/<%= @chart.id %>/approve" data-method="put" class='btn-success btn-lg btn pull-right btn-sumome' style="margin-left: 15px;">Approve</a>
-    <% end %>
-    <%= "<button id='export' class='btn-lg btn pull-right btn-primary'>Export</button>".html_safe unless !@chart.approved %>
-  </div> -->
-
 <section class="chart-viewer">
-  <div class="row">
-    <%= form_for @chart, url: {controller: :charts, action: :update}, remote: true do |f| %>
-      <div class="col-sm-6 col-sm-offset-3" style="display: none;">
-        <div class="row manual-input">
-          <table class="table table-for-<%= @chart.keys.size.to_s %> cholesterol-data">
-            <tbody>
-              <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false, false)) %>
-            </tbody>
-          </table>
-          <div class="col-sm-6 col-sm-offset-6">
-            <button id="update-chart-values" class="btn btn-slim btn-light btn-block">Update</button>
+  <% unless @chart.approved %>
+    <div class="row">
+      <%= form_for @chart, url: {controller: :entries, action: :update}, remote: true do |f| %>
+        <div class="col-sm-6 col-sm-offset-3" style="display: none;">
+          <div class="row manual-input">
+            <table class="table table-for-<%= @chart.keys.size.to_s %> cholesterol-data">
+              <tbody>
+                <%= raw(construct_table_from_database(@entries, @chart.type.camelize, false, false)) %>
+              </tbody>
+            </table>
+            <div class="col-sm-6 col-sm-offset-6">
+              <button id="update-chart-values" class="btn btn-slim btn-light btn-block">Update</button>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
   <div class="row">
     <div class="col-sm-9 col-sm-offset-3">
       <section class="row">

@@ -18,7 +18,7 @@ DVE.Graph.prototype.render = function () {
     d.value = +d.value;
   }.bind(this));
 
-  this.date_axis = this.date_axis.slice(-5);
+  // this.date_axis = this.date_axis.slice(-5);
 
   this.charts[this.graph_type](this.data);
 

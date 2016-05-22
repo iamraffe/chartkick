@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   post "/notifications/mark-all-as-read/", to: "notifications#mark_all_as_read"
 
+  # patch "/charts", to: "charts#create"
+
   resources :charts
 
   resources :interventions

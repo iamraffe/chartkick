@@ -1,0 +1,29 @@
+<section class="row chart-multi-step">
+  <div class="col-xs-12">
+    <header class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <h1>New <%= @chart.type.underscore.humanize %> Chart</h1>
+        <hr>
+      </div>
+    </header>
+    <%= form_for @chart, as: :chart, url: chart_path(@chart), method: :patch, html: { class: "edit_chart", id: "edit_chart_#{@chart.id}" } do |f| %>
+      <div class="col-xs-3">
+        <%= f.button "<span class='fa fa-arrow-left'></span> <span class='text'>Back</span>".html_safe, :name => "back_button",  class: "btn-back btn btn-link"  unless @chart.first_step? %>
+      </div>
+      <section class="row chart-current-step">
+        <%= render "charts/chart_steps/#{@chart.current_step}", :f => f %>
+      </section>
+<!--       <div class="row">
+        <%= f.submit "Continue",  class: "btn-continue btn btn-primary btn-lg pull-right btn-sumome" unless @chart.last_step?  %>
+        <%= f.submit current_user.has_role?(:doctor) ? "Save" : "Send for Approval", class: "btn-send-for-approval btn btn-success btn-lg pull-right btn-sumome" if @chart.last_step? %>
+        <%= f.button "Back", :name => "back_button",  class: "btn-back btn btn-danger btn-lg pull-left"  unless @chart.first_step? %>
+      </div> -->
+    <% end %>
+  </div>
+</section>
+
+
+
+
+
+
