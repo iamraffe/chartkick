@@ -61,6 +61,16 @@ USER - SHOW
     //   text-transform: none;
     //   text-align: left;
     // }
+    .user-chart{
+      position: relative;
+      padding: 15px;
+
+      .dropdown{
+        position: absolute;
+        right: 0px;
+        top: 10px;
+      }
+    }
   }
   .user-detail{
     font-weight: bold;
@@ -149,7 +159,7 @@ USER SETTINGS
     }
   }
 
-  
+
   .form-control:not(.btn-light){
     color: white;
   }
@@ -164,7 +174,7 @@ USER SETTINGS
       }
   }
 
-  
+
   .user-team{
     margin-bottom: 15px;
   }

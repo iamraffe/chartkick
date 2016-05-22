@@ -74,9 +74,19 @@
     <% else %>
       <ul class="list-unstyled">
       <% @user.charts.order(:created_at => :desc).each do |chart| %>
-          <li>
+          <li class="user-chart">
             <%= link_to "#{chart.type} Chart, created on #{chart.created_at.strftime("%m/%d/%Y")}", chart_path(chart), class: "btn-link" %>
-            <span class="fa fa-gear"></span>
+            <div class="dropdown">
+              <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-gear"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>
+                  <%= link_to "Edit", edit_chart_path({id: chart.id, :chart => {:user_id => chart.user.id, :type => chart.type}}) %>
+                  <!-- <a href="/charts/<%= chart.id %>/edit">Edit</a> -->
+                </li>
+              </ul>
+            </div>
           </li>
       <% end %>
       </ul>
