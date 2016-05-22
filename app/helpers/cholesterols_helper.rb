@@ -33,7 +33,7 @@ module CholesterolsHelper
     end
     if manual == true
       table_data +=      "<tr>"
-      table_data +=        "<td><span id='fa-#{entries.size}' class='fa fa-times  fa-2x text-danger'></span><input type='hidden' name='entry[db_value[#{(entries.size+1)}]]'> #{(entries.size+1)}</td>"
+      table_data +=        "<td><span id='fa-#{entries.size}' class='fa fa-times  fa-2x text-danger'></span> #{(entries.size+1)}</td>"
       table_data +=        "<td><input class='session-entry-values session--input' type='date' name='entry[date[#{(entries.size+1)}]]'></td>"
       chart_class.safe_constantize.keys.each do |key|
         table_data +=        "<td><input class='session-entry-values session--input' type='text' name='entry[#{key.parameterize.underscore}[#{(entries.size+1)}]]'></td>"

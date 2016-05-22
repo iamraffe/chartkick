@@ -20,7 +20,8 @@ class ChartsController < ApplicationController
   def create
     session[:chart_params].deep_merge!(chart_params) if chart_params
     session[:entry_params].deep_merge!(entry_params) if entry_params
-    @chart = Chart.new(session[:chart_params])
+    @chart = Chart.where(user_id: session[:chart_params]["user_id"].to_i).where(type: session[:chart_params]["type"]).first
+    @chart = Chart.new(session[:chart_params]) if @chart.nil?
     @chart.current_step = session[:chart_step] unless session[:chart_step].nil?
     if @chart.valid?
       if params[:back_button]

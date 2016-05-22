@@ -149,11 +149,11 @@ DVE.Graph.prototype.draw_interventions = function () {
 
       var text = new_interventions.enter().append("text");
 
-      console.log("after enter", this.data.interventions)
+      // console.log("after enter", this.data.interventions)
 
       text.attr("x", (this.width/3)*2)
       .attr("y", function(d,i){
-        console.log(this.height, this.margin)
+        // console.log(this.height, this.margin)
         return this.height + ((i+1)*this.margin.bottom/4) + 15
       }.bind(this))
       .attr("class", function(d){

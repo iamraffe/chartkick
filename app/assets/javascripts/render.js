@@ -6,7 +6,31 @@
 
 DVE.Graph.prototype.render = function () {
   // console.log(this.graph_type, this.charts[this.graph_type])
+
+
+  this.date_axis = [];
+
+  // console.log(this.data.entries);
+  this.data.entries.forEach(function(d) {
+    var date = this.parseDate(d.date);
+    this.date_axis.push(date);
+    d.date = date;
+    d.value = +d.value;
+  }.bind(this));
+
+  this.date_axis = this.date_axis.slice(-5);
+
   this.charts[this.graph_type](this.data);
+
+  // console.log(this.threshold)
+
+  // this.data.entries = this.data.entries.slice(-5*Object.keys(this.threshold)[0].length)
+
+  // console.log(this.date_axis)
+
+
+
+
   // this.svg.append("g")
   //           .attr("class", "x axis")
   //           .attr("transform", "translate(0," + this.height + ")")

@@ -16,6 +16,8 @@ DVE.Graph.SystolicBloodPressure = function(graph){
 
   graph.color = d3.scale.ordinal().range(['#383F47', '#F1CC28', '#B35252', '#63B28F']);
 
+  graph.data.entries = graph.data.entries.slice(-5)
+
   var entries = graph.data.entries;
 
   var dataNest = d3.nest()

@@ -20,6 +20,7 @@ DVE.Graph.prototype.draw_multi = function () {
   var maxDate = new Date(this.data.entries[this.data.entries.length - 1].date.getFullYear()+1, this.data.entries[this.data.entries.length - 1].date.getMonth()+1,this.data.entries[this.data.entries.length - 1].date.getDate());
 
   this.x.domain([minDate, maxDate]);
+  this.y.domain([0, d3.max(this.data.entries, function(d) { return d.value; })+25]);
 
   this.yAxis = d3.svg.axis(this.y)
     // .subdivide(true)

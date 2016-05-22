@@ -8,6 +8,13 @@ DVE.Graph.prototype.draw_single = function () {
   var d = {};
   d.key = Object.keys(this.threshold)[0];
 
+  this.data.entries = this.data.entries.slice(-5*Object.keys(this.threshold)[0].length)
+
+  var minDate = new Date(this.data.entries[0].date.getFullYear()-1, this.data.entries[0].date.getMonth()+1,this.data.entries[0].date.getDate());
+  var maxDate = new Date(this.data.entries[this.data.entries.length - 1].date.getFullYear()+1, this.data.entries[this.data.entries.length - 1].date.getMonth()+1,this.data.entries[this.data.entries.length - 1].date.getDate());
+
+  this.x.domain([minDate, maxDate]);
+  this.y.domain([0, d3.max(this.data.entries, function(d) { return d.value; })+25]);
 
   this.yAxis = d3.svg.axis(this.y)
     // .subdivide(true)
@@ -88,7 +95,7 @@ DVE.Graph.prototype.draw_single = function () {
                 return 0;
               }
             }.bind(this));
-          console.log(this.data.entries)
+          // console.log(this.data.entries)
 
           this.svg.append("g")
             .classed("line", true)
@@ -96,7 +103,7 @@ DVE.Graph.prototype.draw_single = function () {
             .data(["above", "normal", "below"])
           .enter().append("path")
             .attr("class", function(data) {
-              console.log(d)
+              // console.log(d)
               return "line path path--" + data+" tag"+d.key;
             })
             .attr("clip-path", function(d) { return "url(#clip-" + d + ")"; })
