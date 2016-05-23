@@ -6,6 +6,13 @@ $(document).on("click", "#update-chart-values", function () {
   $(".manual-input").parent().slideToggle();
 });
 
+$(document).on("dblclick", ".database--input", function () {
+  console.log("double click")
+  alert("You are now editing a persisted value.")
+  $(this).removeClass("disabled").removeAttr("disabled")
+  // $(".manual-input").parent().slideToggle();
+});
+
 /*
 
   GRAPH UPDATE FUNCTION
