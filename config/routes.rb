@@ -33,6 +33,8 @@ Rails.application.routes.draw do
 
   resources :entries
 
+  resources :notifications, only: [:index]
+
   resources :users do
     get :autocomplete_user_full_name, :on => :collection
     # resources :charts do

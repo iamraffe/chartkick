@@ -1,2 +1,24 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+$(document).on('ready page:change turbolinks:load', function(){
+  var title = document.title;
+  setInterval(check_for_notifications, 1000)
+
+  function check_for_notifications() {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      url: "/notifications",
+      dataType: 'json',
+      success: function (data) {
+        if(data.length > 0){
+          document.title = '(' + data.length + ') ' + title;
+        }
+        else{
+          document.title = title;
+        }
+      },
+      error: function (result) {
+        console.log("Error")
+      }
+    });
+  }
+})
