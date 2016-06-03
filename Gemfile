@@ -31,6 +31,7 @@ gem 'devise', '~> 3.5'
 gem 'pundit'
 gem 'rolify'
 gem 'faker'
+gem 'mailgun_rails'
 
 group :development, :test do
   gem 'rspec-rails'
