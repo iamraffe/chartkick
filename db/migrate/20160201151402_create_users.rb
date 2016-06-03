@@ -12,6 +12,8 @@ class CreateUsers < ActiveRecord::Migration
       t.json :elation_payload
       t.integer :elation_id, limit: 8
       t.references :care_teams, index: true
+      t.string :notify_every
+      t.datetime :notify_by, null: false
       t.timestamps null: false
     end
   end

@@ -38,4 +38,12 @@ class User < ActiveRecord::Base
   def primary_care_team
     care_teams.first
   end
+
+  before_create :notification_default_settings
+
+  private
+    def notification_default_settings
+      self.notify_by = (DateTime.current+1.day).change({hour: 7})
+      self.notify_every = "1.day"
+    end
 end

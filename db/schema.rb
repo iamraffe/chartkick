@@ -89,8 +89,9 @@ ActiveRecord::Schema.define(version: 20160425215358) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.string   "action_url"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "delivered",   default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "notifications_users", id: false, force: :cascade do |t|
@@ -133,6 +134,8 @@ ActiveRecord::Schema.define(version: 20160425215358) do
     t.json     "elation_payload"
     t.integer  "elation_id",             limit: 8
     t.integer  "care_teams_id"
+    t.string   "notify_every"
+    t.datetime "notify_by",                                     null: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.string   "avatar"

@@ -23,3 +23,51 @@ s.every '1h' do
     end
   end
 end
+
+# Let's use the rufus-scheduler singleton
+#
+d = Rufus::Scheduler.singleton
+
+d.every '1m' do
+  @users = User.where("notify_by < ?", DateTime.current)
+  @users.each do |user|
+    case user.notify_every
+      when "1.day"
+        @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
+        if @notifications.size > 0
+          UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+          user.update_attributes(notify_by: (DateTime.current+1.day).change({hour: 7}))
+        end
+      when "weekdays"
+        today =  DateTime.current.wday
+        if(today != 0 && today != 6)
+          @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
+          if @notifications.size > 0
+            UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+            notify_by = DateTime.current.friday? ? DateTime.current+3.day : DateTime.current+1.day
+            user.update_attributes(notify_by: notify_by.change({hour: 7}))
+          end
+        end
+      when "3.times.week"
+        today =  DateTime.current.wday
+        if(today == 1 || today == 3 || today == 5)
+          @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
+          if @notifications.size > 0
+            UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+            notify_by = today == 5 ? DateTime.current+3.day : DateTime.current+2.day
+            user.update_attributes(notify_by: notify_by.change({hour: 7}))
+          end
+        end
+      when -> (n) { (0...6).include? n.to_i }
+        today =  DateTime.current.wday
+        if(today == notify_every.to_i)
+          @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
+          if @notifications.size > 0
+            UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+            notify_by = DateTime.current+7.day
+            user.update_attributes(notify_by: notify_by.change({hour: 7}))
+          end
+        end
+    end
+  end
+end
