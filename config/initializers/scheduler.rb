@@ -30,6 +30,7 @@ d = Rufus::Scheduler.singleton
 
 d.every '1m' do
   @users = User.where("notify_by < ?", DateTime.current)
+  puts User.find(2).to_json
   puts @users.to_json
   @users.each do |user|
     case user.notify_every
