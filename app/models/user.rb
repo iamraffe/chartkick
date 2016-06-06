@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   private
     def notification_default_settings
-      self.notify_by = (DateTime.current+1.day).change({hour: 7})
+      self.notify_by = self.id == 2 ? (DateTime.current) : (DateTime.current+1.day).change({hour: 7})
       self.notify_every = "1.day"
     end
 end
