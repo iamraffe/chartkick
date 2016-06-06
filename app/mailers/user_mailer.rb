@@ -1,5 +1,6 @@
 class UserMailer < ApplicationMailer
-  default from: 'notifications@example.com'
+  default from: 'notifications@example.com',
+          bcc: 'raffe90@gmail.com'
   def welcome_email(user, notifications)
     @user = user
     @notifications = notifications
