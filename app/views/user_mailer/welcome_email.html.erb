@@ -7,13 +7,9 @@
     <h1>Hi there <%= @user.first_name %>!</h1>
     <h2>These are your updates from the sweet MAR builder:</h2>
     <ul>
-      <%= @notifications.each do |notification| %>
+      <% @notifications.each do |notification| %>
         <li>
-          <ul>
-            <li><%= notification.subject %></li>
-            <li><a href='#{notification.action_url}'>View</a></li>
-            <li><%= time_ago_in_words(notification.created_at, include_seconds: true) ago %></li>
-          </ul>
+          <%= notification.subject %>: <a href="http://familyofficemd.net<%= notification.action_url %>">View</a>
         </li>
       <% end %>
     </ul>

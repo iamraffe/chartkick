@@ -28,17 +28,23 @@ end
 #
 d = Rufus::Scheduler.singleton
 
-d.every '1m' do
+# field          allowed values
+# -----          --------------
+# minute         0-59
+# hour           0-23
+# day of month   1-31
+# month          1-12 (or names, see below)
+# day of week    0-7 (0 or 7 is Sun, or use names)
+
+d.cron '5 7 * * *' do
   @users = User.where("notify_by < ?", DateTime.current)
-  puts User.find(2).to_json
-  puts @users.to_json
   @users.each do |user|
     case user.notify_every
       when "1.day"
         @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
         if @notifications.size > 0
-          UserMailer.welcome_email(user, @notifications.to_a).deliver_later
-          @notifications.update_all(delivered: true)
+          UserMailer.welcome_email(user, @notifications.to_a).deliver_now
+          Notification.where(delivered: false).where(receiver_id: user.id).update_all(delivered: true)
           user.update_attributes(notify_by: (DateTime.current+1.day).change({hour: 7}))
         end
       when "weekdays"
@@ -46,9 +52,9 @@ d.every '1m' do
         if(today != 0 && today != 6)
           @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
           if @notifications.size > 0
-            UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+            UserMailer.welcome_email(user, @notifications.to_a).deliver_now
             notify_by = DateTime.current.friday? ? DateTime.current+3.day : DateTime.current+1.day
-            @notifications.update_all(delivered: true)
+            Notification.where(delivered: false).where(receiver_id: user.id).update_all(delivered: true)
             user.update_attributes(notify_by: notify_by.change({hour: 7}))
           end
         end
@@ -57,9 +63,9 @@ d.every '1m' do
         if(today == 1 || today == 3 || today == 5)
           @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
           if @notifications.size > 0
-            UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+            UserMailer.welcome_email(user, @notifications.to_a).deliver_now
             notify_by = today == 5 ? DateTime.current+3.day : DateTime.current+2.day
-            @notifications.update_all(delivered: true)
+            Notification.where(delivered: false).where(receiver_id: user.id).update_all(delivered: true)
             user.update_attributes(notify_by: notify_by.change({hour: 7}))
           end
         end
@@ -68,9 +74,9 @@ d.every '1m' do
         if(today == notify_every.to_i)
           @notifications = Notification.where(delivered: false).where(receiver_id: user.id)
           if @notifications.size > 0
-            UserMailer.welcome_email(user, @notifications.to_a).deliver_later
+            UserMailer.welcome_email(user, @notifications.to_a).deliver_now
             notify_by = DateTime.current+7.day
-            @notifications.update_all(delivered: true)
+            Notification.where(delivered: false).where(receiver_id: user.id).update_all(delivered: true)
             user.update_attributes(notify_by: notify_by.change({hour: 7}))
           end
         end
