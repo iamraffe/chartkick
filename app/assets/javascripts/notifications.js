@@ -1,6 +1,6 @@
 $(document).on('ready page:change turbolinks:load', function(){
   var title = document.title;
-  setInterval(check_for_notifications, 5000)
+  setInterval(check_for_notifications, 2000)
 
   function check_for_notifications() {
     $.ajax({
